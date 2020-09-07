@@ -1,4 +1,4 @@
-package com.example.toutiaonews.fragment;
+package com.example.toutiaonews.fragment_mine;
 
 import android.view.View;
 

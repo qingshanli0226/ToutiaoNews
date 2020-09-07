@@ -1,4 +1,4 @@
-package com.example.toutiaonews.fragment;
+package com.example.toutiaonews.fragment_headlines;
 
 import android.view.View;
 
