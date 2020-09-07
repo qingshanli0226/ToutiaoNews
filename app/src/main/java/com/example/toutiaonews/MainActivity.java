@@ -12,9 +12,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.e("hq", "onCreate: " );
-        Toast.makeText(this, "傻逼胡强", Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
 
     }
 }
