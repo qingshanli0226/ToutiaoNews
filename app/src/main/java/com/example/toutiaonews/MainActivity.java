@@ -1,17 +1,13 @@
 package com.example.toutiaonews;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.chaychan.library.BottomBarLayout;
 
 public class MainActivity extends AppCompatActivity {
     private BottomBarLayout bbl;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
