@@ -29,5 +29,27 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+
+
+    //网络框架
+    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    //日志拦截器
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    //网络请求封装框架
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    //网络请求对象解析器
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    //线程异常任务调度
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    //异步线程
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.6'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    //异步线程生命周期管理
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
+    //权限动态申请
+    implementation 'com.tbruyelle.rxpermissions2:rxpermissions:+'
+
+
     implementation project(':common')
 }
