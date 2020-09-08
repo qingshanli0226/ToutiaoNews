@@ -1,4 +1,4 @@
-
+include ':Videolibrary'
 include ':app', ':framework'
 
 include ':app', ':common', ':framework', ':net'

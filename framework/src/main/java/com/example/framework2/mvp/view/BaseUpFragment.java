@@ -12,6 +12,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.framework.R;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 75d528a3727f427aeb5545d1335e6d640cf6ae97
 import com.example.framework2.mvp.presenter.IPresenter;
 
 
