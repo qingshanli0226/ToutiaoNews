@@ -1,17 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:gravity="center"
-        android:textSize="50dp"
-        android:textStyle="bold"
-        android:textColor="#000"
-        android:text="首页"
+    <LinearLayout
+        android:background="#f00"
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </TextView>
+        android:layout_height="0dp">
+
+        <TextView
+            android:paddingTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:text="今日头条"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+        <EditText
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:drawableLeft="@mipmap/search_channel"
+            android:background="@drawable/round"
+            android:hint="搜你想搜的"
+            android:layout_width="220dp"
+            android:layout_height="40dp"/>
+
+    </LinearLayout>
+    <FrameLayout
+        android:layout_weight="0.8"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <HorizontalScrollView
+            android:id="@+id/scrollView"
+            android:scrollbars="none"
+            android:background="#fff"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:id="@+id/titleLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+            </LinearLayout>
+        </HorizontalScrollView>
+        <Button
+            android:textSize="30dp"
+            android:layout_marginLeft="350dp"
+            android:gravity="center"
+            android:text="+"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"/>
+    </FrameLayout>
+    <LinearLayout
+        android:layout_weight="8.2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.viewpager.widget.PagerTabStrip
+                android:id="@+id/pagerTabStrip"
+                android:layout_width="0dp"
+                android:layout_height="0dp">
+            </androidx.viewpager.widget.PagerTabStrip>
+        </androidx.viewpager.widget.ViewPager>
+    </LinearLayout>
 
 </LinearLayout>

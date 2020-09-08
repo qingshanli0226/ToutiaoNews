@@ -7,6 +7,7 @@ import com.example.toutiaonews.R;
 
 public class FragmentHome extends BaseFragment {
 
+
     @Override
     public void onClick(View view) {
 

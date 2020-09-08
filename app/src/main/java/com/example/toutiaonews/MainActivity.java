@@ -1,15 +1,9 @@
 package com.example.toutiaonews;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
-import android.widget.LinearLayout;
 
 import com.chaychan.library.BottomBarItem;
 import com.chaychan.library.BottomBarLayout;
@@ -25,6 +19,8 @@ import java.util.List;
 public class MainActivity extends BaseActivity {
     private BottomBarLayout bbl;
     private List<Fragment> list;
+
+    //初始化数据
     @Override
     public void initView() {
         bbl = findViewById(R.id.bbl);
@@ -45,6 +41,7 @@ public class MainActivity extends BaseActivity {
     }
 
 
+    //展示四个子页面
     private void isShow(int currentPosition) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         for (int i = 0; i < list.size(); i++) {
@@ -63,6 +60,7 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    //添加fragment
     private void initFragment() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         for (int i = 0; i < list.size(); i++) {
