@@ -1,4 +1,4 @@
-package com.example.toutiaonews.fragment_video;
+package com.example.toutiaonews.fragment_video.view;
 
 import android.view.View;
 
@@ -6,7 +6,6 @@ import com.example.framework2.mvp.view.BaseFragment;
 import com.example.toutiaonews.R;
 
 public class FragmentVideo extends BaseFragment {
-
     @Override
     public void onClick(View view) {
 

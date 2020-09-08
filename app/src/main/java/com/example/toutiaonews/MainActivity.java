@@ -1,15 +1,9 @@
 package com.example.toutiaonews;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
-import android.widget.LinearLayout;
 
 import com.chaychan.library.BottomBarItem;
 import com.chaychan.library.BottomBarLayout;
@@ -17,7 +11,7 @@ import com.example.framework2.mvp.view.BaseActivity;
 import com.example.toutiaonews.fragment_headlines.FragmentHeadlines;
 import com.example.toutiaonews.fragment_home.FragmentHome;
 import com.example.toutiaonews.fragment_mine.FragmentMine;
-import com.example.toutiaonews.fragment_video.FragmentVideo;
+import com.example.toutiaonews.fragment_video.view.FragmentBox;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,13 +22,6 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initView() {
         bbl = findViewById(R.id.bbl);
-        if (list == null) {
-            list = new ArrayList<>();
-        }
-        list.add(new FragmentHome());
-        list.add(new FragmentVideo());
-        list.add(new FragmentHeadlines());
-        list.add(new FragmentMine());
         initFragment();
         bbl.setOnItemSelectedListener(new BottomBarLayout.OnItemSelectedListener() {
             @Override
@@ -44,7 +31,10 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-
+    /**
+     * 参数:点击的下标  根据下标,进行show hide事务
+     * @param currentPosition
+     */
     private void isShow(int currentPosition) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         for (int i = 0; i < list.size(); i++) {
@@ -63,7 +53,17 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    /**
+     * 初始化Fragment 页面
+     */
     private void initFragment() {
+        if (list == null) {
+            list = new ArrayList<>();
+        }
+        list.add(new FragmentHome());
+        list.add(new FragmentBox());
+        list.add(new FragmentHeadlines());
+        list.add(new FragmentMine());
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         for (int i = 0; i < list.size(); i++) {
             fragmentTransaction.add(R.id.fragment_box, list.get(i));

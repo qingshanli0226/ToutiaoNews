@@ -7,33 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:background="#f00"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
 
-        <TextView
-            android:paddingTop="20dp"
-            android:layout_marginLeft="10dp"
-            android:gravity="center"
-            android:textColor="#fff"
-            android:textStyle="bold"
-            android:textSize="25dp"
-            android:text="今日头条"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
-        <EditText
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:drawableLeft="@mipmap/search_channel"
-            android:background="@drawable/round"
-            android:hint="搜你想搜的"
-            android:layout_width="220dp"
-            android:layout_height="40dp"/>
-
-    </LinearLayout>
     <LinearLayout
         android:layout_weight="8"
         android:orientation="vertical"
