@@ -1,5 +1,6 @@
 package com.example.net.http;
 
+import com.example.net.api_srever.ApiServer;
 import com.google.gson.Gson;
 
 import java.util.concurrent.TimeUnit;
@@ -16,7 +17,7 @@ public class HttpManager {
     private Retrofit retrofit;
     private Gson gson;
 
-    public Retrofit getRetrofit() {
+    public ApiServer getRetrofit() {
         return create();
     }
 
@@ -27,7 +28,7 @@ public class HttpManager {
         return gson;
     }
 
-    private Retrofit create() {
+    private ApiServer create() {
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .addInterceptor(new MyInterceptor())
@@ -35,12 +36,14 @@ public class HttpManager {
                 .writeTimeout(10, TimeUnit.MINUTES)
                 .readTimeout(10, TimeUnit.MINUTES)
                 .build();
-        return new Retrofit.Builder()
+        ApiServer apiServer = new Retrofit.Builder()
                 .client(client)
                 .baseUrl(path)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
+                .build().create(ApiServer.class);
+
+        return apiServer;
     }
 
     public void setPath(String path) {

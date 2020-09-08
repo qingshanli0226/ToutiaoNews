@@ -1,8 +1,5 @@
 package com.example.net.observer;
 
-import android.util.Log;
-
-
 import com.example.common.NetCommon;
 import com.example.net.http.NetBusinessException;
 

@@ -35,7 +35,6 @@ public class MyService extends Service {
         File file = new File(path);
         RequestBody requestBody =  RequestBody.create(MediaType.parse("multipart/form-data"),file);
         HttpManager.getHttpManager().getRetrofit()
-                .create(ApiServer.class)
                 .uploadFile(requestBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -66,7 +65,6 @@ public class MyService extends Service {
     public void autoLogin(String token){
         HttpManager.getHttpManager()
                 .getRetrofit()
-                .create(ApiServer.class)
                 .autoLogin(token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
