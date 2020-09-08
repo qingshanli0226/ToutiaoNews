@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-<<<<<<< HEAD
-    package="com.example.framework" />
-=======
-    package="com.example.framework2" />
->>>>>>> 99427a0... 业务层和网络层
+package="com.example.framework" >
+
+
+</manifest>
+
+
