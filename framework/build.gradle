@@ -9,7 +9,7 @@ android {
 
         minSdkVersion 19
 
-        minSdkVersion 15
+        minSdkVersion 16
 
         targetSdkVersion 30
         versionCode 1
