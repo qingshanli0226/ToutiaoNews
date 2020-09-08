@@ -3,13 +3,18 @@ package com.example.toutiaonews;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.farmework.base.BaseActivity;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends BaseActivity {
+    @Override
+    protected int bandLayout() {
+        return R.layout.activity_main;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected void initView() {
+
     }
 
 }

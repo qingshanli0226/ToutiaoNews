@@ -35,4 +35,6 @@ dependencies {
     implementation project(path: ':farmework')
     implementation project(path: ':net')
 
+    implementation 'me.jessyan:autosize:1.2.1'
+
 }
