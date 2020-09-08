@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 include ':app', ':framework'
+=======
+include ':app', ':common', ':framework', ':net'
+>>>>>>> 99427a0... 业务层和网络层
