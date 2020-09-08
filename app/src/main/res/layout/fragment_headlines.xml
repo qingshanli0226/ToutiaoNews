@@ -6,7 +6,7 @@
 
     <TextView
         android:gravity="center"
-        android:textSize="50dp"
+        android:textSize="@dimen/dp_50"
         android:textStyle="bold"
         android:textColor="#000"
         android:text="微头条"

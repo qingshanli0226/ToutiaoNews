@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="dp_5_">-5dp</dimen>
+    <dimen name="dp_10_">-10dp</dimen>
+    <dimen name="dp_15_">-15dp</dimen>
+    <dimen name="dp_20_">-20dp</dimen>
+    <dimen name="dp_25_">-25dp</dimen>
+    <dimen name="dp_30_">-30dp</dimen>
+    <dimen name="dp_40_">-40dp</dimen>
+    <dimen name="dp_45_">-45dp</dimen>
+    <dimen name="dp_50_">-50dp</dimen>
+    <dimen name="dp_0">0dp</dimen>
+    <dimen name="dp_5">5dp</dimen>
+    <dimen name="dp_10">10dp</dimen>
+    <dimen name="dp_15">15dp</dimen>
+    <dimen name="dp_20">20dp</dimen>
+    <dimen name="dp_25">25dp</dimen>
+    <dimen name="dp_30">30dp</dimen>
+    <dimen name="dp_40">40dp</dimen>
+    <dimen name="dp_45">45dp</dimen>
+    <dimen name="dp_50">50dp</dimen>
+    <dimen name="dp_55">55dp</dimen>
+    <dimen name="dp_60">60dp</dimen>
+    <dimen name="dp_65">65dp</dimen>
+    <dimen name="dp_70">70dp</dimen>
+    <dimen name="dp_75">75dp</dimen>
+    <dimen name="dp_80">80dp</dimen>
+    <dimen name="dp_85">85dp</dimen>
+    <dimen name="dp_90">90dp</dimen>
+    <dimen name="dp_95">95dp</dimen>
+    <dimen name="dp_100">100dp</dimen>
+</resources>

@@ -9,21 +9,21 @@
         android:background="#f00"
         android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="@dimen/dp_0">
 
         <TextView
-            android:paddingTop="20dp"
-            android:layout_marginLeft="10dp"
+            android:paddingTop="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_10"
             android:gravity="center"
             android:textColor="#fff"
             android:textStyle="bold"
-            android:textSize="25dp"
+            android:textSize="@dimen/dp_25"
             android:text="今日头条"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"/>
         <EditText
             android:id="@+id/et_home_search"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/dp_10"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:drawableLeft="@mipmap/search_channel"
