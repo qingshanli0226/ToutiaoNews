@@ -1,29 +1,52 @@
 package com.example.toutiaonews.adapter;
 
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.framework2.adapter.BaseRVAdapter;
+import com.example.toutiaonews.R;
 
-public class MyAdapter extends BaseRVAdapter {
+import java.util.ArrayList;
 
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+    private Context context;
+    private ArrayList<String> list;
+
+    public MyAdapter(Context context, ArrayList<String> list) {
+        this.context = context;
+        this.list = list;
+    }
+
+    @NonNull
     @Override
-    protected int getLayoutId(int id) {
-        return 0;
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_home_title,null);
+        return new MyViewHolder(view);
     }
 
     @Override
-    protected void convert(Object itemData, BaseViewHolder baseViewHolder, int position) {
-
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        holder.tvItemTitleId.setText(list.get(position)+"");
     }
 
     @Override
-    protected int getViewType(int position) {
-        return 0;
+    public int getItemCount() {
+        return list.size();
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView tvItemTitleId;
 
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            tvItemTitleId = itemView.findViewById(R.id.tv_item_title_id);
+
+        }
     }
 }

@@ -22,6 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"/>
         <EditText
+            android:id="@+id/et_home_search"
             android:layout_marginTop="10dp"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
@@ -32,32 +33,28 @@
             android:layout_height="40dp"/>
 
     </LinearLayout>
-    <FrameLayout
+    <RelativeLayout
         android:layout_weight="0.8"
         android:layout_width="match_parent"
         android:layout_height="0dp">
-        <HorizontalScrollView
-            android:id="@+id/scrollView"
-            android:scrollbars="none"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tv_id"
             android:background="#fff"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <LinearLayout
-                android:id="@+id/titleLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-            </LinearLayout>
-        </HorizontalScrollView>
-        <Button
-            android:textSize="30dp"
+        </androidx.recyclerview.widget.RecyclerView>
+        <ImageView
+            android:id="@+id/iv_home_add_title"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/add_channel"
+            android:background="@mipmap/shadow_add_titlebar_new"
             android:layout_marginLeft="350dp"
             android:gravity="center"
-            android:text="+"
             android:layout_width="60dp"
             android:layout_height="match_parent"/>
-    </FrameLayout>
+    </RelativeLayout>
     <LinearLayout
         android:layout_weight="8.2"
         android:layout_width="match_parent"
