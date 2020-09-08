@@ -19,6 +19,8 @@ import java.util.List;
 public class MainActivity extends BaseActivity {
     private BottomBarLayout bbl;
     private List<Fragment> list;
+
+    //初始化数据
     @Override
     public void initView() {
         bbl = findViewById(R.id.bbl);
@@ -31,10 +33,15 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+
     /**
      * 参数:点击的下标  根据下标,进行show hide事务
      * @param currentPosition
      */
+
+
+    //展示四个子页面
+
     private void isShow(int currentPosition) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         for (int i = 0; i < list.size(); i++) {
@@ -53,9 +60,13 @@ public class MainActivity extends BaseActivity {
 
     }
 
+
     /**
      * 初始化Fragment 页面
      */
+
+    //添加fragment
+
     private void initFragment() {
         if (list == null) {
             list = new ArrayList<>();
