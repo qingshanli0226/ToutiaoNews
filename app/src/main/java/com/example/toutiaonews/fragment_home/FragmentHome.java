@@ -16,6 +16,7 @@ import com.example.toutiaonews.adapter.MyAdapter;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class FragmentHome extends BaseFragment {
     private EditText etHomeSearch;
@@ -39,7 +40,7 @@ public class FragmentHome extends BaseFragment {
         viewpager = (ViewPager) findViewById(R.id.viewpager);
         pagerTabStrip = (PagerTabStrip) findViewById(R.id.pagerTabStrip);
 
-        String[] stringArray = getActivity().getResources().getStringArray(R.array.channel);
+        String[] stringArray = Objects.requireNonNull(getActivity()).getResources().getStringArray(R.array.channel);
         list_item.clear();
         for (int i = 0; i < stringArray.length; i++) {
             list_item.add(stringArray[i]);

@@ -2,75 +2,73 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
 
     <LinearLayout
-        android:layout_weight="8"
-        android:orientation="vertical"
         android:id="@+id/fragment_box"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        android:orientation="vertical">
 
     </LinearLayout>
+
     <LinearLayout
-        android:layout_weight="0.6"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        android:layout_weight="0.6">
 
         <com.chaychan.library.BottomBarLayout
             android:id="@+id/bbl"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:layout_height="120px"
+            android:gravity="center"
+            android:orientation="horizontal">
+
             <com.chaychan.library.BottomBarItem
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 app:iconNormal="@mipmap/tab_home_normal"
                 app:iconSelected="@mipmap/tab_home_selected"
-                app:itemText="首页"
-                app:itemTextSize="8sp"
                 app:itemMarginTop="-5dp"
-                />
+                app:itemText="首页"
+                app:itemTextSize="8sp" />
 
             <com.chaychan.library.BottomBarItem
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 app:iconNormal="@mipmap/tab_video_normal"
                 app:iconSelected="@mipmap/tab_video_selected"
-                app:itemText="视频"
-                app:itemTextSize="8sp"
                 app:itemMarginTop="-5dp"
-                />
+                app:itemText="视频"
+                app:itemTextSize="8sp" />
 
 
             <com.chaychan.library.BottomBarItem
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 app:iconNormal="@mipmap/tab_micro_normal"
                 app:iconSelected="@mipmap/tab_micro_selected"
-                app:itemText="微头条"
-                app:itemTextSize="8sp"
                 app:itemMarginTop="-5dp"
-                />
+                app:itemText="微头条"
+                app:itemTextSize="8sp" />
 
             <com.chaychan.library.BottomBarItem
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 app:iconNormal="@mipmap/tab_me_normal"
                 app:iconSelected="@mipmap/tab_me_selected"
-                app:itemText="我的"
-                app:itemTextSize="8sp"
                 app:itemMarginTop="-5dp"
-                />
+                app:itemText="我的"
+                app:itemTextSize="8sp" />
         </com.chaychan.library.BottomBarLayout>
 
     </LinearLayout>
