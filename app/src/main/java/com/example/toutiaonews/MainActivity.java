@@ -17,7 +17,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
+        printLog("123");
     }
 
     @Override
