@@ -1,13 +1,10 @@
 package com.example.toutiaonews.fragment_video.view;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -20,7 +17,6 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -74,8 +70,8 @@ public class FragmentVideo extends BaseFragment<PresenterVideo> implements BaseQ
 
     /**
      * 当正在播放的视频 超出视图时将视频暂停
-     * @param recyclerView
-     * @param newState
+     * @param recyclerView 列表
+     * @param newState 触摸的事件
      */
     private void videoPause(@NonNull RecyclerView recyclerView, int newState) {
         int firstVisibleItemPosition = ((LinearLayoutManager) Objects.requireNonNull(recyclerView.getLayoutManager())).findFirstVisibleItemPosition();
@@ -111,9 +107,9 @@ public class FragmentVideo extends BaseFragment<PresenterVideo> implements BaseQ
 
     /**
      * 适配器子控件的点击事件
-     * @param adapter
-     * @param view
-     * @param position
+     * @param adapter 适配器
+     * @param view 视图
+     * @param position 点击的位置
      */
     @Override
     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
@@ -127,10 +123,11 @@ public class FragmentVideo extends BaseFragment<PresenterVideo> implements BaseQ
 
     /**
      * 根据点击的位置 播放视频
-     * @param position
+     * @param position 点击的位置
      */
     private void setVideoPlayer(int position) {
-        View viewByPosition = mVideoListRv.getLayoutManager().findViewByPosition(position);
+        View viewByPosition = Objects.requireNonNull(mVideoListRv.getLayoutManager()).findViewByPosition(position);
+        assert viewByPosition != null;
         StandardGSYVideoPlayer player = viewByPosition.findViewById(R.id.item_video_GSY);
         ImageView pic = viewByPosition.findViewById(R.id.item_video_pic);
         pic.setVisibility(View.INVISIBLE);
@@ -168,7 +165,7 @@ public class FragmentVideo extends BaseFragment<PresenterVideo> implements BaseQ
 
     /**
      * 用户是否离开此界面，离开时将视频暂停
-     * @param isVisibleToUser
+     * @param isVisibleToUser 是否显示这个视图
      */
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -185,7 +182,7 @@ public class FragmentVideo extends BaseFragment<PresenterVideo> implements BaseQ
 
     /**
      * 上拉加载
-     * @param refreshLayout
+     * @param refreshLayout 加载的布局
      */
     @Override
     public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
@@ -194,7 +191,7 @@ public class FragmentVideo extends BaseFragment<PresenterVideo> implements BaseQ
 
     /**
      * 下拉刷新
-     * @param refreshLayout
+     * @param refreshLayout 刷新的布局
      */
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {

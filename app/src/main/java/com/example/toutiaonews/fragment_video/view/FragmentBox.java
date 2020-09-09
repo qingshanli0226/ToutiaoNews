@@ -1,17 +1,13 @@
 package com.example.toutiaonews.fragment_video.view;
 
 import android.view.View;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-
 import com.example.framework2.mvp.view.BaseFragment;
 import com.example.toutiaonews.R;
-import com.example.toutiaonews.fragment_video.presenter.PresenterVideo;
 import com.google.android.material.tabs.TabLayout;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
