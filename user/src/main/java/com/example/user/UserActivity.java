@@ -1,14 +1,21 @@
 package com.example.user;
 
-import androidx.appcompat.app.AppCompatActivity;
+import com.example.framework2.base.BaseActivity;
 
-import android.os.Bundle;
-
-public class UserActivity extends AppCompatActivity {
+public class UserActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user);
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.activity_user;
     }
 }

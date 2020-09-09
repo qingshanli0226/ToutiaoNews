@@ -1,14 +1,21 @@
 package com.example.video;
 
-import androidx.appcompat.app.AppCompatActivity;
+import com.example.framework2.base.BaseActivity;
 
-import android.os.Bundle;
-
-public class VideoActivity extends AppCompatActivity {
+public class VideoActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_video);
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.activity_video;
     }
 }

@@ -35,4 +35,10 @@ dependencies {
     implementation project(':common')
     implementation project(':net')
     implementation project(':framework')
+    if(!isModule.toBoolean()){
+        implementation project(':user')
+        implementation project(':video')
+    }
+    //今日头条适配
+    implementation 'me.jessyan:autosize:1.2.1'
 }
