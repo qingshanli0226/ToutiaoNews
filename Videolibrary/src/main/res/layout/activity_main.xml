@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
-    <TextView
+    <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="36sp"
-        android:textColor="#9C27B0"
-        android:text="13"></TextView>
+        android:id="@+id/gsyplayer">
+    </com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer>
 </LinearLayout>
