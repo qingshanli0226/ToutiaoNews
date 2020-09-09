@@ -29,14 +29,14 @@
             android:drawableLeft="@mipmap/search_channel"
             android:background="@drawable/round"
             android:hint="搜你想搜的"
-            android:layout_width="220dp"
-            android:layout_height="40dp"/>
+            android:layout_width="@dimen/dp_220"
+            android:layout_height="@dimen/dp_40"/>
 
     </LinearLayout>
     <RelativeLayout
         android:layout_weight="0.8"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="@dimen/dp_0">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/tv_id"
             android:background="#fff"
@@ -50,23 +50,22 @@
             android:layout_centerVertical="true"
             android:src="@mipmap/add_channel"
             android:background="@mipmap/shadow_add_titlebar_new"
-            android:layout_marginLeft="350dp"
             android:gravity="center"
-            android:layout_width="60dp"
+            android:layout_width="@dimen/dp_60"
             android:layout_height="match_parent"/>
     </RelativeLayout>
     <LinearLayout
         android:layout_weight="8.2"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="@dimen/dp_0">
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <androidx.viewpager.widget.PagerTabStrip
                 android:id="@+id/pagerTabStrip"
-                android:layout_width="0dp"
-                android:layout_height="0dp">
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="@dimen/dp_0">
             </androidx.viewpager.widget.PagerTabStrip>
         </androidx.viewpager.widget.ViewPager>
     </LinearLayout>
