@@ -11,7 +11,7 @@ import android.view.ViewParent;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public abstract class BaseMVPFragment<P extends IPresenter,V extends IView> extends LazyLoadFragment {
+public abstract class BaseMVPFragment<P extends IPresenter,V extends IView> extends BaseFragment {
     protected P mPresenter;
     private View rootView;
     protected Activity mActivity;
@@ -23,7 +23,6 @@ public abstract class BaseMVPFragment<P extends IPresenter,V extends IView> exte
             rootView = inflater.inflate(bandLayout(), container,false);
             initPresenter();
             mPresenter.attachView((V) this);
-            initHttpData();
         }else{
             //得到容器视图
             ViewGroup parent = (ViewGroup) rootView.getParent();
@@ -33,8 +32,11 @@ public abstract class BaseMVPFragment<P extends IPresenter,V extends IView> exte
         }
         return rootView;
     }
-
-
+    @Override
+    protected void onFragmentFirstVisible() {
+        //当第一次可见的时候，加载数据
+        initHttpData();
+    }
     /**StateView的根布局，默认是整个界面，如果需要变换可以重写此方法*/
     public View getStateViewRoot() {
         return rootView;
@@ -52,7 +54,6 @@ public abstract class BaseMVPFragment<P extends IPresenter,V extends IView> exte
 
     //得到当前界面的布局文件id(由子类实现)
     protected abstract int bandLayout();
-
 
     @Override
     public void onDestroy() {

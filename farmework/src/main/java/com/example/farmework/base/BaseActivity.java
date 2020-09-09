@@ -30,7 +30,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         setContentView(bandLayout());
         initView();
+        initData();
     }
+
+    protected abstract void initData();
     protected abstract int bandLayout();
     protected abstract void initView();
 
