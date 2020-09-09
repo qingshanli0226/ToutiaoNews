@@ -4,7 +4,6 @@ import com.example.net.activity_bean.NewsListBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
-import retrofit2.http.Query;
 
 public interface ApiServer {
 //    @GET("atguigu/json/P2PInvest/index.json")
