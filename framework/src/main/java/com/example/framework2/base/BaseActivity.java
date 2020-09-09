@@ -80,7 +80,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         ListIterator<Activity> iterator = mActivities.listIterator();
         while (iterator.hasNext()) {
             Activity next = iterator.next();
-            next.finish();
         }
     }
 
@@ -126,6 +125,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         //销毁的时候从集合中移除
         synchronized (mActivities) {
             mActivities.remove(this);
+            this.finish();
         }
     }
 

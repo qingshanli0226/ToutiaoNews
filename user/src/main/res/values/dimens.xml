@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     
     <dimen name="textSize1">1sp</dimen>
     <dimen name="textSize2">2sp</dimen>
@@ -51,8 +51,8 @@
     <dimen name="textSize48">48sp</dimen>
     <dimen name="textSize49">49sp</dimen>
     <dimen name="textSize50">50sp</dimen>
-    
-    
+
+    <dimen name="spaceSize0">0dp</dimen>
     <dimen name="spaceSize1">1dp</dimen>
     <dimen name="spaceSize2">2dp</dimen>
     <dimen name="spaceSize3">3dp</dimen>
@@ -255,7 +255,15 @@
     <dimen name="spaceSize200">200dp</dimen>
 
 
-
+    <integer name="weight1">1</integer>
+    <integer name="weight2">2</integer>
+    <integer name="weight3">3</integer>
+    <integer name="weight4">4</integer>
+    <integer name="weight5">5</integer>
+    <integer name="weight6">6</integer>
+    <integer name="weight7">7</integer>
+    <integer name="weight8">8</integer>
+    <integer name="weight9">9</integer>
 
 
 </resources>
