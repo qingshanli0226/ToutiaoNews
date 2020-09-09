@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="video_tabHight">70dp</dimen>
+    <dimen name="TopHight">30dp</dimen>
+    <dimen name="imageWidth">70dp</dimen>
+    <dimen name="imageLeft">15dp</dimen>
+</resources>
