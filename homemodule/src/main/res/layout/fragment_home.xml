@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <me.weyye.library.colortrackview.ColorTrackTabLayout
+        android:id="@+id/home_fragment_colorTab"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tab_Height">
+
+    </me.weyye.library.colortrackview.ColorTrackTabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/home_fragment_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></androidx.viewpager.widget.ViewPager>
+</LinearLayout>
