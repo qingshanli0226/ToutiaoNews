@@ -14,11 +14,13 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.example.common.myselfview.MyLoadingBar;
 import com.example.framework2.R;
 
 
 /**
  * 请求网络数据Activity
+ *
  * @param <T>
  * @param <V>
  */
@@ -26,10 +28,17 @@ public abstract class BaseMVPActivity<T extends IPresenter, V extends IView> ext
 
     protected T iHttpPresenter;
     private ConnectivityManager manager;//判断网络连接
+    private MyLoadingBar loadingbar;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (loadingbar == null) {
+            loadingbar = findViewById(R.id.loadingbar);
+        }
+
         initPresenter();
         iHttpPresenter.attachView((V) this);
         initHttpData();
@@ -44,9 +53,22 @@ public abstract class BaseMVPActivity<T extends IPresenter, V extends IView> ext
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        iHttpPresenter.detachView();
+        if (iHttpPresenter != null){
+            iHttpPresenter.detachView();
+            iHttpPresenter = null;
+        }
+        if (loadingbar != null) {
+            loadingbar.stopAnimation();
+        }
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (loadingbar != null) {
+            loadingbar.stopAnimation();
+        }
+    }
 
     //调用该方法判断网络状态
     protected boolean checkNetworkState() {

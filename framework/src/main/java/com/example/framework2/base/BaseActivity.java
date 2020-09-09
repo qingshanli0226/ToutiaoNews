@@ -106,13 +106,17 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mCurrentActivity = this;
+        if (mCurrentActivity != null) {
+            mCurrentActivity = this;
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mCurrentActivity = null;
+        if (mCurrentActivity != null) {
+            mCurrentActivity = null;
+        }
     }
 
     @Override

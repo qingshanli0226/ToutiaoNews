@@ -6,21 +6,30 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.common.myselfview.MyLoadingBar;
+import com.example.framework2.R;
+
 /**
  * 请求网络数据Fragment
+ *
  * @param <T>
  * @param <V>
  */
 public abstract class BaseMVPFragment<T extends IPresenter, V extends IView> extends BaseFragment {
 
-    protected T ihttpPresenter;
+    protected T iHttpPresenter;
+    private MyLoadingBar loadingbar;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        if (loadingbar == null) {
+            loadingbar = findViewById(R.id.loadingbar);
+        }
+
         initPresenter();
-        ihttpPresenter.attachView((V) this);
+        iHttpPresenter.attachView((V) this);
         initHttpData();
     }
 
@@ -33,7 +42,20 @@ public abstract class BaseMVPFragment<T extends IPresenter, V extends IView> ext
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ihttpPresenter.detachView();
+        if (iHttpPresenter != null){
+            iHttpPresenter.detachView();
+            iHttpPresenter = null;
+        }
+        if (loadingbar != null) {
+            loadingbar.stopAnimation();
+        }
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (loadingbar != null) {
+            loadingbar.stopAnimation();
+        }
+    }
 }

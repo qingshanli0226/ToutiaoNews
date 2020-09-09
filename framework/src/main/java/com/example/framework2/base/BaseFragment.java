@@ -15,16 +15,38 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.framework2.R;
+import com.github.nukc.stateview.StateView;
+
 public abstract class BaseFragment extends Fragment {
 
     private View rootView;//根view
     protected Activity mActivity;
+    private StateView mStateView;//用于显示加载中、网络异常，空布局、内容布局;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return rootView = inflater.inflate(getLayoutId(), container, false);
+
+        if (rootView == null) {
+            rootView = inflater.inflate(getLayoutId(), container, false);
+
+            mStateView = StateView.inject(getStateViewRoot());
+            if (mStateView != null) {
+                mStateView.setRetryResource(R.layout.page_net_error);//错误页
+            }
+        } else {
+            ViewGroup parent = (ViewGroup) rootView.getParent();
+            if (parent != null) {
+                parent.removeView(rootView);
+            }
+        }
+        return rootView;
+    }
+
+    public View getStateViewRoot() {
+        return rootView;
     }
 
     protected abstract int getLayoutId();
@@ -75,7 +97,9 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        rootView = null;
+        if (rootView != null) {
+            rootView = null;
+        }
     }
 
 }
