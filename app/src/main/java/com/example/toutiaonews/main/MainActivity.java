@@ -1,7 +1,5 @@
 package com.example.toutiaonews.main;
 
-import android.widget.FrameLayout;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -9,12 +7,12 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.framework2.base.BaseActivity;
 import com.example.toutiaonews.R;
 import com.example.toutiaonews.home.HomeFragment;
+import com.flyco.tablayout.listener.CustomTabEntity;
 import com.example.toutiaonews.main.mode.MainCommonBean;
 import com.example.toutiaonews.me.MeFragment;
 import com.example.toutiaonews.micro.MicroFragment;
 import com.example.toutiaonews.video.VideoFragment;
 import com.flyco.tablayout.CommonTabLayout;
-import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 
 import java.util.ArrayList;

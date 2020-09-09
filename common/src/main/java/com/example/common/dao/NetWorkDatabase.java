@@ -1,4 +1,4 @@
-package com.example.toutiaonews.dao;
+package com.example.common.dao;
 
 import android.content.Context;
 
@@ -14,6 +14,11 @@ public abstract class NetWorkDatabase extends RoomDatabase {
 
     private static final String DB_NAME = "NetWorkDatabase.db";//数据库名
     private static volatile NetWorkDatabase instance;
+
+    public static NetWorkDatabase netWorkDatabase;
+
+    public NetWorkDatabase() {
+    }
 
     public static synchronized NetWorkDatabase getInstance(Context context){
         if (instance == null){

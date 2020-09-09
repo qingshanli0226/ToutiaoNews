@@ -1,5 +1,6 @@
 package com.example.toutiaonews.main.mode;
 
+
 import com.flyco.tablayout.listener.CustomTabEntity;
 
 public class MainCommonBean implements CustomTabEntity {

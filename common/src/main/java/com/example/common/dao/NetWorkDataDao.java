@@ -1,4 +1,4 @@
-package com.example.toutiaonews.dao;
+package com.example.common.dao;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -42,10 +42,6 @@ public interface NetWorkDataDao {
     //添加数据
     @Insert
     void inster(NetWorkDataEntity... netWorkDataEntities);
-
-    //添加对象
-    @Insert
-    void insertData(NetWorkDataEntity netWorkDataEntity);
 
     //添加对象集合
     @Insert

@@ -1,4 +1,4 @@
-package com.example.toutiaonews.dao;
+package com.example.common.dao;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
