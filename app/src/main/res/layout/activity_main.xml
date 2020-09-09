@@ -4,10 +4,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></FrameLayout>
 
+
+    <FrameLayout
+
+        android:id="@+id/main_frame"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+    <RadioGroup
+        android:id="@+id/main_tab_rg"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="50dp">
+        <RadioButton
+            android:checked="true"
+            android:id="@+id/main_tab_home"
+            android:button="@null"
+            android:drawableTop="@drawable/main_tab_home"
+            android:layout_width="0dp"
+            android:text="首页"
+            android:gravity="center"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <RadioButton
+            android:id="@+id/main_tab_video"
+            android:button="@null"
+            android:drawableTop="@drawable/main_tab_video"
+            android:layout_width="0dp"
+            android:text="视频"
+            android:gravity="center"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <RadioButton
+            android:id="@+id/main_tab_micro"
+            android:button="@null"
+            android:drawableTop="@drawable/main_tab_micro"
+            android:layout_width="0dp"
+            android:text="微头条"
+            android:gravity="center"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <RadioButton
+            android:id="@+id/main_tab_me"
+            android:button="@null"
+            android:drawableTop="@drawable/main_tab_me"
+            android:layout_width="0dp"
+            android:text="我的"
+            android:gravity="center"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+    </RadioGroup>
 
 </LinearLayout>
