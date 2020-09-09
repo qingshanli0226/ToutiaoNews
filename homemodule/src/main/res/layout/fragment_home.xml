@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <me.weyye.library.colortrackview.ColorTrackTabLayout
+    <com.google.android.material.tabs.TabLayout
         android:id="@+id/home_fragment_colorTab"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/tab_Height">
+        android:layout_height="@dimen/tab_Height50dp"
+        app:tabMode="scrollable"
+        app:tabSelectedTextColor="@color/colorRed"
+        app:tabTextColor="@color/colorBlack"
+        app:tabIndicatorColor="@color/colorRed"
+        >
 
-    </me.weyye.library.colortrackview.ColorTrackTabLayout>
+    </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/home_fragment_viewpager"

@@ -2,5 +2,5 @@
 <resources>
 
     <!--布局数值 -->
-    <dimen name="tab_Height">60dp</dimen>
+    <dimen name="tab_Height50dp">50dp</dimen>
 </resources>

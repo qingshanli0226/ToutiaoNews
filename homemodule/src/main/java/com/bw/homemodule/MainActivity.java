@@ -1,27 +1,19 @@
 package com.bw.homemodule;
 
-import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.widget.FrameLayout;
 
 import com.example.farmework.base.BaseActivity;
 import com.example.farmework.base.BaseMVPActivity;
 
-import me.weyye.library.colortrackview.ColorTrackTabLayout;
 
-public class MainActivity extends BaseMVPActivity {
-    private String[] titles;
-    private FrameLayout frameLayout;
-
-    @Override
-    protected void initPresenter() {
-
-    }
+public class MainActivity extends BaseActivity {
+    private HomeFragment homeFragment;
 
     @Override
     protected void initData() {
-        titles = this.getResources().getStringArray(R.array.channel);
-
     }
 
     @Override
@@ -31,7 +23,15 @@ public class MainActivity extends BaseMVPActivity {
 
     @Override
     protected void initView() {
-        frameLayout=findViewById(R.id.main_frame);
+
+        FragmentManager supportFragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+        if (homeFragment==null){
+            homeFragment = new HomeFragment();
+            fragmentTransaction.add(R.id.main_frame, homeFragment);
+        }
+        fragmentTransaction.show(homeFragment);
+        fragmentTransaction.commit();
 
 
     }

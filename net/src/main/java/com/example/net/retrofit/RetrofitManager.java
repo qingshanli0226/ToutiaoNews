@@ -2,7 +2,6 @@ package com.example.net.retrofit;
 
 import com.example.common.ApiConstant;
 import com.example.net.api.NewsApi;
-import com.google.gson.Gson;
 
 import java.util.concurrent.TimeUnit;
 
