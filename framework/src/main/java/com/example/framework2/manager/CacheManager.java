@@ -14,10 +14,6 @@ import android.widget.ImageView;
 
 import com.example.common.NetCommon;
 import com.example.framework2.MyService;
-import com.example.net.activity_bean.IndexBean;
-import com.example.net.activity_bean.InvestBean;
-import com.example.net.activity_bean.LoginBean;
-import com.example.net.activity_bean.UpdateBean;
 
 
 import java.io.ByteArrayOutputStream;

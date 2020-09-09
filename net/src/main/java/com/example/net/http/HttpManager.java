@@ -1,5 +1,6 @@
 package com.example.net.http;
 
+import com.example.common.NetCommon;
 import com.example.net.api_srever.ApiServer;
 import com.google.gson.Gson;
 
@@ -38,7 +39,7 @@ public class HttpManager {
                 .build();
         ApiServer apiServer = new Retrofit.Builder()
                 .client(client)
-                .baseUrl(path)
+                .baseUrl(NetCommon.BASE_SERVER_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build().create(ApiServer.class);

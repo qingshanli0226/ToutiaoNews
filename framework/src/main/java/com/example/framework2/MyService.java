@@ -7,9 +7,6 @@ import android.os.IBinder;
 import android.widget.Toast;
 
 import com.example.framework2.manager.CacheManager;
-import com.example.net.activity_bean.LoginBean;
-import com.example.net.activity_bean.UploadBean;
-import com.example.net.api_srever.ApiServer;
 import com.example.net.http.HttpManager;
 
 import java.io.File;
