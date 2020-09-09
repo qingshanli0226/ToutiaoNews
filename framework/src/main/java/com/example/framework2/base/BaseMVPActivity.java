@@ -28,15 +28,15 @@ public abstract class BaseMVPActivity<T extends IPresenter, V extends IView> ext
 
     protected T iHttpPresenter;
     private ConnectivityManager manager;//判断网络连接
-    private MyLoadingBar loadingbar;
+    private MyLoadingBar loadingBar;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (loadingbar == null) {
-            loadingbar = findViewById(R.id.loadingbar);
+        if (loadingBar == null) {
+            loadingBar = findViewById(R.id.loadingbar);
         }
 
         initPresenter();
@@ -57,16 +57,16 @@ public abstract class BaseMVPActivity<T extends IPresenter, V extends IView> ext
             iHttpPresenter.detachView();
             iHttpPresenter = null;
         }
-        if (loadingbar != null) {
-            loadingbar.stopAnimation();
+        if (loadingBar != null) {
+            loadingBar.stopAnimation();
         }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        if (loadingbar != null) {
-            loadingbar.stopAnimation();
+        if (loadingBar != null) {
+            loadingBar.stopAnimation();
         }
     }
 

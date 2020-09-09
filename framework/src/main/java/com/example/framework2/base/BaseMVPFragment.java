@@ -18,14 +18,14 @@ import com.example.framework2.R;
 public abstract class BaseMVPFragment<T extends IPresenter, V extends IView> extends BaseFragment {
 
     protected T iHttpPresenter;
-    private MyLoadingBar loadingbar;
+    private MyLoadingBar loadingBar;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if (loadingbar == null) {
-            loadingbar = findViewById(R.id.loadingbar);
+        if (loadingBar == null) {
+            loadingBar = findViewById(R.id.loadingbar);
         }
 
         initPresenter();
@@ -46,16 +46,16 @@ public abstract class BaseMVPFragment<T extends IPresenter, V extends IView> ext
             iHttpPresenter.detachView();
             iHttpPresenter = null;
         }
-        if (loadingbar != null) {
-            loadingbar.stopAnimation();
+        if (loadingBar != null) {
+            loadingBar.stopAnimation();
         }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        if (loadingbar != null) {
-            loadingbar.stopAnimation();
+        if (loadingBar != null) {
+            loadingBar.stopAnimation();
         }
     }
 }

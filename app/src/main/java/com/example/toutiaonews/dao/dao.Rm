@@ -1,0 +1,20 @@
+/*---数据库方法---*/
+查询所有
+NetWorkDatabase.getInstance(this)
+    .getNetWorkDataDao()
+    .getAllData();
+
+添加
+NetWorkDatabase.getInstance(this)
+    .getNetWorkDataDao()
+    .inster();
+
+更新
+NetWorkDatabase.getInstance(this)
+    .getNetWorkDataDao()
+    .update();
+
+删除全部
+NetWorkDatabase.getInstance(this)
+    .getNetWorkDataDao()
+    .deleteAll();
