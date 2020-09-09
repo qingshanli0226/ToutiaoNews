@@ -18,8 +18,7 @@
         <ImageView
             android:id="@+id/item_video_pic"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_launcher_background">
+            android:layout_height="match_parent">
 
         </ImageView>
     </RelativeLayout>
