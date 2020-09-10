@@ -8,5 +8,7 @@
     <color name="mainTextSelectColor">#F85959</color>
     <color name="mainTextUnSelectColor">#515151</color>
 
-
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorRed">#FF5722</color>
 </resources>

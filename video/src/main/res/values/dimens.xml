@@ -264,6 +264,7 @@
     <integer name="weight7">7</integer>
     <integer name="weight8">8</integer>
     <integer name="weight9">9</integer>
+    <integer name="weight10">10</integer>
 
 
 </resources>
