@@ -1,6 +1,2 @@
 rootProject.name='ToutiaoNews'
-<<<<<<< HEAD
-include ':app', ':common', ':farmework', ':net', ':video'
-=======
-include ':app', ':common', ':farmework', ':net', ':homemodule'
->>>>>>> 7e7a7b91975df5912c6cbc031378243d7996cab7
+include ':app', ':common', ':farmework', ':net', ':video',':homemodule'
