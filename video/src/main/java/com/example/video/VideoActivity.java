@@ -6,8 +6,6 @@ import android.widget.FrameLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.video.dao.NewsDao;
-import com.example.video.dao.NewsDatabeans;
 import com.example.farmework.base.BaseActivity;
 import com.example.toutiaonews.R;
 import com.example.video.fragment.VideoFragment;

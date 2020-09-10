@@ -2,7 +2,7 @@ package com.example.video.mvp.view;
 
 import android.os.Bundle;
 
-import com.example.common.constants.Constant;
+import com.example.common.constant.Constant;
 import com.example.farmework.base.BaseFragment;
 import com.example.farmework.base.BaseMVPFragment;
 import com.example.toutiaonews.R;

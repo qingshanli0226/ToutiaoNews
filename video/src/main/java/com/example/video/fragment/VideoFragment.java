@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.common.constants.Constant;
+import com.example.common.constant.Constant;
 import com.example.farmework.base.BaseFragment;
 import com.example.toutiaonews.R;
 import com.example.video.adapter.FragmentAdapter;
