@@ -9,4 +9,10 @@
     <color name="mainTextUnSelectColor">#515151</color>
 
 
+
+    <color name="meBackground">#EEEEEE</color>
+    <color name="meTextViewColor">#000</color>
+    <color name="meMarginBackground">#fff</color>
+
+
 </resources>

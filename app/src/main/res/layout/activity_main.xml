@@ -16,10 +16,12 @@
     <com.flyco.tablayout.CommonTabLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/spaceSize0"
-        android:layout_weight="@integer/weight1"
+        android:layout_weight="0.7"
         android:id="@+id/mainCommon"
         app:tl_textSelectColor="@color/mainTextSelectColor"
         app:tl_textUnselectColor="@color/mainTextUnSelectColor"
-        app:tl_iconHeight="@dimen/textSize30"></com.flyco.tablayout.CommonTabLayout>
+        app:tl_iconHeight="@dimen/textSize20"
+        app:tl_textsize="@dimen/textSize8"
+        android:background="#F3F5F4"></com.flyco.tablayout.CommonTabLayout>
 
 </LinearLayout>
