@@ -2,26 +2,28 @@ package com.example.toutiaonews.fragment_video.view;
 
 import android.view.View;
 import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.framework2.mvp.view.BaseFragment;
+import com.example.framework2.mvp.view.BaseLJZFragment;
 import com.example.toutiaonews.R;
 import com.example.toutiaonews.fragment_video.adapter.VideoAdapter;
-import com.example.toutiaonews.fragment_video.presenter.PresenterVideo;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class FragmentVideo extends BaseFragment<PresenterVideo> implements BaseQuickAdapter.OnItemChildClickListener, OnRefreshLoadMoreListener {
+public class LjzFragmentVideo extends BaseLJZFragment implements BaseQuickAdapter.OnItemChildClickListener, OnRefreshLoadMoreListener {
     private RecyclerView mVideoListRv;
     private SmartRefreshLayout mRefreshListSrl;
     private int playIndex = 0;
@@ -32,26 +34,22 @@ public class FragmentVideo extends BaseFragment<PresenterVideo> implements BaseQ
     private LinearLayoutManager linearLayoutManager;
 
     @Override
-    public void onClick(View view) {
-
+    protected int setContentView() {
+        return R.layout.fragment_video;
     }
 
+    /**
+     * 初始化视图
+     */
     @Override
-    public void initView() {
-        mRefreshListSrl = (SmartRefreshLayout) findViewById(R.id.refresh_list_srl);
-        mVideoListRv = (RecyclerView) findViewById(R.id.video_list_rv);
+    protected void initView() {
+        mRefreshListSrl = (SmartRefreshLayout) rootView.findViewById(R.id.refresh_list_srl);
+        mVideoListRv = (RecyclerView) rootView.findViewById(R.id.video_list_rv);
         mRefreshListSrl.setOnRefreshLoadMoreListener(this);
 
+
         list = new ArrayList<>();
-        list.add("http://vfx.mtime.cn/Video/2019/03/18/mp4/190318214226685784.mp4");
-        list.add("http://vfx.mtime.cn/Video/2019/03/19/mp4/190319104618910544.mp4");
-        list.add("http://vfx.mtime.cn/Video/2019/03/19/mp4/190319125415785691.mp4");
-        list.add("http://vfx.mtime.cn/Video/2019/03/17/mp4/190317150237409904.mp4");
-        list.add("http://vfx.mtime.cn/Video/2019/03/14/mp4/190314223540373995.mp4");
-        list.add("http://vfx.mtime.cn/Video/2019/03/14/mp4/190314102306987969.mp4");
-        list.add("http://vfx.mtime.cn/Video/2019/03/13/mp4/190313094901111138.mp4");
-        list.add("http://vfx.mtime.cn/Video/2019/03/12/mp4/190312143927981075.mp4");
-        list.add("http://vfx.mtime.cn/Video/2019/03/12/mp4/190312083533415853.mp4");
+
 
         videoAdapter = new VideoAdapter(R.layout.item_video_box, list);
         linearLayoutManager = new LinearLayoutManager(getContext());
@@ -69,9 +67,28 @@ public class FragmentVideo extends BaseFragment<PresenterVideo> implements BaseQ
     }
 
     /**
+     * 数据加载
+     */
+    @Override
+    protected void lazyLoad() {
+        list.add("http://vfx.mtime.cn/Video/2019/03/18/mp4/190318214226685784.mp4");
+        list.add("http://vfx.mtime.cn/Video/2019/03/19/mp4/190319104618910544.mp4");
+        list.add("http://vfx.mtime.cn/Video/2019/03/19/mp4/190319125415785691.mp4");
+        list.add("http://vfx.mtime.cn/Video/2019/03/17/mp4/190317150237409904.mp4");
+        list.add("http://vfx.mtime.cn/Video/2019/03/14/mp4/190314223540373995.mp4");
+        list.add("http://vfx.mtime.cn/Video/2019/03/14/mp4/190314102306987969.mp4");
+        list.add("http://vfx.mtime.cn/Video/2019/03/13/mp4/190313094901111138.mp4");
+        list.add("http://vfx.mtime.cn/Video/2019/03/12/mp4/190312143927981075.mp4");
+        list.add("http://vfx.mtime.cn/Video/2019/03/12/mp4/190312083533415853.mp4");
+
+        videoAdapter.notifyDataSetChanged();
+    }
+
+    /**
      * 当正在播放的视频 超出视图时将视频暂停
+     *
      * @param recyclerView 列表
-     * @param newState 触摸的事件
+     * @param newState     触摸的事件
      */
     private void videoPause(@NonNull RecyclerView recyclerView, int newState) {
         int firstVisibleItemPosition = ((LinearLayoutManager) Objects.requireNonNull(recyclerView.getLayoutManager())).findFirstVisibleItemPosition();
@@ -89,26 +106,11 @@ public class FragmentVideo extends BaseFragment<PresenterVideo> implements BaseQ
         }
     }
 
-
-    @Override
-    public void initData() {
-
-    }
-
-    @Override
-    public void initPresenter() {
-
-    }
-
-    @Override
-    public int bandLayout() {
-        return R.layout.fragment_video;
-    }
-
     /**
      * 适配器子控件的点击事件
-     * @param adapter 适配器
-     * @param view 视图
+     *
+     * @param adapter  适配器
+     * @param view     视图
      * @param position 点击的位置
      */
     @Override
@@ -123,6 +125,7 @@ public class FragmentVideo extends BaseFragment<PresenterVideo> implements BaseQ
 
     /**
      * 根据点击的位置 播放视频
+     *
      * @param position 点击的位置
      */
     private void setVideoPlayer(int position) {
@@ -136,6 +139,13 @@ public class FragmentVideo extends BaseFragment<PresenterVideo> implements BaseQ
         videoPlayer = player;
         playIndex = position;
         playPic = pic;
+    }
+
+
+    public void onPlayPause() {
+        if (videoPlayer != null) {
+            videoPlayer.onVideoPause();
+        }
     }
 
     @Override
@@ -165,6 +175,7 @@ public class FragmentVideo extends BaseFragment<PresenterVideo> implements BaseQ
 
     /**
      * 用户是否离开此界面，离开时将视频暂停
+     *
      * @param isVisibleToUser 是否显示这个视图
      */
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -182,6 +193,7 @@ public class FragmentVideo extends BaseFragment<PresenterVideo> implements BaseQ
 
     /**
      * 上拉加载
+     *
      * @param refreshLayout 加载的布局
      */
     @Override
@@ -191,6 +203,7 @@ public class FragmentVideo extends BaseFragment<PresenterVideo> implements BaseQ
 
     /**
      * 下拉刷新
+     *
      * @param refreshLayout 刷新的布局
      */
     @Override
