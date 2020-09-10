@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.common.NetCommon;
 import com.example.framework2.mvp.view.BaseFragment;
 import com.example.toutiaonews.MainActivity;
 import com.example.toutiaonews.R;
@@ -153,16 +154,16 @@ public class FragmentMine extends BaseFragment {
     //切换黑暗模式
     private void setDayNight() {
         MainActivity activity = (MainActivity) getActivity();
-        if (Share.isDay){
+        if (NetCommon.isDay){
             activity.setNight();
 //            activity.getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             Toast.makeText(getContext(), "切换夜间模式", Toast.LENGTH_SHORT).show();
-            Share.isDay = false;
+            NetCommon.isDay = false;
         }else {
             activity.setDay();
 //            activity.getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             Toast.makeText(getContext(), "切换白天模式", Toast.LENGTH_SHORT).show();
-            Share.isDay = true;
+            NetCommon.isDay = true;
         }
     }
 

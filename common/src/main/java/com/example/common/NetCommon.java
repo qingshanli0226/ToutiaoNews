@@ -1,7 +1,7 @@
 package com.example.common;
 
 public class NetCommon {
-
+    public static boolean isDay = true;
     public static Boolean isBackHome = false;
 
     public static final String JSON_ERROR_CODE = "10000";
