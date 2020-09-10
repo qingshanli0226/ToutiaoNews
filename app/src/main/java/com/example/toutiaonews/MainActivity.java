@@ -14,6 +14,7 @@ import com.example.toutiaonews.fragment_headlines.FragmentHeadlines;
 import com.example.toutiaonews.fragment_home.FragmentHome;
 import com.example.toutiaonews.fragment_mine.FragmentMine;
 import com.example.toutiaonews.fragment_video.view.FragmentBox;
+import com.example.toutiaonews.fragment_video.view.LjzFragmentVideo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +50,8 @@ public class MainActivity extends BaseActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         for (int i = 0; i < list.size(); i++) {
             if (i == 1) {
-
+                FragmentBox fragment = (FragmentBox) list.get(i);
+                fragment.onPlayPause();
             }
             if (i == currentPosition) {
                 fragmentTransaction.show(list.get(i));
@@ -69,6 +71,7 @@ public class MainActivity extends BaseActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
     public void setDay() {
         getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         Intent intent = new Intent(this, MainActivity.class);

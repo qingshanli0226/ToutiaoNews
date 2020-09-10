@@ -26,8 +26,9 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme"
+            android:theme="@style/TranslucentTheme"
             android:launchMode="singleTask"
+
             android:windowIsTranslucent="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

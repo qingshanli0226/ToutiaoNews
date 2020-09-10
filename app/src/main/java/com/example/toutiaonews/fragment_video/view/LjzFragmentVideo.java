@@ -1,5 +1,6 @@
 package com.example.toutiaonews.fragment_video.view;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -143,10 +144,12 @@ public class LjzFragmentVideo extends BaseLJZFragment implements BaseQuickAdapte
 
 
     public void onPlayPause() {
+        Log.d("hq", "onPlayPause: ");
         if (videoPlayer != null) {
             videoPlayer.onVideoPause();
         }
     }
+
 
     @Override
     public void onResume() {

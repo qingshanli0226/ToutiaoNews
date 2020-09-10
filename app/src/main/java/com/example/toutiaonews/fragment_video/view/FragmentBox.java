@@ -22,12 +22,12 @@ public class FragmentBox extends BaseFragment {
     private TabLayout mTabTopTitle;
     private ViewPager mFragmentBoxVp;
     private List<Fragment> list;
+    private int position;
 
     @Override
     public void onClick(View view) {
 
     }
-
 
 
     @Override
@@ -57,6 +57,7 @@ public class FragmentBox extends BaseFragment {
         mTabTopTitle.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                position = tab.getPosition();
                 mFragmentBoxVp.setCurrentItem(tab.getPosition());
             }
 
@@ -91,6 +92,11 @@ public class FragmentBox extends BaseFragment {
     @Override
     public void initData() {
 
+    }
+
+    public void onPlayPause() {
+        LjzFragmentVideo fragment = (LjzFragmentVideo) list.get(position);
+        fragment.onPlayPause();
     }
 
 
