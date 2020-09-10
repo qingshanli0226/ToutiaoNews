@@ -1,8 +1,10 @@
 package com.example.toutiaonews;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.view.View;
 
 import com.chaychan.library.BottomBarItem;
@@ -23,6 +25,7 @@ public class MainActivity extends BaseActivity {
     //初始化数据
     @Override
     public void initView() {
+
         bbl = findViewById(R.id.bbl);
         if (list == null) {
             list = new ArrayList<>();
@@ -54,10 +57,19 @@ public class MainActivity extends BaseActivity {
         fragmentTransaction.commit();
     }
 
-
     @Override
     public void initData() {
+    }
 
+    public void setNight() {
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+    public void setDay() {
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     //添加fragment
