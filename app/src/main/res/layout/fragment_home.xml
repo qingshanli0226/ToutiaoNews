@@ -2,11 +2,12 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="@color/main_bg_color"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:background="#f00"
+        android:background="@color/main_title_color"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_0">
@@ -39,7 +40,7 @@
         android:layout_height="@dimen/dp_0">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/tv_id"
-            android:background="#fff"
+            android:background="@color/main_bg_color"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
