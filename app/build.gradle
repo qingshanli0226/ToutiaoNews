@@ -56,4 +56,5 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:28.0.0'//recyclerview
 
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.2@aar'
+    implementation 'com.android.support:design:28.0.0'
 }

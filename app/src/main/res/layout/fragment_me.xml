@@ -1,13 +1,256 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/meBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize130"
+        android:background="@mipmap/mine_head_bg"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceSize55">
+
+            <ImageView
+                android:layout_width="@dimen/spaceSize30"
+                android:layout_height="@dimen/spaceSize30"
+                android:src="@mipmap/my_avatar"
+                android:layout_margin="@dimen/spaceSize15"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSize15"
+                android:text="ChayChan"
+                android:textColor="#fff"
+                android:layout_gravity="center_vertical"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="right|center">
+                <ImageView
+                    android:layout_width="@dimen/spaceSize15"
+                    android:layout_height="@dimen/spaceSize15"
+                    android:src="@mipmap/right_arrow"
+                    android:layout_marginRight="@dimen/spaceSize20"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="@integer/weight1"
+            android:gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="@dimen/textSize15"
+                android:textColor="@color/meMarginBackground"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="动态"
+                android:textSize="@dimen/textSize13"
+                android:textColor="#B8B5B5"/>
+
+        </LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/spaceSize40"
+            android:src="@mipmap/add_channels_bg"
+            android:layout_gravity="center_vertical"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="@integer/weight1"
+            android:gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="@dimen/textSize15"
+                android:textColor="@color/meMarginBackground"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="粉丝"
+                android:textSize="@dimen/textSize13"
+                android:textColor="#B8B5B5"/>
+        </LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/spaceSize40"
+            android:src="@mipmap/add_channels_bg"
+            android:layout_gravity="center_vertical"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="@integer/weight1"
+            android:gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="@dimen/textSize15"
+                android:textColor="#fff"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="7天访客"
+                android:textSize="@dimen/textSize13"
+                android:textColor="#B8B5B5"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize65">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="@integer/weight1"
+            android:textSize="@dimen/textSize13"
+            android:text="收藏"
+            android:textColor="#000"
+            android:gravity="center"
+            android:drawableTop="@mipmap/my_collect"
+            android:layout_marginTop="@dimen/spaceSize10"
+            android:drawablePadding="@dimen/spaceSize5"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="@integer/weight1"
+            android:textSize="@dimen/textSize13"
+            android:text="历史"
+            android:textColor="#000"
+            android:gravity="center"
+            android:drawableTop="@mipmap/my_history"
+            android:layout_marginTop="@dimen/spaceSize10"
+            android:drawablePadding="@dimen/spaceSize5"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="@integer/weight1"
+            android:textSize="@dimen/textSize13"
+            android:text="夜间"
+            android:textColor="#000"
+            android:gravity="center"
+            android:drawableTop="@mipmap/night_mode"
+            android:layout_marginTop="@dimen/spaceSize10"
+            android:drawablePadding="@dimen/spaceSize5"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize8"
+        android:background="@color/meMarginBackground"></View>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="@dimen/textSize50"
-        android:text="me"
-        android:gravity="center"/>
+        android:layout_height="@dimen/spaceSize40"
+        android:text="消息通知"
+        style="@style/meTextStyle" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize8"
+        android:background="@color/meMarginBackground"></View>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize40">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="头条商城"
+            style="@style/meTextStyle" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="邀请好友得200元现金奖励"
+            android:textSize="@dimen/textSize12"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/spaceSize40"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize1"
+        android:background="@color/meMarginBackground"></View>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize40">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="京东特供"
+            style="@style/meTextStyle" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="新人领188元红包"
+            android:textSize="@dimen/textSize12"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/spaceSize40"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize8"
+        android:background="@color/meMarginBackground"></View>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize40"
+        android:text="我要爆料"
+        style="@style/meTextStyle" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize1"
+        android:background="@color/meMarginBackground"></View>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize50"
+        android:text="用户反馈"
+        style="@style/meTextStyle" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize1"
+        android:background="@color/meMarginBackground"></View>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize40"
+        android:text="系统设置"
+        style="@style/meTextStyle" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize8"
+        android:background="@color/meMarginBackground"></View>
 
 </LinearLayout>

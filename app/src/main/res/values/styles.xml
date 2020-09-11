@@ -24,5 +24,17 @@
         <item name="android:textColor">@android:color/black</item>
     </style>
 
+    <style name="meTextStyle">
+        <!-- Customize your theme here. -->
+        <item name="android:textSize">@dimen/textSize15</item>
+        <item name="android:background">@color/meBackground</item>
+        <item name="android:textSize" tools:ignore="DuplicateDefinition">@dimen/textSize15</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:drawableRight">@mipmap/setting_arrow</item>
+        <item name="android:textColor">@color/meTextViewColor</item>
+        <item name="android:layout_marginLeft">@dimen/spaceSize20</item>
+        <item name="android:layout_marginRight">@dimen/spaceSize20</item>
+    </style>
+
 
 </resources>

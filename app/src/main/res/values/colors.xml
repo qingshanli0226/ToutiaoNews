@@ -7,8 +7,13 @@
 
     <color name="mainTextSelectColor">#F85959</color>
     <color name="mainTextUnSelectColor">#515151</color>
-
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
     <color name="colorRed">#FF5722</color>
+
+
+    <color name="meBackground">#EEEEEE</color>
+    <color name="meTextViewColor">#000</color>
+    <color name="meMarginBackground">#fff</color>
+
 </resources>
