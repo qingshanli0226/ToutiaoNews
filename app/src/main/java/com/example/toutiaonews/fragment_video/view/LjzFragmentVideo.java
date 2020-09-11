@@ -8,9 +8,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.android.arouter.facade.Postcard;
+import com.alibaba.android.arouter.facade.callback.NavigationCallback;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.common.ARouterCommon;
 import com.example.framework2.mvp.view.BaseLJZFragment;
 import com.example.toutiaonews.R;
 import com.example.toutiaonews.fragment_video.adapter.VideoAdapter;
@@ -32,7 +36,6 @@ public class LjzFragmentVideo extends BaseLJZFragment implements BaseQuickAdapte
     private ImageView playPic;
     private List<String> list;
     private VideoAdapter videoAdapter;
-    private LinearLayoutManager linearLayoutManager;
 
     @Override
     protected int setContentView() {
@@ -47,13 +50,9 @@ public class LjzFragmentVideo extends BaseLJZFragment implements BaseQuickAdapte
         mRefreshListSrl = (SmartRefreshLayout) rootView.findViewById(R.id.refresh_list_srl);
         mVideoListRv = (RecyclerView) rootView.findViewById(R.id.video_list_rv);
         mRefreshListSrl.setOnRefreshLoadMoreListener(this);
-
-
         list = new ArrayList<>();
-
-
         videoAdapter = new VideoAdapter(R.layout.item_video_box, list);
-        linearLayoutManager = new LinearLayoutManager(getContext());
+        LinearLayoutManager  linearLayoutManager = new LinearLayoutManager(getContext());
         mVideoListRv.setLayoutManager(linearLayoutManager);
         mVideoListRv.setAdapter(videoAdapter);
         videoAdapter.setOnItemChildClickListener(this);
@@ -120,7 +119,9 @@ public class LjzFragmentVideo extends BaseLJZFragment implements BaseQuickAdapte
         if (id == R.id.item_video_pic) {
             setVideoPlayer(position);
         }
-        if (id == R.id.item_message_txt) {
+
+        if (id == R.id.item_more_img) {
+            ARouter.getInstance().build(ARouterCommon.VIDEO_ACT).withString("videoUrl",list.get(position)).navigation();
         }
     }
 
@@ -144,7 +145,6 @@ public class LjzFragmentVideo extends BaseLJZFragment implements BaseQuickAdapte
 
 
     public void onPlayPause() {
-        Log.d("hq", "onPlayPause: ");
         if (videoPlayer != null) {
             videoPlayer.onVideoPause();
         }

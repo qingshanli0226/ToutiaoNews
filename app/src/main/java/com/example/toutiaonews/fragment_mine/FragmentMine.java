@@ -8,8 +8,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatDelegate;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
@@ -17,7 +15,6 @@ import com.example.common.NetCommon;
 import com.example.framework2.mvp.view.BaseFragment;
 import com.example.toutiaonews.MainActivity;
 import com.example.toutiaonews.R;
-import com.example.toutiaonews.Share;
 import com.example.toutiaonews.fragment_mine.activity.Action1Activity;
 import com.example.toutiaonews.fragment_mine.activity.CollectActivity;
 import com.example.toutiaonews.fragment_mine.activity.DiscloseActivity;

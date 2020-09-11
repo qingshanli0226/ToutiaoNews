@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.view.View;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.chaychan.library.BottomBarItem;
 import com.chaychan.library.BottomBarLayout;
 import com.example.framework2.mvp.view.BaseActivity;
@@ -23,10 +24,11 @@ public class MainActivity extends BaseActivity {
     private BottomBarLayout bbl;
     private List<Fragment> list;
 
-    //初始化数据
+    /**
+     * 初始化视图
+     */
     @Override
     public void initView() {
-
         bbl = findViewById(R.id.bbl);
         initFragment();
         bbl.setOnItemSelectedListener(new BottomBarLayout.OnItemSelectedListener() {
@@ -43,20 +45,18 @@ public class MainActivity extends BaseActivity {
      *
      * @param currentPosition
      */
-
-
-    //展示四个子页面
     private void isShow(int currentPosition) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         for (int i = 0; i < list.size(); i++) {
-            if (i == 1) {
-                FragmentBox fragment = (FragmentBox) list.get(i);
-                fragment.onPlayPause();
-            }
+
             if (i == currentPosition) {
                 fragmentTransaction.show(list.get(i));
             } else {
                 fragmentTransaction.hide(list.get(i));
+                if (i == 1) {
+                    FragmentBox fragment = (FragmentBox) list.get(i);
+                    fragment.onPlayPause();
+                }
             }
         }
         fragmentTransaction.commit();
@@ -66,12 +66,18 @@ public class MainActivity extends BaseActivity {
     public void initData() {
     }
 
+    /**
+     * 切换 夜间模式
+     */
     public void setNight() {
         getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * 切换 白天模式
+     */
     public void setDay() {
         getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         Intent intent = new Intent(this, MainActivity.class);
