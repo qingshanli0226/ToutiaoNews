@@ -3,9 +3,6 @@ package com.example.video;
 import android.content.res.Configuration;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-
-
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.common.ARouterCommon;
@@ -50,7 +47,6 @@ public class VideoAct extends BaseActivity {
         mGSYPlay.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("hq", "onClick: " + isChange);
                 if (isChange) {
                     isChange = false;
                     GSYVideoType.setShowType(GSYVideoType.SCREEN_TYPE_DEFAULT);

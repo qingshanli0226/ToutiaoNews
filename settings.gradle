@@ -1,3 +1,4 @@
 rootProject.name='ToutiaoNews'
 include ':app', ':framework', ':common', ':net'
 include ':video'
+include ':user'

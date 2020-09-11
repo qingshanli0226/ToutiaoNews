@@ -88,8 +88,6 @@ public class MainActivity extends BaseActivity {
     /**
      * 初始化Fragment 页面
      */
-
-    //添加fragment
     private void initFragment() {
         if (list == null) {
             list = new ArrayList<>();
