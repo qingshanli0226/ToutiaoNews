@@ -35,6 +35,11 @@ android {
     }
     sourceSets {
         main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    sourceSets {
+        main {
             if (isApp) {
                 manifest.srcFile 'src/main/release/AndroidManifest.xml'
             } else {
@@ -46,19 +51,16 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.alibaba:arouter-api:1.5.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
-
     implementation 'com.shuyu:GSYVideoPlayer:7.1.5'
-
     implementation 'androidx.appcompat:appcompat:1.2.0'
-
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation project(path: ':framework')
     implementation project(path: ':common')
+    implementation files('libs/pldroid-shortvideo-3.1.1.jar')
 }

@@ -52,7 +52,7 @@ public class LjzFragmentVideo extends BaseLJZFragment implements BaseQuickAdapte
         mRefreshListSrl.setOnRefreshLoadMoreListener(this);
         list = new ArrayList<>();
         videoAdapter = new VideoAdapter(R.layout.item_video_box, list);
-        LinearLayoutManager  linearLayoutManager = new LinearLayoutManager(getContext());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         mVideoListRv.setLayoutManager(linearLayoutManager);
         mVideoListRv.setAdapter(videoAdapter);
         videoAdapter.setOnItemChildClickListener(this);
@@ -121,7 +121,7 @@ public class LjzFragmentVideo extends BaseLJZFragment implements BaseQuickAdapte
         }
 
         if (id == R.id.item_more_img) {
-            ARouter.getInstance().build(ARouterCommon.VIDEO_ACT).withString("videoUrl",list.get(position)).navigation();
+            ARouter.getInstance().build(ARouterCommon.VIDEO_PLAY_ACT).withString("videoUrl", list.get(position)).navigation();
         }
     }
 
@@ -212,5 +212,10 @@ public class LjzFragmentVideo extends BaseLJZFragment implements BaseQuickAdapte
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
         mRefreshListSrl.finishRefresh(true);
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 }

@@ -1,17 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:gravity="center"
-        android:textSize="@dimen/dp_50"
-        android:textStyle="bold"
-        android:textColor="@color/main_tv_color"
-        android:text="微头条"
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_55">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/top_title_tab"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            app:tabMode="auto"
+            app:tabSelectedTextColor="@color/tab_selected_color"
+            app:tabIndicatorColor="@null"
+            app:tabTextColor="#000">
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <TextView
+            android:id="@+id/publish_video_top"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:drawableLeft="@drawable/auo"
+            android:gravity="center"
+            android:text="发布"
+            android:textSize="@dimen/dp_20">
+
+        </TextView>
+    </LinearLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/video_fragment_box"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </TextView>
 
+    </androidx.viewpager.widget.ViewPager>
 </LinearLayout>

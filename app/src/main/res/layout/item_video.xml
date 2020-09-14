@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_go_rl"
+    android:layout_width="@dimen/dp_180"
+    android:layout_height="@dimen/dp_250"
+    android:layout_margin="1dp">
+
+    <ImageView
+        android:id="@+id/item_image_video"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </ImageView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/item_title_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="和平精英搞笑短片{落地不要慌，密室里面有惊喜}"
+            android:textColor="@color/main_bg_color"
+            android:textSize="@dimen/dp_20">
+
+        </TextView>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true">
+
+                <ImageView
+                    android:id="@+id/item_head_pic"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30">
+
+                </ImageView>
+
+                <TextView
+                    android:id="@+id/item_head_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_30">
+
+                </TextView>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/item_number_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_30"
+                android:layout_alignParentRight="true">
+
+            </TextView>
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

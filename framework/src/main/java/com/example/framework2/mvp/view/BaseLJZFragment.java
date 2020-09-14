@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.framework2.mvp.presenter.IPresenter;
 
-public abstract class BaseLJZFragment<P extends IPresenter> extends Fragment {
+public abstract class BaseLJZFragment<P extends IPresenter> extends Fragment implements View.OnClickListener {
     protected View rootView;
     private boolean isInitView = false;
     private boolean isVisible = false;
