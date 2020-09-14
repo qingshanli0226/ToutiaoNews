@@ -15,7 +15,7 @@
         <meta-data
             android:name="design_height_in_dp"
             android:value="1066"/>
-        <activity android:name=".MainActivity" android:theme="@style/TranslucentTheme">
+        <activity android:name=".activity.MainActivity" android:theme="@style/TranslucentTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp50">
+        <TextView
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/sp20"
+            android:text="@string/tab_micro_name"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp50" />
+        <ImageView
+            android:src="@mipmap/micro_add_friend"
+            android:layout_alignParentRight="true"
+            android:layout_width="@dimen/dp40"
+            android:layout_height="@dimen/dp40" />
+    </RelativeLayout>
+    <View
+        android:background="@color/textNormalColor"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp1"></View>
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp20"
+        android:layout_marginBottom="@dimen/dp20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_marginLeft="@dimen/dp20"
+                android:src="@mipmap/micro_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginLeft="@dimen/dp10"
+                android:text="@string/micro_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <View
+                android:layout_marginLeft="@dimen/dp30"
+                android:background="@color/textNormalColor"
+                android:layout_width="@dimen/dp1"
+                android:layout_height="match_parent"></View>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_marginLeft="@dimen/dp20"
+                android:src="@mipmap/micro_pic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:text="@string/micro_pic"
+                android:layout_marginLeft="@dimen/dp10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <View
+                android:layout_marginLeft="@dimen/dp30"
+                android:background="@color/textNormalColor"
+                android:layout_width="@dimen/dp1"
+                android:layout_height="match_parent"></View>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_marginLeft="@dimen/dp20"
+                android:src="@mipmap/micro_video"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:text="@string/micro_void"
+                android:layout_marginLeft="@dimen/dp10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <View
+                android:layout_marginLeft="@dimen/dp30"
+                android:background="@color/textNormalColor"
+                android:layout_width="@dimen/dp1"
+                android:layout_height="match_parent"></View>
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:background="@color/textNormalColor"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp1"></View>
+</LinearLayout>
