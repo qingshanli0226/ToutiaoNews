@@ -38,6 +38,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     private void initData() {
+        //请求数据
         HttpManager.getHttpManager()
                 .getRetrofit()
                 .getNewsList()
