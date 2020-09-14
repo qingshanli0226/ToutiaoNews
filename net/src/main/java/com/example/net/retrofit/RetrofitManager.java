@@ -1,6 +1,6 @@
 package com.example.net.retrofit;
 
-import com.example.common.ApiConstant;
+import com.example.common.constant.ApiConstant;
 import com.example.net.api.NewsApi;
 
 import java.util.concurrent.TimeUnit;
