@@ -1,37 +1,75 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\AndroidCode\Android\ToutiaoNews\framework\src\main\AndroidManifest.xml:1:1-5:12
-INJECTED from D:\AndroidCode\Android\ToutiaoNews\framework\src\main\AndroidManifest.xml:1:1-5:12
-INJECTED from D:\AndroidCode\Android\ToutiaoNews\framework\src\main\AndroidManifest.xml:1:1-5:12
-INJECTED from D:\AndroidCode\Android\ToutiaoNews\framework\src\main\AndroidManifest.xml:1:1-5:12
-INJECTED from D:\AndroidCode\Android\ToutiaoNews\framework\src\main\AndroidManifest.xml:1:1-5:12
-INJECTED from D:\AndroidCode\Android\ToutiaoNews\framework\src\main\AndroidManifest.xml:1:1-5:12
-INJECTED from D:\AndroidCode\Android\ToutiaoNews\framework\src\main\AndroidManifest.xml:1:1-5:12
+<<<<<<< HEAD
+ADDED from D:\AndroidStudioWorkSpace\Training_one\framework\src\main\AndroidManifest.xml:1:1-5:12
+INJECTED from D:\AndroidStudioWorkSpace\Training_one\framework\src\main\AndroidManifest.xml:1:1-5:12
+INJECTED from D:\AndroidStudioWorkSpace\Training_one\framework\src\main\AndroidManifest.xml:1:1-5:12
+INJECTED from D:\AndroidStudioWorkSpace\Training_one\framework\src\main\AndroidManifest.xml:1:1-5:12
+INJECTED from D:\AndroidStudioWorkSpace\Training_one\framework\src\main\AndroidManifest.xml:1:1-5:12
+INJECTED from D:\AndroidStudioWorkSpace\Training_one\framework\src\main\AndroidManifest.xml:1:1-5:12
+INJECTED from D:\AndroidStudioWorkSpace\Training_one\framework\src\main\AndroidManifest.xml:1:1-5:12
 	package
-		ADDED from D:\AndroidCode\Android\ToutiaoNews\framework\src\main\AndroidManifest.xml:2:1-32
-		INJECTED from D:\AndroidCode\Android\ToutiaoNews\framework\src\main\AndroidManifest.xml
-		INJECTED from D:\AndroidCode\Android\ToutiaoNews\framework\src\main\AndroidManifest.xml
+		ADDED from D:\AndroidStudioWorkSpace\Training_one\framework\src\main\AndroidManifest.xml:2:1-32
+		INJECTED from D:\AndroidStudioWorkSpace\Training_one\framework\src\main\AndroidManifest.xml
+		INJECTED from D:\AndroidStudioWorkSpace\Training_one\framework\src\main\AndroidManifest.xml
 	android:versionName
-		INJECTED from D:\AndroidCode\Android\ToutiaoNews\framework\src\main\AndroidManifest.xml
-		ADDED from D:\AndroidCode\Android\ToutiaoNews\framework\src\main\AndroidManifest.xml:1:1-5:12
-		INJECTED from D:\AndroidCode\Android\ToutiaoNews\framework\src\main\AndroidManifest.xml
+		INJECTED from D:\AndroidStudioWorkSpace\Training_one\framework\src\main\AndroidManifest.xml
+		ADDED from D:\AndroidStudioWorkSpace\Training_one\framework\src\main\AndroidManifest.xml:1:1-5:12
+		INJECTED from D:\AndroidStudioWorkSpace\Training_one\framework\src\main\AndroidManifest.xml
 	android:versionCode
-		INJECTED from D:\AndroidCode\Android\ToutiaoNews\framework\src\main\AndroidManifest.xml
-		ADDED from D:\AndroidCode\Android\ToutiaoNews\framework\src\main\AndroidManifest.xml:1:1-5:12
-		INJECTED from D:\AndroidCode\Android\ToutiaoNews\framework\src\main\AndroidManifest.xml
+		INJECTED from D:\AndroidStudioWorkSpace\Training_one\framework\src\main\AndroidManifest.xml
+		ADDED from D:\AndroidStudioWorkSpace\Training_one\framework\src\main\AndroidManifest.xml:1:1-5:12
+		INJECTED from D:\AndroidStudioWorkSpace\Training_one\framework\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from D:\AndroidCode\Android\ToutiaoNews\framework\src\main\AndroidManifest.xml:1:11-69
+		ADDED from D:\AndroidStudioWorkSpace\Training_one\framework\src\main\AndroidManifest.xml:1:11-69
 uses-sdk
-INJECTED from D:\AndroidCode\Android\ToutiaoNews\framework\src\main\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from D:\AndroidCode\Android\ToutiaoNews\framework\src\main\AndroidManifest.xml
-INJECTED from D:\AndroidCode\Android\ToutiaoNews\framework\src\main\AndroidManifest.xml
-INJECTED from D:\AndroidCode\Android\ToutiaoNews\framework\src\main\AndroidManifest.xml
-INJECTED from D:\AndroidCode\Android\ToutiaoNews\framework\src\main\AndroidManifest.xml
+INJECTED from D:\AndroidStudioWorkSpace\Training_one\framework\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\AndroidStudioWorkSpace\Training_one\framework\src\main\AndroidManifest.xml
+INJECTED from D:\AndroidStudioWorkSpace\Training_one\framework\src\main\AndroidManifest.xml
+INJECTED from D:\AndroidStudioWorkSpace\Training_one\framework\src\main\AndroidManifest.xml
+INJECTED from D:\AndroidStudioWorkSpace\Training_one\framework\src\main\AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from D:\AndroidCode\Android\ToutiaoNews\framework\src\main\AndroidManifest.xml
-		ADDED from D:\AndroidCode\Android\ToutiaoNews\framework\src\main\AndroidManifest.xml
-		INJECTED from D:\AndroidCode\Android\ToutiaoNews\framework\src\main\AndroidManifest.xml
+		INJECTED from D:\AndroidStudioWorkSpace\Training_one\framework\src\main\AndroidManifest.xml
+		ADDED from D:\AndroidStudioWorkSpace\Training_one\framework\src\main\AndroidManifest.xml
+		INJECTED from D:\AndroidStudioWorkSpace\Training_one\framework\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from D:\AndroidCode\Android\ToutiaoNews\framework\src\main\AndroidManifest.xml
-		ADDED from D:\AndroidCode\Android\ToutiaoNews\framework\src\main\AndroidManifest.xml
-		INJECTED from D:\AndroidCode\Android\ToutiaoNews\framework\src\main\AndroidManifest.xml
+		INJECTED from D:\AndroidStudioWorkSpace\Training_one\framework\src\main\AndroidManifest.xml
+		ADDED from D:\AndroidStudioWorkSpace\Training_one\framework\src\main\AndroidManifest.xml
+		INJECTED from D:\AndroidStudioWorkSpace\Training_one\framework\src\main\AndroidManifest.xml
+=======
+ADDED from F:\bw\1801\train\ToutiaoNews\framework\src\main\AndroidManifest.xml:1:1-5:12
+INJECTED from F:\bw\1801\train\ToutiaoNews\framework\src\main\AndroidManifest.xml:1:1-5:12
+INJECTED from F:\bw\1801\train\ToutiaoNews\framework\src\main\AndroidManifest.xml:1:1-5:12
+INJECTED from F:\bw\1801\train\ToutiaoNews\framework\src\main\AndroidManifest.xml:1:1-5:12
+INJECTED from F:\bw\1801\train\ToutiaoNews\framework\src\main\AndroidManifest.xml:1:1-5:12
+INJECTED from F:\bw\1801\train\ToutiaoNews\framework\src\main\AndroidManifest.xml:1:1-5:12
+INJECTED from F:\bw\1801\train\ToutiaoNews\framework\src\main\AndroidManifest.xml:1:1-5:12
+	package
+		ADDED from F:\bw\1801\train\ToutiaoNews\framework\src\main\AndroidManifest.xml:2:1-32
+		INJECTED from F:\bw\1801\train\ToutiaoNews\framework\src\main\AndroidManifest.xml
+		INJECTED from F:\bw\1801\train\ToutiaoNews\framework\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from F:\bw\1801\train\ToutiaoNews\framework\src\main\AndroidManifest.xml
+		ADDED from F:\bw\1801\train\ToutiaoNews\framework\src\main\AndroidManifest.xml:1:1-5:12
+		INJECTED from F:\bw\1801\train\ToutiaoNews\framework\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from F:\bw\1801\train\ToutiaoNews\framework\src\main\AndroidManifest.xml
+		ADDED from F:\bw\1801\train\ToutiaoNews\framework\src\main\AndroidManifest.xml:1:1-5:12
+		INJECTED from F:\bw\1801\train\ToutiaoNews\framework\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from F:\bw\1801\train\ToutiaoNews\framework\src\main\AndroidManifest.xml:1:11-69
+uses-sdk
+INJECTED from F:\bw\1801\train\ToutiaoNews\framework\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from F:\bw\1801\train\ToutiaoNews\framework\src\main\AndroidManifest.xml
+INJECTED from F:\bw\1801\train\ToutiaoNews\framework\src\main\AndroidManifest.xml
+INJECTED from F:\bw\1801\train\ToutiaoNews\framework\src\main\AndroidManifest.xml
+INJECTED from F:\bw\1801\train\ToutiaoNews\framework\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from F:\bw\1801\train\ToutiaoNews\framework\src\main\AndroidManifest.xml
+		ADDED from F:\bw\1801\train\ToutiaoNews\framework\src\main\AndroidManifest.xml
+		INJECTED from F:\bw\1801\train\ToutiaoNews\framework\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from F:\bw\1801\train\ToutiaoNews\framework\src\main\AndroidManifest.xml
+		ADDED from F:\bw\1801\train\ToutiaoNews\framework\src\main\AndroidManifest.xml
+		INJECTED from F:\bw\1801\train\ToutiaoNews\framework\src\main\AndroidManifest.xml
+>>>>>>> 6f38494... ready

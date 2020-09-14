@@ -3,7 +3,7 @@
     package="com.example.videolibrary">
 
     <application>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".VideoActivity"></activity>
     </application>
 
 </manifest>
