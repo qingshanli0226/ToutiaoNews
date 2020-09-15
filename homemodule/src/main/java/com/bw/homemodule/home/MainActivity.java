@@ -1,12 +1,10 @@
-package com.bw.homemodule;
+package com.bw.homemodule.home;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.widget.FrameLayout;
-
+import com.bw.homemodule.R;
 import com.example.farmework.base.BaseActivity;
-import com.example.farmework.base.BaseMVPActivity;
 
 
 public class MainActivity extends BaseActivity {

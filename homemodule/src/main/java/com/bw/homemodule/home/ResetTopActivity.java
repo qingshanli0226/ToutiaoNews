@@ -1,8 +1,10 @@
-package com.bw.homemodule;
+package com.bw.homemodule.home;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.bw.homemodule.R;
 
 public class ResetTopActivity extends AppCompatActivity {
 

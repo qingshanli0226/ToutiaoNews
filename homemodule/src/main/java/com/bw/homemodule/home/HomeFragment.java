@@ -1,4 +1,4 @@
-package com.bw.homemodule;
+package com.bw.homemodule.home;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -7,7 +7,9 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bw.homemodule.R;
 import com.bw.homemodule.adapter.ColorTabLayoutAdapter;
+import com.bw.homemodule.home.view.DebugFragment;
 import com.example.farmework.base.BaseFragment;
 import com.google.android.material.tabs.TabLayout;
 
@@ -19,7 +21,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private ViewPager viewPager;
     private ColorTabLayoutAdapter tabLayoutAdapter;
     private ArrayList<Fragment> fragments = new ArrayList<>();
-    private String[] channel;
+    private String[] channels,channel_codes;
     private ImageView homeAdd;
 
     @Override
@@ -30,17 +32,19 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     protected void initData() {
         fragments.clear();
-        channel = null;
+        channels = null;
+        channel_codes=null;
 
-        channel = getResources().getStringArray(R.array.channel);
+        channels = getResources().getStringArray(R.array.channel);
+        channel_codes = getResources().getStringArray(R.array.channel_code);
 
-        for (String str : channel) {
-            fragments.add(new DebugFragment(str));
+        for (int i = 0; i < channels.length; i++) {
+            fragments.add(new DebugFragment(channels[i],channel_codes[i]));
         }
 
-        tabLayoutAdapter = new ColorTabLayoutAdapter(getActivity().getSupportFragmentManager(), fragments, channel);
+        tabLayoutAdapter = new ColorTabLayoutAdapter(getActivity().getSupportFragmentManager(), fragments, channels);
         viewPager.setAdapter(tabLayoutAdapter);
-        viewPager.setOffscreenPageLimit(channel.length);
+        viewPager.setOffscreenPageLimit(channels.length);
         tabLayout.setupWithViewPager(viewPager);
 
 
