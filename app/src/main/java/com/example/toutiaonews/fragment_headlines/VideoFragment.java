@@ -1,6 +1,7 @@
 package com.example.toutiaonews.fragment_headlines;
 
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
@@ -13,6 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.common.ARouterCommon;
 import com.example.framework2.mvp.view.BaseLJZFragment;
 import com.example.toutiaonews.R;
 import com.example.toutiaonews.fragment_headlines.adapter.VideoAdapter;
@@ -23,7 +27,7 @@ import java.util.List;
 
 import static android.view.animation.Animation.RELATIVE_TO_SELF;
 
-public class VideoFragment extends BaseLJZFragment {
+public class VideoFragment extends BaseLJZFragment implements BaseQuickAdapter.OnItemChildClickListener {
     private SmartRefreshLayout mRefreshListSrl;
     private RecyclerView mVideoListRv;
     private List<String> list;
@@ -42,6 +46,7 @@ public class VideoFragment extends BaseLJZFragment {
         list = new ArrayList<>();
         videoAdapter = new VideoAdapter(R.layout.item_video, list);
         mVideoListRv.setAdapter(videoAdapter);
+        videoAdapter.setOnItemChildClickListener(this);
     }
 
     public void playLayoutAnimation(Animation animation, boolean isReverse) {
@@ -94,11 +99,17 @@ public class VideoFragment extends BaseLJZFragment {
         list.add("http://vfx.mtime.cn/Video/2019/03/12/mp4/190312143927981075.mp4");
         list.add("http://vfx.mtime.cn/Video/2019/03/12/mp4/190312083533415853.mp4");
 
-        playLayoutAnimation(getAnimationSetFromLeft(),true);
+        playLayoutAnimation(getAnimationSetFromLeft(), true);
     }
 
     @Override
     public void onClick(View view) {
+
+    }
+
+    @Override
+    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+        ARouter.getInstance().build(ARouterCommon.VIDEO_PLAY_L_ACT).withInt("index", position).navigation();
 
     }
 }

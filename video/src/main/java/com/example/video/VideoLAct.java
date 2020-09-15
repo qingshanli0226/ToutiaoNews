@@ -14,17 +14,25 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.framework2.mvp.view.BaseActivity;
+import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.common.ARouterCommon.VIDEO_PLAY_L_ACT;
+
+@Route(path = VIDEO_PLAY_L_ACT)
 public class VideoLAct extends BaseActivity {
     private RecyclerView mVideoListRv;
     private StandardGSYVideoPlayer videoPlayer;
     private MyAdapter myAdapter;
-    private int currentPosition;
+    private List<String> list;
+    @Autowired(name = "index")
+    public int currentPosition;
 
     @Override
     public void onClick(View view) {
@@ -35,26 +43,26 @@ public class VideoLAct extends BaseActivity {
     public void initView() {
         mVideoListRv = (RecyclerView) findViewById(R.id.video_list_rv);
 
-        List<String> list = new ArrayList<>();
-        list.add("http://vfx.mtime.cn/Video/2019/03/18/mp4/190318214226685784.mp4");
-        list.add("http://vfx.mtime.cn/Video/2019/03/19/mp4/190319104618910544.mp4");
-        list.add("http://vfx.mtime.cn/Video/2019/03/19/mp4/190319125415785691.mp4");
-        list.add("http://vfx.mtime.cn/Video/2019/03/17/mp4/190317150237409904.mp4");
-        list.add("http://vfx.mtime.cn/Video/2019/03/14/mp4/190314223540373995.mp4");
-        list.add("http://vfx.mtime.cn/Video/2019/03/14/mp4/190314102306987969.mp4");
-        list.add("http://vfx.mtime.cn/Video/2019/03/13/mp4/190313094901111138.mp4");
-        list.add("http://vfx.mtime.cn/Video/2019/03/12/mp4/190312143927981075.mp4");
-        list.add("http://vfx.mtime.cn/Video/2019/03/12/mp4/190312083533415853.mp4");
+        list = new ArrayList<>();
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        mVideoListRv.setLayoutManager(linearLayoutManager);
-        myAdapter = new MyAdapter(R.layout.item_layout, list);
-
-        mVideoListRv.setAdapter(myAdapter);
         LinearSnapHelper linearSnapHelper = new LinearSnapHelper();
         linearSnapHelper.attachToRecyclerView(mVideoListRv);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.scrollToPosition(currentPosition);
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+
+        mVideoListRv.setLayoutManager(linearLayoutManager);
+        myAdapter = new MyAdapter(R.layout.item_layout, list);
+        mVideoListRv.setAdapter(myAdapter);
+
+        mVideoListRv.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                VideoPlay(currentPosition);
+            }
+        }, 100);
+
         mVideoListRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -69,7 +77,6 @@ public class VideoLAct extends BaseActivity {
                 } else if (firstVisibleItemPosition < currentPosition && viewByPosition.getX() == 0) {
                     VideoPlay(firstVisibleItemPosition);
                 }
-
             }
 
         });
@@ -97,8 +104,42 @@ public class VideoLAct extends BaseActivity {
 
     @Override
     public void initData() {
-
+        list.add("http://vfx.mtime.cn/Video/2019/03/18/mp4/190318214226685784.mp4");
+        list.add("http://vfx.mtime.cn/Video/2019/03/19/mp4/190319104618910544.mp4");
+        list.add("http://vfx.mtime.cn/Video/2019/03/19/mp4/190319125415785691.mp4");
+        list.add("http://vfx.mtime.cn/Video/2019/03/17/mp4/190317150237409904.mp4");
+        list.add("http://vfx.mtime.cn/Video/2019/03/14/mp4/190314223540373995.mp4");
+        list.add("http://vfx.mtime.cn/Video/2019/03/14/mp4/190314102306987969.mp4");
+        list.add("http://vfx.mtime.cn/Video/2019/03/13/mp4/190313094901111138.mp4");
+        list.add("http://vfx.mtime.cn/Video/2019/03/12/mp4/190312143927981075.mp4");
+        list.add("http://vfx.mtime.cn/Video/2019/03/12/mp4/190312083533415853.mp4");
+        myAdapter.notifyDataSetChanged();
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (videoPlayer != null) {
+            videoPlayer.onVideoResume();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (videoPlayer != null) {
+            videoPlayer.onVideoPause();
+        }
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (videoPlayer != null) {
+            GSYVideoManager.releaseAllVideos();
+        }
+    }
+
 
     @Override
     public int bandLayout() {
