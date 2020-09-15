@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Welcome"
+        android:textSize="@dimen/textSize50"
+        android:layout_marginTop="@dimen/spaceSize50"
+        android:textColor="#fff"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="@dimen/spaceSize300"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/textSize18"
+        android:text="Find like-minded friends log in and"
+        android:layout_gravity="center_horizontal"
+        android:maxLines="1"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/spaceSize10"
+        android:textColor="#fff" />
+
+    <TextView
+        android:layout_width="@dimen/spaceSize150"
+        android:layout_height="wrap_content"
+        android:text="see the world"
+        android:textSize="@dimen/textSize18"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#fff"/>
+
+    <EditText
+        android:id="@+id/loginUsername"
+        android:layout_width="@dimen/spaceSize300"
+        android:layout_height="47dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/spaceSize50"
+        android:background="@drawable/edit_background"
+        android:gravity="center"
+        android:hint="Edit Username"
+        android:inputType="text"
+        android:maxLines="@integer/weight1"
+        android:textColorHint="#fff"
+        android:textSize="@dimen/textSize20"
+        android:textColor="#fff"/>
+
+    <EditText
+        android:layout_width="@dimen/spaceSize300"
+        android:layout_height="@dimen/spaceSize50"
+        android:background="@drawable/edit_background"
+        android:hint="Password"
+        android:textSize="@dimen/textSize20"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/spaceSize20"
+        android:inputType="textPassword"
+        android:textColorHint="#fff"
+        android:id="@+id/loginPassword"
+        android:textColor="#fff"/>
+
+    <Button
+        android:layout_width="@dimen/spaceSize300"
+        android:layout_height="@dimen/spaceSize50"
+        android:background="@drawable/button_background"
+        android:text="Login"
+        android:textColor="#fff"
+        android:textSize="@dimen/textSize25"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/spaceSize70"
+        android:id="@+id/loginButton"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No account number, please register first?"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/spaceSize30"
+        android:textColor="#fff"
+        android:textSize="@dimen/textSize15"
+        android:id="@+id/loginToRegister"/>
+
+</LinearLayout>

@@ -1,4 +1,4 @@
-package com.example.net.mode;
+package com.example.common.mode;
 
 import java.util.List;
 

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.example.common.dao.NetWorkDataEntity;
 import com.example.common.dao.NetWorkDatabase;
+import com.example.common.mode.RecommendBean;
 
 import java.util.List;
 
@@ -13,6 +14,16 @@ public class CacheManager {
     private SharedPreferences.Editor editor;//向SP存数据
     private NetWorkDatabase netWorkDatabase;//Room数据库
 
+    private RecommendBean recommendBean;
+
+    public synchronized RecommendBean getRecommendBean() {
+        return recommendBean;
+    }
+
+    public synchronized void setRecommendBean(RecommendBean recommendBean) {
+        this.recommendBean = recommendBean;
+    }
+
     private static CacheManager cacheManager;
 
     private CacheManager() {
@@ -20,7 +31,11 @@ public class CacheManager {
 
     public static CacheManager getCacheManager() {
         if (cacheManager == null) {
-            cacheManager = new CacheManager();
+            synchronized (CacheManager.class){
+                if(cacheManager == null){
+                    cacheManager = new CacheManager();
+                }
+            }
         }
         return cacheManager;
     }

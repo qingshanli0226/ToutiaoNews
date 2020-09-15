@@ -2,7 +2,7 @@ package com.example.net;
 
 
 
-import com.example.net.mode.BaseBean;
+import com.example.common.mode.BaseBean;
 
 import io.reactivex.functions.Function;
 

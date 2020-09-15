@@ -253,6 +253,11 @@
     <dimen name="spaceSize198">188dp</dimen>
     <dimen name="spaceSize199">199dp</dimen>
     <dimen name="spaceSize200">200dp</dimen>
+    <dimen name="spaceSize300">300dp</dimen>
+    <dimen name="spaceSize380">380dp</dimen>
+    <dimen name="spaceSize390">390dp</dimen>
+    <dimen name="spaceSize400">400dp</dimen>
+    <dimen name="spaceSize500">500dp</dimen>
 
 
     <integer name="weight1">1</integer>

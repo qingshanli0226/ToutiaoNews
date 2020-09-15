@@ -8,6 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar" >
         <!-- 欢迎页背景引用刚才写好的 解决白屏问题的 -->
         <item name="android:windowBackground">@mipmap/splash_background</item>
@@ -35,6 +37,7 @@
         <item name="android:layout_marginLeft">@dimen/spaceSize20</item>
         <item name="android:layout_marginRight">@dimen/spaceSize20</item>
     </style>
+
 
 
 </resources>

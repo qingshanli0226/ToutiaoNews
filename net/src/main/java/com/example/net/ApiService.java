@@ -1,14 +1,16 @@
 package com.example.net;
 
-import android.database.Observable;
 
-import com.example.net.mode.CommentResponse;
-import com.example.net.mode.NewsDetail;
-import com.example.net.mode.NewsResponse;
-import com.example.net.mode.ResultResponse;
-import com.example.net.mode.VideoModel;
-import com.example.net.mode.VideoPathResponse;
+import com.example.common.mode.CommentResponse;
+import com.example.common.mode.LoginBean;
+import com.example.common.mode.NewsDetail;
+import com.example.common.mode.RecommendBean;
+import com.example.common.mode.RegisterBean;
+import com.example.common.mode.ResultResponse;
+import com.example.common.mode.VideoModel;
+import com.example.common.mode.VideoPathResponse;
 
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -29,7 +31,7 @@ public interface ApiService {
      * @return
      */
     @GET(GET_ARTICLE_LIST)
-    Observable<NewsResponse> getNewsList(@Query("category") String category, @Query("min_behot_time") long lastTime, @Query("last_refresh_sub_entrance_interval") long currentTime);
+    Observable<RecommendBean> getNewsList(@Query("category") String category, @Query("min_behot_time") long lastTime, @Query("last_refresh_sub_entrance_interval") long currentTime);
 
     /**
      * 获取新闻详情
@@ -72,5 +74,11 @@ public interface ApiService {
 
     @POST("https://www.parsevideo.com/api.php")
     Observable<VideoPathResponse> parseVideo(@Query("url") String url, @Query("hash")String hash);
+
+    @POST
+    Observable<RegisterBean> register(@Url String url);
+
+    @POST
+    Observable<LoginBean> login(@Url String url);
 
 }

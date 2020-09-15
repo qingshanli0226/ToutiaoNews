@@ -1,4 +1,5 @@
-package com.example.net.mode;
+package com.example.common.mode;
+
 
 import com.google.gson.Gson;
 

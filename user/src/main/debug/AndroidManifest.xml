@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.user" >
-
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <application
         android:theme="@style/AppTheme">
-        <activity android:name=".UserActivity">
+        <activity android:name=".LoginRegisterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

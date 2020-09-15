@@ -1,4 +1,4 @@
-package com.example.net.mode;
+package com.example.common.mode;
 
 public class ResultResponse<T> {
     public String has_more;

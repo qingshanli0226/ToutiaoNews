@@ -3,11 +3,9 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="@dimen/textSize50"
-        android:text="@string/search_you_want_to_search"
-        android:gravity="center"/>
+        android:id="@+id/homeRecommendRv"></androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

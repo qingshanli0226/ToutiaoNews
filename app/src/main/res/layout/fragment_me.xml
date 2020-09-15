@@ -36,7 +36,8 @@
                     android:layout_width="@dimen/spaceSize15"
                     android:layout_height="@dimen/spaceSize15"
                     android:src="@mipmap/right_arrow"
-                    android:layout_marginRight="@dimen/spaceSize20"/>
+                    android:layout_marginRight="@dimen/spaceSize20"
+                    android:id="@+id/meToLogin"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -145,6 +146,7 @@
             android:layout_marginTop="@dimen/spaceSize10"
             android:drawablePadding="@dimen/spaceSize5"/>
         <TextView
+            android:id="@+id/meTvNight"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="@integer/weight1"

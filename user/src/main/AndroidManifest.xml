@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.user">
 
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
     <application>
-        <activity android:name=".UserActivity"></activity>
+        <activity android:name=".LoginRegisterActivity"></activity>
 
 
         <meta-data

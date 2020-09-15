@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="@dimen/spaceSize90">
+
+        <TextView
+            android:layout_width="@dimen/spaceSize390"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textSize20"
+            android:text="时政新闻眼 | 中德领导人首次视频会晤，向世界传递了什么？"
+            android:textColor="#000"
+            android:layout_gravity="center"
+            android:id="@+id/recommendTitle"
+            android:maxLines="@integer/weight2"
+            android:ellipsize="end" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceSize30"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <RelativeLayout
+                android:layout_width="@dimen/spaceSize30"
+                android:layout_height="@dimen/spaceSize30">
+                <ImageView
+                    android:layout_width="@dimen/spaceSize30"
+                    android:layout_height="@dimen/spaceSize30"
+                    android:src="@mipmap/to_top"
+                    android:layout_marginLeft="@dimen/spaceSize10"
+                    android:id="@+id/recommendImg" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSize13"
+                android:text="央视网新闻"
+                android:layout_marginLeft="@dimen/spaceSize5"
+                android:id="@+id/recommendSource"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSize13"
+                android:text="0"
+                android:layout_marginLeft="@dimen/spaceSize8"
+                android:id="@+id/recommendCount"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="评论"
+                android:textSize="@dimen/textSize13"
+                android:layout_marginLeft="@dimen/spaceSize1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSize13"
+                android:text="刚刚"
+                android:layout_marginLeft="@dimen/spaceSize10"/>
+
+        </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize1"
+        android:background="#949090"></View>
+
+
+
+
+</LinearLayout>
