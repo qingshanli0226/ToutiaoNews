@@ -1,10 +1,14 @@
-package com.example.toutiaonews.fragment_mine.activity;
+package com.example.user.activity;
 
 import android.view.View;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.framework2.mvp.view.BaseActivity;
-import com.example.toutiaonews.R;
+import com.example.video.R;
 
+import static com.example.common.ARouterCommon.USER_COLLECT;
+
+@Route(path = USER_COLLECT)
 public class CollectActivity extends BaseActivity {
 
     @Override
