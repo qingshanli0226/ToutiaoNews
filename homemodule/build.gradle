@@ -14,7 +14,7 @@ android {
         if (isModule) {
             applicationId "com.example.homemodule"
             minSdkVersion 24
-        }else {
+        } else {
             minSdkVersion 22
         }
         targetSdkVersion 29
