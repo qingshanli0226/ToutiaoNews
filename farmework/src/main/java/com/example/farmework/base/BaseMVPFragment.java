@@ -16,30 +16,17 @@ public abstract class BaseMVPFragment<P extends IPresenter,V extends IView> exte
     private View rootView;
     protected Activity mActivity;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if(rootView == null){
-            rootView = inflater.inflate(bandLayout(), container,false);
-            initPresenter();
-            mPresenter.attachView((V) this);
-        }else{
-            //得到容器视图
-            ViewGroup parent = (ViewGroup) rootView.getParent();
-            if (parent != null) {
-                parent.removeView(rootView);
-            }
-        }
-        return rootView;
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initPresenter();
+        mPresenter.attachView((V) this);
     }
+
     @Override
     protected void onFragmentFirstVisible() {
         //当第一次可见的时候，加载数据
         initHttpData();
-    }
-    /**StateView的根布局，默认是整个界面，如果需要变换可以重写此方法*/
-    public View getStateViewRoot() {
-        return rootView;
     }
 
     @Override
