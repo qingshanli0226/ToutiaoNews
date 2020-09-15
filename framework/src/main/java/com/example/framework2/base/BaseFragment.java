@@ -13,12 +13,11 @@ import android.widget.Toast;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.example.framework2.R;
 import com.github.nukc.stateview.StateView;
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends LazyLoadFragment {
 
     private View rootView;//根view
     protected Activity mActivity;

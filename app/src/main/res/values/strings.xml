@@ -5,5 +5,9 @@
     <string name="ad">广告</string>
     <string name="tag_movie">影视</string>
     <string name="net_unavailable">网络不可用</string>
+    <string name="tab_micro">微头条</string>
+    <string name="text">文字</string>
+    <string name="pic">图片</string>
+    <string name="video">视频</string>
 
 </resources>

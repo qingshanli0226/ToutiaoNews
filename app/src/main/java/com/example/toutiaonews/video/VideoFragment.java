@@ -1,27 +1,32 @@
 package com.example.toutiaonews.video;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentPagerAdapter;
+import android.os.Bundle;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.framework2.base.BaseFragment;
 import com.example.toutiaonews.R;
-import com.example.toutiaonews.video.fragment.MyVideoFragment;
+import com.example.toutiaonews.constant.Constant;
+import com.example.toutiaonews.video.adapter.VideoAdapter;
+import com.example.toutiaonews.video.entity.Channel;
+import com.example.toutiaonews.video.fragment.NewsVideoListFragment;
 import com.google.android.material.tabs.TabLayout;
+import com.shuyu.gsyvideoplayer.GSYVideoManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class VideoFragment extends BaseFragment {
 
-    private TabLayout mTab;
+    private TabLayout tabChannel;
+    private ImageView ivOperation;
     private ViewPager viewPager;
 
-    private String[] titles;//标题列表
-    private List<Fragment> fragments = new ArrayList<>();//fragment
-
+    private List<Channel> mChannelList = new ArrayList<>();
+    private List<NewsVideoListFragment> mFrgamentList = new ArrayList<>();
 
     @Override
     protected int getLayoutId() {
@@ -35,35 +40,67 @@ public class VideoFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        mTab = findViewById(R.id.tab);
+        tabChannel = findViewById(R.id.tab_channel);
+        ivOperation = findViewById(R.id.iv_operation);
         viewPager = findViewById(R.id.viewPager);
 
-        titles = new String[]{"推荐", "音乐", "搞笑", "社会", "小品", "生活", "影视", "娱乐", "呆萌", "游戏", "原创", "开眼"};
+        String[] channels = getResources().getStringArray(R.array.channel_video);
+        String[] channelCodes = getResources().getStringArray(R.array.channel_code_video);
 
-        //添加fragment
-        for (int i = 0; i < titles.length; i++) {
-            fragments.add(MyVideoFragment.newInstance());
+        for (int i = 0; i < channelCodes.length; i++) {
+            String title = channels[i];
+            String code = channelCodes[i];
+            mChannelList.add(new Channel(title, code));
         }
 
-        viewPager.setAdapter(new FragmentPagerAdapter(getFragmentManager()) {
-            @NonNull
-            @Override
-            public Fragment getItem(int position) {
-                return fragments.get(position);
-            }
+        for (Channel channel : mChannelList) {
+            NewsVideoListFragment newsFragment = new NewsVideoListFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString(Constant.CHANNEL_CODE, channel.channelCode);
+            bundle.putBoolean(Constant.IS_VIDEO_LIST, true);//是否是视频列表页面,]true
+            newsFragment.setArguments(bundle);
+            mFrgamentList.add(newsFragment);//添加到集合中
+        }
 
-            @Override
-            public int getCount() {
-                return titles.length;
-            }
 
-            @Nullable
+        VideoAdapter videoAdapter = new VideoAdapter(mFrgamentList, mChannelList, getChildFragmentManager());
+
+        viewPager.setAdapter(videoAdapter);
+
+        viewPager.setOffscreenPageLimit(mFrgamentList.size());
+
+        tabChannel.setupWithViewPager(viewPager);
+
+        tabChannel.post(new Runnable() {
             @Override
-            public CharSequence getPageTitle(int position) {
-                return titles[position];
+            public void run() {
+                //设置最小宽度，使其可以在滑动一部分距离
+                ViewGroup slidingTabStrip = (ViewGroup) tabChannel.getChildAt(0);
+                slidingTabStrip.setMinimumWidth(slidingTabStrip.getMeasuredWidth() + ivOperation.getMeasuredWidth());
             }
         });
-        //设置每个Tab的内边距
-        mTab.setupWithViewPager(viewPager);
+
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                //当页签切换的时候，如果有播放视频，则释放资源
+                GSYVideoManager.releaseAllVideos();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+    public String getCurrentChannelCode() {
+        int currentItem = viewPager.getCurrentItem();
+        return mChannelList.get(currentItem).channelCode;
     }
 }

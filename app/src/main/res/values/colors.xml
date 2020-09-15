@@ -12,7 +12,10 @@
     <color name="colorRed">#FF5722</color>
 
 
+    <color name="color_d8d8d8">#d8d8d8</color>
+    <color name="color_515051">#515051</color>
     <color name="meBackground">#EEEEEE</color>
+    <color name="color_e8e8e8">#e8e8e8</color>
     <color name="meTextViewColor">#000</color>
     <color name="meMarginBackground">#fff</color>
 

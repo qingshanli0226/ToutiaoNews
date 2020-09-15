@@ -38,6 +38,10 @@
         <item name="android:layout_marginRight">@dimen/spaceSize20</item>
     </style>
 
+    <style name="TextAppearanceVideo" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">18sp</item>
+    </style>
+
 
 
 </resources>

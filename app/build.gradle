@@ -21,6 +21,7 @@ android {
         }
     }
 
+
     splits {
         abi {
             enable true
@@ -87,6 +88,8 @@ android {
         implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
     }
 }
+
+
 allprojects {
     repositories {
         google()

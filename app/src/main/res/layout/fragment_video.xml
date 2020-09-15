@@ -6,23 +6,42 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tab"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/spaceSize0"
-        android:layout_weight="1"
-        android:background="@color/colorWhite"
-        app:tabIndicatorColor="@color/colorRed"
-        app:tabMaxWidth="@dimen/spaceSize60"
-        app:tabMode="scrollable"
-        app:tabSelectedTextColor="@color/colorRed"
-        app:tabTextColor="@color/colorBlack" />
+        android:layout_height="@dimen/spaceSize50">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_channel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite"
+            app:tabIndicatorHeight="@dimen/spaceSize0"
+            app:tabIndicatorColor="@color/mainTextSelectColor"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/mainTextSelectColor"
+            app:tabTextAppearance="@style/TextAppearanceVideo"
+            app:tabTextColor="#ff222222" />
+
+        <ImageView
+            android:id="@+id/iv_operation"
+            android:layout_width="@dimen/spaceSize50"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/shadow_add_titlebar_new"
+            android:padding="@dimen/spaceSize10"
+            android:src="@mipmap/add_channel" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize1"
+        android:background="@color/color_e8e8e8" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/spaceSize0"
-        android:layout_weight="@integer/weight9" />
+        android:layout_height="match_parent" />
 
 
 </LinearLayout>

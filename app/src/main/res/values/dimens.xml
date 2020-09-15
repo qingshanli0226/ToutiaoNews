@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    
+
     <dimen name="textSize1">1sp</dimen>
     <dimen name="textSize2">2sp</dimen>
     <dimen name="textSize3">3sp</dimen>
@@ -264,7 +264,11 @@
     <integer name="weight7">7</integer>
     <integer name="weight8">8</integer>
     <integer name="weight9">9</integer>
-
+    <integer name="weight10">10</integer>
+    <integer name="weight11">11</integer>
+    <integer name="weight12">12</integer>
+    <integer name="weight13">13</integer>
+    <integer name="weight14">14</integer>
 
 
 </resources>
