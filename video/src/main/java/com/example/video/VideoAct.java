@@ -1,7 +1,6 @@
 package com.example.video;
 
 import android.content.res.Configuration;
-import android.util.Log;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
@@ -12,6 +11,7 @@ import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
+
 
 @Route(path = ARouterCommon.VIDEO_PLAY_ACT)
 public class VideoAct extends BaseActivity {

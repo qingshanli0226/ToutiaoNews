@@ -4,10 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
-        android:id="@+id/GSY_play"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/video_list_rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-    </com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer>
+    </androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>

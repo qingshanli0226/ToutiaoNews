@@ -2,6 +2,11 @@ package com.example.toutiaonews.fragment_headlines;
 
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LayoutAnimationController;
+import android.view.animation.TranslateAnimation;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,6 +20,8 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.view.animation.Animation.RELATIVE_TO_SELF;
 
 public class VideoFragment extends BaseLJZFragment {
     private SmartRefreshLayout mRefreshListSrl;
@@ -37,6 +44,44 @@ public class VideoFragment extends BaseLJZFragment {
         mVideoListRv.setAdapter(videoAdapter);
     }
 
+    public void playLayoutAnimation(Animation animation, boolean isReverse) {
+        LayoutAnimationController controller = new LayoutAnimationController(animation);
+        controller.setDelay(0.1f);
+        controller.setOrder(isReverse ? LayoutAnimationController.ORDER_REVERSE : LayoutAnimationController.ORDER_NORMAL);
+
+        mVideoListRv.setLayoutAnimation(controller);
+        mVideoListRv.getAdapter().notifyDataSetChanged();
+        mVideoListRv.scheduleLayoutAnimation();
+    }
+
+    public static AnimationSet getAnimationSetFromLeft() {
+        AnimationSet animationSet = new AnimationSet(true);
+        TranslateAnimation translateX1 = new TranslateAnimation(RELATIVE_TO_SELF, -1.0f, RELATIVE_TO_SELF, 0.1f,
+                RELATIVE_TO_SELF, 0, RELATIVE_TO_SELF, 0);
+        translateX1.setDuration(300);
+        translateX1.setInterpolator(new DecelerateInterpolator());
+        translateX1.setStartOffset(0);
+
+        TranslateAnimation translateX2 = new TranslateAnimation(RELATIVE_TO_SELF, 0.1f, RELATIVE_TO_SELF, -0.1f,
+                RELATIVE_TO_SELF, 0, RELATIVE_TO_SELF, 0);
+        translateX2.setStartOffset(300);
+        translateX2.setInterpolator(new DecelerateInterpolator());
+        translateX2.setDuration(50);
+
+        TranslateAnimation translateX3 = new TranslateAnimation(RELATIVE_TO_SELF, -0.1f, RELATIVE_TO_SELF, 0f,
+                RELATIVE_TO_SELF, 0, RELATIVE_TO_SELF, 0);
+        translateX3.setStartOffset(350);
+        translateX3.setInterpolator(new DecelerateInterpolator());
+        translateX3.setDuration(50);
+
+        animationSet.addAnimation(translateX1);
+        animationSet.addAnimation(translateX2);
+        animationSet.addAnimation(translateX3);
+        animationSet.setDuration(400);
+
+        return animationSet;
+    }
+
     @Override
     protected void lazyLoad() {
         list.add("http://vfx.mtime.cn/Video/2019/03/18/mp4/190318214226685784.mp4");
@@ -49,7 +94,7 @@ public class VideoFragment extends BaseLJZFragment {
         list.add("http://vfx.mtime.cn/Video/2019/03/12/mp4/190312143927981075.mp4");
         list.add("http://vfx.mtime.cn/Video/2019/03/12/mp4/190312083533415853.mp4");
 
-        videoAdapter.notifyDataSetChanged();
+        playLayoutAnimation(getAnimationSetFromLeft(),true);
     }
 
     @Override

@@ -2,6 +2,11 @@ package com.example.toutiaonews.fragment_video.view;
 
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LayoutAnimationController;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -28,6 +33,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static android.view.animation.Animation.RELATIVE_TO_SELF;
+
 public class LjzFragmentVideo extends BaseLJZFragment implements BaseQuickAdapter.OnItemChildClickListener, OnRefreshLoadMoreListener {
     private RecyclerView mVideoListRv;
     private SmartRefreshLayout mRefreshListSrl;
@@ -40,6 +47,22 @@ public class LjzFragmentVideo extends BaseLJZFragment implements BaseQuickAdapte
     @Override
     protected int setContentView() {
         return R.layout.fragment_video;
+    }
+
+    /**
+     * 播放RecyclerView动画
+     *
+     * @param animation
+     * @param isReverse
+     */
+    public void playLayoutAnimation(Animation animation, boolean isReverse) {
+        LayoutAnimationController controller = new LayoutAnimationController(animation);
+        controller.setDelay(0.1f);
+        controller.setOrder(isReverse ? LayoutAnimationController.ORDER_REVERSE : LayoutAnimationController.ORDER_NORMAL);
+
+        mVideoListRv.setLayoutAnimation(controller);
+        mVideoListRv.getAdapter().notifyDataSetChanged();
+        mVideoListRv.scheduleLayoutAnimation();
     }
 
     /**
@@ -56,7 +79,6 @@ public class LjzFragmentVideo extends BaseLJZFragment implements BaseQuickAdapte
         mVideoListRv.setLayoutManager(linearLayoutManager);
         mVideoListRv.setAdapter(videoAdapter);
         videoAdapter.setOnItemChildClickListener(this);
-
         mVideoListRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -80,8 +102,36 @@ public class LjzFragmentVideo extends BaseLJZFragment implements BaseQuickAdapte
         list.add("http://vfx.mtime.cn/Video/2019/03/13/mp4/190313094901111138.mp4");
         list.add("http://vfx.mtime.cn/Video/2019/03/12/mp4/190312143927981075.mp4");
         list.add("http://vfx.mtime.cn/Video/2019/03/12/mp4/190312083533415853.mp4");
+        playLayoutAnimation(getAnimationSetFromLeft(),true);
 
-        videoAdapter.notifyDataSetChanged();
+    }
+
+    public static AnimationSet getAnimationSetFromLeft() {
+        AnimationSet animationSet = new AnimationSet(true);
+        TranslateAnimation translateX1 = new TranslateAnimation(RELATIVE_TO_SELF, -1.0f, RELATIVE_TO_SELF, 0.1f,
+                RELATIVE_TO_SELF, 0, RELATIVE_TO_SELF, 0);
+        translateX1.setDuration(300);
+        translateX1.setInterpolator(new DecelerateInterpolator());
+        translateX1.setStartOffset(0);
+
+        TranslateAnimation translateX2 = new TranslateAnimation(RELATIVE_TO_SELF, 0.1f, RELATIVE_TO_SELF, -0.1f,
+                RELATIVE_TO_SELF, 0, RELATIVE_TO_SELF, 0);
+        translateX2.setStartOffset(300);
+        translateX2.setInterpolator(new DecelerateInterpolator());
+        translateX2.setDuration(50);
+
+        TranslateAnimation translateX3 = new TranslateAnimation(RELATIVE_TO_SELF, -0.1f, RELATIVE_TO_SELF, 0f,
+                RELATIVE_TO_SELF, 0, RELATIVE_TO_SELF, 0);
+        translateX3.setStartOffset(350);
+        translateX3.setInterpolator(new DecelerateInterpolator());
+        translateX3.setDuration(50);
+
+        animationSet.addAnimation(translateX1);
+        animationSet.addAnimation(translateX2);
+        animationSet.addAnimation(translateX3);
+        animationSet.setDuration(400);
+
+        return animationSet;
     }
 
     /**
