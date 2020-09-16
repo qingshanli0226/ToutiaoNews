@@ -3,7 +3,7 @@
     package="com.bw.homemodule">
 
     <application>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".home.MainActivity"></activity>
     </application>
 
 </manifest>
