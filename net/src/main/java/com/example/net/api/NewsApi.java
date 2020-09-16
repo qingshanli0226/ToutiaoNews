@@ -1,6 +1,7 @@
 package com.example.net.api;
 
 import com.example.common.entity.NewsDetail;
+import com.example.common.entity.VideoBean;
 import com.example.common.entity.VideoModel;
 import com.example.common.response.CommentResponse;
 import com.example.common.response.NewsResponse;
@@ -29,7 +30,7 @@ public interface NewsApi {
      * @return
      */
     @GET(GET_ARTICLE_LIST)
-    Observable<NewsResponse> getNewsList(@Query("category") String category, @Query("min_behot_time") long lastTime, @Query("last_refresh_sub_entrance_interval") long currentTime);
+    Observable<VideoBean> getNewsList(@Query("category") String category, @Query("min_behot_time") long lastTime, @Query("last_refresh_sub_entrance_interval") long currentTime);
 
     /**
      * 获取新闻详情

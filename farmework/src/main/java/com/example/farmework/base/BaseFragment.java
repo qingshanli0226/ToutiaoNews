@@ -43,6 +43,9 @@ public abstract class BaseFragment extends LazyLoadFragment {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
+    protected void showError(String code, String message) {
+        Toast.makeText(getActivity(), "code:"+code+"  message:"+message, Toast.LENGTH_SHORT).show();
+    }
     protected void launchActivity(Class activity,Bundle bundle){
         Intent intent = new Intent();
         if(bundle == null){

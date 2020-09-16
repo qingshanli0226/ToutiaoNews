@@ -21,12 +21,13 @@ public abstract class BaseMVPFragment<P extends IPresenter,V extends IView> exte
         super.onViewCreated(view, savedInstanceState);
         initPresenter();
         mPresenter.attachView((V) this);
+        initHttpData();
     }
 
     @Override
     protected void onFragmentFirstVisible() {
         //当第一次可见的时候，加载数据
-        initHttpData();
+
     }
 
     @Override
