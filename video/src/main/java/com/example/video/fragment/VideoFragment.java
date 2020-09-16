@@ -1,8 +1,6 @@
 package com.example.video.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -10,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.common.constant.Constant;
+import com.example.common.entity.Channel;
 import com.example.farmework.base.BaseFragment;
 import com.example.toutiaonews.R;
 import com.example.video.adapter.FragmentAdapter;
@@ -19,17 +18,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.jzvd.Jzvd;
-import cn.jzvd.JzvdStd;
 import me.weyye.library.colortrackview.ColorTrackTabLayout;
 
 public class VideoFragment extends BaseFragment {
     private ColorTrackTabLayout videoTab;
     FragmentAdapter fragmentAdapter;
     private ImageView videoImage;
-
+    private List<Channel> mChannelList = new ArrayList<>();
 
     private ViewPager videoView;
-    List<Fragment> fragments = new ArrayList<>();
+    List<VideoListFragment> fragments = new ArrayList<>();
     @Override
     protected int bandLayout() {
         return R.layout.fragment_video;
@@ -37,15 +35,16 @@ public class VideoFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        String[] stringArray = getResources().getStringArray(R.array.channel_video);
-        for (int i = 0; i < stringArray.length; i++) {
-            VideoListFragment videoListFragment = new VideoListFragment();
+        initChannelData();
+        for (Channel channel:mChannelList) {
+            VideoListFragment newsFragment = new VideoListFragment();
             Bundle bundle = new Bundle();
-            bundle.putBoolean(Constant.IS_VIDEO_LIST, true);
-            videoListFragment.setArguments(bundle);
-            fragments.add(videoListFragment);
+            bundle.putString(Constant.CHANNEL_CODE, channel.channelCode);
+            bundle.putBoolean(Constant.IS_VIDEO_LIST, true);//是否是视频列表页面,]true
+            newsFragment.setArguments(bundle);
+            fragments.add(newsFragment);//添加到集合中
         }
-        fragmentAdapter = new FragmentAdapter(getChildFragmentManager(), 1, fragments, stringArray);
+        fragmentAdapter = new FragmentAdapter(getChildFragmentManager(), 1, fragments,mChannelList);
         videoView.setAdapter(fragmentAdapter);
         videoTab.setSelectedTabIndicatorHeight(0);
         videoTab.setupWithViewPager(videoView);
@@ -73,6 +72,16 @@ public class VideoFragment extends BaseFragment {
 
             }
         });
+    }
+
+    private void initChannelData() {
+        String[] channels = getResources().getStringArray(R.array.channel_video);
+        String[] channelCodes = getResources().getStringArray(R.array.channel_code_video);
+        for (int i = 0; i < channelCodes.length; i++) {
+            String title = channels[i];
+            String code = channelCodes[i];
+            mChannelList.add(new Channel(title, code));
+        }
     }
 
     @Override

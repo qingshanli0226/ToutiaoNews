@@ -1,7 +1,11 @@
 package com.example.video.mvp.presenter;
 
+import android.util.Log;
+
 import com.example.common.entity.Video;
+import com.example.common.entity.VideoBean;
 import com.example.common.entity.VideoModel;
+import com.example.common.response.NewsResponse;
 import com.example.net.obserable.BaseObserable;
 import com.example.net.retrofit.RetrofitManager;
 import com.example.video.mvp.contract.VideoContract;
@@ -21,46 +25,24 @@ import io.reactivex.schedulers.Schedulers;
 public class VideoPresenterImpl extends VideoContract.VideoPresenter {
 
     @Override
-    public void getVideoData(String srcurl) {
-        RetrofitManager.getNewsApi().getVideoHtml("https://pv.vlogdownloader.com")
-                .flatMap(new Function<String, ObservableSource<VideoModel>>() {
-                    @Override
-                    public ObservableSource<VideoModel> apply(String s) throws Exception {
-                        Pattern compile = Pattern.compile("var hash = \"(.+)\"");
-                        Matcher matcher = compile.matcher(s);
-                        if(matcher.find()){
-                            String group = matcher.group(1);
-                            String format = String.format("http://pv.vlogdownloader.com/api.php?url=%s&hash=%s", srcurl, group);
-                            return RetrofitManager.getNewsApi().getVideoData(format);
-                        }
-                        return null;
-                    }
-                })
-                .map(new Function<VideoModel, Video>() {
-                    @Override
-                    public Video apply(VideoModel videoModel) throws Exception {
-                        List<Video> video = videoModel.video;
-                        if(video.isEmpty()){
-                            return video.get(video.size()-1);
-                        }
-                        return null;
-                    }
-                })
+    public void getVideoData(String category,long lastTime) {
+        RetrofitManager.getNewsApi().getNewsList(category, Long.parseLong("160013736432"),lastTime)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseObserable<Video>() {
+                .subscribe(new BaseObserable<VideoBean>() {
                     @Override
-                    public void onNext(Video video) {
-                        if(video != null){
-                            iHttpView.onVideoData(video);
+                    public void onNext(VideoBean videoBean) {
+                        Log.d("---", "1111");
+                        if(videoBean != null){
+                            iHttpView.onVideoData(videoBean);
                         }else{
-                            onRequestError("","视频解析失败,请重试");
+                            iHttpView.showError("", "请求失败");
                         }
                     }
 
                     @Override
                     public void onRequestError(String errorCode, String errorMessage) {
-                        iHttpView.showError(errorCode, "视频解析失败,请重试");
+                        iHttpView.showError(errorCode, "请求失败,请重试");
                     }
                 });
     }
