@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_250"
+    android:orientation="vertical">
+
+    <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+        android:id="@+id/item_video_gsy"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_200">
+    </com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/item_video_user_pic"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50"
+            android:layout_margin="5dp"
+            android:src="@mipmap/ic_launcher_round" />
+
+        <TextView
+            android:id="@+id/item_video_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_toRightOf="@id/item_video_user_pic"
+            android:gravity="center"
+            android:text="新华网" />
+
+        <TextView
+            android:id="@+id/item_video_add_focus"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_margin="@dimen/dp_10"
+            android:layout_toLeftOf="@id/item_video_comment_count"
+
+            android:drawableLeft="@mipmap/add_focus"
+            android:gravity="center"
+            android:text="关注" />
+
+        <TextView
+            android:id="@+id/item_video_comment_count"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_margin="@dimen/dp_10"
+
+            android:layout_toLeftOf="@id/item_video_more"
+            android:drawableLeft="@mipmap/comment_count"
+            android:gravity="center"
+            android:text="315" />
+
+        <ImageView
+            android:id="@+id/item_video_more"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/dp_10"
+            android:src="@mipmap/new_more_titlebar" />
+    </RelativeLayout>
+
+
+</LinearLayout>

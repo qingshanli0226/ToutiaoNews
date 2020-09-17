@@ -1,13 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".fragment.VideoFragment">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="VIDEO" />
 
-</FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/fragment_video_tab"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:tabIndicatorHeight="@dimen/dp_0"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/color_f74e00"
+            app:tabTextColor="@color/color_333333">
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <ImageView
+            android:id="@+id/fragment_video_search_pic"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:background="#F8F6F6"
+            android:padding="@dimen/dp_10"
+            android:src="@mipmap/search_channel" />
+
+    </RelativeLayout>
+
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/fragment_video_vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </androidx.viewpager.widget.ViewPager>
+
+
+</LinearLayout>

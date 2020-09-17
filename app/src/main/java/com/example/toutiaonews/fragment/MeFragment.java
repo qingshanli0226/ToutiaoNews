@@ -1,6 +1,5 @@
 package com.example.toutiaonews.fragment;
 
-
 import android.app.PictureInPictureParams;
 import android.content.Intent;
 import android.os.Bundle;
@@ -122,7 +121,6 @@ public class MeFragment extends Fragment {
         context6.setText(" ");
 
 
-
     }
 
     //activityx响应
@@ -136,4 +134,5 @@ public class MeFragment extends Fragment {
             Glide.with(getContext()).load(bean.getPath()).transform(new CircleCrop()).into(myPhoto);
         }
     }
+
 }
