@@ -13,13 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/TranslucentTheme"
         android:usesCleartextTraffic="true">
-<<<<<<< HEAD
-        <activity android:name=".WelcomeActivity"
-           >
-=======
         <activity android:name=".ChannelActivity"></activity>
         <activity android:name=".WelcomeActivity">
->>>>>>> 9009add... 频道管理
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,16 +23,13 @@
         </activity>
         <activity android:name=".MainActivity"></activity>
 
-<<<<<<< HEAD
-        </activity>
-=======
         <meta-data
             android:name="design_width_in_dp"
             android:value="720" />
         <meta-data
             android:name="design_height_in_dp"
             android:value="1280" />
->>>>>>> 9009add... 频道管理
+
     </application>
 
 </manifest>
