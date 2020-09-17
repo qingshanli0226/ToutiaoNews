@@ -3,5 +3,14 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+<<<<<<< HEAD
     <color name="colorMybackground">#575454</color>
+=======
+    <color name="colorSearch">#D33D3C</color>
+    <color name="colorBlack">#1A1818</color>
+    <color name="colorBlue">#264EE2</color>
+    <color name="colorGray">#7C7979</color>
+    <color name="colorRed">#F02211</color>
+    <color name="colorWhite">#FFFFFF</color>
+>>>>>>> 9009add... 频道管理
 </resources>

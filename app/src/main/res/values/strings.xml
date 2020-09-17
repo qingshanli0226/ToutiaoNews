@@ -4,7 +4,12 @@
     <string name="video_index">视频</string>
     <string name="heading_index">微头条</string>
     <string name="mine_index">我的</string>
-
+    <string name="my_chanel">我的频道</string>
+    <string name="channel_recommend">频道推荐</string>
+    <string name="onclick_in_channel">点击进入频道</string>
+    <string name="channel_order">拖拽可以排序</string>
+    <string name="edit">编辑</string>
+    <string name="complete">完成</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

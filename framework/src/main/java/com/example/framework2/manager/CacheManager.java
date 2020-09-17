@@ -14,6 +14,7 @@ import android.widget.ImageView;
 
 import com.example.common.NetCommon;
 import com.example.framework2.MyService;
+import com.example.net.activity_bean.ChannelBean;
 import com.example.net.activity_bean.NewsListBean;
 
 
@@ -25,7 +26,8 @@ public class CacheManager {
     private CacheManager() {
     }
 
-
+    private List<ChannelBean> onList;
+    private List<ChannelBean> noList=new ArrayList<>();
     private NewsListBean newsListBean;
     private SharedPreferences sharedPreferences;
     private List<Activity> activityList=new ArrayList<>();
@@ -38,6 +40,35 @@ public class CacheManager {
         return instance;
     }
 
+    public SharedPreferences getSharedPreferences() {
+        return sharedPreferences;
+    }
+    public void addChannel(ChannelBean channelBean,int position){
+        channelBean.setShow(true);
+        onList.add(channelBean);
+        noList.remove(position);
+    }
+    public void deleteChannel(ChannelBean channelBean,int position){
+        channelBean.setShow(false);
+        onList.remove(position);
+        noList.add(channelBean);
+    }
+    public List<ChannelBean> getOnList() {
+        return onList;
+    }
+
+    public void setOnList(List<ChannelBean> onList) {
+        this.onList = onList;
+    }
+
+    public List<ChannelBean> getNoList() {
+        return noList;
+    }
+
+    public void setNoList(List<ChannelBean> noList) {
+        this.noList = noList;
+    }
+
     public NewsListBean getNewsListBean() {
         return newsListBean;
     }
@@ -48,23 +79,7 @@ public class CacheManager {
 
     public void init(Context context){
         sharedPreferences = context.getSharedPreferences(NetCommon.SP_NAME, Context.MODE_PRIVATE);
-        Intent intent = new Intent(context, MyService.class);
-        ServiceConnection serviceConnection = new ServiceConnection() {
 
-            @Override
-            public void onServiceConnected(ComponentName name, IBinder service) {
-                MyService.MyBinder myBinder=(MyService.MyBinder)service;
-//                if (!TextUtils.isEmpty(getToken())){
-//                    myBinder.getService().autoLogin(getToken());
-//                }
-            }
-
-            @Override
-            public void onServiceDisconnected(ComponentName name) {
-
-            }
-        };
-        context.bindService(intent,serviceConnection,Context.BIND_AUTO_CREATE);
     }
 
 
