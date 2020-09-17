@@ -75,9 +75,11 @@ public class ChannelActivity extends BaseActivity {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (isEdit){
-                    ChannelBean remove = CacheManager.getInstance().getOnList().remove(position);
-                    remove.setSign(false);
-                    CacheManager.getInstance().getNoList().add(remove);
+//                    ChannelBean remove = CacheManager.getInstance().getOnList().remove(position);
+//                    remove.setSign(false);
+//                    CacheManager.getInstance().getNoList().add(remove);
+                    CacheManager.getInstance().getOnList().get(position).setSign(false);
+                    CacheManager.getInstance().deleteChannel(position);
                     adapter2.notifyDataSetChanged();
                     adapter1.notifyItemRemoved(position);
                 }else {
@@ -88,11 +90,14 @@ public class ChannelActivity extends BaseActivity {
         adapter2.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ChannelBean remove = CacheManager.getInstance().getNoList().remove(position);
-                if (isEdit){
-                    remove.setSign(isEdit);
-                }
-                CacheManager.getInstance().getOnList().add(remove);
+//                ChannelBean remove = CacheManager.getInstance().getNoList().remove(position);
+//                if (isEdit){
+//                    remove.setSign(isEdit);
+//                }
+//                CacheManager.getInstance().getOnList().add(remove);
+
+                CacheManager.getInstance().getNoList().get(position).setSign(isEdit);
+                CacheManager.getInstance().addChannel(position);
                 adapter1.notifyDataSetChanged();
                 adapter2.notifyItemRemoved(position);
             }

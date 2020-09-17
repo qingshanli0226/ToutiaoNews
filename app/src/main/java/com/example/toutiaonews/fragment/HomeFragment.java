@@ -3,15 +3,18 @@ package com.example.toutiaonews.fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.common.NetCommon;
@@ -33,13 +36,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private TabLayout homeTab;
     private ImageView homeManager;
     private ViewPager homeVp;
-    private final String TAB_DATA_KEY = "TabJson";
+    private final String TAB_ON_DATA_KEY = "OnTabJson";
+    private final String TAB_NO_DATA_KEY = "NOTabJson";
     private  SharedPreferences sp;
     private String str;
     private List<ChannelBean> tabListAll;
     private List<ChannelBean> tabList;
     private List<Fragment> fragments;
-
+    private PagerAdapter pagerAdapter;
     public void initData() {
         fragments=new ArrayList<>();
         tabList=new ArrayList<>();
@@ -49,25 +53,34 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             tabList.add(new ChannelBean(titles[i],true));
         }
         CacheManager.getInstance().setOnList(tabList);
-        String s = new Gson().toJson(CacheManager.getInstance().getOnList());
-        sp.edit().putString(TAB_DATA_KEY,s);
-        str = sp.getString(TAB_DATA_KEY, null);
-        if (str==null){
+        initChannel();
+        initVp();
+        initTab();
+
+    }
+
+    private void initChannel() {
+
+
+
+        if (sp.getString(TAB_ON_DATA_KEY, null)==null){
             for (int i = 0; i < tabList.size(); i++) {
                 fragments.add(new MyFragment());
             }
         }else {
-            List<ChannelBean> listAll = new Gson().fromJson(str, new TypeToken<List<ChannelBean>>() {
+            List<ChannelBean> onList = new Gson().fromJson(sp.getString(TAB_ON_DATA_KEY, null), new TypeToken<List<ChannelBean>>() {
             }.getType());
-            for (int i = 0; i < listAll.size(); i++) {
-                if (listAll.get(i).isShow()) {
+            List<ChannelBean> noList = new Gson().fromJson(sp.getString(TAB_NO_DATA_KEY, null), new TypeToken<List<ChannelBean>>() {
+            }.getType());
+            CacheManager.getInstance().setNoList(noList);
+            CacheManager.getInstance().setOnList(onList);
+            for (int i = 0; i < onList.size(); i++) {
+                if (onList.get(i).isShow()) {
                     fragments.add(new MyFragment());
                 }
             }
         }
-        initVp();
-        initTab();
-
+        CacheManager.getInstance().setFragments(fragments);
     }
 
     @Override
@@ -81,45 +94,35 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void initVp() {
-        homeVp.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
+         pagerAdapter = new FragmentPagerAdapter(getChildFragmentManager()) {
             @NonNull
             @Override
             public Fragment getItem(int position) {
                 Bundle bundle = new Bundle();
-                bundle.getInt("name",position+1);
-                fragments.get(position).setArguments(bundle);
-                return fragments.get(position);
+                bundle.getInt("name", position + 1);
+                CacheManager.getInstance().getFragments().get(position).setArguments(bundle);
+                return CacheManager.getInstance().getFragments().get(position);
             }
 
             @Override
             public int getCount() {
-                return fragments.size();
+                return CacheManager.getInstance().getFragments().size();
             }
 
             @Nullable
             @Override
             public CharSequence getPageTitle(int position) {
-                return super.getPageTitle(position);
+                return CacheManager.getInstance().getOnList().get(position).getTitle();
             }
-        });
+        };
+        homeVp.setAdapter(pagerAdapter);
 
     }
 
     private void initTab() {
         homeTab.setTabMode(TabLayout.MODE_SCROLLABLE);
         homeTab.setupWithViewPager(homeVp);
-        if (str==null){
-            for (int i = 0; i < tabList.size(); i++) {
-                homeTab.getTabAt(i).setText(tabList.get(i).getTitle());
-            }
-        }else {
-            List<ChannelBean> listAll = new Gson().fromJson(str, new TypeToken<List<ChannelBean>>() {
-            }.getType());
-            for (int i = 0; i < listAll.size(); i++) {
-                if (listAll.get(i).isShow() == true)
-                    homeTab.getTabAt(i).setText(listAll.get(i).getTitle());
-            }
-        }
+
     }
 
     public void initView() {
@@ -140,4 +143,23 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         }
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        pagerAdapter.notifyDataSetChanged();
+        Log.e("fff", "onStart: "+CacheManager.getInstance().getFragments().size() );
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        String s = new Gson().toJson(CacheManager.getInstance().getOnList());
+        String s1 = new Gson().toJson(CacheManager.getInstance().getNoList());
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(TAB_ON_DATA_KEY, s);
+        editor.putString(TAB_NO_DATA_KEY,s1);
+        editor.commit();
+        Log.e(s1+"fff", "onDestroy: " +s);
+    }
 }

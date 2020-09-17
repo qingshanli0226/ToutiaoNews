@@ -12,6 +12,8 @@ import android.os.IBinder;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
+import androidx.fragment.app.Fragment;
+
 import com.example.common.NetCommon;
 import com.example.framework2.MyService;
 import com.example.net.activity_bean.ChannelBean;
@@ -25,7 +27,8 @@ import java.util.List;
 public class CacheManager {
     private CacheManager() {
     }
-
+    private List<Fragment> fragments;
+    private List<Fragment> noFragments=new ArrayList<>();
     private List<ChannelBean> onList;
     private List<ChannelBean> noList=new ArrayList<>();
     private NewsListBean newsListBean;
@@ -39,19 +42,38 @@ public class CacheManager {
 
         return instance;
     }
+    public List<Fragment> getNoFragments() {
+        return noFragments;
+    }
+
+    public void setNoFragments(List<Fragment> noFragments) {
+        this.noFragments = noFragments;
+    }
+
+    public List<Fragment> getFragments() {
+        return fragments;
+    }
+
+    public void setFragments(List<Fragment> fragments) {
+        this.fragments = fragments;
+    }
 
     public SharedPreferences getSharedPreferences() {
         return sharedPreferences;
     }
-    public void addChannel(ChannelBean channelBean,int position){
-        channelBean.setShow(true);
-        onList.add(channelBean);
-        noList.remove(position);
+    public void addChannel(int position){
+        ChannelBean removeC = noList.remove(position);
+        removeC.setShow(true);
+        onList.add(removeC);
+        Fragment removeF = noFragments.remove(position);
+        fragments.add(removeF); 
     }
-    public void deleteChannel(ChannelBean channelBean,int position){
-        channelBean.setShow(false);
-        onList.remove(position);
-        noList.add(channelBean);
+    public void deleteChannel(int position){
+        ChannelBean removeC = onList.remove(position);
+        removeC.setShow(false);
+        noList.add(removeC);
+        Fragment removeF = fragments.remove(position);
+        noFragments.add(removeF);
     }
     public List<ChannelBean> getOnList() {
         return onList;
