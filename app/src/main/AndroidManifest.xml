@@ -23,6 +23,8 @@
         <activity android:name="com.example.user.activity.SevenActivity" />
         <activity android:name="com.example.user.activity.FansActivity" />
         <activity android:name="com.example.user.activity.Action1Activity" />
+        <activity android:name="com.example.user.activity.LoginActivity"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name="com.example.user.activity.RegisterActivity"
             android:theme="@style/AppTheme" />
