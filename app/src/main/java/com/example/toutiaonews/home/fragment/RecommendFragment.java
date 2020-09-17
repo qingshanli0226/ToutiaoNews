@@ -4,10 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.common.constant.TouTiaoNewsConstant;
 import com.example.common.CacheManager;
-import com.example.common.mode.HomeRecommendContentBean;
+import com.example.common.constant.TouTiaoNewsConstant;
 import com.example.common.mode.HomeRecommendBean;
+import com.example.common.mode.HomeRecommendContentBean;
 import com.example.framework2.base.BaseMVPFragment;
 import com.example.toutiaonews.R;
 import com.example.toutiaonews.home.adapter.RecommendAdapter;
