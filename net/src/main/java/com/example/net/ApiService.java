@@ -7,6 +7,7 @@ import com.example.common.mode.NewsDetail;
 import com.example.common.mode.RecommendBean;
 import com.example.common.mode.RegisterBean;
 import com.example.common.mode.ResultResponse;
+import com.example.common.mode.VideoBean;
 import com.example.common.mode.VideoModel;
 import com.example.common.mode.VideoPathResponse;
 
@@ -32,6 +33,17 @@ public interface ApiService {
      */
     @GET(GET_ARTICLE_LIST)
     Observable<RecommendBean> getNewsList(@Query("category") String category, @Query("min_behot_time") long lastTime, @Query("last_refresh_sub_entrance_interval") long currentTime);
+
+
+    /**
+     * 获取新闻视频列表
+     *
+     * @param category 频道
+     * @return
+     */
+    @GET(GET_ARTICLE_LIST)
+    Observable<VideoBean> getNewsVideoList(@Query("category") String category, @Query("min_behot_time") long lastTime, @Query("last_refresh_sub_entrance_interval") long currentTime);
+
 
     /**
      * 获取新闻详情
@@ -59,6 +71,7 @@ public interface ApiService {
 
     /**
      * 获取视频数据json
+     *
      * @param url
      * @return
      */
@@ -73,7 +86,7 @@ public interface ApiService {
     })
 
     @POST("https://www.parsevideo.com/api.php")
-    Observable<VideoPathResponse> parseVideo(@Query("url") String url, @Query("hash")String hash);
+    Observable<VideoPathResponse> parseVideo(@Query("url") String url, @Query("hash") String hash);
 
     @POST
     Observable<RegisterBean> register(@Url String url);

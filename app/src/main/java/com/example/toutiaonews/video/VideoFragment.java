@@ -6,17 +6,18 @@ import android.widget.ImageView;
 
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.common.constant.Constant;
 import com.example.framework2.base.BaseFragment;
 import com.example.toutiaonews.R;
-import com.example.toutiaonews.constant.Constant;
 import com.example.toutiaonews.video.adapter.VideoAdapter;
 import com.example.toutiaonews.video.entity.Channel;
 import com.example.toutiaonews.video.fragment.NewsVideoListFragment;
 import com.google.android.material.tabs.TabLayout;
-import com.shuyu.gsyvideoplayer.GSYVideoManager;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.jzvd.Jzvd;
 
 
 public class VideoFragment extends BaseFragment {
@@ -89,7 +90,7 @@ public class VideoFragment extends BaseFragment {
             @Override
             public void onPageSelected(int position) {
                 //当页签切换的时候，如果有播放视频，则释放资源
-                GSYVideoManager.releaseAllVideos();
+                Jzvd.releaseAllVideos();
             }
 
             @Override

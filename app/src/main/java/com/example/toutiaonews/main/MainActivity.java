@@ -25,6 +25,7 @@ public class MainActivity extends BaseActivity {
     VideoFragment videoFragment;
     MicroFragment microFragment;
     MeFragment meFragment;
+    private static long mPreTime;
 
     //底部导航栏切换的数据
     ArrayList<CustomTabEntity> mainBottomCustomTabEntities = new ArrayList<>();
@@ -115,6 +116,17 @@ public class MainActivity extends BaseActivity {
         }
 
         currentFragment = fragment;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() - mPreTime > 2000) {// 两次点击间隔大于2秒
+            //再按一次退出应用
+            showToast("再按一次退出应用");
+            mPreTime = System.currentTimeMillis();
+            return;
+        }
+        super.onBackPressed();// finish()
     }
 
 }

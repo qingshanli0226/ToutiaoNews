@@ -11,7 +11,10 @@
     <color name="colorBlack">#000000</color>
     <color name="colorRed">#FF5722</color>
 
-
+    <color name="color_F3F5F4">#F3F5F4</color>
+    <color name="color_222222">#222222</color>
+    <color name="translucent">#aa000000</color>
+    <color name="color_C1C1C1">#C1C1C1</color>
     <color name="color_d8d8d8">#d8d8d8</color>
     <color name="color_515051">#515051</color>
     <color name="meBackground">#EEEEEE</color>

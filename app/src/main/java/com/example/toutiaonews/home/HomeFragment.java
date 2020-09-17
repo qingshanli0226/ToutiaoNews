@@ -1,6 +1,5 @@
 package com.example.toutiaonews.home;
 
-import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -97,7 +96,6 @@ public class HomeFragment extends BaseFragment {
 
             }
         });
-
     }
 
     @Override

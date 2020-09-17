@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-
 import com.example.framework2.listener.PermissionListener;
 
 import java.util.ArrayList;
@@ -25,7 +24,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private static Activity mCurrentActivity;// 对所有activity进行管理
     public static List<Activity> mActivities = new LinkedList<Activity>();
-    private static long mPreTime;
     //动态权限回调
     private PermissionListener mPermissionListener;
 
@@ -87,20 +85,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         return mCurrentActivity;
     }
 
-    /**
-     * 统一退出控制
-     * 双击退出应用
-     */
-    @Override
-    public void onBackPressed() {
-        if (System.currentTimeMillis() - mPreTime > 2000) {// 两次点击间隔大于2秒
-            //再按一次退出应用
-            showToast("再按一次退出应用");
-            mPreTime = System.currentTimeMillis();
-            return;
-        }
-        super.onBackPressed();// finish()
-    }
 
     @Override
     protected void onResume() {
