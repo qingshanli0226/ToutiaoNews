@@ -4,4 +4,13 @@
     <dimen name="TopHight">30dp</dimen>
     <dimen name="imageWidth">70dp</dimen>
     <dimen name="imageLeft">15dp</dimen>
+    <dimen name="listHight">400dp</dimen>
+    <dimen name="playerHight">300dp</dimen>
+    <dimen name="Zero">0dp</dimen>
+    <dimen name="imageWeight">5</dimen>
+    <dimen name="imagePadding">10</dimen>
+    <dimen name="listTitleWight">10</dimen>
+    <dimen name="listWeight">2</dimen>
+    <dimen name="listTextSize">20sp</dimen>
+    <dimen name="listImageHight">50dp</dimen>
 </resources>

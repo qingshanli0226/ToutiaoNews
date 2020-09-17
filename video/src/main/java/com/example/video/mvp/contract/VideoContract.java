@@ -13,6 +13,6 @@ public interface VideoContract {
     }
 
     abstract class VideoPresenter extends BasePresenter<IVideoView>{
-        public abstract void getVideoData(String category,long lastTime);
+        public abstract void getVideoData(String category);
     }
 }

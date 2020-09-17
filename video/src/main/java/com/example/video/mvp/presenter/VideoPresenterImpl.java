@@ -2,6 +2,7 @@ package com.example.video.mvp.presenter;
 
 import android.util.Log;
 
+import com.example.common.cache.CacheManager;
 import com.example.common.entity.Video;
 import com.example.common.entity.VideoBean;
 import com.example.common.entity.VideoModel;
@@ -23,15 +24,22 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class VideoPresenterImpl extends VideoContract.VideoPresenter {
-
+    private long firstTime;
     @Override
-    public void getVideoData(String category,long lastTime) {
-        RetrofitManager.getNewsApi().getNewsList(category, Long.parseLong("160013736432"),lastTime)
+    public void getVideoData(String category) {
+        firstTime = CacheManager.getInstance().getFirstTime(category,0);
+        if(firstTime != 0){
+            firstTime = System.currentTimeMillis() / 1000;
+        }
+
+        RetrofitManager.getNewsApi().getNewsList(category,firstTime,System.currentTimeMillis()/1000)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserable<VideoBean>() {
                     @Override
                     public void onNext(VideoBean videoBean) {
+                        firstTime = System.currentTimeMillis() / 1000;
+                        CacheManager.getInstance().putFirstTime(category,firstTime);
                         Log.d("---", "1111");
                         if(videoBean != null){
                             iHttpView.onVideoData(videoBean);
