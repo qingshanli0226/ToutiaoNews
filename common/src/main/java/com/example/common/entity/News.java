@@ -1,6 +1,7 @@
 package com.example.common.entity;
 
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  * @date 2017/7/6  15:11
  */
 
-public class News {
+public class News implements MultiItemEntity {
 
 
     /**
@@ -100,9 +101,15 @@ public class News {
     public ImageEntity middle_image;
     public List<ImageEntity> image_list;
 
-
     @Override
     public String toString() {
         return new Gson().toJson(this);
+    }
+
+    public int itemType = 100;
+
+    @Override
+    public int getItemType() {
+        return itemType;
     }
 }

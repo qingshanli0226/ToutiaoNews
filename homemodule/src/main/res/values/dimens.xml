@@ -3,4 +3,11 @@
 
     <!--布局数值 -->
     <dimen name="tab_Height50dp">50dp</dimen>
+    <dimen name="padding10dp">10dp</dimen>
+    <dimen name="padding5dp">5dp</dimen>
+
+    <!--字体大小 -->
+    <dimen name="textSize25sp">20sp</dimen>
+    <dimen name="textSize15sp">15sp</dimen>
+
 </resources>

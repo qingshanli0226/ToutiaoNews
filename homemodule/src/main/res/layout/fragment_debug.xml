@@ -4,12 +4,8 @@
     android:layout_height="match_parent">
 
 
-    <TextView
-        android:id="@+id/show"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/newsRv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Giao"
-        android:textSize="20sp"
-        />
+        android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>
