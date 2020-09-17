@@ -104,6 +104,6 @@ public class NewsListAdapter extends BaseMultiItemQuickAdapter<News, BaseViewHol
 //            Glide.with(mContext).load(news.middle_image.url).fallback(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher_round).into((ImageView) helper.getView(R.id.tv_image));
 //        }
 
-        Glide.with(mContext).load("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3469017704,4035622631&fm=26&gp=0.jpg").into((ImageView) helper.getView(R.id.tv_img));
+//        Glide.with(mContext).load("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3469017704,4035622631&fm=26&gp=0.jpg").into((ImageView) helper.getView(R.id.tv_img));
     }
 }

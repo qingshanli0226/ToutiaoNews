@@ -24,13 +24,23 @@ public interface NewsApi {
     //http://is.snssdk.com/2/article/information/v21/ 详情
 
     /**
+     * 获取视频列表
+     *
+     * @param category 频道
+     * @return
+     */
+    @GET(GET_ARTICLE_LIST)
+    Observable<VideoBean> getVideoList(@Query("category") String category, @Query("min_behot_time") long lastTime, @Query("last_refresh_sub_entrance_interval") long currentTime);
+
+    /**
      * 获取新闻列表
      *
      * @param category 频道
      * @return
      */
     @GET(GET_ARTICLE_LIST)
-    Observable<VideoBean> getNewsList(@Query("category") String category, @Query("min_behot_time") long lastTime, @Query("last_refresh_sub_entrance_interval") long currentTime);
+    Observable<NewsResponse> getNewsList(@Query("category") String category, @Query("min_behot_time") long lastTime, @Query("last_refresh_sub_entrance_interval") long currentTime);
+
 
     /**
      * 获取新闻详情
