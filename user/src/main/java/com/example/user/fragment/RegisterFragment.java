@@ -93,7 +93,7 @@ public class RegisterFragment extends BaseMVPFragment<LoginRegisterImpl, LoginRe
 
     @Override
     public void onRegisterData(RegisterBean registerBean) {
-        showToast("注册成功,请你登录");
+        showToast(registerBean.getResult());
         //跳转到登录fragment
         LoginRegisterActivity loginRegisterActivity = (LoginRegisterActivity) getActivity();
         loginRegisterActivity.changeFragment(0);

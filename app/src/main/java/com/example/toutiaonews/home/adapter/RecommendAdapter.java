@@ -6,18 +6,18 @@ import androidx.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.example.common.mode.ContentBean;
+import com.example.common.mode.HomeRecommendContentBean;
 import com.example.toutiaonews.R;
 
 import java.util.List;
 
-public class RecommendAdapter extends BaseQuickAdapter<ContentBean, BaseViewHolder> {
-    public RecommendAdapter(int layoutResId, @Nullable List<ContentBean> data) {
+public class RecommendAdapter extends BaseQuickAdapter<HomeRecommendContentBean, BaseViewHolder> {
+    public RecommendAdapter(int layoutResId, @Nullable List<HomeRecommendContentBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, ContentBean item) {
+    protected void convert(BaseViewHolder helper, HomeRecommendContentBean item) {
         helper.setText(R.id.recommendTitle,item.getTitle());
         helper.setText(R.id.recommendSource,item.getSource());
 //        if(item.getComment_count() != 0){

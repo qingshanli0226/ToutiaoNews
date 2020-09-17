@@ -6,7 +6,8 @@ import android.content.res.Resources;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.example.common.manager.CacheManager;
+import com.example.common.CacheManager;
+import com.example.framework2.manager.UserManager;
 
 public class MyApp extends Application {
 
@@ -30,6 +31,7 @@ public class MyApp extends Application {
 
         /*--------------注册-------------*/
         CacheManager.getCacheManager().init(this);//数据缓存注册
+        UserManager.getInstance().init(this);
 
     }
 
@@ -56,7 +58,6 @@ public class MyApp extends Application {
     public static void setMainThreadId(long mMainThreadId) {
         MyApp.mMainThreadId = mMainThreadId;
     }
-
 
     public static Handler getMainHandler() {
         return mHandler;

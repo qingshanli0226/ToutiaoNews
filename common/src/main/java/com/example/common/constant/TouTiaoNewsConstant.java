@@ -12,6 +12,10 @@ public class TouTiaoNewsConstant {
     //是否登录
     public static final String SP_ISLOGIN = "isLogin";
 
+    //储存上一次的时间戳
+    public static final String LAST_TIME = "last_time";
+    //储存这一次的时间戳
+    public static final String CURRENT_TIME = "current_time";
 
 
 

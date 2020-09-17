@@ -2,9 +2,10 @@ package com.example.toutiaonews.welcome;
 
 import android.view.WindowManager;
 
-import com.example.common.manager.CacheManager;
+import com.example.common.constant.TouTiaoNewsConstant;
+import com.example.common.CacheManager;
+import com.example.common.mode.HomeRecommendBean;
 import com.example.framework2.base.BaseMVPActivity;
-import com.example.common.mode.RecommendBean;
 import com.example.toutiaonews.R;
 import com.example.toutiaonews.main.MainActivity;
 import com.example.toutiaonews.welcome.contract.RecommendContract;
@@ -56,12 +57,16 @@ public class WelcomeActivity extends BaseMVPActivity<RecommendPresenterImpl, Rec
     @Override
     protected void initHttpData() {
         //从内存中获取recommendBean数据
-        RecommendBean recommendBean = CacheManager.getCacheManager().getRecommendBean();
-        if(recommendBean == null){
+        HomeRecommendBean homeRecommendBean = CacheManager.getCacheManager().getHomeRecommendBean();
+        if(homeRecommendBean == null){
             //没有储存数据 进行网络请求
             currentTime = System.currentTimeMillis();
+            //存入请求数据得时间戳
+            CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.LAST_TIME,String.valueOf(currentTime));
+            CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.CURRENT_TIME,String.valueOf(currentTime));
             //获取数据
-            iHttpPresenter.getRecommendData(items[0],currentTime);
+            iHttpPresenter.getRecommendData(items[0]);
+
         } else{
             printLog("内存里有数据");
         }
@@ -81,9 +86,9 @@ public class WelcomeActivity extends BaseMVPActivity<RecommendPresenterImpl, Rec
     }
 
     @Override
-    public void onRecommendData(RecommendBean recommendBean) {
+    public void onRecommendData(HomeRecommendBean homeRecommendBean) {
         //储存到内存中
-        CacheManager.getCacheManager().setRecommendBean(recommendBean);
+        CacheManager.getCacheManager().setHomeRecommendBean(homeRecommendBean);
     }
 
     @Override

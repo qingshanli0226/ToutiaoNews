@@ -5,6 +5,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.framework2.manager.UserManager;
 import com.example.framework2.base.BaseMVPFragment;
 import com.example.common.mode.LoginBean;
 import com.example.common.mode.RegisterBean;
@@ -87,6 +88,7 @@ public class LoginFragment extends BaseMVPFragment<LoginRegisterImpl, LoginRegis
     @Override
     public void onLoginData(LoginBean loginBean) {
         showToast("登录成功");
+        UserManager.getInstance().setLoginBean(loginBean);
         //跳转到主页面  就相当于结束这个页面
         getActivity().finish();
 

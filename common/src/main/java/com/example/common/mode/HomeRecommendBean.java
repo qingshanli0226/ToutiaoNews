@@ -2,7 +2,7 @@ package com.example.common.mode;
 
 import java.util.List;
 
-public class RecommendBean {
+public class HomeRecommendBean {
 
 
     /**

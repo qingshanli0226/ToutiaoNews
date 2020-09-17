@@ -12,7 +12,7 @@ import com.example.framework2.base.BaseFragment;
 import com.example.toutiaonews.R;
 import com.example.toutiaonews.home.adapter.HomeTabAdapter;
 import com.example.toutiaonews.home.fragment.RecommendFragment;
-import com.example.toutiaonews.home.fragment.RecommendFragment1;
+import com.example.toutiaonews.home.fragment.HomeVideoFragment;
 import com.example.toutiaonews.home.fragment.RecommendFragment2;
 import com.google.android.material.tabs.TabLayout;
 
@@ -43,7 +43,7 @@ public class HomeFragment extends BaseFragment {
         items = getResources().getStringArray(R.array.channel);
         //添加数据
         fragments.add(recommendFragment);
-        fragments.add(new RecommendFragment1());
+        fragments.add(new HomeVideoFragment());
         fragments.add(new RecommendFragment2());
         //创建适配器对象
         homeTabAdapter = new HomeTabAdapter(getChildFragmentManager(),fragments);

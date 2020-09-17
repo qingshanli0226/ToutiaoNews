@@ -1,48 +1,40 @@
-package com.example.toutiaonews.welcome.presenter;
+package com.example.toutiaonews.home.presenter;
 
 import com.example.common.constant.TouTiaoNewsConstant;
 import com.example.common.CacheManager;
+import com.example.common.mode.HomeVideoBean;
 import com.example.net.RetroCreator;
-import com.example.common.mode.HomeRecommendBean;
-import com.example.toutiaonews.welcome.contract.RecommendContract;
+import com.example.toutiaonews.home.contract.HomeVideoContract;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class RecommendPresenterImpl extends RecommendContract.RecommendPresenter {
+public class HomeVideoPresenterImpl extends HomeVideoContract.HomeVideoPresenter {
 
     String lastTime;
     String currentTime;
 
     @Override
-    public void getRecommendData(String category) {
+    public void getVideoData(String category) {
         //获取sp文件里的时间戳
         lastTime = CacheManager.getCacheManager().getSPOfString(TouTiaoNewsConstant.LAST_TIME);
         currentTime = CacheManager.getCacheManager().getSPOfString(TouTiaoNewsConstant.CURRENT_TIME);
         //储存时间戳
         CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.LAST_TIME,currentTime);
-        //请求数据
-        RetroCreator.getInvestApiService()
-                .getNewsList(category,Long.parseLong(lastTime),Long.parseLong(currentTime))
+        RetroCreator.getInvestApiService().getVideoList(category,Long.parseLong(lastTime),Long.parseLong(currentTime))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<HomeRecommendBean>() {
+                .subscribe(new Observer<HomeVideoBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(HomeRecommendBean homeRecommendBean) {
-                        if(iHttpView != null){
-                            if(homeRecommendBean.getMessage().equals("success")){
-                                iHttpView.onRecommendData(homeRecommendBean);
-                            } else{
-                                iHttpView.showError("404", homeRecommendBean.getMessage());
-                            }
-                        }
+                    public void onNext(HomeVideoBean homeVideoBean) {
+                        iHttpView.onViewData(homeVideoBean);
                     }
 
                     @Override

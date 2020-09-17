@@ -6,7 +6,7 @@ import com.example.toutiaonews.R;
 public class RecommendFragment2 extends BaseFragment {
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_recommend;
+        return R.layout.fragment_home_recommend;
     }
 
     @Override

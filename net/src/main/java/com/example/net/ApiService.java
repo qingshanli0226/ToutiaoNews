@@ -2,9 +2,11 @@ package com.example.net;
 
 
 import com.example.common.mode.CommentResponse;
+import com.example.common.mode.HomeRecommendBean;
+import com.example.common.mode.HomeVideoBean;
 import com.example.common.mode.LoginBean;
+import com.example.common.mode.LoginOutBean;
 import com.example.common.mode.NewsDetail;
-import com.example.common.mode.RecommendBean;
 import com.example.common.mode.RegisterBean;
 import com.example.common.mode.ResultResponse;
 import com.example.common.mode.VideoBean;
@@ -32,7 +34,10 @@ public interface ApiService {
      * @return
      */
     @GET(GET_ARTICLE_LIST)
-    Observable<RecommendBean> getNewsList(@Query("category") String category, @Query("min_behot_time") long lastTime, @Query("last_refresh_sub_entrance_interval") long currentTime);
+    Observable<HomeRecommendBean> getNewsList(@Query("category") String category, @Query("min_behot_time") long lastTime, @Query("last_refresh_sub_entrance_interval") long currentTime);
+
+    @GET(GET_ARTICLE_LIST)
+    Observable<HomeVideoBean> getVideoList(@Query("category") String category, @Query("min_behot_time") long lastTime, @Query("last_refresh_sub_entrance_interval") long currentTime);
 
 
     /**
@@ -93,5 +98,11 @@ public interface ApiService {
 
     @POST
     Observable<LoginBean> login(@Url String url);
+
+    @POST
+    Observable<LoginBean> autoLogin(@Url String url);
+
+    @POST
+    Observable<LoginOutBean> loginOut(@Url String url);
 
 }

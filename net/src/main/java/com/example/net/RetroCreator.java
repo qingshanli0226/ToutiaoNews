@@ -30,6 +30,7 @@ public class RetroCreator {
                 .readTimeout(TIME_SECONDS, TimeUnit.SECONDS)
                 .writeTimeout(TIME_SECONDS, TimeUnit.SECONDS)
                 .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                .addInterceptor(new TouTiaoHeaderInterceptor())
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()

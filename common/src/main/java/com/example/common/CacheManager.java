@@ -1,11 +1,11 @@
-package com.example.common.manager;
+package com.example.common;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.common.dao.NetWorkDataEntity;
 import com.example.common.dao.NetWorkDatabase;
-import com.example.common.mode.RecommendBean;
+import com.example.common.mode.HomeRecommendBean;
 
 import java.util.List;
 
@@ -14,14 +14,14 @@ public class CacheManager {
     private SharedPreferences.Editor editor;//向SP存数据
     private NetWorkDatabase netWorkDatabase;//Room数据库
 
-    private RecommendBean recommendBean;
+    private HomeRecommendBean homeRecommendBean;
 
-    public synchronized RecommendBean getRecommendBean() {
-        return recommendBean;
+    public synchronized HomeRecommendBean getHomeRecommendBean() {
+        return homeRecommendBean;
     }
 
-    public synchronized void setRecommendBean(RecommendBean recommendBean) {
-        this.recommendBean = recommendBean;
+    public synchronized void setHomeRecommendBean(HomeRecommendBean homeRecommendBean) {
+        this.homeRecommendBean = homeRecommendBean;
     }
 
     private static CacheManager cacheManager;

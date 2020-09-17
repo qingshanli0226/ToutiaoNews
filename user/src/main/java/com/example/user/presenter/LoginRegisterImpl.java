@@ -24,7 +24,7 @@ public class LoginRegisterImpl extends LoginRegisterContract.LoginRegisterPresen
 
                     @Override
                     public void onNext(RegisterBean registerBean) {
-                        if(registerBean.getCode().equals(200)){
+                        if(registerBean.getCode().equals("200")){
                             iHttpView.onRegisterData(registerBean);
                         } else{
                             iHttpView.showError(registerBean.getCode(),registerBean.getMessage());
@@ -56,10 +56,12 @@ public class LoginRegisterImpl extends LoginRegisterContract.LoginRegisterPresen
 
                     @Override
                     public void onNext(LoginBean loginBean) {
-                        if(loginBean.getCode().equals("200")){
-                            iHttpView.onLoginData(loginBean);
-                        } else{
-                            iHttpView.showError(loginBean.getCode(),loginBean.getMessage());
+                        if (iHttpView != null){
+                            if(loginBean.getCode().equals("200")){
+                                iHttpView.onLoginData(loginBean);
+                            } else{
+                                iHttpView.showError(loginBean.getCode(),loginBean.getMessage());
+                            }
                         }
                     }
 

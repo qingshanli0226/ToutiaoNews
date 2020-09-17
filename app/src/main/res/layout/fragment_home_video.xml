@@ -3,9 +3,10 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/homeRecommendRv"></androidx.recyclerview.widget.RecyclerView>
+        android:textSize="@dimen/textSize13"
+        android:text="123123"/>
 
 </LinearLayout>
