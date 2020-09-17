@@ -25,8 +25,6 @@ public class CustomControl extends LinearLayout {
         myTitle = (TextView) findViewById(R.id.my_title);
         myContext = (TextView) findViewById(R.id.my_context);
         myBackOne = (ImageView) findViewById(R.id.my_back_one);
-
-
     }
 
     public CustomControl(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {

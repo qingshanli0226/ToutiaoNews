@@ -1,4 +1,4 @@
-boolean isApp = true
+boolean isApp = false
 if (isApp) {
     apply plugin: 'com.android.application'
 } else {
@@ -6,7 +6,7 @@ if (isApp) {
 }
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    buildToolsVersion "29.0.3"
 
     defaultConfig {
         minSdkVersion 19

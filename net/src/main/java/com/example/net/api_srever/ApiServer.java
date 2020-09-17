@@ -1,9 +1,16 @@
 package com.example.net.api_srever;
 
+import com.example.net.activity_bean.LoginBean;
 import com.example.net.activity_bean.NewsListBean;
+import com.example.net.activity_bean.RegisterBean;
+
+import java.util.TreeMap;
 
 import io.reactivex.Observable;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 
 public interface ApiServer {
 //    @GET("atguigu/json/P2PInvest/index.json")
@@ -13,12 +20,12 @@ public interface ApiServer {
 //
 //    @GET("atguigu/json/P2PInvest/product.json")
 //    Observable<InvestBean> getInvestk();
-//    @POST("login")
-//    @FormUrlEncoded
-//    Observable<LoginBean> loginIn(@FieldMap TreeMap<String,String> params);
-//    @POST("register")
-//    @FormUrlEncoded
-//    Observable<RegisterBean> register(@FieldMap TreeMap<String,String> params);
+    @POST("login")
+    @FormUrlEncoded
+    Observable<LoginBean> loginIn(@FieldMap TreeMap<String,String> params);
+    @POST("register")
+    @FormUrlEncoded
+    Observable<RegisterBean> register(@FieldMap TreeMap<String,String> params);
 //    @POST("crash")
 //    @FormUrlEncoded
 //    Observable<BaseBean<String>> crashReport(@FieldMap HashMap<String,String> params);

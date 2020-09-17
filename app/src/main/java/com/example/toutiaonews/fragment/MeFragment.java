@@ -1,29 +1,30 @@
 package com.example.toutiaonews.fragment;
 
 
-import android.app.PictureInPictureParams;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.common.CustomControl;
+import com.example.toutiaonews.login.LoginActivity;
 import com.example.toutiaonews.R;
+import com.example.toutiaonews.reg.RegMainActivity;
 import com.wildma.pictureselector.PictureBean;
 import com.wildma.pictureselector.PictureSelector;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.wildma.pictureselector.PictureSelector.SELECT_REQUEST_CODE;
 
@@ -90,9 +91,37 @@ public class MeFragment extends Fragment {
         myName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "登录/注册", Toast.LENGTH_SHORT).show();
+                //pop
+                View inflate = LayoutInflater.from(getContext()).inflate(R.layout.login_pop, null, false);
+                PopupWindow popupWindow = new PopupWindow(inflate, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
+                popupWindow.showAtLocation(myPhoto, Gravity.CENTER,0,0);
+                Button loginBtn = inflate.findViewById(R.id.login_btn);
+                Button regiterBtn = inflate.findViewById(R.id.regihter_btn);
+                loginBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        login();
+                    }
+                });
+                regiterBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        register();
+                    }
+                });
             }
         });
+    }
+    //注册
+    private void register() {
+        Intent intent = new Intent(getContext(), RegMainActivity.class);
+        startActivity(intent);
+    }
+
+    //登录
+    private void login() {
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        startActivity(intent);
     }
 
     private void initview() {
