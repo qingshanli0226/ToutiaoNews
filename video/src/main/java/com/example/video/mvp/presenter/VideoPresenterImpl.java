@@ -32,7 +32,7 @@ public class VideoPresenterImpl extends VideoContract.VideoPresenter {
             firstTime = System.currentTimeMillis() / 1000;
         }
 
-        RetrofitManager.getNewsApi().getNewsList(category,firstTime,System.currentTimeMillis()/1000)
+        RetrofitManager.getNewsApi().getVideoList(category,firstTime,System.currentTimeMillis()/1000)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserable<VideoBean>() {

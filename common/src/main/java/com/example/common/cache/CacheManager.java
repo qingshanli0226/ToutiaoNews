@@ -23,12 +23,12 @@ public class CacheManager {
         edit = twoGroup.edit();
     }
 
-    public void onFristTime(String firstTime){
-        edit.putString("firstTime", firstTime);
+    public synchronized void putFirstTime(String key,long firstTime){
+        edit.putLong(key, firstTime);
         edit.commit();
     }
-    public String getFristTime(){
-        String firstTime = twoGroup.getString("firstTime", "");
+    public synchronized long getFirstTime(String key,long time){
+        long firstTime = twoGroup.getLong(key, time);
         return firstTime;
     }
 }

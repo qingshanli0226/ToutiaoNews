@@ -7,10 +7,8 @@
     <dimen name="listHight">400dp</dimen>
     <dimen name="playerHight">300dp</dimen>
     <dimen name="Zero">0dp</dimen>
-    <dimen name="imageWeight">5</dimen>
-    <dimen name="imagePadding">10</dimen>
-    <dimen name="listTitleWight">10</dimen>
-    <dimen name="listWeight">2</dimen>
+    <dimen name="imagePadding">10dp</dimen>
+    <dimen name="listTextLeft">10dp</dimen>
     <dimen name="listTextSize">20sp</dimen>
     <dimen name="listImageHight">50dp</dimen>
 </resources>

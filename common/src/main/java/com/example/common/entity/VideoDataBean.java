@@ -167,6 +167,9 @@ public class VideoDataBean {
     private List<FilterWordsBean> filter_words;
     private List<LargeImageListBean> large_image_list;
 
+
+
+
     public String getAbstractX() {
         return abstractX;
     }
@@ -1471,6 +1474,24 @@ public class VideoDataBean {
         private int video_type;
         private int video_watching_count;
         private int video_preloading_flag;
+        private String parse_video_url;
+        private long progress;
+
+        public long getProgress() {
+            return progress;
+        }
+
+        public void setProgress(long progress) {
+            this.progress = progress;
+        }
+
+        public String getParse_video_url() {
+            return parse_video_url;
+        }
+
+        public void setParse_video_url(String parse_video_url) {
+            this.parse_video_url = parse_video_url;
+        }
 
         public int getGroup_flags() {
             return group_flags;

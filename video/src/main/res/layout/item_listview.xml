@@ -12,13 +12,13 @@
         android:layout_height="match_parent">
         <ImageView
             android:layout_width="@dimen/Zero"
-            android:layout_weight="@dimen/imageWeight"
+            android:layout_weight="5"
             android:padding="@dimen/imagePadding"
             android:layout_height="match_parent"
             android:id="@+id/list_image"/>
         <TextView
             android:layout_width="@dimen/Zero"
-            android:layout_weight="@dimen/listTitleWight"
+            android:layout_weight="10"
             android:text="无痕大魔王"
             android:gravity="center|left"
             android:textSize="@dimen/listTextSize"
@@ -27,13 +27,14 @@
             android:layout_height="wrap_content" />
         <ImageView
             android:layout_width="@dimen/Zero"
-            android:layout_weight="@dimen/listWeight"
-            android:layout_height="50dp"
+            android:layout_weight="2"
+            android:layout_height="@dimen/listImageHight"
             android:layout_gravity="center"
             android:src="@mipmap/add_focus"/>
         <TextView
             android:layout_width="@dimen/Zero"
-            android:layout_weight="@dimen/listWeight"
+            android:layout_weight="3"
+            android:layout_marginLeft="@dimen/listTextLeft"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_alignParentBottom="true"
@@ -42,15 +43,16 @@
             android:textSize="@dimen/listTextSize" />
         <ImageView
             android:layout_width="@dimen/Zero"
-            android:layout_weight="@dimen/listWeight"
+            android:layout_weight="2"
             android:layout_height="@dimen/listImageHight"
+            android:layout_marginLeft="@dimen/listTextLeft"
             android:src="@mipmap/comment_count"
             android:layout_gravity="center" />
         <TextView
-            android:layout_width="@dimen/Zero"
-            android:layout_weight="@dimen/listWeight"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/listTextLeft"
             android:id="@+id/list_ping"
             android:layout_alignParentBottom="true"
             android:gravity="center"
@@ -58,8 +60,9 @@
             android:textSize="@dimen/listTextSize" />
         <ImageView
             android:layout_width="@dimen/Zero"
-            android:layout_weight="@dimen/listWeight"
+            android:layout_weight="2"
             android:layout_height="@dimen/listImageHight"
+            android:layout_marginLeft="@dimen/listTextLeft"
             android:src="@mipmap/new_more_titlebar"
             android:layout_gravity="center" />
     </LinearLayout>
