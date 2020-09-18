@@ -18,6 +18,8 @@ public abstract class BaseObserver<T> extends DisposableObserver<T> implements I
     @Override
     public void onNext(T t) {
         success(t);
+        Log.e("hqhq", "onNext: " );
+
     }
 
     @Override
@@ -32,11 +34,13 @@ public abstract class BaseObserver<T> extends DisposableObserver<T> implements I
             NetBusinessException netBusinessException = (NetBusinessException)e;
             error(netBusinessException.getCode(), netBusinessException.getMessage());
         } else if (e instanceof SecurityException) {
+            Log.e("hqhq", "onError: "+e.getMessage());
         }
     }
 
     @Override
     public void onComplete() {
+        Log.e("hqhq", "onComplete: " );
 
     }
 }
