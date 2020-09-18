@@ -2,6 +2,7 @@ package com.bw.homemodule.home.presenter;
 
 
 import com.bw.homemodule.home.contract.HomeContract;
+import com.bw.homemodule.untils.NewsItemTypeUntil;
 import com.example.common.entity.News;
 import com.example.common.entity.NewsData;
 import com.example.common.response.NewsResponse;
@@ -36,6 +37,7 @@ public class HomePresenterImpl extends HomeContract.HomePresenter {
                         if (newsResponse.data.size()!=0){
                             for (NewsData data:newsResponse.data){  //json串读取填list
                                 News news = new Gson().fromJson(data.content, News.class);
+                                NewsItemTypeUntil.ChangeItemType(news);
                                 newsList.add(news);
                             }
                         }

@@ -5,9 +5,14 @@
     <dimen name="tab_Height50dp">50dp</dimen>
     <dimen name="padding10dp">10dp</dimen>
     <dimen name="padding5dp">5dp</dimen>
+    <dimen name="rv_Height">120dp</dimen>
+    <dimen name="bigRv_Height">200dp</dimen>
+    <dimen name="margin10dp">10dp</dimen>
+    <dimen name="marginShowTime">13dp</dimen>
+
 
     <!--字体大小 -->
-    <dimen name="textSize25sp">20sp</dimen>
-    <dimen name="textSize15sp">15sp</dimen>
+    <dimen name="textSizeBig">18sp</dimen>
+    <dimen name="textSizeSmall">15sp</dimen>
 
 </resources>
