@@ -11,7 +11,7 @@ public class NewsVideoContract {
     }
 
     public static abstract class NewsVideoPresenter extends BasePresenter<IVideoView> {
-        public abstract void getNewsVideoData(String category,long currentTime);
+        public abstract void getNewsVideoData(String category);
     }
 
 

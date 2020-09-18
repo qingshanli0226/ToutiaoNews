@@ -1,5 +1,7 @@
 package com.example.toutiaonews.video.presenter;
 
+import com.example.common.CacheManager;
+import com.example.common.constant.TouTiaoNewsConstant;
 import com.example.common.mode.VideoBean;
 import com.example.net.RetroCreator;
 import com.example.toutiaonews.video.contract.NewsVideoContract;
@@ -12,12 +14,18 @@ import io.reactivex.schedulers.Schedulers;
 
 public class NewsVideoPresenterImpl extends NewsVideoContract.NewsVideoPresenter {
 
-    long lastTime;
-
+    String lastTime;
+    String currentTime;
+    
     @Override
-    public void getNewsVideoData(String category, long currentTime) {
-        lastTime = System.currentTimeMillis() / 1000;
-        RetroCreator.getInvestApiService().getNewsVideoList(category, lastTime, currentTime)
+    public void getNewsVideoData(String category) {
+        //获取sp文件里的时间戳
+        lastTime = CacheManager.getCacheManager().getSPOfString(TouTiaoNewsConstant.LAST_TIME);
+        currentTime = CacheManager.getCacheManager().getSPOfString(TouTiaoNewsConstant.CURRENT_TIME);
+        //储存时间戳
+        CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.LAST_TIME,currentTime);
+
+        RetroCreator.getInvestApiService().getNewsVideoList(category, Long.parseLong(lastTime), Long.parseLong(currentTime))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -51,7 +59,5 @@ public class NewsVideoPresenterImpl extends NewsVideoContract.NewsVideoPresenter
 
                     }
                 });
-
-
     }
 }

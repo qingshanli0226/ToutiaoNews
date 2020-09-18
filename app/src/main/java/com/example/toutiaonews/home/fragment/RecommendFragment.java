@@ -46,11 +46,11 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
     protected void initData() {
         //获取recommendBean数据
         HomeRecommendBean homeRecommendBean = CacheManager.getCacheManager().getHomeRecommendBean();
-        if(homeRecommendBean != null){
+        if (homeRecommendBean != null) {
             //添加数据
             dataBeans = (ArrayList<HomeRecommendBean.DataBean>) homeRecommendBean.getData();
             Gson gson = new Gson();
-            for (int i = 0; i < dataBeans.size() ; i++) {
+            for (int i = 0; i < dataBeans.size(); i++) {
                 //把json数据转换为contentBean对象
                 HomeRecommendContentBean homeRecommendContentBean = gson.fromJson(dataBeans.get(i).getContent(), HomeRecommendContentBean.class);
                 homeRecommendContentBeans.add(homeRecommendContentBean);
@@ -69,7 +69,7 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
                 //下拉加载
                 long currentTime = System.currentTimeMillis();
                 //并把当前的时间戳存入sp文件中
-                CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.CURRENT_TIME,String.valueOf(currentTime));
+                CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.CURRENT_TIME, String.valueOf(currentTime));
                 //发起网络请求
                 iHttpPresenter.getRecommendData(stringChannel);
             }
@@ -81,7 +81,7 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
                 homeRecommendContentBeans.clear();
                 long currentTime = System.currentTimeMillis();
                 //并把当前的时间戳存入sp文件中
-                CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.CURRENT_TIME,String.valueOf(currentTime));
+                CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.CURRENT_TIME, String.valueOf(currentTime));
                 //发起网络请求
                 iHttpPresenter.getRecommendData(stringChannel);
             }
@@ -112,11 +112,12 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
     @Override
     public void onRecommendData(HomeRecommendBean homeRecommendBean) {
 
-        if(!homeRecommendBean.toString().equals("")){
+
+        if (!homeRecommendBean.toString().equals("")) {
             dataBeans.clear();
             dataBeans = (ArrayList<HomeRecommendBean.DataBean>) homeRecommendBean.getData();
             Gson gson = new Gson();
-            for (int i = 0; i < dataBeans.size() ; i++) {
+            for (int i = 0; i < dataBeans.size(); i++) {
                 //把json数据转换为contentBean对象
                 HomeRecommendContentBean homeRecommendContentBean = gson.fromJson(dataBeans.get(i).getContent(), HomeRecommendContentBean.class);
                 homeRecommendContentBeans.add(homeRecommendContentBean);
@@ -127,13 +128,24 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
             homeRecommendSmart.finishLoadMore();
 
             recommendAdapter.notifyDataSetChanged();
-        } else{
+        } else {
             //没数据就显示提示信息 隐藏列表
             homeRecommendLin.setVisibility(View.VISIBLE);
             homeRecommendRv.setVisibility(View.GONE);
+
+            if (dataBeans.size() != 0) {
+                dataBeans.clear();
+            }
+
+            dataBeans = (ArrayList<HomeRecommendBean.DataBean>) homeRecommendBean.getData();
+            Gson gson = new Gson();
+            for (int i = 0; i < dataBeans.size(); i++) {
+                //把json数据转换为contentBean对象
+                HomeRecommendContentBean homeRecommendContentBean = gson.fromJson(dataBeans.get(i).getContent(), HomeRecommendContentBean.class);
+                homeRecommendContentBeans.add(homeRecommendContentBean);
+
+            }
         }
-
-
     }
 
     @Override

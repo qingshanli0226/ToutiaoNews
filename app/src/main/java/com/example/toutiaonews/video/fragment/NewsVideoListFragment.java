@@ -7,7 +7,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+
+import com.blankj.utilcode.util.LogUtils;
+import com.example.common.CacheManager;
+
 import com.example.common.constant.Constant;
+import com.example.common.constant.TouTiaoNewsConstant;
+import com.example.common.dao.NetWorkDataEntity;
 import com.example.common.mode.VideoBean;
 import com.example.common.mode.VideoDataBean;
 import com.example.framework2.base.BaseMVPFragment;
@@ -70,12 +76,24 @@ public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImp
         videolistSr.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                
+                //下拉加载
+                long currentTime = System.currentTimeMillis();
+                //并把当前的时间戳存入sp文件中
+                CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.CURRENT_TIME, String.valueOf(currentTime));
+                //发起网络请求
+                iHttpPresenter.getNewsVideoData(mChannelCode);
             }
 
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-
+                //上拉刷新
+                //清空数据
+                listData.clear();
+                long currentTime = System.currentTimeMillis();
+                //并把当前的时间戳存入sp文件中
+                CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.CURRENT_TIME, String.valueOf(currentTime));
+                //发起网络请求
+                iHttpPresenter.getNewsVideoData(mChannelCode);
             }
         });
 
@@ -83,7 +101,7 @@ public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImp
 
     @Override
     protected void initHttpData() {
-        iHttpPresenter.getNewsVideoData(mChannelCode, System.currentTimeMillis() / 1000);
+        iHttpPresenter.getNewsVideoData(mChannelCode);
     }
 
     @Override
@@ -91,25 +109,48 @@ public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImp
         iHttpPresenter = new NewsVideoPresenterImpl();
     }
 
+    //获取数据
     @Override
     public void onVideoData(VideoBean videoBean) {
 
-        if(!videoBean.toString().equals("")){
+
+        if (!videoBean.toString().equals("")) {
             list.addAll(videoBean.getData());
 
             Gson gson = new Gson();
-            for (int i = 0; i < list.size(); i++) {
-                String json = list.get(i).getContent();
-                VideoDataBean videoDataBean = gson.fromJson(json, VideoDataBean.class);
-                listData.add(videoDataBean);
+
+            LogUtils.json(videoBean);
+
+
+            if (videoBean != null) {
+
+                for (int i = 0; i < list.size(); i++) {
+                    String json = list.get(i).getContent();
+                    VideoDataBean videoDataBean = gson.fromJson(json, VideoDataBean.class);
+                    listData.add(videoDataBean);
+                    //插入数据库
+                    NetWorkDataEntity netWorkDataEntity = new NetWorkDataEntity();
+                    netWorkDataEntity.setJsonUrl(json);
+
+                    CacheManager.getCacheManager().insert(netWorkDataEntity);
+                }
+                videoListAdapter.notifyDataSetChanged();
+            } else {
+                //没数据就显示提示信息 隐藏列表
+                homeNewsVideoListLin.setVisibility(View.VISIBLE);
+                videolistRv.setVisibility(View.GONE);
             }
-            videoListAdapter.notifyDataSetChanged();
-        } else{
-            //没数据就显示提示信息 隐藏列表
-            homeNewsVideoListLin.setVisibility(View.VISIBLE);
-            videolistRv.setVisibility(View.GONE);
+
+
+        } else {
+            onRoomVideoData();
+
         }
 
+        //停止上拉和下拉
+        videolistSr.finishRefresh();
+        videolistSr.finishLoadMore();
+        videoListAdapter.notifyDataSetChanged();
 
     }
 
@@ -127,4 +168,15 @@ public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImp
     public void hideLoading() {
 
     }
+
+    //拿到数据库中的缓存视频页数据
+    private void onRoomVideoData() {
+        //从数据库中拿到数据
+        List<NetWorkDataEntity> allData = CacheManager.getCacheManager().getAllData();
+        String jsonUrl = allData.get(allData.size()).getJsonUrl();
+        VideoDataBean videoDataBean = new Gson().fromJson(jsonUrl, VideoDataBean.class);
+        listData.add(videoDataBean);
+    }
+
+
 }

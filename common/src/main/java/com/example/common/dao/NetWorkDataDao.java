@@ -29,8 +29,8 @@ public interface NetWorkDataDao {
     NetWorkDataEntity getWebUrl(String webUrl);
 
     //查询视频地址---返回视频地址
-    @Query("SELECT DISTINCT * FROM networkdataentity WHERE vidoeUrl=:vidoeUrl")
-    NetWorkDataEntity getVideoUrl(String vidoeUrl);
+    @Query("SELECT DISTINCT * FROM networkdataentity WHERE videoUrl=:videoUrl")
+    NetWorkDataEntity getVideoUrl(String videoUrl);
 
     //查询Json地址---返回Json地址
     @Query("SELECT DISTINCT * FROM networkdataentity WHERE jsonUrl=:jsonUrl")
@@ -41,7 +41,8 @@ public interface NetWorkDataDao {
 
     //添加数据
     @Insert
-    void inster(NetWorkDataEntity... netWorkDataEntities);
+    void insert(NetWorkDataEntity... netWorkDataEntities);
+
 
     //添加对象集合
     @Insert

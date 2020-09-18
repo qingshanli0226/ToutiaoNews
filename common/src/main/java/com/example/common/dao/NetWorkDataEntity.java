@@ -12,14 +12,64 @@ public class NetWorkDataEntity {
     @PrimaryKey(autoGenerate = true)//设置主键自增
     private int id;//主键id
 
+
+    private String videoTitle;//视频标题
+    private int videoCommentCount;//视频评论
+    private String userInfoName;//作者昵称
+    private String userAvatarUrl;//作者头像
+    private String videoLargeImg;//视频缩略图
+
+    public String getVideoLargeImg() {
+        return videoLargeImg;
+    }
+
+    public void setVideoLargeImg(String videoLargeImg) {
+        this.videoLargeImg = videoLargeImg;
+    }
+
+    public String getVideoTitle() {
+        return videoTitle;
+    }
+
+    public void setVideoTitle(String videoTitle) {
+        this.videoTitle = videoTitle;
+    }
+
+    public int getVideoCommentCount() {
+        return videoCommentCount;
+    }
+
+    public void setVideoCommentCount(int videoCommentCount) {
+        this.videoCommentCount = videoCommentCount;
+    }
+
+    public String getUserInfoName() {
+        return userInfoName;
+    }
+
+    public void setUserInfoName(String userInfoName) {
+        this.userInfoName = userInfoName;
+    }
+
+    public String getUserAvatarUrl() {
+        return userAvatarUrl;
+    }
+
+    public void setUserAvatarUrl(String userAvatarUrl) {
+        this.userAvatarUrl = userAvatarUrl;
+    }
+
+
+
     //图片地址
     private String imgUrl;
     //Web地址
     private String webUrl;
     //视频地址
-    private String vidoeUrl;
+    private String videoUrl;
     //Json地址
     private String jsonUrl;
+
 
     public int getId() {
         return id;
@@ -45,12 +95,12 @@ public class NetWorkDataEntity {
         this.webUrl = webUrl;
     }
 
-    public String getVidoeUrl() {
-        return vidoeUrl;
+    public String getVideoUrl() {
+        return videoUrl;
     }
 
-    public void setVidoeUrl(String vidoeUrl) {
-        this.vidoeUrl = vidoeUrl;
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
     }
 
     public String getJsonUrl() {

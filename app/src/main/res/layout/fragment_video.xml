@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/spaceSize50">
@@ -16,8 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorWhite"
-            app:tabIndicatorHeight="@dimen/spaceSize0"
             app:tabIndicatorColor="@color/mainTextSelectColor"
+            app:tabIndicatorHeight="@dimen/spaceSize0"
             app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/mainTextSelectColor"
             app:tabTextAppearance="@style/TextAppearanceVideo"
@@ -30,7 +29,7 @@
             android:layout_alignParentRight="true"
             android:background="@mipmap/shadow_add_titlebar_new"
             android:padding="@dimen/spaceSize10"
-            android:src="@mipmap/add_channel" />
+            android:src="@mipmap/search_channel" />
     </RelativeLayout>
 
     <View
@@ -42,6 +41,4 @@
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-
 </LinearLayout>

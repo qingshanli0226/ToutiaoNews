@@ -31,8 +31,8 @@ public class CacheManager {
 
     public static CacheManager getCacheManager() {
         if (cacheManager == null) {
-            synchronized (CacheManager.class){
-                if(cacheManager == null){
+            synchronized (CacheManager.class) {
+                if (cacheManager == null) {
                     cacheManager = new CacheManager();
                 }
             }
@@ -103,7 +103,7 @@ public class CacheManager {
 
     //添加数据
     public void insert(NetWorkDataEntity netWorkDataEntities) {
-        netWorkDatabase.getNetWorkDataDao().inster(netWorkDataEntities);
+        netWorkDatabase.getNetWorkDataDao().insert(netWorkDataEntities);
     }
 
     //添加对象集合

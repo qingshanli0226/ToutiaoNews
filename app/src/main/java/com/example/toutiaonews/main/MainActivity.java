@@ -129,4 +129,9 @@ public class MainActivity extends BaseActivity {
         super.onBackPressed();// finish()
     }
 
+    @Override
+    protected void onStart() {
+        checkNetworkState();
+        super.onStart();
+    }
 }

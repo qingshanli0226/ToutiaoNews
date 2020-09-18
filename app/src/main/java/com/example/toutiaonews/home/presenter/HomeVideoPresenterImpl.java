@@ -23,8 +23,8 @@ public class HomeVideoPresenterImpl extends HomeVideoContract.HomeVideoPresenter
         lastTime = CacheManager.getCacheManager().getSPOfString(TouTiaoNewsConstant.LAST_TIME);
         currentTime = CacheManager.getCacheManager().getSPOfString(TouTiaoNewsConstant.CURRENT_TIME);
         //储存时间戳
-        CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.LAST_TIME,currentTime);
-        RetroCreator.getInvestApiService().getNewsVideoList(category,Long.parseLong(lastTime),Long.parseLong(currentTime))
+        CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.LAST_TIME, currentTime);
+        RetroCreator.getInvestApiService().getNewsVideoList(category, Long.parseLong(lastTime), Long.parseLong(currentTime))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
