@@ -21,7 +21,6 @@ import com.example.common.response.NewsResponse;
 import com.example.farmework.base.BaseFragment;
 import com.example.farmework.base.BaseMVPFragment;
 import com.example.toutiaonews.R;
-import com.example.video.VideoPathDecoder;
 import com.example.video.adapter.VideoListAdapter;
 import com.example.video.mvp.contract.VideoContract;
 import com.example.video.mvp.presenter.VideoPresenterImpl;
@@ -48,29 +47,10 @@ public class VideoListFragment extends BaseMVPFragment<VideoPresenterImpl, Video
                 videoListAdapter = new VideoListAdapter(R.layout.item_listview, listData);
                 videoRv.setAdapter(videoListAdapter);
                 videoRv.setLayoutManager(new LinearLayoutManager(getContext()));
-                initHtml((String) msg.obj);
             }
         }
     };
 
-    private void initHtml(String url) {
-//        VideoPathDecoder videoPathDecoder = new VideoPathDecoder() {
-//            @Override
-//            public void onSuccess(String url) {
-//                new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                    }
-//                }).start();
-//            }
-//
-//            @Override
-//            public void onDecodeError(String errorMsg) {
-//
-//            }
-//        };
-//        videoPathDecoder.decodePath(url);
-    }
 
     @Override
     protected void initHttpData() {
@@ -113,10 +93,11 @@ public class VideoListFragment extends BaseMVPFragment<VideoPresenterImpl, Video
     public void hideLoading() {
 
     }
-
+    //拿到数据并进行解析
     @Override
     public void onVideoData(VideoBean videoBean) {
         list.addAll(videoBean.getData());
+        //解析
         Gson gson = new Gson();
         for (int i = 0; i < list.size(); i++) {
             String json = list.get(i).getContent();
@@ -127,5 +108,11 @@ public class VideoListFragment extends BaseMVPFragment<VideoPresenterImpl, Video
             message.obj = videoDataBean.getUrl();
             handler.sendMessage(message);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        handler.removeMessages(1);
     }
 }

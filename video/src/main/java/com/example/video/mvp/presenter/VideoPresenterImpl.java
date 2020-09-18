@@ -40,7 +40,6 @@ public class VideoPresenterImpl extends VideoContract.VideoPresenter {
                     public void onNext(VideoBean videoBean) {
                         firstTime = System.currentTimeMillis() / 1000;
                         CacheManager.getInstance().putFirstTime(category,firstTime);
-                        Log.d("---", "1111");
                         if(videoBean != null){
                             iHttpView.onVideoData(videoBean);
                         }else{

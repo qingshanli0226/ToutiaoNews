@@ -1,4 +1,4 @@
-package com.example.video;
+package com.example.video.app;
 
 import android.app.Application;
 

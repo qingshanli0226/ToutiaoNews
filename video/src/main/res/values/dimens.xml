@@ -7,8 +7,12 @@
     <dimen name="listHight">400dp</dimen>
     <dimen name="playerHight">300dp</dimen>
     <dimen name="Zero">0dp</dimen>
-    <dimen name="imagePadding">10dp</dimen>
-    <dimen name="listTextLeft">10dp</dimen>
+    <dimen name="imagePadding">15dp</dimen>
+    <dimen name="listTextLeft">5dp</dimen>
     <dimen name="listTextSize">20sp</dimen>
     <dimen name="listImageHight">50dp</dimen>
+    <dimen name="playerCount">15sp</dimen>
+    <dimen name="playerPaddingLeft">15dp</dimen>
+    <dimen name="playerPaddingRight">30dp</dimen>
+    <dimen name="playerPaddingTop">10dp</dimen>
 </resources>
