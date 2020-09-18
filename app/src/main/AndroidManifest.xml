@@ -13,6 +13,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+<<<<<<< HEAD
         android:supportsRtl="true"
         android:usesCleartextTraffic="true">
         <activity android:name=".fragment_mine.activity.SettingActivity" />
@@ -26,8 +27,24 @@
         <activity android:name=".fragment_mine.activity.SevenActivity" />
         <activity android:name=".fragment_mine.activity.FansActivity" />
         <activity android:name=".fragment_mine.activity.Action1Activity" />
+=======
+        android:supportsRtl="true">
+        <activity android:name="com.example.user.activity.SettingActivity"/>
+        <activity android:name="com.example.user.activity.FeedbackActivity" />
+        <activity android:name="com.example.user.activity.DiscloseActivity" />
+        <activity android:name="com.example.user.activity.JDongActivity" />
+        <activity android:name="com.example.user.activity.StoreActivity" />
+        <activity android:name="com.example.user.activity.InformActivity" />
+        <activity android:name="com.example.user.activity.HistoryActivity" />
+        <activity android:name="com.example.user.activity.CollectActivity" />
+        <activity android:name="com.example.user.activity.SevenActivity" />
+        <activity android:name="com.example.user.activity.FansActivity" />
+        <activity android:name="com.example.user.activity.Action1Activity" />
+        <activity android:name="com.example.user.activity.LoginActivity"
+            android:theme="@style/AppTheme"/>
+>>>>>>> c106d6136dd609ce8d91603ccd032d8101f5b452
         <activity
-            android:name=".fragment_mine.activity.RegisterActivity"
+            android:name="com.example.user.activity.RegisterActivity"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".MainActivity"

@@ -63,6 +63,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent">
                     <TextView
+                        android:id="@+id/tv_mine_action_num_id"
                         android:textColor="#fff"
                         android:textStyle="bold"
                         android:textSize="20dp"
@@ -94,6 +95,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent">
                     <TextView
+                        android:id="@+id/tv_mine_fans_num_id"
                         android:textColor="#fff"
                         android:textStyle="bold"
                         android:textSize="20dp"
@@ -125,6 +127,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent">
                     <TextView
+                        android:id="@+id/tv_mine_seven_num_id"
                         android:textColor="#fff"
                         android:textStyle="bold"
                         android:textSize="20dp"
