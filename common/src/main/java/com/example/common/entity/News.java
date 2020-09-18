@@ -106,7 +106,7 @@ public class News implements MultiItemEntity {
         return new Gson().toJson(this);
     }
 
-    public int itemType = 100;
+    public int itemType = 0;
 
     @Override
     public int getItemType() {

@@ -1,9 +1,6 @@
 package com.bw.homemodule.home.view;
 
-import android.text.TextUtils;
-import android.util.Log;
-import android.widget.TextView;
-
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,8 +29,6 @@ public class NewsListFragment extends BaseMVPFragment<HomePresenterImpl, HomeCon
 
     @Override
     protected void initHttpData() {
-        Log.i("wjh", "dataSize:" + "发起请求");
-
         if (lastTime==0){
             lastTime=System.currentTimeMillis();
         }
@@ -55,6 +50,8 @@ public class NewsListFragment extends BaseMVPFragment<HomePresenterImpl, HomeCon
     protected void initData() {
         newsRv.setAdapter(newsListAdapter);
         newsRv.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        newsRv.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
     }
 
     @Override
@@ -63,13 +60,11 @@ public class NewsListFragment extends BaseMVPFragment<HomePresenterImpl, HomeCon
         newsListAdapter= new NewsListAdapter(newsList);
     }
 
-
     @Override
     public void onHomeData(ArrayList<News> newsList) {
         this.newsList.clear();
         this.newsList.addAll(newsList);
         newsListAdapter.notifyDataSetChanged();
-        Log.i("wjh", "dataSize:" + newsList.size());
     }
 
     @Override
