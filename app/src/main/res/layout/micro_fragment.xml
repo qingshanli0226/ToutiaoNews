@@ -27,6 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
+            android:id="@+id/txt"
             android:layout_weight="1"
             android:layout_width="@dimen/dp0"
             android:layout_height="wrap_content">
@@ -47,6 +48,7 @@
                 android:layout_height="match_parent"></View>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/pic"
             android:layout_weight="1"
             android:layout_width="@dimen/dp0"
             android:layout_height="wrap_content">
@@ -67,6 +69,7 @@
                 android:layout_height="match_parent"></View>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/video"
             android:layout_weight="1"
             android:layout_width="@dimen/dp0"
             android:layout_height="wrap_content">
@@ -91,4 +94,5 @@
         android:background="@color/textNormalColor"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp1"></View>
+
 </LinearLayout>

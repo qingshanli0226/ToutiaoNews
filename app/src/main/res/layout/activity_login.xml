@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+        <TextView
+            android:text="@string/login_text"
+            android:gravity="center"
+            android:textSize="@dimen/sp50"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_weight="@dimen/weight1"
+            android:text="@string/username_text"
+            android:textSize="@dimen/sp20"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/username"
+            android:layout_weight="@dimen/weight8"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_weight="@dimen/weight1"
+            android:text="@string/password_text"
+            android:textSize="@dimen/sp20"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/pas"
+            android:layout_weight="@dimen/weight8"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/login"
+        android:layout_margin="@dimen/dp20"
+        android:text="@string/login_text"
+        android:background="@drawable/backgroud_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/req"
+        android:layout_margin="@dimen/dp20"
+        android:text="@string/register_text"
+        android:background="@drawable/backgroud_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>
