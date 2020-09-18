@@ -11,6 +11,21 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/unLogin"
+                android:layout_centerInParent="true"
+                android:background="@drawable/unbackground_login"
+                android:text="@string/login_text"
+                android:textSize="@dimen/sp40"
+                android:layout_width="@dimen/dp100"
+                android:layout_height="@dimen/dp100" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/loginAfter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/handPic"
                 android:layout_marginLeft="@dimen/dp30"
@@ -27,6 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <ImageView
+                android:id="@+id/backUnlogin"
                 android:layout_marginTop="@dimen/dp30"
                 android:layout_alignParentRight="true"
                 android:src="@mipmap/right_arrow"
@@ -201,7 +217,7 @@
             android:layout_marginLeft="@dimen/dp20"
             android:textSize="@dimen/sp15"
             android:layout_centerVertical="true"
-            android:text="@string/message_notification_text"
+            android:text="@string/headline_mall_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
@@ -229,7 +245,7 @@
             android:layout_marginLeft="@dimen/dp20"
             android:textSize="@dimen/sp15"
             android:layout_centerVertical="true"
-            android:text="@string/message_notification_text"
+            android:text="@string/Jingdong_special_supply_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView

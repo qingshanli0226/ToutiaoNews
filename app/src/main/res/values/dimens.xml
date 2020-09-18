@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="weight1">1</dimen>
+    <dimen name="weight2">2</dimen>
+    <dimen name="weight3">3</dimen>
+    <dimen name="weight4">4</dimen>
+    <dimen name="weight5">5</dimen>
+    <dimen name="weight6">6</dimen>
+    <dimen name="weight7">7</dimen>
+    <dimen name="weight8">8</dimen>
+    <dimen name="weight9">9</dimen>
+    <dimen name="weight10">10</dimen>
     <dimen name="dp0">0dp</dimen>
     <dimen name="dp1">1dp</dimen>
     <dimen name="dp2">2dp</dimen>
