@@ -1,9 +1,6 @@
-package com.example.video.mvp.contract;
+package com.example.videomodule.video.contract;
 
-import com.example.common.bean.NewsRoomBean;
-import com.example.common.entity.Video;
 import com.example.common.entity.VideoBean;
-import com.example.common.response.NewsResponse;
 import com.example.farmework.base.BasePresenter;
 import com.example.farmework.base.IView;
 

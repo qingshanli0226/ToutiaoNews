@@ -1,4 +1,4 @@
-package com.example.video;
+package com.example.videomodule;
 
 import android.content.Context;
 

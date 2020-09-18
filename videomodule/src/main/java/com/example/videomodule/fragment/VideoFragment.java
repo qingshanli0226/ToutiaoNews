@@ -1,18 +1,17 @@
-package com.example.video.fragment;
+package com.example.videomodule.fragment;
 
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.common.constant.Constant;
 import com.example.common.entity.Channel;
 import com.example.farmework.base.BaseFragment;
 import com.example.toutiaonews.R;
-import com.example.video.adapter.FragmentAdapter;
-import com.example.video.mvp.view.VideoListFragment;
+import com.example.videomodule.adapter.FragmentAdapter;
+import com.example.videomodule.video.view.VideoListFragment;
 
 import java.util.ArrayList;
 import java.util.List;

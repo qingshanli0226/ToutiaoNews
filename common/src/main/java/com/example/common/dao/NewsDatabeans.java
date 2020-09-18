@@ -7,8 +7,6 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.example.common.bean.NewsRoomBean;
-
 
 @Database(entities = NewsRoomBean.class,version = 1,exportSchema = false)
 public abstract class NewsDatabeans extends RoomDatabase {

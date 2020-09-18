@@ -1,4 +1,4 @@
-package com.example.video.adapter;
+package com.example.videomodule.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -7,9 +7,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.common.entity.Channel;
-import com.example.video.mvp.view.VideoListFragment;
+import com.example.videomodule.video.view.VideoListFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentAdapter extends FragmentPagerAdapter {

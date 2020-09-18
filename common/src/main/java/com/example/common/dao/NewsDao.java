@@ -9,8 +9,6 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 
-import com.example.common.bean.NewsRoomBean;
-
 import java.util.List;
 
 @Dao

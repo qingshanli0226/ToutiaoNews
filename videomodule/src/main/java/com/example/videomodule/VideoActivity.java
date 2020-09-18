@@ -1,6 +1,5 @@
-package com.example.video;
+package com.example.videomodule;
 
-import android.util.Log;
 import android.widget.FrameLayout;
 
 import androidx.fragment.app.FragmentManager;
@@ -8,9 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.farmework.base.BaseActivity;
 import com.example.toutiaonews.R;
-import com.example.video.fragment.VideoFragment;
-
-import java.util.List;
+import com.example.videomodule.fragment.VideoFragment;
 
 public class VideoActivity extends BaseActivity {
     private FrameLayout mainFrame;

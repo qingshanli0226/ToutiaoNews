@@ -1,4 +1,4 @@
-package com.example.common.bean;
+package com.example.common.dao;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
