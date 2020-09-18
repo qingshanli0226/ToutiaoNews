@@ -42,10 +42,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private String str;
     private List<ChannelBean> tabListAll;
     private List<ChannelBean> tabList;
+    private List<Fragment> noFragment;
     private List<Fragment> fragments;
     private PagerAdapter pagerAdapter;
     public void initData() {
         fragments=new ArrayList<>();
+        noFragment=new ArrayList<>();
         tabList=new ArrayList<>();
         tabListAll=new ArrayList<>();
         String[] titles = getResources().getStringArray(R.array.channel);
@@ -63,24 +65,30 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
 
 
-        if (sp.getString(TAB_ON_DATA_KEY, null)==null){
+        if (sp.getString(TAB_ON_DATA_KEY, null)==null){//判断是否为第一次进入
             for (int i = 0; i < tabList.size(); i++) {
                 fragments.add(new MyFragment());
             }
         }else {
+            //获取已选频道和未轩频道
             List<ChannelBean> onList = new Gson().fromJson(sp.getString(TAB_ON_DATA_KEY, null), new TypeToken<List<ChannelBean>>() {
             }.getType());
             List<ChannelBean> noList = new Gson().fromJson(sp.getString(TAB_NO_DATA_KEY, null), new TypeToken<List<ChannelBean>>() {
             }.getType());
+            //更新数据
             CacheManager.getInstance().setNoList(noList);
             CacheManager.getInstance().setOnList(onList);
+            Log.e("fff", noList.size()+"initChannel: "+onList.size() );
             for (int i = 0; i < onList.size(); i++) {
-                if (onList.get(i).isShow()) {
-                    fragments.add(new MyFragment());
-                }
+                fragments.add(new MyFragment());
+            }
+            for (int i = 0; i < noList.size(); i++) {
+                noFragment.add(new MyFragment());
             }
         }
+        //缓存fragment
         CacheManager.getInstance().setFragments(fragments);
+        CacheManager.getInstance().setNoFragments(noFragment);
     }
 
     @Override
@@ -98,9 +106,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             @NonNull
             @Override
             public Fragment getItem(int position) {
-                Bundle bundle = new Bundle();
-                bundle.getInt("name", position + 1);
-                CacheManager.getInstance().getFragments().get(position).setArguments(bundle);
+//                Bundle bundle = new Bundle();
+//                bundle.getInt("name", position + 1);
+//                CacheManager.getInstance().getFragments().get(position).setArguments(bundle);
                 return CacheManager.getInstance().getFragments().get(position);
             }
 

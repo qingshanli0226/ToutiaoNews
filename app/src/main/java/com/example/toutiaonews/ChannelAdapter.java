@@ -2,6 +2,7 @@ package com.example.toutiaonews;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
@@ -19,11 +20,13 @@ public class ChannelAdapter extends BaseQuickAdapter<ChannelBean, BaseViewHolder
     @Override
     protected void convert(BaseViewHolder helper, ChannelBean item) {
         ImageView sign =helper.getView(R.id.grid_item_sign);
+        TextView name =helper.getView(R.id.grid_item_name);
         if (item.isSign()){
             sign.setVisibility(View.VISIBLE);
         }else {
             sign.setVisibility(View.GONE);
         }
         helper.setText(R.id.grid_item_name,item.getTitle());
+
     }
 }

@@ -41,17 +41,21 @@ public class ChannelActivity extends BaseActivity {
 
         if (isEdit){
             isEdit=false;
+            channelEdit.setText(getString(R.string.edit));
             channelHint.setText(getString(R.string.onclick_in_channel));
             for (ChannelBean channelBean : CacheManager.getInstance().getOnList()) {
                 channelBean.setSign(isEdit);
             }
+            CacheManager.getInstance().getOnList();
             adapter1.notifyDataSetChanged();
         }else {
             isEdit=true;
+            channelEdit.setText(getString(R.string.complete));
             channelHint.setText(getString(R.string.channel_order));
             for (ChannelBean channelBean : CacheManager.getInstance().getOnList()) {
                 channelBean.setSign(isEdit);
             }
+            CacheManager.getInstance().getOnList();
             adapter1.notifyDataSetChanged();
 
         }
@@ -74,6 +78,9 @@ public class ChannelActivity extends BaseActivity {
         adapter1.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (position==0){
+                    return;
+                }
                 if (isEdit){
 //                    ChannelBean remove = CacheManager.getInstance().getOnList().remove(position);
 //                    remove.setSign(false);
@@ -108,6 +115,9 @@ public class ChannelActivity extends BaseActivity {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
             @Override
             public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+                if (viewHolder.getAdapterPosition() == 0) {
+                    return 0;
+                }
                 if (recyclerView.getLayoutManager() instanceof GridLayoutManager) {
                      int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
                      int swipeFlags = 0;
@@ -120,10 +130,14 @@ public class ChannelActivity extends BaseActivity {
 
             }
 
+
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 int fromPosition = viewHolder.getAdapterPosition();//得到拖动ViewHolder的position
                 int toPosition = target.getAdapterPosition();//得到目标ViewHolder的position
+                if (fromPosition==0||toPosition==0){
+                    return false;
+                }
                 if (fromPosition < toPosition) {
                     for (int i = fromPosition; i < toPosition; i++) {
                         Collections.swap(CacheManager.getInstance().getOnList(), i, i + 1);
