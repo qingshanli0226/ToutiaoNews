@@ -10,6 +10,7 @@ import com.example.framework2.base.BaseFragment;
 import com.example.toutiaonews.R;
 import com.example.user.LoginOutActivity;
 import com.example.user.LoginRegisterActivity;
+import com.example.user.UserFeedBackActivity;
 
 public class MeFragment extends BaseFragment implements View.OnClickListener, UserManager.ILoginStatusChangeListener {
 
@@ -48,6 +49,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener, Us
     protected void initView() {
         findViewById(R.id.meTvNight).setOnClickListener(this);
         findViewById(R.id.meToLogin).setOnClickListener(this);
+        findViewById(R.id.meUserFeedBack).setOnClickListener(this);
         meUserName = findViewById(R.id.meUserName);
         meUserTouImg = findViewById(R.id.meUserTouImg);
         UserManager.getInstance().setLoginStatusChangeListener(this);
@@ -62,6 +64,10 @@ public class MeFragment extends BaseFragment implements View.OnClickListener, Us
                 //跳转到登录页面
             case R.id.meToLogin:
                 meToLogin();
+                break;
+                //跳转到用户反馈页面
+            case R.id.meUserFeedBack:
+                launchActivity(UserFeedBackActivity.class,null);
                 break;
         }
     }

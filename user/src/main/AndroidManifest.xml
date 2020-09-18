@@ -9,6 +9,7 @@
             android:name=".LoginRegisterActivity"
             android:screenOrientation="portrait"></activity>
         <activity android:name=".LoginOutActivity"></activity>
+        <activity android:name=".UserFeedBackActivity"></activity>
 
 
         <meta-data

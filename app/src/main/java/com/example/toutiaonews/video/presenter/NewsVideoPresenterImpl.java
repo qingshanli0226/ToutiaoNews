@@ -7,6 +7,7 @@ import com.example.toutiaonews.video.contract.NewsVideoContract;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class NewsVideoPresenterImpl extends NewsVideoContract.NewsVideoPresenter {
@@ -20,6 +21,12 @@ public class NewsVideoPresenterImpl extends NewsVideoContract.NewsVideoPresenter
         RetroCreator.getInvestApiService().getNewsVideoList(category, lastTime, currentTime)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        gDisposable = disposable;
+                    }
+                })
                 .subscribe(new Observer<VideoBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {

@@ -8,6 +8,7 @@ import com.example.user.contract.LoginRegisterContract;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class LoginRegisterImpl extends LoginRegisterContract.LoginRegisterPresenter {
@@ -16,6 +17,12 @@ public class LoginRegisterImpl extends LoginRegisterContract.LoginRegisterPresen
         RetroCreator.getInvestApiService().register(urlString)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        gDisposable = disposable;
+                    }
+                })
                 .subscribe(new Observer<RegisterBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -48,6 +55,12 @@ public class LoginRegisterImpl extends LoginRegisterContract.LoginRegisterPresen
         RetroCreator.getInvestApiService().login(urlString)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        gDisposable = disposable;
+                    }
+                })
                 .subscribe(new Observer<LoginBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -56,13 +69,11 @@ public class LoginRegisterImpl extends LoginRegisterContract.LoginRegisterPresen
 
                     @Override
                     public void onNext(LoginBean loginBean) {
-                        if (iHttpView != null){
                             if(loginBean.getCode().equals("200")){
                                 iHttpView.onLoginData(loginBean);
                             } else{
                                 iHttpView.showError(loginBean.getCode(),loginBean.getMessage());
                             }
-                        }
                     }
 
                     @Override

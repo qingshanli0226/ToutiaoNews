@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize0"
+        android:layout_weight="0.7">
+
+
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize0"
+        android:layout_weight="@integer/weight8"></ScrollView>
+
+   <Button
+       android:layout_width="match_parent"
+       android:layout_height="@dimen/spaceSize0"
+       android:layout_weight="0.7"
+       android:background="#F85959"
+       android:text="马上爆料"
+       android:textColor="#fff"
+       android:textSize="@dimen/textSize22"/>
+
+</LinearLayout>

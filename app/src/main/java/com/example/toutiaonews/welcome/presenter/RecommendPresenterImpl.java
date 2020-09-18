@@ -9,6 +9,7 @@ import com.example.toutiaonews.welcome.contract.RecommendContract;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class RecommendPresenterImpl extends RecommendContract.RecommendPresenter {
@@ -28,6 +29,12 @@ public class RecommendPresenterImpl extends RecommendContract.RecommendPresenter
                 .getNewsList(category,Long.parseLong(lastTime),Long.parseLong(currentTime))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        gDisposable = disposable;
+                    }
+                })
                 .subscribe(new Observer<HomeRecommendBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -36,13 +43,11 @@ public class RecommendPresenterImpl extends RecommendContract.RecommendPresenter
 
                     @Override
                     public void onNext(HomeRecommendBean homeRecommendBean) {
-                        if(iHttpView != null){
                             if(homeRecommendBean.getMessage().equals("success")){
                                 iHttpView.onRecommendData(homeRecommendBean);
                             } else{
                                 iHttpView.showError("404", homeRecommendBean.getMessage());
                             }
-                        }
                     }
 
                     @Override

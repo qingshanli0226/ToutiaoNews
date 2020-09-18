@@ -7,6 +7,7 @@ import com.example.user.contract.LoginOutContract;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class LoginOutPresenterImpl extends LoginOutContract.LoginOutPresenter {
@@ -16,6 +17,12 @@ public class LoginOutPresenterImpl extends LoginOutContract.LoginOutPresenter {
                 .loginOut(urlString)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        gDisposable = disposable;
+                    }
+                })
                 .subscribe(new Observer<LoginOutBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -24,13 +31,11 @@ public class LoginOutPresenterImpl extends LoginOutContract.LoginOutPresenter {
 
                     @Override
                     public void onNext(LoginOutBean loginOutBean) {
-                        if(iHttpView != null){
                             if(loginOutBean.getCode().equals("200")){
                                 iHttpView.onLoginOutData(loginOutBean);
                             } else{
                                 iHttpView.showError(loginOutBean.getCode(),loginOutBean.getMessage());
                             }
-                        }
                     }
 
                     @Override

@@ -239,7 +239,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/spaceSize50"
         android:text="用户反馈"
-        style="@style/meTextStyle" />
+        style="@style/meTextStyle"
+        android:id="@+id/meUserFeedBack"/>
 
     <View
         android:layout_width="match_parent"

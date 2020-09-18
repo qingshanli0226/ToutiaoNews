@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize35"
+        android:background="#F4F5F6">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/feedBackTitle"
+            android:text="常见问题"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize50">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceSize50"
+            style="@style/feedBackContent"
+            android:text="如何通过发文获取收益"/>
+
+        <ImageView
+            android:layout_width="@dimen/spaceSize20"
+            android:layout_height="@dimen/spaceSize20"
+            style="@style/feedBackImg"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceSize1"
+            android:background="#DFDCDC"
+            android:layout_alignParentBottom="true"></View>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize50">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceSize50"
+            style="@style/feedBackContent"
+            android:text="我想发表内容"/>
+
+        <ImageView
+            android:layout_width="@dimen/spaceSize20"
+            android:layout_height="@dimen/spaceSize20"
+            style="@style/feedBackImg"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceSize1"
+            android:background="#DFDCDC"
+            android:layout_alignParentBottom="true"></View>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize50">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceSize50"
+            style="@style/feedBackContent"
+            android:text="我想身份/兴趣认证"/>
+
+        <ImageView
+            android:layout_width="@dimen/spaceSize20"
+            android:layout_height="@dimen/spaceSize20"
+            style="@style/feedBackImg"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceSize1"
+            android:background="#DFDCDC"
+            android:layout_alignParentBottom="true"></View>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize50">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceSize50"
+            style="@style/feedBackContent"
+            android:text="不喜欢推荐的文章/视频"/>
+
+        <ImageView
+            android:layout_width="@dimen/spaceSize20"
+            android:layout_height="@dimen/spaceSize20"
+            style="@style/feedBackImg"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceSize1"
+            android:background="#DFDCDC"
+            android:layout_alignParentBottom="true"></View>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize50">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceSize50"
+            style="@style/feedBackContent"
+            android:text="我要举报文章/视频"/>
+
+        <ImageView
+            android:layout_width="@dimen/spaceSize20"
+            android:layout_height="@dimen/spaceSize20"
+            style="@style/feedBackImg"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceSize1"
+            android:background="#DFDCDC"
+            android:layout_alignParentBottom="true"></View>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize50">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceSize50"
+            style="@style/feedBackContent"
+            android:text="图文推荐机制是什么/如何提高阅读量"/>
+
+        <ImageView
+            android:layout_width="@dimen/spaceSize20"
+            android:layout_height="@dimen/spaceSize20"
+            style="@style/feedBackImg"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceSize1"
+            android:background="#DFDCDC"
+            android:layout_alignParentBottom="true"></View>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize50">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceSize50"
+            style="@style/feedBackContent"
+            android:text="我想加入头条内测"/>
+
+        <ImageView
+            android:layout_width="@dimen/spaceSize20"
+            android:layout_height="@dimen/spaceSize20"
+            style="@style/feedBackImg"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceSize1"
+            android:background="#DFDCDC"
+            android:layout_alignParentBottom="true"></View>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize50">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceSize50"
+            style="@style/feedBackContent"
+            android:text="如何参与【在家上课】？"/>
+
+        <ImageView
+            android:layout_width="@dimen/spaceSize20"
+            android:layout_height="@dimen/spaceSize20"
+            style="@style/feedBackImg"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceSize1"
+            android:background="#DFDCDC"
+            android:layout_alignParentBottom="true"></View>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize35"
+        android:background="#F4F5F6">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/feedBackTitle"
+            android:text="问题分类"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize49">
+        
+        <RelativeLayout
+            android:layout_width="@dimen/spaceSize0"
+            android:layout_height="match_parent"
+            android:layout_weight="@integer/weight1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                style="@style/feedBackContent"
+                android:text="付费业务"/>
+            <ImageView
+                android:layout_width="@dimen/spaceSize20"
+                android:layout_height="@dimen/spaceSize20"
+                style="@style/feedBackImg"/>
+        </RelativeLayout>
+        <ImageView
+            android:layout_width="@dimen/spaceSize1"
+            android:layout_height="match_parent"
+            android:background="#DFDCDC"/>
+
+        <RelativeLayout
+            android:layout_width="@dimen/spaceSize0"
+            android:layout_height="match_parent"
+            android:layout_weight="@integer/weight1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                style="@style/feedBackContent"
+                android:text="广告举报"/>
+            <ImageView
+                android:layout_width="@dimen/spaceSize20"
+                android:layout_height="@dimen/spaceSize20"
+                style="@style/feedBackImg"/>
+        </RelativeLayout>
+        
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize1"
+        android:background="#DFDCDC"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize49">
+
+        <RelativeLayout
+            android:layout_width="@dimen/spaceSize0"
+            android:layout_height="match_parent"
+            android:layout_weight="@integer/weight1">
+
+            <TextView
+                style="@style/feedBackContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="个性化推荐" />
+            <ImageView
+                android:layout_width="@dimen/spaceSize20"
+                android:layout_height="@dimen/spaceSize20"
+                style="@style/feedBackImg"/>
+        </RelativeLayout>
+        <ImageView
+            android:layout_width="@dimen/spaceSize1"
+            android:layout_height="match_parent"
+            android:background="#DFDCDC"/>
+
+        <RelativeLayout
+            android:layout_width="@dimen/spaceSize0"
+            android:layout_height="match_parent"
+            android:layout_weight="@integer/weight1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                style="@style/feedBackContent"
+                android:text="投诉举报"/>
+            <ImageView
+                android:layout_width="@dimen/spaceSize20"
+                android:layout_height="@dimen/spaceSize20"
+                style="@style/feedBackImg"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize1"
+        android:background="#DFDCDC"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize49">
+
+        <RelativeLayout
+            android:layout_width="@dimen/spaceSize0"
+            android:layout_height="match_parent"
+            android:layout_weight="@integer/weight1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                style="@style/feedBackContent"
+                android:text="账号相关"/>
+            <ImageView
+                android:layout_width="@dimen/spaceSize20"
+                android:layout_height="@dimen/spaceSize20"
+                style="@style/feedBackImg"/>
+        </RelativeLayout>
+        <ImageView
+            android:layout_width="@dimen/spaceSize1"
+            android:layout_height="match_parent"
+            android:background="#DFDCDC"/>
+
+        <RelativeLayout
+            android:layout_width="@dimen/spaceSize0"
+            android:layout_height="match_parent"
+            android:layout_weight="@integer/weight1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                style="@style/feedBackContent"
+                android:text="头条作者问题"/>
+            <ImageView
+                android:layout_width="@dimen/spaceSize20"
+                android:layout_height="@dimen/spaceSize20"
+                style="@style/feedBackImg"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize1"
+        android:background="#DFDCDC"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize49">
+
+        <RelativeLayout
+            android:layout_width="@dimen/spaceSize0"
+            android:layout_height="match_parent"
+            android:layout_weight="@integer/weight1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                style="@style/feedBackContent"
+                android:text="功能故障"/>
+            <ImageView
+                android:layout_width="@dimen/spaceSize20"
+                android:layout_height="@dimen/spaceSize20"
+                style="@style/feedBackImg"/>
+        </RelativeLayout>
+        <ImageView
+            android:layout_width="@dimen/spaceSize1"
+            android:layout_height="match_parent"
+            android:background="#DFDCDC"/>
+
+        <RelativeLayout
+            android:layout_width="@dimen/spaceSize0"
+            android:layout_height="match_parent"
+            android:layout_weight="@integer/weight1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                style="@style/feedBackContent"
+                android:text="内容电商"/>
+            <ImageView
+                android:layout_width="@dimen/spaceSize20"
+                android:layout_height="@dimen/spaceSize20"
+                style="@style/feedBackImg"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize1"
+        android:background="#DFDCDC"></View>
+
+</LinearLayout>
