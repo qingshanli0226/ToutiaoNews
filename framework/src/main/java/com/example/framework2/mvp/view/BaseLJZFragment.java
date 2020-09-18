@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -11,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.framework2.mvp.presenter.IPresenter;
 
-public abstract class BaseLJZFragment<P extends IPresenter> extends Fragment implements View.OnClickListener {
+public abstract class BaseLJZFragment<P extends IPresenter> extends Fragment implements View.OnClickListener, IView {
     protected View rootView;
     private boolean isInitView = false;
     private boolean isVisible = false;
@@ -79,4 +80,20 @@ public abstract class BaseLJZFragment<P extends IPresenter> extends Fragment imp
      */
     protected abstract void lazyLoad();
 
+
+
+    @Override
+    public void showView() {
+
+    }
+
+    @Override
+    public void hideView() {
+
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
 }

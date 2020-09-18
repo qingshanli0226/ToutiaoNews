@@ -1,6 +1,7 @@
 package com.example.video;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.opengl.GLSurfaceView;
@@ -28,13 +29,17 @@ public class LuAct extends BaseActivity implements PLRecordStateListener, View.O
     private GLSurfaceView mGlSurfaceView;
     private PLShortVideoRecorder mShortVideoRecorder;
     private boolean flag = false;
+    @SuppressLint("SdCardPath")
+    private String path = "/sdcard";
+    @SuppressLint("SdCardPath")
+    private String filePath = "/sdcard/record.mp4";
 
     // 录制选项
     private PLRecordSetting getPlRecordSetting() {
         PLRecordSetting recordSetting = new PLRecordSetting();
         recordSetting.setMaxRecordDuration(10 * 1000); // 10s
-        recordSetting.setVideoCacheDir("/sdcard");
-        recordSetting.setVideoFilepath("/sdcard/record.mp4");
+        recordSetting.setVideoCacheDir(path);
+        recordSetting.setVideoFilepath(filePath);
         return recordSetting;
     }
 
@@ -138,11 +143,11 @@ public class LuAct extends BaseActivity implements PLRecordStateListener, View.O
             ImageView imageView = findViewById(R.id.start_lu);
             if (flag) {
                 mShortVideoRecorder.pause();
-                imageView.setImageBitmap(BitmapFactory.decodeResource(getResources(),R.mipmap.i7));
+                imageView.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.i7));
                 flag = false;
             } else {
                 mShortVideoRecorder.beginSection();
-                imageView.setImageBitmap(BitmapFactory.decodeResource(getResources(),R.mipmap.pause_normal));
+                imageView.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.pause_normal));
                 findViewById(R.id.stop_lu).setVisibility(View.VISIBLE);
                 flag = true;
             }

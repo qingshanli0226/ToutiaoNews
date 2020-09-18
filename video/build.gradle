@@ -4,6 +4,7 @@ if (isApp) {
 } else {
     apply plugin: 'com.android.library'
 }
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 30
@@ -38,6 +39,11 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
+    greendao {
+        schemaVersion 1
+        daoPackage 'com.example.video.dao'
+        targetGenDir 'src/main/java'
+    }
     sourceSets {
         main {
             if (isApp) {
@@ -58,9 +64,13 @@ dependencies {
     implementation 'com.shuyu:GSYVideoPlayer:7.1.5'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     testImplementation 'junit:junit:4.12'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
+    implementation 'com.shuyu:GSYVideoPlayer:7.1.5'
+    implementation 'org.greenrobot:greendao:3.2.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation project(path: ':framework')
     implementation project(path: ':common')
     implementation files('libs/pldroid-shortvideo-3.1.1.jar')
+    implementation project(path: ':net')
 }

@@ -5,16 +5,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 
 import com.chaychan.library.BottomBarItem;
 import com.chaychan.library.BottomBarLayout;
 import com.example.framework2.mvp.view.BaseActivity;
-import com.example.toutiaonews.fragment_headlines.FragmentHeadlines;
+import com.example.video.fragment_headlines.FragmentHeadlines;
 import com.example.toutiaonews.fragment_home.FragmentHome;
 import com.example.toutiaonews.fragment_mine.FragmentMine;
-import com.example.toutiaonews.fragment_video.view.FragmentBox;
+import com.example.video.fragment_video.view.FragmentBox;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +29,6 @@ public class MainActivity extends BaseActivity {
     public void initView() {
         bbl = findViewById(R.id.bbl);
         initFragment();
-        if (bbl!=null){
-            Log.d("hq", "initView: !null");
-        }else {
-            Log.d("hq", "initView: null");
-        }
         bbl.setOnItemSelectedListener(new BottomBarLayout.OnItemSelectedListener() {
             @Override
             public void onItemSelected(final BottomBarItem bottomBarItem, int previousPosition, int currentPosition) {
