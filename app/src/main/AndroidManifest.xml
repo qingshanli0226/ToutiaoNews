@@ -13,22 +13,9 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-<<<<<<< HEAD
         android:supportsRtl="true"
         android:usesCleartextTraffic="true">
-        <activity android:name=".fragment_mine.activity.SettingActivity" />
-        <activity android:name=".fragment_mine.activity.FeedbackActivity" />
-        <activity android:name=".fragment_mine.activity.DiscloseActivity" />
-        <activity android:name=".fragment_mine.activity.JDongActivity" />
-        <activity android:name=".fragment_mine.activity.StoreActivity" />
-        <activity android:name=".fragment_mine.activity.InformActivity" />
-        <activity android:name=".fragment_mine.activity.HistoryActivity" />
-        <activity android:name=".fragment_mine.activity.CollectActivity" />
-        <activity android:name=".fragment_mine.activity.SevenActivity" />
-        <activity android:name=".fragment_mine.activity.FansActivity" />
-        <activity android:name=".fragment_mine.activity.Action1Activity" />
-=======
-        android:supportsRtl="true">
+
         <activity android:name="com.example.user.activity.SettingActivity"/>
         <activity android:name="com.example.user.activity.FeedbackActivity" />
         <activity android:name="com.example.user.activity.DiscloseActivity" />
@@ -42,7 +29,7 @@
         <activity android:name="com.example.user.activity.Action1Activity" />
         <activity android:name="com.example.user.activity.LoginActivity"
             android:theme="@style/AppTheme"/>
->>>>>>> c106d6136dd609ce8d91603ccd032d8101f5b452
+
         <activity
             android:name="com.example.user.activity.RegisterActivity"
             android:theme="@style/AppTheme" />

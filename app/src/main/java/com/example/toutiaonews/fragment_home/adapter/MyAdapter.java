@@ -1,13 +1,19 @@
-package com.example.toutiaonews.adapter;
+package com.example.toutiaonews.fragment_home.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.toutiaonews.R;
+
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
@@ -29,6 +35,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.tvItemTitleId.setText(String.valueOf(list.get(position)));
+        holder.tvItemTitleId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("ljl", "onClick: "+list.get(position));
+                Toast.makeText(context, ""+list.get(position), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

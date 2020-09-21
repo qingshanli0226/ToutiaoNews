@@ -1,8 +1,6 @@
 package com.example.toutiaonews.fragment_mine;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,7 +21,6 @@ import com.example.framework2.mvp.view.BaseFragment;
 import com.example.toutiaonews.MainActivity;
 import com.example.toutiaonews.R;
 import com.example.user.activity.LoginActivity;
-import com.example.user.dao.*;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -46,7 +43,6 @@ public class FragmentMine extends BaseFragment {
     private TextView tvMineActionNumId;
     private TextView tvMineFansNumId;
     private TextView tvMineSevenNumId;
-    private UserBeanDao userBeanDao;
     private String loginYON = "登录/注册";
 
     @Override
@@ -97,6 +93,7 @@ public class FragmentMine extends BaseFragment {
         }
     }
 
+    //切换头像
     private void toCutHead() {
         if (UserCommon.isLogin){
             Glide.with(this).load(R.mipmap.my_avatar)
@@ -107,6 +104,7 @@ public class FragmentMine extends BaseFragment {
         }
     }
 
+    //跳转设置页面
     private void toSetting() {
         ARouter.getInstance().build(ARouterCommon.USER_SETTING).navigation();
     }
@@ -221,6 +219,7 @@ public class FragmentMine extends BaseFragment {
                 .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                 .into(ivMineHead);
 
+        //长按跳转登录
         tvMineName.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
@@ -239,8 +238,7 @@ public class FragmentMine extends BaseFragment {
 
     }
 
-
-
+    //接收返回的数据
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

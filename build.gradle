@@ -9,11 +9,9 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.6.4'
-<<<<<<< HEAD
-        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
-=======
+
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2' // add plugin  
->>>>>>> c106d6136dd609ce8d91603ccd032d8101f5b452
+
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
