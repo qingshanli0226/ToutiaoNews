@@ -27,7 +27,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     //动态权限回调
     private PermissionListener mPermissionListener;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

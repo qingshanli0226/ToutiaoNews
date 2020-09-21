@@ -12,7 +12,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class NewsVideoPresenterImpl extends NewsVideoContract.NewsVideoPresenter {
 
-
     long lastTime;
 
     @Override

@@ -17,6 +17,13 @@ public class TouTiaoNewsConstant {
     //储存这一次的时间戳
     public static final String CURRENT_TIME = "current_time";
 
+    //fragment间传值的argument值
+    public static final String ARGUMENT_CHANNEL = "argument_channel";
+    //是否是视频页面
+    public static final String ISVIDEO = "isVideo";
+    //
+
+
 
 
 }

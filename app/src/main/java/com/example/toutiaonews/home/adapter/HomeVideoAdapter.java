@@ -1,4 +1,4 @@
-package com.example.toutiaonews.video.adapter;
+package com.example.toutiaonews.home.adapter;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -16,14 +16,13 @@ import java.util.List;
 
 import cn.jzvd.JzvdStd;
 
-public class NewsVideoListAdapter extends BaseQuickAdapter<VideoDataBean, BaseViewHolder> {
-    public NewsVideoListAdapter(int layoutResId, @Nullable List<VideoDataBean> data) {
+public class HomeVideoAdapter extends BaseQuickAdapter<VideoDataBean, BaseViewHolder> {
+    public HomeVideoAdapter(int layoutResId, @Nullable List<VideoDataBean> data) {
         super(layoutResId, data);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, VideoDataBean item) {
-
         JzvdStd jzvdStd = helper.getView(R.id.video_player);
 
         jzvdStd.batteryLevel.setVisibility(View.GONE);//隐藏电池电量

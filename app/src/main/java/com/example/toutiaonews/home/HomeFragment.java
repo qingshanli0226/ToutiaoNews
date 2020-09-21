@@ -1,6 +1,7 @@
 package com.example.toutiaonews.home;
 
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -8,12 +9,12 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.common.constant.TouTiaoNewsConstant;
 import com.example.framework2.base.BaseFragment;
 import com.example.toutiaonews.R;
 import com.example.toutiaonews.home.adapter.HomeTabAdapter;
-import com.example.toutiaonews.home.fragment.RecommendFragment;
 import com.example.toutiaonews.home.fragment.HomeVideoFragment;
-import com.example.toutiaonews.home.fragment.RecommendFragment2;
+import com.example.toutiaonews.home.fragment.RecommendFragment;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ public class HomeFragment extends BaseFragment {
 
     //vp的数据源
     String[] items;
+    //频道号的数据源
+    String[] itemsCode;
     //fragment数据源
     ArrayList<Fragment> fragments = new ArrayList<>();
     //适配器
@@ -41,10 +44,26 @@ public class HomeFragment extends BaseFragment {
     protected void initData() {
         //通过资源文件获取vp数据
         items = getResources().getStringArray(R.array.channel);
+        itemsCode = getResources().getStringArray(R.array.channel_code);
+
         //添加数据
-        fragments.add(recommendFragment);
-        fragments.add(new HomeVideoFragment());
-        fragments.add(new RecommendFragment2());
+        for (int i = 0; i < items.length; i++) {
+            RecommendFragment recommendFragment = new RecommendFragment();
+            //创建bundle传值对象
+            Bundle bundle = new Bundle();
+            //把所对应的channel频道号传值
+            bundle.putString(TouTiaoNewsConstant.ARGUMENT_CHANNEL,itemsCode[i]);
+            if(i != 1){
+                //添加到集合
+                recommendFragment.setArguments(bundle);
+                fragments.add(recommendFragment);
+            } else{
+                HomeVideoFragment homeVideoFragment = new HomeVideoFragment();
+                bundle.putString(TouTiaoNewsConstant.ARGUMENT_CHANNEL,itemsCode[i]);
+                homeVideoFragment.setArguments(bundle);
+                fragments.add(homeVideoFragment);
+            }
+        }
         //创建适配器对象
         homeTabAdapter = new HomeTabAdapter(getChildFragmentManager(),fragments);
         homeVp.setAdapter(homeTabAdapter);

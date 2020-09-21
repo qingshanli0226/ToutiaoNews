@@ -1,10 +1,12 @@
 package com.example.toutiaonews.video.fragment;
 
+import android.view.View;
+import android.widget.LinearLayout;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.example.common.constant.Constant;
 import com.example.common.mode.VideoBean;
 import com.example.common.mode.VideoDataBean;
@@ -34,6 +36,7 @@ public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImp
 
     private SmartRefreshLayout videolistSr;
     private RecyclerView videolistRv;
+    private LinearLayout homeNewsVideoListLin;
 
     private NewsVideoListAdapter videoListAdapter;
 
@@ -56,6 +59,8 @@ public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImp
     protected void initView() {
         videolistSr = findViewById(R.id.videolist_sr);
         videolistRv = findViewById(R.id.videolist_rv);
+        homeNewsVideoListLin = (LinearLayout) findViewById(R.id.homeNewsVideoListLin);
+
 
         videoListAdapter = new NewsVideoListAdapter(R.layout.item_video_list, listData);
         videolistRv.setAdapter(videoListAdapter);
@@ -88,16 +93,24 @@ public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImp
 
     @Override
     public void onVideoData(VideoBean videoBean) {
-        LogUtils.json(videoBean);
-        list.addAll(videoBean.getData());
 
-        Gson gson = new Gson();
-        for (int i = 0; i < list.size(); i++) {
-            String json = list.get(i).getContent();
-            VideoDataBean videoDataBean = gson.fromJson(json, VideoDataBean.class);
-            listData.add(videoDataBean);
+        if(!videoBean.toString().equals("")){
+            list.addAll(videoBean.getData());
+
+            Gson gson = new Gson();
+            for (int i = 0; i < list.size(); i++) {
+                String json = list.get(i).getContent();
+                VideoDataBean videoDataBean = gson.fromJson(json, VideoDataBean.class);
+                listData.add(videoDataBean);
+            }
+            videoListAdapter.notifyDataSetChanged();
+        } else{
+            //没数据就显示提示信息 隐藏列表
+            homeNewsVideoListLin.setVisibility(View.VISIBLE);
+            videolistRv.setVisibility(View.GONE);
         }
-        videoListAdapter.notifyDataSetChanged();
+
+
     }
 
     @Override

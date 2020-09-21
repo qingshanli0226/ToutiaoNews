@@ -1,5 +1,8 @@
 package com.example.toutiaonews.home.fragment;
 
+import android.view.View;
+import android.widget.LinearLayout;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,15 +27,15 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
 
     private RecyclerView homeRecommendRv;
     private SmartRefreshLayout homeRecommendSmart;
-
+    private LinearLayout homeRecommendLin;
     //数据集合
     ArrayList<HomeRecommendBean.DataBean> dataBeans;
     //数据集合
     ArrayList<HomeRecommendContentBean> homeRecommendContentBeans = new ArrayList<>();
     //适配器
     RecommendAdapter recommendAdapter;
-
-    String items[];
+    //频道值
+    String stringChannel;
 
     @Override
     protected int getLayoutId() {
@@ -41,7 +44,6 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
 
     @Override
     protected void initData() {
-        items = getResources().getStringArray(R.array.channel_code);
         //获取recommendBean数据
         HomeRecommendBean homeRecommendBean = CacheManager.getCacheManager().getHomeRecommendBean();
         if(homeRecommendBean != null){
@@ -69,7 +71,7 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
                 //并把当前的时间戳存入sp文件中
                 CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.CURRENT_TIME,String.valueOf(currentTime));
                 //发起网络请求
-                iHttpPresenter.getRecommendData(items[0]);
+                iHttpPresenter.getRecommendData(stringChannel);
             }
 
             @Override
@@ -81,20 +83,25 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
                 //并把当前的时间戳存入sp文件中
                 CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.CURRENT_TIME,String.valueOf(currentTime));
                 //发起网络请求
-                iHttpPresenter.getRecommendData(items[0]);
+                iHttpPresenter.getRecommendData(stringChannel);
             }
         });
     }
 
     @Override
     protected void initView() {
+        //获取传递过来的频道值
+        stringChannel = getArguments().getString(TouTiaoNewsConstant.ARGUMENT_CHANNEL);
         homeRecommendRv = (RecyclerView) findViewById(R.id.homeRecommendRv);
         homeRecommendSmart = (SmartRefreshLayout) findViewById(R.id.homeRecommendSmart);
+        homeRecommendLin = (LinearLayout) findViewById(R.id.homeRecommendLin);
+
     }
 
     @Override
     protected void initHttpData() {
-
+        //进页面请求数据
+        iHttpPresenter.getRecommendData(stringChannel);
     }
 
     @Override
@@ -104,20 +111,29 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
 
     @Override
     public void onRecommendData(HomeRecommendBean homeRecommendBean) {
-        dataBeans.clear();
-        dataBeans = (ArrayList<HomeRecommendBean.DataBean>) homeRecommendBean.getData();
-        Gson gson = new Gson();
-        for (int i = 0; i < dataBeans.size() ; i++) {
-            //把json数据转换为contentBean对象
-            HomeRecommendContentBean homeRecommendContentBean = gson.fromJson(dataBeans.get(i).getContent(), HomeRecommendContentBean.class);
-            homeRecommendContentBeans.add(homeRecommendContentBean);
+
+        if(!homeRecommendBean.toString().equals("")){
+            dataBeans.clear();
+            dataBeans = (ArrayList<HomeRecommendBean.DataBean>) homeRecommendBean.getData();
+            Gson gson = new Gson();
+            for (int i = 0; i < dataBeans.size() ; i++) {
+                //把json数据转换为contentBean对象
+                HomeRecommendContentBean homeRecommendContentBean = gson.fromJson(dataBeans.get(i).getContent(), HomeRecommendContentBean.class);
+                homeRecommendContentBeans.add(homeRecommendContentBean);
+            }
+
+            //停止上拉和下拉
+            homeRecommendSmart.finishRefresh();
+            homeRecommendSmart.finishLoadMore();
+
+            recommendAdapter.notifyDataSetChanged();
+        } else{
+            //没数据就显示提示信息 隐藏列表
+            homeRecommendLin.setVisibility(View.VISIBLE);
+            homeRecommendRv.setVisibility(View.GONE);
         }
 
-        //停止上拉和下拉
-        homeRecommendSmart.finishRefresh();
-        homeRecommendSmart.finishLoadMore();
 
-        recommendAdapter.notifyDataSetChanged();
     }
 
     @Override

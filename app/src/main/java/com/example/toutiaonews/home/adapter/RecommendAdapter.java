@@ -20,9 +20,7 @@ public class RecommendAdapter extends BaseQuickAdapter<HomeRecommendContentBean,
     protected void convert(BaseViewHolder helper, HomeRecommendContentBean item) {
         helper.setText(R.id.recommendTitle,item.getTitle());
         helper.setText(R.id.recommendSource,item.getSource());
-//        if(item.getComment_count() != 0){
-//            helper.setText(R.id.recommendCount,item.getComment_count());
-//        }
+        helper.setText(R.id.recommendCount,item.getComment_count()+"");
 
         if(helper.getAdapterPosition() >= 1){
             helper.getView(R.id.recommendImg).setVisibility(View.GONE);

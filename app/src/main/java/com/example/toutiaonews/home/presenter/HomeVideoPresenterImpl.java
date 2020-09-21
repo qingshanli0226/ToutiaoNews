@@ -1,8 +1,8 @@
 package com.example.toutiaonews.home.presenter;
 
-import com.example.common.constant.TouTiaoNewsConstant;
 import com.example.common.CacheManager;
-import com.example.common.mode.HomeVideoBean;
+import com.example.common.constant.TouTiaoNewsConstant;
+import com.example.common.mode.VideoBean;
 import com.example.net.RetroCreator;
 import com.example.toutiaonews.home.contract.HomeVideoContract;
 
@@ -24,7 +24,7 @@ public class HomeVideoPresenterImpl extends HomeVideoContract.HomeVideoPresenter
         currentTime = CacheManager.getCacheManager().getSPOfString(TouTiaoNewsConstant.CURRENT_TIME);
         //储存时间戳
         CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.LAST_TIME,currentTime);
-        RetroCreator.getInvestApiService().getVideoList(category,Long.parseLong(lastTime),Long.parseLong(currentTime))
+        RetroCreator.getInvestApiService().getNewsVideoList(category,Long.parseLong(lastTime),Long.parseLong(currentTime))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -33,15 +33,15 @@ public class HomeVideoPresenterImpl extends HomeVideoContract.HomeVideoPresenter
                         gDisposable = disposable;
                     }
                 })
-                .subscribe(new Observer<HomeVideoBean>() {
+                .subscribe(new Observer<VideoBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(HomeVideoBean homeVideoBean) {
-                        iHttpView.onViewData(homeVideoBean);
+                    public void onNext(VideoBean videoBean) {
+                        iHttpView.onViewData(videoBean);
                     }
 
                     @Override
