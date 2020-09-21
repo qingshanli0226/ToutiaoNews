@@ -5,17 +5,19 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.framework2.base.BaseActivity;
+import com.example.framework2.listener.PermissionListener;
 import com.example.toutiaonews.R;
 import com.example.toutiaonews.home.HomeFragment;
-import com.flyco.tablayout.listener.CustomTabEntity;
 import com.example.toutiaonews.main.mode.MainCommonBean;
 import com.example.toutiaonews.me.MeFragment;
 import com.example.toutiaonews.micro.MicroFragment;
 import com.example.toutiaonews.video.VideoFragment;
 import com.flyco.tablayout.CommonTabLayout;
+import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends BaseActivity {
 
@@ -33,17 +35,17 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initData() {
         //添加底部导航栏数据
-        mainBottomCustomTabEntities.add(new MainCommonBean("首页",R.mipmap.tab_home_selected,R.mipmap.tab_home_normal));
-        mainBottomCustomTabEntities.add(new MainCommonBean("视频",R.mipmap.tab_video_selected,R.mipmap.tab_video_normal));
-        mainBottomCustomTabEntities.add(new MainCommonBean("微头条",R.mipmap.tab_micro_selected,R.mipmap.tab_micro_normal));
-        mainBottomCustomTabEntities.add(new MainCommonBean("我的",R.mipmap.tab_me_selected,R.mipmap.tab_me_normal));
+        mainBottomCustomTabEntities.add(new MainCommonBean("首页", R.mipmap.tab_home_selected, R.mipmap.tab_home_normal));
+        mainBottomCustomTabEntities.add(new MainCommonBean("视频", R.mipmap.tab_video_selected, R.mipmap.tab_video_normal));
+        mainBottomCustomTabEntities.add(new MainCommonBean("微头条", R.mipmap.tab_micro_selected, R.mipmap.tab_micro_normal));
+        mainBottomCustomTabEntities.add(new MainCommonBean("我的", R.mipmap.tab_me_selected, R.mipmap.tab_me_normal));
         //设置数据
         mainCommon.setTabData(mainBottomCustomTabEntities);
         //底部导航监听
         mainCommon.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
-                switch (position){
+                switch (position) {
                     case 0:
                         switchFragment(homeFragment);
                         break;
@@ -69,6 +71,21 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        //动态授权
+
+        requestRuntimePermission(new String[]{"android.permission.READ_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE"}, new PermissionListener() {
+            @Override
+            public void onGranted() {
+                //授权成功
+            }
+
+            @Override
+            public void onDenied(List<String> deniedPermissions) {
+                //授权失败
+            }
+        });
+
+
         mainCommon = (CommonTabLayout) findViewById(R.id.mainCommon);
         //创建Fragment实例
         createFragment();
@@ -77,16 +94,16 @@ public class MainActivity extends BaseActivity {
     }
 
     private void createFragment() {
-        if(homeFragment == null){
+        if (homeFragment == null) {
             homeFragment = new HomeFragment();
         }
-        if(videoFragment == null){
+        if (videoFragment == null) {
             videoFragment = new VideoFragment();
         }
-        if(microFragment == null){
+        if (microFragment == null) {
             microFragment = new MicroFragment();
         }
-        if(meFragment == null){
+        if (meFragment == null) {
             meFragment = new MeFragment();
         }
     }
@@ -97,22 +114,22 @@ public class MainActivity extends BaseActivity {
     }
 
     //切换Fragment的方法
-    private void switchFragment(Fragment fragment){
+    private void switchFragment(Fragment fragment) {
 
-        if(currentFragment == fragment){
+        if (currentFragment == fragment) {
             return;
         }
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction beginTransaction = fragmentManager.beginTransaction();
-        if(currentFragment != null){
+        if (currentFragment != null) {
             beginTransaction.hide(currentFragment);
         }
 
-        if(fragment.isAdded()){
+        if (fragment.isAdded()) {
             beginTransaction.show(fragment).commit();
-        } else{
-            beginTransaction.add(R.id.mainFrame,fragment,fragment.getClass().getSimpleName()).commit();
+        } else {
+            beginTransaction.add(R.id.mainFrame, fragment, fragment.getClass().getSimpleName()).commit();
         }
 
         currentFragment = fragment;
@@ -131,7 +148,9 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onStart() {
-        checkNetworkState();
+        //网络状态
+        boolean b = checkNetworkState();
         super.onStart();
     }
+
 }

@@ -114,38 +114,43 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
 
 
         if (!homeRecommendBean.toString().equals("")) {
-            dataBeans.clear();
-            dataBeans = (ArrayList<HomeRecommendBean.DataBean>) homeRecommendBean.getData();
-            Gson gson = new Gson();
-            for (int i = 0; i < dataBeans.size(); i++) {
-                //把json数据转换为contentBean对象
-                HomeRecommendContentBean homeRecommendContentBean = gson.fromJson(dataBeans.get(i).getContent(), HomeRecommendContentBean.class);
-                homeRecommendContentBeans.add(homeRecommendContentBean);
-            }
 
-            //停止上拉和下拉
-            homeRecommendSmart.finishRefresh();
-            homeRecommendSmart.finishLoadMore();
+            if (dataBeans != null) {
 
-            recommendAdapter.notifyDataSetChanged();
-        } else {
-            //没数据就显示提示信息 隐藏列表
-            homeRecommendLin.setVisibility(View.VISIBLE);
-            homeRecommendRv.setVisibility(View.GONE);
-
-            if (dataBeans.size() != 0) {
                 dataBeans.clear();
-            }
+                dataBeans = (ArrayList<HomeRecommendBean.DataBean>) homeRecommendBean.getData();
+                Gson gson = new Gson();
+                for (int i = 0; i < dataBeans.size(); i++) {
+                    //把json数据转换为contentBean对象
+                    HomeRecommendContentBean homeRecommendContentBean = gson.fromJson(dataBeans.get(i).getContent(), HomeRecommendContentBean.class);
+                    homeRecommendContentBeans.add(homeRecommendContentBean);
+                }
 
-            dataBeans = (ArrayList<HomeRecommendBean.DataBean>) homeRecommendBean.getData();
-            Gson gson = new Gson();
-            for (int i = 0; i < dataBeans.size(); i++) {
-                //把json数据转换为contentBean对象
-                HomeRecommendContentBean homeRecommendContentBean = gson.fromJson(dataBeans.get(i).getContent(), HomeRecommendContentBean.class);
-                homeRecommendContentBeans.add(homeRecommendContentBean);
+                //停止上拉和下拉
+                homeRecommendSmart.finishRefresh();
+                homeRecommendSmart.finishLoadMore();
 
+                recommendAdapter.notifyDataSetChanged();
+            } else {
+                //没数据就显示提示信息 隐藏列表
+                homeRecommendLin.setVisibility(View.VISIBLE);
+                homeRecommendRv.setVisibility(View.GONE);
+
+                if (dataBeans.size() != 0) {
+                    dataBeans.clear();
+                }
+
+                dataBeans = (ArrayList<HomeRecommendBean.DataBean>) homeRecommendBean.getData();
+                Gson gson = new Gson();
+                for (int i = 0; i < dataBeans.size(); i++) {
+                    //把json数据转换为contentBean对象
+                    HomeRecommendContentBean homeRecommendContentBean = gson.fromJson(dataBeans.get(i).getContent(), HomeRecommendContentBean.class);
+                    homeRecommendContentBeans.add(homeRecommendContentBean);
+
+                }
             }
         }
+
     }
 
     @Override

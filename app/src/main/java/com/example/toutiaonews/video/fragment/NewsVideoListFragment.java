@@ -116,14 +116,8 @@ public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImp
 
         if (!videoBean.toString().equals("")) {
             list.addAll(videoBean.getData());
-
             Gson gson = new Gson();
-
-            LogUtils.json(videoBean);
-
-
             if (videoBean != null) {
-
                 for (int i = 0; i < list.size(); i++) {
                     String json = list.get(i).getContent();
                     VideoDataBean videoDataBean = gson.fromJson(json, VideoDataBean.class);
@@ -140,11 +134,8 @@ public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImp
                 homeNewsVideoListLin.setVisibility(View.VISIBLE);
                 videolistRv.setVisibility(View.GONE);
             }
-
-
         } else {
             onRoomVideoData();
-
         }
 
         //停止上拉和下拉
@@ -173,9 +164,12 @@ public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImp
     private void onRoomVideoData() {
         //从数据库中拿到数据
         List<NetWorkDataEntity> allData = CacheManager.getCacheManager().getAllData();
-        String jsonUrl = allData.get(allData.size()).getJsonUrl();
-        VideoDataBean videoDataBean = new Gson().fromJson(jsonUrl, VideoDataBean.class);
-        listData.add(videoDataBean);
+        for (int i = 0; i < allData.size(); i++) {
+            String jsonUrl = allData.get(i).getJsonUrl();
+            LogUtils.json(jsonUrl);
+            VideoDataBean videoDataBean = new Gson().fromJson(jsonUrl, VideoDataBean.class);
+            listData.add(videoDataBean);
+        }
     }
 
 

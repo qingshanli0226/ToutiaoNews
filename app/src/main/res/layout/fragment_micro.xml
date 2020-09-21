@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -162,4 +163,40 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/color_d8d8d8" />
+
+
+    <EditText
+        android:id="@+id/et_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/spaceSize10"
+        android:layout_marginTop="@dimen/spaceSize10"
+        android:layout_marginRight="@dimen/spaceSize10"
+        android:background="@drawable/edittext_background"
+        android:hint="说你想说的~"
+        android:maxLength="50"
+        android:maxLines="@integer/weight6"
+        android:padding="@dimen/spaceSize8"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorWhite"
+        android:visibility="gone" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/photo_rv"
+        android:layout_width="@dimen/spaceSize300"
+        android:layout_height="@dimen/spaceSize300"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/spaceSize10"
+        android:background="@drawable/micro_background"
+        android:visibility="gone" />
+
+    <cn.jzvd.JzvdStd
+        android:id="@+id/video_jz"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize200"
+        android:layout_marginLeft="@dimen/spaceSize10"
+        android:layout_marginTop="@dimen/spaceSize10"
+        android:layout_marginRight="@dimen/spaceSize10"
+        android:visibility="gone"></cn.jzvd.JzvdStd>
+
 </LinearLayout>

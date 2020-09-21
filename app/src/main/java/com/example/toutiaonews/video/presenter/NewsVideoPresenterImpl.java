@@ -16,7 +16,7 @@ public class NewsVideoPresenterImpl extends NewsVideoContract.NewsVideoPresenter
 
     String lastTime;
     String currentTime;
-    
+
     @Override
     public void getNewsVideoData(String category) {
         //获取sp文件里的时间戳
