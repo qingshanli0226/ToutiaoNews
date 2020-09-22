@@ -21,4 +21,23 @@
         <item name="android:textSize">15sp</item>
     </style>
 
+
+    <!--标题文字的style -->
+    <style name="bigTextStyle">
+        <item name="android:maxLines">2</item>
+        <item name="android:minLines">2</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">@dimen/textSizeBig</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+    
+    <style name="smallTextStyle">
+        <item name="android:textSize">@dimen/textSizeSmall</item>
+        <item name="android:textColor">@color/colorGray</item>
+    </style>
+    
+    <style name="PromptMargin">
+        <item name="android:layout_marginRight">@dimen/margin10dp</item>
+        <item name="android:layout_marginBottom">@dimen/margin10dp</item>
+    </style>
 </resources>

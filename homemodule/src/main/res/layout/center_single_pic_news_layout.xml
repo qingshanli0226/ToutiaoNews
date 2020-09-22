@@ -1,22 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="@dimen/bigRv_Height">
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/bigRv_Height"
+    android:orientation="vertical"
+    android:padding="@dimen/rv_padding">
 
     <TextView
         android:id="@+id/tv_title"
-        android:textColor="@color/colorBlack"
+        style="@style/bigTextStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/textSizeBig"
-        android:maxLines="2"
-        android:ellipsize="end"
-        android:layout_marginTop="@dimen/margin10dp"
-        android:minLines="2"
-        />
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/imgHeight">
+        <ImageView
+            android:id="@+id/center_pic"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/imgHeight"
+            android:scaleType="fitXY" />
 
 
-    
+        <ImageView
+            android:id="@+id/play_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/play_normal"
+            android:layout_centerInParent="true"/>
+
+        <TextView
+            android:id="@+id/prompt_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/back_round"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            style="@style/PromptMargin"
+            android:textSize="@dimen/textSizeSmall"
+            android:padding="@dimen/padding5dp"
+            android:textColor="@color/colorGray"
+            />
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,27 +50,24 @@
 
         <TextView
             android:id="@+id/tv_author"
+            style="@style/smallTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/padding5dp"
-            android:textColor="@color/colorGray"
-            android:textSize="@dimen/textSizeSmall" />
+            android:padding="@dimen/padding5dp" />
 
         <TextView
             android:id="@+id/tv_comment_num"
+            style="@style/smallTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/padding5dp"
-            android:textColor="@color/colorGray"
-            android:textSize="@dimen/textSizeSmall" />
+            android:padding="@dimen/padding5dp" />
 
         <TextView
             android:id="@+id/tv_time"
+            style="@style/smallTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/padding5dp"
-            android:textColor="@color/colorGray"
-            android:textSize="@dimen/textSizeSmall" />
+            android:padding="@dimen/padding5dp" />
 
     </LinearLayout>
 

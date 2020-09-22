@@ -1,5 +1,9 @@
 package com.bw.homemodule.home.view;
 
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,6 +12,7 @@ import com.bw.homemodule.R;
 import com.bw.homemodule.adapter.NewsListAdapter;
 import com.bw.homemodule.home.contract.HomeContract;
 import com.bw.homemodule.home.presenter.HomePresenterImpl;
+import com.example.common.cache.CacheManager;
 import com.example.common.entity.News;
 import com.example.farmework.base.BaseMVPFragment;
 
@@ -17,10 +22,11 @@ import java.util.ArrayList;
 public class NewsListFragment extends BaseMVPFragment<HomePresenterImpl, HomeContract.IHomeView> implements HomeContract.IHomeView {
     private String channel;
     private String channel_code;
-    private ArrayList<News> newsList=new ArrayList<>();
-    private long lastTime=0;
+    private ArrayList<News> newsList = new ArrayList<>();
+    private long lastTime = 0;
     private RecyclerView newsRv;
     private NewsListAdapter newsListAdapter;
+    private TextView errorText;
 
     public NewsListFragment(String channel, String channel_code) {
         this.channel = channel;
@@ -29,11 +35,12 @@ public class NewsListFragment extends BaseMVPFragment<HomePresenterImpl, HomeCon
 
     @Override
     protected void initHttpData() {
-        if (lastTime==0){
-            lastTime=System.currentTimeMillis();
+        lastTime = CacheManager.getInstance().getFirstTime(channel_code, 0);
+        if (lastTime == 0) {
+            CacheManager.getInstance().putFirstTime(channel_code, System.currentTimeMillis());
         }
-        mPresenter.getHomeData(channel_code, lastTime);
-        lastTime=System.currentTimeMillis();
+        mPresenter.getHomeData(channel_code, CacheManager.getInstance().getFirstTime(channel_code, 0));
+
     }
 
     @Override
@@ -51,13 +58,15 @@ public class NewsListFragment extends BaseMVPFragment<HomePresenterImpl, HomeCon
         newsRv.setAdapter(newsListAdapter);
         newsRv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        newsRv.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
+        newsRv.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
     }
 
     @Override
     protected void initView() {
         newsRv = findViewById(R.id.newsRv);
-        newsListAdapter= new NewsListAdapter(newsList);
+        newsListAdapter = new NewsListAdapter(newsList);
+
+        errorText = findViewById(R.id.show_error);
     }
 
     @Override
@@ -65,11 +74,14 @@ public class NewsListFragment extends BaseMVPFragment<HomePresenterImpl, HomeCon
         this.newsList.clear();
         this.newsList.addAll(newsList);
         newsListAdapter.notifyDataSetChanged();
+
+        errorText.setVisibility(View.GONE);
     }
 
     @Override
     public void showError(String code, String message) {
-
+        errorText.setVisibility(View.VISIBLE);
+        Toast.makeText(mActivity, "code:"+code+message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

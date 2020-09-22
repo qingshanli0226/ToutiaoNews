@@ -1,9 +1,10 @@
-package com.bw.homemodule.home;
+package com.bw.homemodule;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bw.homemodule.R;
+import com.bw.homemodule.home.HomeFragment;
 import com.example.farmework.base.BaseActivity;
 
 

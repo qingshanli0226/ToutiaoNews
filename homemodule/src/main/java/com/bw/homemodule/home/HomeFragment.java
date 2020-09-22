@@ -10,6 +10,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.bw.homemodule.R;
 import com.bw.homemodule.adapter.ColorTabLayoutAdapter;
 import com.bw.homemodule.home.view.NewsListFragment;
+import com.bw.homemodule.video.VideoFragment;
 import com.example.farmework.base.BaseFragment;
 import com.google.android.material.tabs.TabLayout;
 
@@ -39,10 +40,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         channel_codes = getResources().getStringArray(R.array.channel_code);
 
         for (int i = 0; i < channels.length; i++) {
-            fragments.add(new NewsListFragment(channels[i],channel_codes[i]));
-        }
+            if (channel_codes[i].equals("video")){
+                fragments.add(new VideoFragment(channel_codes[i]));
+            }else {
+                fragments.add(new NewsListFragment(channels[i],channel_codes[i]));
+            }
 
-//        fragments.add(new NewsListFragment(channels[0],channel_codes[0]));
+        }
 
         tabLayoutAdapter = new ColorTabLayoutAdapter(getActivity().getSupportFragmentManager(), fragments, channels);
         viewPager.setAdapter(tabLayoutAdapter);

@@ -1,4 +1,4 @@
-package com.bw.homemodule.home;
+package com.bw.homemodule;
 
 import androidx.appcompat.app.AppCompatActivity;
 
