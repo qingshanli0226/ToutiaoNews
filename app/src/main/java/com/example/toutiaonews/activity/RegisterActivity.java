@@ -1,27 +1,27 @@
 package com.example.toutiaonews.activity;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.example.farmework.base.BaseActivity;
+import com.example.farmework.base.BaseMVPActivity;
 import com.example.toutiaonews.R;
 import com.example.toutiaonews.bean.RegisterEntity;
-import com.google.gson.Gson;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
+import com.example.toutiaonews.contract.RegisterContract;
+import com.example.toutiaonews.presenter.RegisterPresenter;
 
-import okhttp3.FormBody;
-
-public class RegisterActivity extends BaseActivity {
+public class RegisterActivity extends BaseMVPActivity<RegisterPresenter, RegisterContract.registerView> implements RegisterContract.registerView {
     private EditText username;
     private EditText pas;
     private Button register;
     private String usernamestr;
     private String passtr;
+
+    @Override
+    protected void initPresenter() {
+        iHttpPresenter=new RegisterPresenter();
+    }
+
     @Override
     protected void initData() {
         register.setOnClickListener(new View.OnClickListener() {
@@ -29,7 +29,7 @@ public class RegisterActivity extends BaseActivity {
             public void onClick(View v) {
                  usernamestr = username.getText().toString().trim();
                  passtr = pas.getText().toString().trim();
-                getonregister();
+                iHttpPresenter.getRegisterData(usernamestr,passtr);
             }
         });
     }
@@ -47,24 +47,44 @@ public class RegisterActivity extends BaseActivity {
         pas = (EditText) findViewById(R.id.pas);
         register = (Button) findViewById(R.id.register);
     }
-    private void getonregister() {
-        FormBody.Builder builder = new FormBody.Builder();
-        builder.add("name",usernamestr);
-        builder.add("password",passtr);
-        FormBody body = builder.build();
-        OkGo.<String>post("http://49.233.93.155:8080/register")
-                .upRequestBody(body)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        String json = response.body();
-                        Gson gson = new Gson();
-                        RegisterEntity registerEntity = gson.fromJson(json, RegisterEntity.class);
-                        Log.e("cx", "onSuccess: "+json );
-                        Toast.makeText(RegisterActivity.this, registerEntity.getMessage(), Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                });
+//    private void getonregister() {
+//        FormBody.Builder builder = new FormBody.Builder();
+//        builder.add("name",usernamestr);
+//        builder.add("password",passtr);
+//        FormBody body = builder.build();
+//        OkGo.<String>post("http://49.233.93.155:8080/register")
+//                .upRequestBody(body)
+//                .execute(new StringCallback() {
+//                    @Override
+//                    public void onSuccess(Response<String> response) {
+//                        String json = response.body();
+//                        Gson gson = new Gson();
+//                        RegisterEntity registerEntity = gson.fromJson(json, RegisterEntity.class);
+//                        Log.e("cx", "onSuccess: "+json );
+//                        Toast.makeText(RegisterActivity.this, registerEntity.getMessage(), Toast.LENGTH_SHORT).show();
+//                        finish();
+//                    }
+//                });
+//    }
+
+    @Override
+    public void onRegisterData(RegisterEntity registerEntity) {
+        Toast.makeText(RegisterActivity.this, registerEntity.getMessage(), Toast.LENGTH_SHORT).show();
+        finish();
     }
 
+    @Override
+    public void showError(String code, String message) {
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
 }

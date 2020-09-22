@@ -1,4 +1,4 @@
-package com.example.toutiaonews;
+package com.example.toutiaonews.appcontract;
 
 import android.app.Application;
 import android.content.SharedPreferences;
