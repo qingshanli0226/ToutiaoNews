@@ -10,10 +10,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.IBinder;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.ImageView;
+
+import androidx.fragment.app.Fragment;
 
 import com.example.common.NetCommon;
 import com.example.framework2.MyService;
+import com.example.net.activity_bean.ChannelBean;
 import com.example.net.activity_bean.NewsListBean;
 
 
@@ -24,8 +28,10 @@ import java.util.List;
 public class CacheManager {
     private CacheManager() {
     }
-
-
+    private List<Fragment> fragments;
+    private List<Fragment> noFragments=new ArrayList<>();
+    private List<ChannelBean> onList;
+    private List<ChannelBean> noList=new ArrayList<>();
     private NewsListBean newsListBean;
     private SharedPreferences sharedPreferences;
     private List<Activity> activityList=new ArrayList<>();
@@ -36,6 +42,57 @@ public class CacheManager {
         }
 
         return instance;
+    }
+    public List<Fragment> getNoFragments() {
+        return noFragments;
+    }
+
+    public void setNoFragments(List<Fragment> noFragments) {
+        this.noFragments = noFragments;
+    }
+
+    public List<Fragment> getFragments() {
+        return fragments;
+    }
+
+    public void setFragments(List<Fragment> fragments) {
+        this.fragments = fragments;
+    }
+
+    public SharedPreferences getSharedPreferences() {
+        return sharedPreferences;
+    }
+    public void addChannel(int position){
+        Log.e("fff",noFragments.size()+ "addChannel: "+fragments.size() );
+        ChannelBean removeC = noList.remove(position);
+        removeC.setShow(true);
+        onList.add(0,removeC);
+        Fragment removeF = noFragments.remove(position);
+        fragments.add(0,removeF);
+    }
+    public void deleteChannel(int position){
+        ChannelBean removeC = onList.remove(position);
+        removeC.setShow(false);
+        noList.add(0,removeC);
+        Fragment removeF = fragments.remove(position);
+        noFragments.add(0,removeF);
+    }
+    public List<ChannelBean> getOnList() {
+        onList.get(0).setSign(false);
+        return onList;
+    }
+
+    public void setOnList(List<ChannelBean> onList) {
+        onList.get(0).setSign(false);
+        this.onList = onList;
+    }
+
+    public List<ChannelBean> getNoList() {
+        return noList;
+    }
+
+    public void setNoList(List<ChannelBean> noList) {
+        this.noList = noList;
     }
 
     public NewsListBean getNewsListBean() {
@@ -48,23 +105,7 @@ public class CacheManager {
 
     public void init(Context context){
         sharedPreferences = context.getSharedPreferences(NetCommon.SP_NAME, Context.MODE_PRIVATE);
-        Intent intent = new Intent(context, MyService.class);
-        ServiceConnection serviceConnection = new ServiceConnection() {
 
-            @Override
-            public void onServiceConnected(ComponentName name, IBinder service) {
-                MyService.MyBinder myBinder=(MyService.MyBinder)service;
-//                if (!TextUtils.isEmpty(getToken())){
-//                    myBinder.getService().autoLogin(getToken());
-//                }
-            }
-
-            @Override
-            public void onServiceDisconnected(ComponentName name) {
-
-            }
-        };
-        context.bindService(intent,serviceConnection,Context.BIND_AUTO_CREATE);
     }
 
 

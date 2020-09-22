@@ -1,6 +1,7 @@
 package com.example.toutiaonews;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -9,13 +10,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.framework2.mvp.view.BaseActivity;
 import com.example.toutiaonews.fragment.HomeFragment;
 import com.example.toutiaonews.fragment.MeFragment;
 import com.example.toutiaonews.fragment.MicroFragment;
 import com.example.videolibrary.VideoFragment;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private FrameLayout mainFrame;
     private RadioButton mainTabHome;
@@ -25,17 +27,9 @@ public class MainActivity extends AppCompatActivity {
     private RadioGroup mainTabRg;
 
     private Fragment homeFragment,videoFragment,microFragment,meFragment;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        initView();
-        initData();
 
 
-    }
-
-    private void initData() {
+    public void initData() {
         //第一次进入显示home
         mainTabHome.setChecked(true);
         homeFragment = new HomeFragment();
@@ -115,7 +109,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void initView() {
+    @Override
+    public void initPresenter() {
+
+    }
+
+    @Override
+    public int bandLayout() {
+        return R.layout.activity_main;
+    }
+
+    public void initView() {
         mainFrame = (FrameLayout) findViewById(R.id.main_frame);
         mainTabHome = (RadioButton) findViewById(R.id.main_tab_home);
         mainTabVideo = (RadioButton) findViewById(R.id.main_tab_video);
@@ -125,4 +129,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onClick(View view) {
+
+    }
 }

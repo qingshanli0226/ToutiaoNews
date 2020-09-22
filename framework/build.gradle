@@ -25,11 +25,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    greendao {
-        schemaVersion 1
-        daoPackage 'com.example.framework2.dao'
-        targetGenDir 'src/main/java'
-    }
+//    greendao {
+//        schemaVersion 1
+//        daoPackage 'com.example.framework2.dao'
+//        targetGenDir 'src/main/java'
+//    }
 }
 
 dependencies {
