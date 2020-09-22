@@ -25,4 +25,14 @@ public class ConcernFragment extends BaseLJZFragment {
     public void onClick(View view) {
 
     }
+
+    @Override
+    public void showView() {
+
+    }
+
+    @Override
+    public void hideView() {
+
+    }
 }

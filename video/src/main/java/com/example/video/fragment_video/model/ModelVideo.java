@@ -21,7 +21,7 @@ public class ModelVideo extends BaseModel implements ContractVideo.Model {
     public void getData(BaseObserver<Recommend> baseObserver, long listTime, String index) {
 
         long currentTimeMillis = System.currentTimeMillis();
-        Tools.getTools().putVideoTime(index, listTime);
+        Tools.getTools().putVideoTime(index+"_time", currentTimeMillis);
 
         HttpManager.getHttpManager().setPath(NetCommon.BASE_URL);
         HttpManager.getHttpManager()

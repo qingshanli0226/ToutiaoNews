@@ -13,7 +13,6 @@ public class App extends Application {
             ARouter.openLog();
         }
         ARouter.init(this);
-
     }
 
     @Override

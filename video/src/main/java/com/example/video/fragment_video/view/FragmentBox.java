@@ -8,7 +8,9 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.framework2.mvp.view.BaseFragment;
+import com.example.framework2.utils.Tools;
 import com.example.video.R;
+import com.example.video.dao.DaoManager;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -35,6 +37,8 @@ public class FragmentBox extends BaseFragment {
         mTabTopTitle = (TabLayout) findViewById(R.id.tab_top_title);
         mFragmentBoxVp = (ViewPager) findViewById(R.id.fragment_box_vp);
         mTabTopTitle.setTabMode(MODE_SCROLLABLE);
+        DaoManager.getDaoMessage().init(getContext());
+
         String[] stringArray = Objects.requireNonNull(getActivity()).getResources().getStringArray(R.array.channel_video);
         String[] stringArray1 = Objects.requireNonNull(getActivity()).getResources().getStringArray(R.array.channel_code_video);
         list = new ArrayList<>();
@@ -42,6 +46,7 @@ public class FragmentBox extends BaseFragment {
         for (int i = 0; i < stringArray.length; i++) {
             mTabTopTitle.addTab(mTabTopTitle.newTab().setText(stringArray[i]));
             list.add(new LjzFragmentVideo(stringArray1[i]));
+            Tools.getTools().putVideoCode(stringArray1[i]);
         }
 
         mFragmentBoxVp.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {

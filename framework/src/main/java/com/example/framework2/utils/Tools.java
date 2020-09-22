@@ -28,6 +28,8 @@ public class Tools {
         edito = video.edit();
     }
 
+
+
     public boolean putVideoTime(String str, Long time) {
         edito.putLong(str, time);
         return edito.commit();
@@ -42,8 +44,8 @@ public class Tools {
 
         edito.putString(str, str);
 
-        return edito.commit();}
-
+        return edito.commit();
+    }
 
 
 }
