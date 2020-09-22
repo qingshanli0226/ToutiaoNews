@@ -22,7 +22,6 @@ public class PresenterVideo extends BasePresenter<ContractVideo.View, ContractVi
 
             @Override
             public void error(String errorCode, String errorMessage) {
-                Log.e("7897987", "success: " + errorMessage);
 
             }
 

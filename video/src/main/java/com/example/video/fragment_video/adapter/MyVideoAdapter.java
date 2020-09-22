@@ -31,5 +31,6 @@ public class MyVideoAdapter extends BaseQuickAdapter<ContentBean, BaseViewHolder
             Glide.with(mContext).load(item.getMedia_info().getAvatar_url()).transform(new CircleCrop()).into((ImageView) helper.getView(R.id.item_head_pic));
             helper.setText(R.id.item_name_txt, item.getMedia_info().getName());
         }
+        helper.addOnClickListener(R.id.item_video_pic);
     }
 }

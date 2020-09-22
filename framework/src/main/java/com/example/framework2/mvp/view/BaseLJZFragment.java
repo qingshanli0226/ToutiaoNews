@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.framework2.mvp.presenter.IPresenter;
+import com.example.framework2.utils.Tools;
 
 public abstract class BaseLJZFragment<P extends IPresenter> extends Fragment implements View.OnClickListener, IView {
     protected View rootView;
@@ -34,6 +35,7 @@ public abstract class BaseLJZFragment<P extends IPresenter> extends Fragment imp
         rootView = inflater.inflate(setContentView(), container, false);
         ARouter.getInstance().inject(this);
         initView();
+        Tools.getTools().setContext(getContext());
         isInitView = true;
         isCanLoadData();
         return rootView;
@@ -79,7 +81,6 @@ public abstract class BaseLJZFragment<P extends IPresenter> extends Fragment imp
      * 加载要显示的数据
      */
     protected abstract void lazyLoad();
-
 
 
     @Override

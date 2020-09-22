@@ -20,6 +20,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.common.ARouterCommon;
 import com.example.framework2.mvp.view.BaseLJZFragment;
 import com.example.framework2.mvp.view.LoadingView;
+import com.example.framework2.utils.Tools;
 import com.example.net.bean.ContentBean;
 import com.example.net.bean.Recommend;
 import com.example.video.R;
@@ -124,9 +125,8 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
      */
     @Override
     protected void lazyLoad() {
-        long currentTimeMillis = System.currentTimeMillis();
-        mPresenter.getVideoData(currentTimeMillis, str);
-
+        long videoTime = Tools.getTools().getVideoTime(str);
+        mPresenter.getVideoData(videoTime, str);
         mLoadingImage.showEmpty();
     }
 
@@ -284,7 +284,7 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
      * 下拉刷新
      *
      * @param refreshLayout 刷新的布局
-     *///879
+     */
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
         mPresenter.getVideoData(System.currentTimeMillis(), str);
@@ -296,12 +296,13 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
     }
 
     @Override
-    public void getVideoData(Recommend str) {
+    public void getVideoData(Recommend recommend) {
         mLoadingImage.showContent();
+        showMessage("加载完成。。。");
         mRefreshListSrl.finishRefresh(true);
         mRefreshListSrl.finishLoadMore(true);
 
-        for (Recommend.DataBean datum : str.getData()) {
+        for (Recommend.DataBean datum : recommend.getData()) {
             ContentBean contentBean = new Gson().fromJson(datum.getContent(), ContentBean.class);
             videoBeanList.add(contentBean);
         }
