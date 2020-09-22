@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.example.farmework.base.BaseMVPActivity;
 import com.example.toutiaonews.R;
 import com.example.toutiaonews.bean.RegisterEntity;
@@ -19,22 +20,25 @@ public class RegisterActivity extends BaseMVPActivity<RegisterPresenter, Registe
 
     @Override
     protected void initPresenter() {
-        iHttpPresenter=new RegisterPresenter();
+        iHttpPresenter = new RegisterPresenter();
     }
 
     @Override
-    protected void initData() {
+    protected void initHttpData() {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 usernamestr = username.getText().toString().trim();
-                 passtr = pas.getText().toString().trim();
-                iHttpPresenter.getRegisterData(usernamestr,passtr);
+                usernamestr = username.getText().toString().trim();
+                passtr = pas.getText().toString().trim();
+                iHttpPresenter.getRegisterData(usernamestr, passtr);
             }
         });
     }
 
+    @Override
+    protected void initData() {
 
+    }
 
     @Override
     protected int bandLayout() {
@@ -47,25 +51,6 @@ public class RegisterActivity extends BaseMVPActivity<RegisterPresenter, Registe
         pas = (EditText) findViewById(R.id.pas);
         register = (Button) findViewById(R.id.register);
     }
-//    private void getonregister() {
-//        FormBody.Builder builder = new FormBody.Builder();
-//        builder.add("name",usernamestr);
-//        builder.add("password",passtr);
-//        FormBody body = builder.build();
-//        OkGo.<String>post("http://49.233.93.155:8080/register")
-//                .upRequestBody(body)
-//                .execute(new StringCallback() {
-//                    @Override
-//                    public void onSuccess(Response<String> response) {
-//                        String json = response.body();
-//                        Gson gson = new Gson();
-//                        RegisterEntity registerEntity = gson.fromJson(json, RegisterEntity.class);
-//                        Log.e("cx", "onSuccess: "+json );
-//                        Toast.makeText(RegisterActivity.this, registerEntity.getMessage(), Toast.LENGTH_SHORT).show();
-//                        finish();
-//                    }
-//                });
-//    }
 
     @Override
     public void onRegisterData(RegisterEntity registerEntity) {

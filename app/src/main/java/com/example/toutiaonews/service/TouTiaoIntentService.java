@@ -1,32 +1,27 @@
 package com.example.toutiaonews.service;
-import android.app.Application;
-import android.app.IntentService;
+import android.app.Service;
 import android.content.Intent;
-import android.widget.Toast;
-
+import android.os.Binder;
+import android.os.IBinder;
 import com.example.toutiaonews.appcontract.TouTiaoAppLication;
 import com.example.toutiaonews.bean.AutoLoginEntity;
 import com.example.toutiaonews.net.RetrofitManager;
-import com.google.gson.Gson;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
-
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-
-public class TouTiaoIntentService extends IntentService {
+public class TouTiaoIntentService extends Service {
     private TouTiaoAppLication application;
-    public TouTiaoIntentService() {
-        super("TouTiaoIntentService");
+    public class TouTiaoBinder extends Binder {
+        public TouTiaoIntentService getService(){
+        return TouTiaoIntentService.this;
+        }
+    }
+    @Override
+    public IBinder onBind(Intent intent) {
+        return new TouTiaoBinder();
     }
 
-    @Override
-    protected void onHandleIntent(Intent intent) {
-        application=((TouTiaoAppLication)getApplication());
-    }
     public void autoLogin(String tokenstring){
         RetrofitManager.getNewsApi().getAutoLogin(tokenstring)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -40,7 +35,6 @@ public class TouTiaoIntentService extends IntentService {
                     @Override
                     public void onNext(AutoLoginEntity autoLoginEntity) {
                         if (autoLoginEntity.getCode().equals("200")){
-                            Toast.makeText(TouTiaoIntentService.this, autoLoginEntity.getMessage(), Toast.LENGTH_SHORT).show();
                             application.tofLogin=true;
                         }
                     }
