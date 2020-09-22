@@ -35,7 +35,7 @@
             android:id="@+id/main_tab_video"
             android:button="@null"
             android:drawableTop="@drawable/main_tab_video"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp_0"
             android:text="视频"
             android:gravity="center"
             android:layout_height="match_parent"

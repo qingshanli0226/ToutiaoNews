@@ -5,16 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragment.VideoFragment">
+    tools:context="com.example.videolibrary.VideoFragment">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="@dimen/dp_50">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/fragment_video_tab"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/dp_370"
             android:layout_height="match_parent"
             app:tabIndicatorHeight="@dimen/dp_0"
             app:tabMode="scrollable"
@@ -25,10 +25,10 @@
 
         <ImageView
             android:id="@+id/fragment_video_search_pic"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50"
             android:layout_alignParentRight="true"
-            android:background="#F8F6F6"
+            android:background="@color/color_white"
             android:padding="@dimen/dp_10"
             android:src="@mipmap/search_channel" />
 

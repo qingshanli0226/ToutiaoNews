@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.toutiaonews.fragment.HomeFragment;
 import com.example.toutiaonews.fragment.MeFragment;
 import com.example.toutiaonews.fragment.MicroFragment;
-import com.example.toutiaonews.fragment.VideoFragment;
+import com.example.videolibrary.VideoFragment;
 
 
 public class MainActivity extends AppCompatActivity {

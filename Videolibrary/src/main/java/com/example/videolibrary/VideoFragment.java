@@ -1,4 +1,4 @@
-package com.example.toutiaonews.fragment;
+package com.example.videolibrary;
 
 
 import android.os.Bundle;
@@ -7,18 +7,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.net.activity_bean.VideoBean;
-import com.example.toutiaonews.R;
-import com.example.toutiaonews.adapter.VideoAdapter;
+import com.example.net.activity_bean.entity.Channel;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -33,8 +32,7 @@ public class VideoFragment extends Fragment {
     private ViewPager fragmentVideoVp;
     private List<Fragment> fragmentList;
     private List<VideoBean> videoBeans;
-
-
+    private List<Channel> mChannelList;
 
     public VideoFragment() {
         // Required empty public constructor
@@ -59,21 +57,16 @@ public class VideoFragment extends Fragment {
         tabAdd();
 
 
-
         videoBeans = new ArrayList<>();
-        videoBeans.add(new VideoBean("http://domhttp.kksmg.com/2020/09/15/h264_450k_mp4_SHNewsHD3000000202009151830080000466_aac.mp4",
-                "新闻王达到哇嘎哇嘎我给我噶我国", "https://i2.sinaimg.cn/dy/deco/2012/0613/yocc20120613img01/news_logo.png",
-                "新闻王", 23));
-        videoBeans.add(new VideoBean("http://domhttp.kksmg.com/2020/09/15/h264_450k_mp4_SHNewsHD3000000202009151830080000466_aac.mp4",
-                "ASEDRFTYHJ", "https://i2.sinaimg.cn/dy/deco/2012/0613/yocc20120613img01/news_logo.png",
-                "新闻王", 23));
-        videoBeans.add(new VideoBean("http://domhttp.kksmg.com/2020/09/15/h264_450k_mp4_SHNewsHD3000000202009151830080000466_aac.mp4",
-                "SFDGSDHGFJRK", "https://i2.sinaimg.cn/dy/deco/2012/0613/yocc20120613img01/news_logo.png",
-                "124323", 23));
 
-        for (int i = 0; i < fragmentVideoTab.getTabCount(); i++) {
-            fragmentList.add(new VideoChildFragment(videoBeans));
+        for (int i = 0; i < mChannelList.size(); i++) {
+            VideoChildFragment videoChildFragment = new VideoChildFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("category", mChannelList.get(i).channelCode);
+            videoChildFragment.setArguments(bundle);
+            fragmentList.add(videoChildFragment);
         }
+
         fragmentVideoVp.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @NonNull
             @Override
@@ -85,8 +78,12 @@ public class VideoFragment extends Fragment {
             public int getCount() {
                 return fragmentList.size();
             }
+
         });
 
+//        Bundle bundle = new Bundle();
+//        bundle.putString("type", mChannelList.get(0).title);
+//        fragmentList.get(0).setArguments(bundle);
         //tab和Vp的关联
         tabAndVp();
     }
@@ -96,6 +93,12 @@ public class VideoFragment extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 fragmentVideoVp.setCurrentItem(tab.getPosition());
+
+//                Toast.makeText(getContext(), "" + tab.getPosition(), Toast.LENGTH_SHORT).show();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("type", mChannelList.get(tab.getPosition()).title);
+//                fragmentList.get(tab.getPosition()).setArguments(bundle);
+
             }
 
             @Override
@@ -112,6 +115,7 @@ public class VideoFragment extends Fragment {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 fragmentVideoTab.setScrollPosition(position, positionOffset, true);
+
             }
 
             @Override
@@ -131,21 +135,20 @@ public class VideoFragment extends Fragment {
         fragmentVideoSearchPic = view.findViewById(R.id.fragment_video_search_pic);
         fragmentVideoVp = view.findViewById(R.id.fragment_video_vp);
         fragmentList = new ArrayList<>();
-
     }
 
     private void tabAdd() {
-        fragmentVideoTab.addTab(fragmentVideoTab.newTab().setText("推荐"));
-        fragmentVideoTab.addTab(fragmentVideoTab.newTab().setText("音乐"));
-        fragmentVideoTab.addTab(fragmentVideoTab.newTab().setText("搞笑"));
-        fragmentVideoTab.addTab(fragmentVideoTab.newTab().setText("社会"));
-        fragmentVideoTab.addTab(fragmentVideoTab.newTab().setText("小品"));
-        fragmentVideoTab.addTab(fragmentVideoTab.newTab().setText("生活"));
-        fragmentVideoTab.addTab(fragmentVideoTab.newTab().setText("影视"));
-        fragmentVideoTab.addTab(fragmentVideoTab.newTab().setText("影视"));
-        fragmentVideoTab.addTab(fragmentVideoTab.newTab().setText("影视"));
-        fragmentVideoTab.addTab(fragmentVideoTab.newTab().setText("影视"));
-        fragmentVideoTab.addTab(fragmentVideoTab.newTab().setText("影视"));
-        fragmentVideoTab.addTab(fragmentVideoTab.newTab().setText("影视"));
+
+        String[] channels = getResources().getStringArray(R.array.channel_video);
+        String[] channelCodes = getResources().getStringArray(R.array.channel_code_video);
+        mChannelList = new ArrayList<>();
+        for (int i = 0; i < channelCodes.length; i++) {
+            String title = channels[i];
+            String code = channelCodes[i];
+            mChannelList.add(new Channel(title, code));
+            fragmentVideoTab.addTab(fragmentVideoTab.newTab().setText(mChannelList.get(i).title));
+            Log.i("AAAAAAAAA", "tabAdd: "+code);
+        }
+
     }
 }
