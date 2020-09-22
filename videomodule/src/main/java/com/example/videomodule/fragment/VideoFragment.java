@@ -1,6 +1,7 @@
 package com.example.videomodule.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -38,7 +39,9 @@ public class VideoFragment extends BaseFragment {
         for (Channel channel:mChannelList) {
             VideoListFragments newsFragment = new VideoListFragments();
             Bundle bundle = new Bundle();
+
             bundle.putString(Constant.CHANNEL_CODE, channel.channelCode);
+            Log.i("----channel", channel.channelCode);
             bundle.putBoolean(Constant.IS_VIDEO_LIST, true);//是否是视频列表页面,true
             newsFragment.setArguments(bundle);
             fragments.add(newsFragment);//添加到集合中

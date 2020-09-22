@@ -37,6 +37,7 @@ public class BGRefrushLayout extends LinearLayout {
     private int paddingTop;
     private int oldY;
     private AnimationDrawable animationDrawable;
+    private RecyclerView recyclerView;
     private float lastY;
     private int firstVisiblePosition;
     private IRefreshListener iRefreshListener;
@@ -95,7 +96,25 @@ public class BGRefrushLayout extends LinearLayout {
         }
         return false;
     }
+    public void attchRecylerView(RecyclerView view){
+        recyclerView = view;
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState == RecyclerView.SCROLL_STATE_IDLE){
+                    LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                    int newPosition = linearLayoutManager.findFirstCompletelyVisibleItemPosition();//获取新滑动到的Item对应的位置
+                    firstVisiblePosition = newPosition;
+                }
+            }
 
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
+    }
     @Override
     public boolean onTouchEvent(final MotionEvent event) {
         super.onTouchEvent(event);

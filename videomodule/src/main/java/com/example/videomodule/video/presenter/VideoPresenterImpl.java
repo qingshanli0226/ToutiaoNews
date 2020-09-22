@@ -1,15 +1,18 @@
-package com.example.video.mvp.presenter;
+package com.example.videomodule.video.presenter;
 
+import android.os.Message;
 import android.util.Log;
 
 import com.example.common.cache.CacheManager;
 import com.example.common.entity.Video;
 import com.example.common.entity.VideoBean;
+import com.example.common.entity.VideoDataBean;
 import com.example.common.entity.VideoModel;
 import com.example.common.response.NewsResponse;
 import com.example.net.obserable.BaseObserable;
 import com.example.net.retrofit.RetrofitManager;
 import com.example.videomodule.video.contract.VideoContract;
+import com.google.gson.Gson;
 
 import java.util.Collections;
 import java.util.List;
@@ -41,7 +44,11 @@ public class VideoPresenterImpl extends VideoContract.VideoPresenter {
                         firstTime = System.currentTimeMillis() / 1000;
                         CacheManager.getInstance().putFirstTime(category,firstTime);
                         if(videoBean != null){
-                            iHttpView.onVideoData(videoBean);
+                            Gson gson = new Gson();
+                            for (int i = 0; i < videoBean.getData().size(); i++) {
+                                VideoDataBean videoDataBean = gson.fromJson(videoBean.getData().get(i).getContent(), VideoDataBean.class);
+                                iHttpView.onVideoData(videoDataBean);
+                            }
                         }else{
                             iHttpView.showError("", "请求失败");
                         }
