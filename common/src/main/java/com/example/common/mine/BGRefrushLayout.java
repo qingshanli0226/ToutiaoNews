@@ -115,6 +115,7 @@ public class BGRefrushLayout extends LinearLayout {
             }
         });
     }
+
     @Override
     public boolean onTouchEvent(final MotionEvent event) {
         super.onTouchEvent(event);
@@ -175,12 +176,14 @@ public class BGRefrushLayout extends LinearLayout {
     private ObjectAnimator rotationY;
     private void initAnim(float eventY) {
         if(eventY - lastY >= headerViewHeight / 2){
+            refrustText.setText("松开刷新");
             rotationY = ObjectAnimator.ofFloat(refrustImage, "rotationX", 0, 180);
             rotationY.setDuration(0);
             rotationY.setRepeatCount(1);
             rotationY.start();
         }else{
             if(rotationY != null){
+                refrustText.setText("下拉刷新");
                 rotationY = ObjectAnimator.ofFloat(refrustImage, "rotationX", 180, 0);
                 rotationY.setDuration(0);
                 rotationY.setRepeatCount(1);
