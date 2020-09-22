@@ -7,7 +7,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class WelcomeActivity extends BaseActivity {
-    private int timp=5;
+    private int timp = 5;
+
     @Override
     protected void initData() {
         final Timer timer = new Timer();
@@ -15,12 +16,12 @@ public class WelcomeActivity extends BaseActivity {
             @Override
             public void run() {
                 timp--;
-                if (timp<=0){
+                if (timp <= 0) {
                     timer.cancel();
                     finish();
                 }
             }
-        },0,1000);
+        }, 0, 1000);
     }
 
     @Override

@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.farmework.base.BaseFragment;
 import com.example.toutiaonews.R;
-import com.example.toutiaonews.TouTiaoAppLication;
+import com.example.toutiaonews.appcontract.TouTiaoAppLication;
 import com.example.toutiaonews.activity.LoginActivity;
 import com.wildma.pictureselector.PictureBean;
 import com.wildma.pictureselector.PictureSelector;
