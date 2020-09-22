@@ -11,7 +11,7 @@ import com.example.common.entity.Channel;
 import com.example.farmework.base.BaseFragment;
 import com.example.toutiaonews.R;
 import com.example.videomodule.adapter.FragmentAdapter;
-import com.example.videomodule.video.view.VideoListFragment;
+import com.example.videomodule.video.view.VideoListFragments;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ public class VideoFragment extends BaseFragment {
     private List<Channel> mChannelList = new ArrayList<>();
 
     private ViewPager videoView;
-    List<VideoListFragment> fragments = new ArrayList<>();
+    List<VideoListFragments> fragments = new ArrayList<>();
     @Override
     protected int bandLayout() {
         return R.layout.fragment_video;
@@ -36,10 +36,10 @@ public class VideoFragment extends BaseFragment {
     protected void initData() {
         initChannelData();
         for (Channel channel:mChannelList) {
-            VideoListFragment newsFragment = new VideoListFragment();
+            VideoListFragments newsFragment = new VideoListFragments();
             Bundle bundle = new Bundle();
             bundle.putString(Constant.CHANNEL_CODE, channel.channelCode);
-            bundle.putBoolean(Constant.IS_VIDEO_LIST, true);//是否是视频列表页面,]true
+            bundle.putBoolean(Constant.IS_VIDEO_LIST, true);//是否是视频列表页面,true
             newsFragment.setArguments(bundle);
             fragments.add(newsFragment);//添加到集合中
         }

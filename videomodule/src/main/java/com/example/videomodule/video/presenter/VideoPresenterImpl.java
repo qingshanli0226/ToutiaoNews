@@ -9,7 +9,7 @@ import com.example.common.entity.VideoModel;
 import com.example.common.response.NewsResponse;
 import com.example.net.obserable.BaseObserable;
 import com.example.net.retrofit.RetrofitManager;
-import com.example.video.mvp.contract.VideoContract;
+import com.example.videomodule.video.contract.VideoContract;
 
 import java.util.Collections;
 import java.util.List;

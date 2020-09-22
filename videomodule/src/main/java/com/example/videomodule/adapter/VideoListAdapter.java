@@ -1,4 +1,4 @@
-package com.example.video.adapter;
+package com.example.videomodule.adapter;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -24,6 +24,9 @@ public class VideoListAdapter extends BaseQuickAdapter<VideoDataBean, BaseViewHo
 
     @Override
     protected void convert(BaseViewHolder helper, VideoDataBean item) {
+        if(item.getVideo_detail_info() == null){
+            return;
+        }
         JzvdStd MyJzvdStd = helper.getView(R.id.list_jiaozi);
         //作者信息
         helper.setText(R.id.list_title, item.getMedia_name());

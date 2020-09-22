@@ -3,7 +3,7 @@
     package="com.example.toutiaonews">
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <application
-        android:name="com.example.video.app.App"
+        android:name="com.example.videomodule.app.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,7 +16,7 @@
         <meta-data
             android:name="design_height_in_dp"
             android:value="1066"/>
-        <activity android:name="com.example.video.VideoActivity">
+        <activity android:name="com.example.videomodule.VideoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

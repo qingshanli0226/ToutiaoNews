@@ -22,11 +22,11 @@ public abstract class BaseMVPActivity<T extends IPresenter, V extends IView> ext
         super.onCreate(savedInstanceState);
         initPresenter();
         iHttpPresenter.attachView((V) this);
-        initData();
+        initHttpData();
     }
 
     protected abstract void initPresenter();
-    protected abstract void initData();
+    protected abstract void initHttpData();
 
 
     @Override

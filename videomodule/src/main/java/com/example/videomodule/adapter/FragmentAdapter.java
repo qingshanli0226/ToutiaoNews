@@ -7,15 +7,15 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.common.entity.Channel;
-import com.example.videomodule.video.view.VideoListFragment;
+import com.example.videomodule.video.view.VideoListFragments;
 
 import java.util.List;
 
 public class FragmentAdapter extends FragmentPagerAdapter {
-    private List<VideoListFragment> mFragments;
+    private List<VideoListFragments> mFragments;
     private List<Channel> mChannels;
 
-    public FragmentAdapter(@NonNull FragmentManager fm, int behavior,List<VideoListFragment> mFragments, List<Channel> mChannels) {
+    public FragmentAdapter(@NonNull FragmentManager fm, int behavior, List<VideoListFragments> mFragments, List<Channel> mChannels) {
         super(fm, behavior);
         this.mFragments = mFragments;
         this.mChannels = mChannels;
