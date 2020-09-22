@@ -1,11 +1,13 @@
 package com.example.videolibrary;
 
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.framework.bean.BaseMVPFragment;
 import com.example.net.activity_bean.VideoBean;
@@ -13,6 +15,9 @@ import com.example.videolibrary.adapter.VideoAdapter;
 import com.example.videolibrary.mvp.VideoChildContract;
 import com.example.videolibrary.mvp.VideoChildPresenterImpl;
 import com.google.gson.Gson;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,14 +25,17 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl, VideoChildContract.IVideoChildView> implements VideoChildContract.IVideoChildView {
+public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl, VideoChildContract.IVideoChildView> implements VideoChildContract.IVideoChildView, OnRefreshLoadMoreListener {
     private static final String TAG = "VideoChildFragment AAA";
     private RecyclerView fragmentVideoChildRv;
+    private SmartRefreshLayout fragmentVideoChildSmart;
+
 
     private VideoAdapter videoAdapter;
     private List<VideoDataBean> videoDataBeans;
 
     private String category;
+    private boolean isRefresh = true;
 
 
     public VideoChildFragment() {
@@ -41,19 +49,22 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
 
     @Override
     protected void initData() {
+        videoDataBeans = new ArrayList<>();
+        videoAdapter = new VideoAdapter(videoDataBeans);
+        fragmentVideoChildRv.setAdapter(videoAdapter);
+        fragmentVideoChildRv.setLayoutManager(new LinearLayoutManager(getContext()));
 
+
+
+
+        fragmentVideoChildSmart.setOnRefreshLoadMoreListener(this);
     }
 
     @Override
     protected void initView() {
         category = getArguments().getString("category","");
-        Log.i(TAG, "initView:      category     " + category);
         fragmentVideoChildRv = findViewById(R.id.fragment_video_child_rv);
-
-        videoDataBeans = new ArrayList<>();
-        videoAdapter = new VideoAdapter(videoDataBeans);
-        fragmentVideoChildRv.setAdapter(videoAdapter);
-        fragmentVideoChildRv.setLayoutManager(new LinearLayoutManager(getContext()));
+        fragmentVideoChildSmart = findViewById(R.id.fragment_video_child_smart);
     }
 
     @Override
@@ -70,10 +81,18 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
 
     @Override
     public void onVideoChildData(VideoBean videoBean) {
-        Log.i(TAG, "onVideoChildData:      12345678980 ");
         Gson gson = new Gson();
         List<VideoBean.DataBean> data = videoBean.getData();
-        Log.i(TAG, "onVideoChildData:   data.size  " + data.size());
+
+        //如果没有数据 通知用户 并且不执行以下代码
+        if (data.size() == 0) {
+            Toast.makeText(getContext(), "您刷新的频率太快了,暂无数据!!!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (isRefresh) {
+            videoDataBeans.clear();
+        }
 
         for (int i = 0; i < data.size(); i++) {
             String content = data.get(i).getContent();
@@ -98,5 +117,20 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
     @Override
     public void hideLoaing() {
 
+    }
+
+    @Override
+    public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+        fragmentVideoChildSmart.finishLoadMore();
+        isRefresh = false; //说明是加载
+        ihttpPresenter.getVideoChildData(category);
+
+    }
+
+    @Override
+    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+        fragmentVideoChildSmart.finishRefresh();
+        isRefresh = true;//说明是刷新 需要清除list的数据
+        ihttpPresenter.getVideoChildData(category);
     }
 }
