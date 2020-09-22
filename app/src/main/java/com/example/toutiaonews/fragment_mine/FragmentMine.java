@@ -21,6 +21,7 @@ import com.example.framework2.mvp.view.BaseFragment;
 import com.example.toutiaonews.MainActivity;
 import com.example.toutiaonews.R;
 import com.example.user.activity.LoginActivity;
+import com.example.toutiaonews.fragment_mine.dialog.MyDialog;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -110,7 +111,8 @@ public class FragmentMine extends BaseFragment {
     }
 
     private void toFeedback() {
-        ARouter.getInstance().build(ARouterCommon.USER_FEEDBANCK).navigation();
+        MyDialog myDialog = new MyDialog(getContext(), R.style.MyTheDialog);
+        myDialog.show();
     }
 
     private void toDisclose() {

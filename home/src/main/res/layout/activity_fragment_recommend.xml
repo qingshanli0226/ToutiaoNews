@@ -6,12 +6,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.user.activity.JDongActivity">
-    <TextView
-        android:textSize="@dimen/dp_20"
-        android:layout_weight="1"
-        android:textColor="#000000"
-        android:gravity="center"
-        android:text="推荐"
+
+    <com.example.framework2.mvp.view.LoadingView
+        android:id="@+id/loading_image"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_0"/>
+        android:layout_height="match_parent">
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/refresh_list_srl_recommend"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/video_list_rv_recommend"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </com.example.framework2.mvp.view.LoadingView>
+
 </LinearLayout>
