@@ -83,6 +83,10 @@ public abstract class BaseLJZFragment<P extends IPresenter> extends Fragment imp
     protected abstract void lazyLoad();
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 661a40778eab2af40835b849e3b94b8ca35a8ba0
     @Override
     public void showView() {
 

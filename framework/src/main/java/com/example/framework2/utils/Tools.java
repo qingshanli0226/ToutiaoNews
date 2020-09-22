@@ -42,7 +42,8 @@ public class Tools {
 
         edito.putString(str, str);
 
-        return edito.commit();
+        return edito.commit();}
 
-    }
+
+
 }

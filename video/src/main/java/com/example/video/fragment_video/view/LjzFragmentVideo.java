@@ -20,7 +20,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.common.ARouterCommon;
 import com.example.framework2.mvp.view.BaseLJZFragment;
 import com.example.framework2.mvp.view.LoadingView;
+<<<<<<< HEAD:video/src/main/java/com/example/video/fragment_video/view/LjzFragmentVideo.java
 import com.example.framework2.utils.Tools;
+=======
+>>>>>>> 661a40778eab2af40835b849e3b94b8ca35a8ba0:app/src/main/java/com/example/toutiaonews/fragment_video/view/LjzFragmentVideo.java
 import com.example.net.bean.ContentBean;
 import com.example.net.bean.Recommend;
 import com.example.video.R;
@@ -118,6 +121,7 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
         list.add("http://vfx.mtime.cn/Video/2019/03/12/mp4/190312143927981075.mp4");
         list.add("http://vfx.mtime.cn/Video/2019/03/12/mp4/190312083533415853.mp4");
     }
+<<<<<<< HEAD:video/src/main/java/com/example/video/fragment_video/view/LjzFragmentVideo.java
 
 
     /**
@@ -127,6 +131,18 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
     protected void lazyLoad() {
         long videoTime = Tools.getTools().getVideoTime(str);
         mPresenter.getVideoData(videoTime, str);
+=======
+
+
+    /**
+     * 数据加载
+     */
+    @Override
+    protected void lazyLoad() {
+        long currentTimeMillis = System.currentTimeMillis();
+        mPresenter.getVideoData(currentTimeMillis, str);
+
+>>>>>>> 661a40778eab2af40835b849e3b94b8ca35a8ba0:app/src/main/java/com/example/toutiaonews/fragment_video/view/LjzFragmentVideo.java
         mLoadingImage.showEmpty();
     }
 
@@ -284,7 +300,7 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
      * 下拉刷新
      *
      * @param refreshLayout 刷新的布局
-     */
+     *///879
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
         mPresenter.getVideoData(System.currentTimeMillis(), str);
@@ -296,6 +312,7 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
     }
 
     @Override
+<<<<<<< HEAD:video/src/main/java/com/example/video/fragment_video/view/LjzFragmentVideo.java
     public void getVideoData(Recommend recommend) {
         mLoadingImage.showContent();
         showMessage("加载完成。。。");
@@ -303,6 +320,14 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
         mRefreshListSrl.finishLoadMore(true);
 
         for (Recommend.DataBean datum : recommend.getData()) {
+=======
+    public void getVideoData(Recommend str) {
+        mLoadingImage.showContent();
+        mRefreshListSrl.finishRefresh(true);
+        mRefreshListSrl.finishLoadMore(true);
+
+        for (Recommend.DataBean datum : str.getData()) {
+>>>>>>> 661a40778eab2af40835b849e3b94b8ca35a8ba0:app/src/main/java/com/example/toutiaonews/fragment_video/view/LjzFragmentVideo.java
             ContentBean contentBean = new Gson().fromJson(datum.getContent(), ContentBean.class);
             videoBeanList.add(contentBean);
         }

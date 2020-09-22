@@ -84,7 +84,6 @@ public class LoginActivity extends BaseActivity {
                     data.putExtra("fansNum",user.getFansNum()+"");
                     data.putExtra("sevenNum",user.getSevenNum()+"");
                     setResult(RESULT_OK,data);
-
 //                    startActivity(new Intent(this, MainActivity.class));
                     this.finish();
 
@@ -135,7 +134,6 @@ public class LoginActivity extends BaseActivity {
         DaoSession daoSession = daoMaster.newSession();
         userBeanDaos = daoSession.getUserBeanDao();
     }
-
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(String event){
