@@ -1,5 +1,6 @@
 package com.example.video.fragment_video.view;
 
+import android.os.Bundle;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -39,9 +40,15 @@ public class FragmentBox extends BaseFragment {
         String[] stringArray1 = Objects.requireNonNull(getActivity()).getResources().getStringArray(R.array.channel_code_video);
         list = new ArrayList<>();
 
-        for (int i = 0; i < stringArray.length; i++) {
+        for (int i = 0; i < stringArray1.length; i++) {
             mTabTopTitle.addTab(mTabTopTitle.newTab().setText(stringArray[i]));
-            list.add(new LjzFragmentVideo(stringArray1[i]));
+            LjzFragmentVideo ljzFragmentVideo = new LjzFragmentVideo();
+
+            Bundle bundle = new Bundle();
+            bundle.putString("index",stringArray1[i]);
+            ljzFragmentVideo.setArguments(bundle);
+
+            list.add(ljzFragmentVideo);
             Tools.getTools().putVideoCode(stringArray1[i]);
         }
 

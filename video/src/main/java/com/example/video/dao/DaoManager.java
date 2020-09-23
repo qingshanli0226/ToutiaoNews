@@ -2,7 +2,10 @@ package com.example.video.dao;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
 import com.example.video.bean.SqlBean;
+
 import java.util.List;
 
 public class DaoManager {
@@ -26,7 +29,7 @@ public class DaoManager {
         this.mContext = context;
     }
 
-    public SqlBeanDao getSql() {
+     private SqlBeanDao getSql() {
         DaoMaster.DevOpenHelper video = new DaoMaster.DevOpenHelper(mContext, "video");
         SQLiteDatabase db = video.getWritableDatabase();
         DaoMaster daoMaster = new DaoMaster(db);
@@ -41,19 +44,20 @@ public class DaoManager {
     }
 
     /**
-     *  向数据库中插入数据
-     * @param title 视频页面的数据类型
+     * 向数据库中插入数据
+     *
+     * @param title     视频页面的数据类型
      * @param videoJson 视频页面数据
-     * @return 成功的个数
      */
-    public long insert(String title, String videoJson) {
+    public void insert(String title, String videoJson) {
         initSql();
         long size = sqlBeanDao.loadAll().size();
-        return sqlBeanDao.insert(new SqlBean(size + 1, title, videoJson));
+        sqlBeanDao.insert(new SqlBean(size + 1, title, videoJson));
     }
 
     /**
      * 根据条件获取
+     *
      * @param title 视频数据类型
      * @return 符合条件的实体类
      */
@@ -69,12 +73,17 @@ public class DaoManager {
 
     /**
      * 更新数据
-     * @param title 视频页面的数据类型
+     *
+     * @param title     视频页面的数据类型
      * @param videoJson 视频页面的数据
      */
     public void change(String title, String videoJson) {
         List<SqlBean> sqlBeans = selectAll();
         for (SqlBean sqlBean : sqlBeans) {
+            Log.d("DaoManager", sqlBean.getTitle() + "-----------------" + title);
+            if (sqlBean.getTitle() == null) {
+                break;
+            }
             if (sqlBean.getTitle().equals(title))
                 sqlBeanDao.update(new SqlBean(sqlBean.getId(), sqlBean.getTitle(), videoJson));
         }
@@ -82,6 +91,7 @@ public class DaoManager {
 
     /**
      * 获取全部
+     *
      * @return Bean类的集合
      */
     public List<SqlBean> selectAll() {

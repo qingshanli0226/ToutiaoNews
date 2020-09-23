@@ -8,9 +8,7 @@ import com.example.net.observer.BaseObserver;
 import com.example.video.bean.SqlBean;
 import com.example.video.dao.DaoManager;
 import com.example.video.fragment_video.contract.ContractVideo;
-
 import java.util.List;
-
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
@@ -29,8 +27,11 @@ public class PresenterVideo extends BasePresenter<ContractVideo.View, ContractVi
                 List<SqlBean> sqlBeans = DaoManager.getDaoMessage().selectAll();
                 for (SqlBean sqlBean : sqlBeans) {
                     String title = sqlBean.getTitle();
-                    if (title.equals(index))
+                    if (title.equals(index)){
                         flag = true;
+                        break;
+                    }
+
                 }
                 if (s.getData().size() != 0)
                     if (flag) {

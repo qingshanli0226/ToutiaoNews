@@ -1,5 +1,6 @@
 package com.example.video.fragment_video.view;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -57,10 +58,6 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
     private LoadingView mLoadingImage;
     private List<String> list = new ArrayList<>();
     private boolean flag = false;
-
-    LjzFragmentVideo(String str) {
-        this.indexStr = str;
-    }
 
 
     @Override
@@ -138,6 +135,9 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
      * 初始化视频播放数据
      */
     private void initData() {
+        Bundle arguments = getArguments();
+        indexStr = (String) arguments.get("index");
+        Log.e("hq", "initData: "+indexStr );
         list.add("http://vfx.mtime.cn/Video/2019/03/18/mp4/190318214226685784.mp4");
         list.add("http://vfx.mtime.cn/Video/2019/03/19/mp4/190319104618910544.mp4");
         list.add("http://vfx.mtime.cn/Video/2019/03/19/mp4/190319125415785691.mp4");
@@ -250,7 +250,7 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
         StandardGSYVideoPlayer player = viewByPosition.findViewById(R.id.item_video_GSY);
         ImageView pic = viewByPosition.findViewById(R.id.item_video_pic);
         pic.setVisibility(View.INVISIBLE);
-        player.setUp(list.get(position), false, "");
+//        player.setUp(list.get(position), false, "");
         player.startPlayLogic();
         videoPlayer = player;
         playIndex = position;
