@@ -79,6 +79,10 @@ public class VideoFragment extends Fragment {
                 return fragmentList.size();
             }
 
+            @Override
+            public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+
+            }
         });
 
 //        Bundle bundle = new Bundle();
@@ -93,12 +97,6 @@ public class VideoFragment extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 fragmentVideoVp.setCurrentItem(tab.getPosition());
-
-//                Toast.makeText(getContext(), "" + tab.getPosition(), Toast.LENGTH_SHORT).show();
-//                Bundle bundle = new Bundle();
-//                bundle.putString("type", mChannelList.get(tab.getPosition()).title);
-//                fragmentList.get(tab.getPosition()).setArguments(bundle);
-
             }
 
             @Override

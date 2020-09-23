@@ -2,7 +2,6 @@ package com.example.videolibrary;
 
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,24 +21,17 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl, VideoChildContract.IVideoChildView> implements VideoChildContract.IVideoChildView, OnRefreshLoadMoreListener {
     private static final String TAG = "VideoChildFragment AAA";
     private RecyclerView fragmentVideoChildRv;
     private SmartRefreshLayout fragmentVideoChildSmart;
-
-
     private VideoAdapter videoAdapter;
     private List<VideoDataBean> videoDataBeans;
-
     private String category;
     private boolean isRefresh = true;
 
-
     public VideoChildFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -54,15 +46,12 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
         fragmentVideoChildRv.setAdapter(videoAdapter);
         fragmentVideoChildRv.setLayoutManager(new LinearLayoutManager(getContext()));
 
-
-
-
         fragmentVideoChildSmart.setOnRefreshLoadMoreListener(this);
     }
 
     @Override
     protected void initView() {
-        category = getArguments().getString("category","");
+        category = getArguments().getString("category", "");
         fragmentVideoChildRv = findViewById(R.id.fragment_video_child_rv);
         fragmentVideoChildSmart = findViewById(R.id.fragment_video_child_smart);
     }
@@ -71,6 +60,7 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
     protected void initHttpData() {
         Log.i(TAG, "initHttpData:     category       " + category);
         ihttpPresenter.getVideoChildData(category);
+
 
     }
 
@@ -102,6 +92,7 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
             videoDataBeans.add(videoDataBean);
             videoAdapter.notifyDataSetChanged();
         }
+        Log.i(TAG, "initHttpData:     videoDataBeans.size()       " + videoDataBeans.size());
     }
 
     @Override
@@ -133,4 +124,6 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
         isRefresh = true;//说明是刷新 需要清除list的数据
         ihttpPresenter.getVideoChildData(category);
     }
+
+
 }

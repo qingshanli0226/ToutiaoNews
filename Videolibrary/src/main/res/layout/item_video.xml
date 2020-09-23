@@ -8,11 +8,6 @@
         android:id="@+id/item_video_jiaozi"
         android:layout_width="match_parent"
         android:layout_height="200dp"/>
-    <!--<com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer-->
-        <!--android:id="@+id/item_video_gsy"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="@dimen/dp_200">-->
-    <!--</com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer>-->
 
     <RelativeLayout
         android:layout_width="match_parent"
