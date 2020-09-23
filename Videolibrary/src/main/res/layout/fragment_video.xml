@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.videolibrary.VideoFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="@dimen/dp_50">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/fragment_video_tab"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            app:tabIndicatorHeight="@dimen/dp_0"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/color_f74e00"
+            app:tabTextColor="@color/color_333333">
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <ImageView
+            android:id="@+id/fragment_video_search_pic"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50"
+            android:layout_alignParentRight="true"
+            android:background="@color/color_white"
+            android:padding="@dimen/dp_10"
+            android:src="@mipmap/search_channel" />
+
+    </LinearLayout>
+
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/fragment_video_vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </androidx.viewpager.widget.ViewPager>
+
+
+</LinearLayout>

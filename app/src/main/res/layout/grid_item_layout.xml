@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:padding="@dimen/dp_10"
+
+    android:layout_height="60dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:text="频道名称"
+        android:gravity="center"
+        android:background="@drawable/channel_bac"
+        android:textColor="@color/colorBlack"
+        android:id="@+id/grid_item_name"
+        android:layout_height="match_parent" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/grid_item_sign"
+        android:src="@mipmap/add_channels_close_small"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"/>
+</RelativeLayout>

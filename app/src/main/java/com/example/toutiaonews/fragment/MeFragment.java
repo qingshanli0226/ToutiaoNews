@@ -1,7 +1,11 @@
 package com.example.toutiaonews.fragment;
 
 
+
 import android.content.Context;
+
+import android.app.PictureInPictureParams;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -170,8 +174,10 @@ public class MeFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+
             }
         });
+
 
     }
 
@@ -197,4 +203,5 @@ public class MeFragment extends Fragment {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
 }
