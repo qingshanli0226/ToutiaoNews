@@ -1,8 +1,8 @@
 package com.example.toutiaonews.login;
 
-import com.example.framework2.mvp.model.IModel;
-import com.example.framework2.mvp.presenter.BasePresenter;
-import com.example.framework2.mvp.view.IView;
+import com.example.framework.bean.BasePresenter;
+
+import com.example.framework.bean.IView;
 import com.example.net.activity_bean.LoginBean;
 
 import io.reactivex.Observable;
@@ -12,7 +12,7 @@ public class LoginContract {
         void onLogin(LoginBean loginBean);
     }
 
-    public interface ILoginModel extends IModel {
-        void  login(String name,String pwd,Observable<LoginBean> observable);
+    public static abstract class LoginPresenter extends BasePresenter<ILoginView> {
+        public abstract void login(String name, String password);
     }
 }

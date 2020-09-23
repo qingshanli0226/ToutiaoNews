@@ -33,4 +33,12 @@ public class NetBusinessException extends Exception  {
         Code = code;
         Message = message;
     }
+
+    public String getErrorCode() {
+        return "";
+    }
+
+    public String getErrorMessage() {
+        return "";
+    }
 }

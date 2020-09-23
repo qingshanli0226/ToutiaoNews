@@ -36,6 +36,7 @@ dependencies {
     implementation 'com.github.chrisbanes:PhotoView:2.1.4'
 //图片文件选择器
     implementation 'com.github.wildma:PictureSelector:1.1.6'
+    implementation 'org.greenrobot:eventbus:3.1.1' //EventBus依赖
     implementation project(":net")
     implementation project(":common")
     implementation project(":framework")

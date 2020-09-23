@@ -1,12 +1,14 @@
 package com.example.toutiaonews.fragment;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,15 +18,22 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.common.CustomControl;
+import com.example.framework2.mvp.view.IFragment;
+import com.example.toutiaonews.EventMessage;
 import com.example.toutiaonews.login.LoginActivity;
 import com.example.toutiaonews.R;
 import com.example.toutiaonews.reg.RegMainActivity;
 import com.wildma.pictureselector.PictureBean;
 import com.wildma.pictureselector.PictureSelector;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import static com.wildma.pictureselector.PictureSelector.SELECT_REQUEST_CODE;
 
@@ -35,7 +44,7 @@ public class MeFragment extends Fragment {
 
     View view;
     private ImageView myPhoto;
-    private TextView myName;
+    public static   TextView myName;
     private ImageView myParticulars;
     private TextView myDynamic;
     private TextView myFans;
@@ -46,6 +55,7 @@ public class MeFragment extends Fragment {
     private CustomControl customControlFour;
     private CustomControl customControlFive;
     private CustomControl customControlSix;
+    private EventMessage eventMessage;
 
     public MeFragment() {
         // Required empty public constructor
@@ -55,7 +65,7 @@ public class MeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view=inflater.inflate(R.layout.fragment_me,container,false);
+        view = inflater.inflate(R.layout.fragment_me, container, false);
         myPhoto = view.findViewById(R.id.my_photo);
         myName = view.findViewById(R.id.my_name);
         myParticulars = view.findViewById(R.id.my_particulars);
@@ -67,14 +77,17 @@ public class MeFragment extends Fragment {
         customControlThree = view.findViewById(R.id.customControl_three);
         customControlFour = view.findViewById(R.id.customControl_four);
         customControlFive = view.findViewById(R.id.customControl_five);
-        customControlSix = view. findViewById(R.id.customControl_six);
+        customControlSix = view.findViewById(R.id.customControl_six);
 
-       initview();
-       initlogin();
-       initPhoto();
-
+        initview();
+        initlogin();
+        initPhoto();
         return view;
     }
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void onRece(EventMessage msg){
+//        EventBus.getDefault().post(msg.getMessage());
+//    }
     //头像
     private void initPhoto() {
         myPhoto.setOnClickListener(new View.OnClickListener() {
@@ -94,13 +107,14 @@ public class MeFragment extends Fragment {
                 //pop
                 View inflate = LayoutInflater.from(getContext()).inflate(R.layout.login_pop, null, false);
                 PopupWindow popupWindow = new PopupWindow(inflate, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
-                popupWindow.showAtLocation(myPhoto, Gravity.CENTER,0,0);
+                popupWindow.showAtLocation(myPhoto, Gravity.CENTER, 0, 0);
                 Button loginBtn = inflate.findViewById(R.id.login_btn);
                 Button regiterBtn = inflate.findViewById(R.id.regihter_btn);
                 loginBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         login();
+
                     }
                 });
                 regiterBtn.setOnClickListener(new View.OnClickListener() {
@@ -112,16 +126,19 @@ public class MeFragment extends Fragment {
             }
         });
     }
+
     //注册
     private void register() {
         Intent intent = new Intent(getContext(), RegMainActivity.class);
         startActivity(intent);
+
     }
 
     //登录
     private void login() {
         Intent intent = new Intent(getContext(), LoginActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 1);
+
     }
 
     private void initview() {
@@ -149,20 +166,35 @@ public class MeFragment extends Fragment {
         context4.setText(" ");
         context5.setText(" ");
         context6.setText(" ");
+        title1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-
+            }
+        });
 
     }
-
-    //activityx响应
 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==SELECT_REQUEST_CODE&&data!=null){
-            PictureBean bean= (PictureBean) data.getExtras().get(PictureSelector.PICTURE_RESULT);
+        if (requestCode == SELECT_REQUEST_CODE && data != null) {
+            PictureBean bean = (PictureBean) data.getExtras().get(PictureSelector.PICTURE_RESULT);
             Glide.with(getContext()).load(bean.getPath()).transform(new CircleCrop()).into(myPhoto);
         }
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

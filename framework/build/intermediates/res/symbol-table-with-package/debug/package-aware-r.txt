@@ -1724,6 +1724,7 @@ drawable abc_vector_test
 drawable avd_hide_password
 drawable avd_show_password
 drawable black_background
+drawable book
 drawable btn_checkbox_checked_mtrl
 drawable btn_checkbox_checked_to_unchecked_mtrl_animation
 drawable btn_checkbox_unchecked_mtrl
@@ -1862,6 +1863,7 @@ id bannerTitle
 id bannerViewPager
 id blocking
 id bottom
+id bottom_progress
 id btn_album
 id btn_camera
 id btn_cancel
@@ -1986,6 +1988,7 @@ id pin
 id progress_circular
 id progress_horizontal
 id radio
+id re
 id right
 id right_icon
 id right_side
@@ -2020,6 +2023,7 @@ id split_action_bar
 id src_atop
 id src_in
 id src_over
+id srl_tv_pull_down
 id start
 id stretch
 id submenuarrow
@@ -2146,6 +2150,8 @@ layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout dialog_select_photo
 layout include_line_horizontal_05dp_f8f8f8
+layout item_footer_layout
+layout item_header_layout
 layout layout_title
 layout mtrl_alert_dialog
 layout mtrl_alert_dialog_actions

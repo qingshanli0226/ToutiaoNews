@@ -1,6 +1,8 @@
 package com.example.net.activity_bean;
 
-public class LoginBean {
+import com.example.net.model.BaseBean;
+
+public class LoginBean extends BaseBean {
 
     /**
      * id : 1610

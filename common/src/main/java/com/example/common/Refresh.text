@@ -1,0 +1,22 @@
+ refreshLayout.setRefreshListener(new SimpleRefreshLayout.onRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshLayout.stopRefresh();
+
+                    }
+                }, 2000);
+            }
+
+            @Override
+            public void onBottomRefresh() {
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshLayout.stopRefresh();
+                    }
+                }, 2000);
+            }
+        });

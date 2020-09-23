@@ -3,10 +3,15 @@ package com.example.net.api_srever;
 import com.example.net.activity_bean.LoginBean;
 import com.example.net.activity_bean.NewsListBean;
 import com.example.net.activity_bean.RegisterBean;
+import com.example.net.model.BaseBean;
 
+import java.util.HashMap;
 import java.util.TreeMap;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -22,10 +27,11 @@ public interface ApiServer {
 //    Observable<InvestBean> getInvestk();
     @POST("login")
     @FormUrlEncoded
-    Observable<LoginBean> loginIn(@FieldMap TreeMap<String,String> params);
+    Observable<BaseBean<LoginBean>> loginIn(@FieldMap TreeMap<String,String> params);
     @POST("register")
     @FormUrlEncoded
-    Observable<RegisterBean> register(@FieldMap TreeMap<String,String> params);
+    Observable<BaseBean<RegisterBean>> register(@FieldMap TreeMap<String,String> params);
+//    Observable<RegisterBean> register(@Field("name") String name,@Field("password") String pwd);
 //    @POST("crash")
 //    @FormUrlEncoded
 //    Observable<BaseBean<String>> crashReport(@FieldMap HashMap<String,String> params);
