@@ -6,17 +6,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.framework2.mvp.view.BaseActivity;
 import com.example.video.fragment_headlines.adapter.MyAdapter;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static com.example.common.ARouterCommon.VIDEO_PLAY_L_ACT;
 
 @Route(path = VIDEO_PLAY_L_ACT)

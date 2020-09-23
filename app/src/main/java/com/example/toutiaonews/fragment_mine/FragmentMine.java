@@ -8,9 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
-
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
@@ -21,7 +19,6 @@ import com.example.framework2.mvp.view.BaseFragment;
 import com.example.toutiaonews.MainActivity;
 import com.example.toutiaonews.R;
 import com.example.user.activity.LoginActivity;
-
 import static android.app.Activity.RESULT_OK;
 
 public class FragmentMine extends BaseFragment {

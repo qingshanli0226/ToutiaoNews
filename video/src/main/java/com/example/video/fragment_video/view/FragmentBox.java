@@ -1,22 +1,18 @@
 package com.example.video.fragment_video.view;
 
 import android.view.View;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-
 import com.example.framework2.mvp.view.BaseFragment;
 import com.example.framework2.utils.Tools;
 import com.example.video.R;
 import com.example.video.dao.DaoManager;
 import com.google.android.material.tabs.TabLayout;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import static com.google.android.material.tabs.TabLayout.MODE_SCROLLABLE;
 
 

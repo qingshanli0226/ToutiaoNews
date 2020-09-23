@@ -8,11 +8,9 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LayoutAnimationController;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -38,11 +36,9 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import static android.view.animation.Animation.RELATIVE_TO_SELF;
 
 public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements BaseQuickAdapter.OnItemChildClickListener, OnRefreshLoadMoreListener, ContractVideo.View {
@@ -70,8 +66,8 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
     /**
      * 播放RecyclerView动画
      *
-     * @param animation
-     * @param isReverse
+     * @param animation 动画
+     * @param isReverse 顺序
      */
     private void playLayoutAnimation(Animation animation, boolean isReverse) {
         LayoutAnimationController controller = new LayoutAnimationController(animation);
@@ -115,6 +111,9 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
         initData();
     }
 
+    /**
+     *在数据库中获取数据
+     */
     private void initSqlData() {
         SqlBean select = DaoManager.getDaoMessage().select(indexStr);
         if (select == null) {
@@ -130,6 +129,9 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
 
     }
 
+    /**
+     *初始化视频播放数据
+     */
     private void initData() {
         list.add("http://vfx.mtime.cn/Video/2019/03/18/mp4/190318214226685784.mp4");
         list.add("http://vfx.mtime.cn/Video/2019/03/19/mp4/190319104618910544.mp4");
@@ -160,7 +162,9 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
 
     }
 
-
+    /**
+     * @return 动画
+     */
     private AnimationSet getAnimationSetFromLeft() {
         AnimationSet animationSet = new AnimationSet(true);
         TranslateAnimation translateX1 = new TranslateAnimation(RELATIVE_TO_SELF, -1.0f, RELATIVE_TO_SELF, 0.1f,
@@ -249,14 +253,18 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
         playPic = pic;
     }
 
-
+    /**
+     * 定义一个暂停的方法
+     */
     public void onPlayPause() {
         if (videoPlayer != null) {
             videoPlayer.onVideoPause();
         }
     }
 
-
+    /**
+     *播放器继续播放
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -265,6 +273,9 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
         }
     }
 
+    /**
+     *播放器暂停
+     */
     @Override
     public void onPause() {
         super.onPause();
@@ -273,7 +284,9 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
         }
     }
 
-
+    /**
+     *销毁播放器
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -324,15 +337,21 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
         flag = false;
     }
 
+    /**
+     * @param view view
+     */
     @Override
     public void onClick(View view) {
 
     }
 
+    /**
+     * @param recommend 实体类
+     */
     @Override
     public void getVideoData(Recommend recommend) {
         mLoadingImage.showContent();
-        showMessage("加载完成。。。");
+        showMessage("加载完成......");
         if (!flag) {
             videoBeanList.clear();
         }
@@ -341,8 +360,13 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
             ContentBean contentBean = new Gson().fromJson(datum.getContent(), ContentBean.class);
             videoBeanList.add(contentBean);
         }
-        playLayoutAnimation(getAnimationSetFromLeft(), true);
+        Log.d("LjzFragmentVideo", "videoBeanList.size():" + videoBeanList.size());
+
+        if (videoBeanList.size() != 0) {
+
+            playLayoutAnimation(getAnimationSetFromLeft(), true);
+        } else {
+            initSqlData();
+        }
     }
-
-
 }

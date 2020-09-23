@@ -5,11 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.framework2.mvp.presenter.IPresenter;
 import com.example.framework2.utils.Tools;

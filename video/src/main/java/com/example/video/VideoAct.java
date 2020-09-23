@@ -2,7 +2,6 @@ package com.example.video;
 
 import android.content.res.Configuration;
 import android.view.View;
-
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.common.ARouterCommon;

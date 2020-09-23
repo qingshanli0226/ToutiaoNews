@@ -4,10 +4,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
-
 import com.example.framework2.mvp.view.BaseFragment;
 import com.example.toutiaonews.R;
 import com.example.toutiaonews.fragment_home.adapter.MyAdapter;
@@ -34,7 +32,6 @@ import com.example.home.fragment.FragmentSport;
 import com.example.home.fragment.FragmentStory;
 import com.example.home.fragment.FragmentTravel;
 import com.google.android.material.tabs.TabLayout;
-
 import java.util.ArrayList;
 import java.util.Objects;
 

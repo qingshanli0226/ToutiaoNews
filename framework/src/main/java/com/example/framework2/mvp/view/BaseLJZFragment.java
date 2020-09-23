@@ -1,11 +1,13 @@
 package com.example.framework2.mvp.view;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -13,12 +15,15 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.framework2.mvp.presenter.IPresenter;
 import com.example.framework2.utils.Tools;
 
+import io.reactivex.disposables.Disposable;
+
 public abstract class BaseLJZFragment<P extends IPresenter> extends Fragment implements View.OnClickListener, IView {
     protected View rootView;
     private boolean isInitView = false;
     private boolean isVisible = false;
     protected P mPresenter;
     protected LoadingView mLoadingImage;
+    protected Disposable gDisposable;
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -27,6 +32,7 @@ public abstract class BaseLJZFragment<P extends IPresenter> extends Fragment imp
             mPresenter = null;
         }
     }
+
 
 
     @Nullable
@@ -81,7 +87,6 @@ public abstract class BaseLJZFragment<P extends IPresenter> extends Fragment imp
      * 加载要显示的数据
      */
     protected abstract void lazyLoad();
-
 
 
     @Override

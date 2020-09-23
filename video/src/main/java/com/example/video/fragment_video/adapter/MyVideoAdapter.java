@@ -1,17 +1,13 @@
 package com.example.video.fragment_video.adapter;
 
-import android.util.Log;
 import android.widget.ImageView;
-
 import androidx.annotation.Nullable;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.net.bean.ContentBean;
 import com.example.video.R;
-
 import java.util.List;
 
 

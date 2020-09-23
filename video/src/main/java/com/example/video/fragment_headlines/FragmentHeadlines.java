@@ -1,18 +1,15 @@
 package com.example.video.fragment_headlines;
 
 import android.view.View;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.common.ARouterCommon;
 import com.example.framework2.mvp.view.BaseFragment;
 import com.example.video.R;
 import com.google.android.material.tabs.TabLayout;
-
 import java.util.ArrayList;
 import java.util.List;
 

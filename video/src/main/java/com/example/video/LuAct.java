@@ -2,14 +2,11 @@ package com.example.video;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.opengl.GLSurfaceView;
 import android.os.Build;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.framework2.mvp.view.BaseActivity;
 import com.qiniu.pili.droid.shortvideo.PLAudioEncodeSetting;
@@ -20,8 +17,6 @@ import com.qiniu.pili.droid.shortvideo.PLRecordSetting;
 import com.qiniu.pili.droid.shortvideo.PLRecordStateListener;
 import com.qiniu.pili.droid.shortvideo.PLShortVideoRecorder;
 import com.qiniu.pili.droid.shortvideo.PLVideoEncodeSetting;
-import com.qiniu.pili.droid.shortvideo.PLVideoSaveListener;
-
 import static com.example.common.ARouterCommon.VIDEO_LU_ACT;
 
 @Route(path = VIDEO_LU_ACT)

@@ -6,10 +6,8 @@ import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LayoutAnimationController;
 import android.view.animation.TranslateAnimation;
-
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.common.ARouterCommon;
@@ -17,7 +15,6 @@ import com.example.framework2.mvp.view.BaseLJZFragment;
 import com.example.video.R;
 import com.example.video.fragment_headlines.adapter.VideoAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-
 import java.util.ArrayList;
 import java.util.List;
 

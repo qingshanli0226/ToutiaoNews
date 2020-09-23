@@ -3,7 +3,6 @@ package com.example.net.api_srever;
 
 import com.example.common.NetCommon;
 import com.example.net.bean.Recommend;
-
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

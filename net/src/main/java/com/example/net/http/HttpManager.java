@@ -1,9 +1,7 @@
 package com.example.net.http;
 
 import com.google.gson.Gson;
-
 import java.util.concurrent.TimeUnit;
-
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;

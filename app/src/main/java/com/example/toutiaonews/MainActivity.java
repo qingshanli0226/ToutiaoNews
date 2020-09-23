@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
 import android.content.Intent;
+import android.os.Build;
 import android.view.View;
 
 import com.chaychan.library.BottomBarItem;
@@ -28,6 +30,12 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initView() {
         bbl = findViewById(R.id.bbl);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+            },1000);
+        }
         initFragment();
         bbl.setOnItemSelectedListener(new BottomBarLayout.OnItemSelectedListener() {
             @Override
