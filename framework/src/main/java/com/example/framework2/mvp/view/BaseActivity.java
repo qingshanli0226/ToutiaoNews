@@ -10,12 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.framework2.mvp.presenter.IPresenter;
 
-import io.reactivex.disposables.Disposable;
 
 
 public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivity implements IActivity, IView, View.OnClickListener {
     protected P mPresenter;
-    protected Disposable disposable;
 
     @Override
     protected void onDestroy() {
@@ -38,7 +36,6 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
         super.onCreate(savedInstanceState);
         setContentView(bandLayout());
         ARouter.getInstance().inject(this);
-
         initView();
         initData();
     }

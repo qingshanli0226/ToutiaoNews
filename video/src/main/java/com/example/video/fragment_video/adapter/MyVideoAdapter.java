@@ -1,13 +1,16 @@
 package com.example.video.fragment_video.adapter;
 
 import android.widget.ImageView;
+
 import androidx.annotation.Nullable;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.net.bean.ContentBean;
 import com.example.video.R;
+
 import java.util.List;
 
 
@@ -27,7 +30,14 @@ public class MyVideoAdapter extends BaseQuickAdapter<ContentBean, BaseViewHolder
             Glide.with(mContext).load(item.getMedia_info().getAvatar_url()).transform(new CircleCrop()).into((ImageView) helper.getView(R.id.item_head_pic));
             helper.setText(R.id.item_name_txt, item.getMedia_info().getName());
         }
-        helper.addOnClickListener(R.id.item_video_pic);
+
+
+        helper.addOnClickListener(R.id.item_video_pic)
+                .addOnClickListener(R.id.item_head_pic)
+                .addOnClickListener(R.id.item_gz_txt)
+                .addOnClickListener(R.id.item_message_txt)
+                .addOnClickListener(R.id.item_more_img)
+                .addOnClickListener(R.id.item_name_txt);
 
     }
 }

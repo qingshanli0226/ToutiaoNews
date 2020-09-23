@@ -8,9 +8,11 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LayoutAnimationController;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -36,9 +38,11 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 import static android.view.animation.Animation.RELATIVE_TO_SELF;
 
 public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements BaseQuickAdapter.OnItemChildClickListener, OnRefreshLoadMoreListener, ContractVideo.View {
@@ -57,6 +61,7 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
     LjzFragmentVideo(String str) {
         this.indexStr = str;
     }
+
 
     @Override
     protected int setContentView() {
@@ -85,9 +90,9 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
     @Override
     protected void initView() {
 
-        mLoadingImage = (LoadingView) rootView.findViewById(R.id.loading_image);
 
         mPresenter = new PresenterVideo(new ModelVideo(), this);
+        mLoadingImage = (LoadingView) rootView.findViewById(R.id.loading_image);
         mRefreshListSrl = (SmartRefreshLayout) rootView.findViewById(R.id.refresh_list_srl);
         mVideoListRv = (RecyclerView) rootView.findViewById(R.id.video_list_rv);
         mRefreshListSrl.setOnRefreshLoadMoreListener(this);
@@ -112,7 +117,7 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
     }
 
     /**
-     *在数据库中获取数据
+     * 在数据库中获取数据
      */
     private void initSqlData() {
         SqlBean select = DaoManager.getDaoMessage().select(indexStr);
@@ -130,7 +135,7 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
     }
 
     /**
-     *初始化视频播放数据
+     * 初始化视频播放数据
      */
     private void initData() {
         list.add("http://vfx.mtime.cn/Video/2019/03/18/mp4/190318214226685784.mp4");
@@ -230,8 +235,7 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
         }
 
         if (id == R.id.item_more_img) {
-
-            ARouter.getInstance().build(ARouterCommon.VIDEO_PLAY_ACT).withObject("content", position).navigation();
+            ARouter.getInstance().build(ARouterCommon.VIDEO_PLAY_ACT).navigation();
         }
     }
 
@@ -263,7 +267,7 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
     }
 
     /**
-     *播放器继续播放
+     * 播放器继续播放
      */
     @Override
     public void onResume() {
@@ -274,7 +278,7 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
     }
 
     /**
-     *播放器暂停
+     * 播放器暂停
      */
     @Override
     public void onPause() {
@@ -285,7 +289,7 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
     }
 
     /**
-     *销毁播放器
+     * 销毁播放器
      */
     @Override
     public void onDestroyView() {

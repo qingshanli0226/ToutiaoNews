@@ -59,7 +59,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_20"
                 android:id="@+id/item_gz_txt"
                 android:drawableLeft="@mipmap/add_focus"
                 android:gravity="center_vertical"
@@ -72,7 +71,7 @@
                 android:id="@+id/item_message_txt"
 
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginLeft="@dimen/dp_10"
                 android:drawableLeft="@mipmap/comment_count"
                 android:gravity="center_vertical"
                 android:text="100">
@@ -83,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:id="@+id/item_more_img"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginLeft="@dimen/dp_10"
                 android:src="@mipmap/new_more_titlebar">
 
             </ImageView>

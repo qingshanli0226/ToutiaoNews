@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/tab_normal_color">
+    </View>
+    <LinearLayout
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="习近平"
+            android:id="@+id/item01_tv_title_id"
+            android:textColor="#000"
+            android:textSize="@dimen/dp_20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            
+            <TextView
+                android:layout_gravity="center"
+                android:textSize="@dimen/dp_10"
+                android:id="@+id/item01_tv_toTop_id"
+                android:textColor="#f00"
+                android:background="@drawable/title_shape"
+                android:gravity="center"
+                android:text="置顶"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="@dimen/dp_25"/>
+            <TextView
+                android:layout_gravity="center"
+                android:id="@+id/item01_tv_address_id"
+                android:textSize="@dimen/dp_10"
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:text="新华社"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+            <TextView
+                android:layout_gravity="center"
+                android:id="@+id/item01_tv_plNum_id"
+                android:text="307"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:textSize="@dimen/dp_10"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+            <TextView
+                android:layout_gravity="center"
+                android:text="评论"
+                android:layout_marginLeft="@dimen/dp_4"
+                android:textSize="@dimen/dp_10"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+            <TextView
+                android:layout_gravity="center"
+                android:id="@+id/item01_tv_time_id"
+                android:text="09-15"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:textSize="@dimen/dp_10"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10">
+        </View>
+    </LinearLayout>
+
+</LinearLayout>

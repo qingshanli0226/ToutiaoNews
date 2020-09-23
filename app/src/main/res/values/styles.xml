@@ -55,4 +55,12 @@
         <item name="android:layout_marginRight">10dp</item>
     </style>
 
+    <!--  设置自定义对话框样式：①导入对话框样式模板  -->
+    <style name="MyTheDialog" parent="android:style/Theme.Dialog">
+        <!--   设置关闭自定义对话框标题    -->
+        <item name="android:windowNoTitle">true</item>
+        <!--   设置自定义对话框背景颜色为透明    -->
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
+
 </resources>
