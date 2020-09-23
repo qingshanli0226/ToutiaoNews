@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.example.net.activity_bean.ChannelBean;
+import com.example.net.activity_bean.entity.ChannelBean;
 
 import java.util.List;
 

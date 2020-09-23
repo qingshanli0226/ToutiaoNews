@@ -1,6 +1,5 @@
 package com.example.toutiaonews;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
@@ -12,10 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.framework2.manager.CacheManager;
 import com.example.framework2.mvp.view.BaseActivity;
-import com.example.net.activity_bean.ChannelBean;
+import com.example.net.activity_bean.entity.ChannelBean;
 
 import java.util.Collections;
-import java.util.List;
 
 public class ChannelActivity extends BaseActivity {
 

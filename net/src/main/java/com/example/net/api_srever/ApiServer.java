@@ -1,5 +1,6 @@
 package com.example.net.api_srever;
 
+<<<<<<< HEAD
 import com.example.net.activity_bean.LoginBean;
 import com.example.net.activity_bean.NewsListBean;
 import com.example.net.activity_bean.RegisterBean;
@@ -14,6 +15,9 @@ import com.example.net.activity_bean.response.CommentResponse;
 import com.example.net.activity_bean.response.NewsResponse;
 import com.example.net.activity_bean.response.ResultResponse;
 import com.example.net.activity_bean.response.VideoPathResponse;
+=======
+import com.example.net.activity_bean.response.NewsResponse;
+>>>>>>> 8d1dbcd... 数据+首页适配+多布局
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -22,11 +26,15 @@ import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+<<<<<<< HEAD
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
 
+=======
+import retrofit2.http.Query;
+>>>>>>> 8d1dbcd... 数据+首页适配+多布局
 
 public interface ApiServer {
 
@@ -46,6 +54,7 @@ public interface ApiServer {
      */
     @GET(GET_ARTICLE_LIST)
     Observable<NewsResponse> getNewsList(@Query("category") String category, @Query("min_behot_time") long lastTime, @Query("last_refresh_sub_entrance_interval") long currentTime);
+<<<<<<< HEAD
     @POST("login")
     @FormUrlEncoded
     Observable<BaseBean<LoginBean>> loginIn(@FieldMap TreeMap<String,String> params);
@@ -102,5 +111,14 @@ public interface ApiServer {
 
     @POST("https://www.parsevideo.com/api.php")
     Observable<VideoPathResponse> parseVideo(@Query("url") String url, @Query("hash")String hash);
+=======
+    //http://is.snssdk.com
+    //http://is.snssdk.com/api/news/feed/v54/?refer=1&count=20&min_behot_time=1498722625&last_refresh_sub_entrance_interval=1498724693&loc_mode=4&tt_from=pull（tab_tip） 新闻列表
+    //http://is.snssdk.com/article/v2/tab_comments/?group_id=6436886053704958466&item_id=6436886053704958466&offset=30&count=20 评论
+    //http://is.snssdk.com/2/article/information/v21/ 详情
+
+
+
+>>>>>>> 8d1dbcd... 数据+首页适配+多布局
 
 }

@@ -1,5 +1,11 @@
 package com.example.net.activity_bean.entity;
 
+<<<<<<< HEAD
+=======
+import android.text.TextUtils;
+
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+>>>>>>> 8d1dbcd... 数据+首页适配+多布局
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -10,7 +16,11 @@ import java.util.List;
  * @date 2017/7/6  15:11
  */
 
+<<<<<<< HEAD
 public class News {
+=======
+public class News implements MultiItemEntity {
+>>>>>>> 8d1dbcd... 数据+首页适配+多布局
 
 
     /**
@@ -99,9 +109,74 @@ public class News {
     public ImageEntity middle_image;
     public List<ImageEntity> image_list;
 
+<<<<<<< HEAD
+=======
+    /**
+     * 纯文字布局(文章、广告)
+     */
+    public static final int TEXT_NEWS = 100;
+    /**
+     * 居中大图布局(1.单图文章；2.单图广告；3.视频，中间显示播放图标，右侧显示时长)
+     */
+    public static final int CENTER_SINGLE_PIC_NEWS = 200;
+    /**
+     * 右侧小图布局(1.小图新闻；2.视频类型，右下角显示视频时长)
+     */
+    public static final int RIGHT_PIC_VIDEO_NEWS = 300;
+    /**
+     * 三张图片布局(文章、广告)
+     */
+    public static final int THREE_PICS_NEWS = 400;
+>>>>>>> 8d1dbcd... 数据+首页适配+多布局
 
     @Override
     public String toString() {
         return new Gson().toJson(this);
     }
+<<<<<<< HEAD
+=======
+
+    @Override
+    public int getItemType() {
+        if (this.has_video) {
+            //如果有视频
+            if (this.video_style == 0) {
+                //右侧视频
+                if (this.middle_image == null || TextUtils.isEmpty(this.middle_image.url)) {
+                    return TEXT_NEWS;
+                }
+                return RIGHT_PIC_VIDEO_NEWS;
+            } else if (this.video_style == 2) {
+                //居中视频
+                return CENTER_SINGLE_PIC_NEWS;
+            }
+        } else {
+            //非视频新闻
+            if (!this.has_image) {
+                //纯文字新闻
+                return TEXT_NEWS;
+            } else {
+                if (isEmpty(this.image_list)) {
+                    //图片列表为空，则是右侧图片
+                    return RIGHT_PIC_VIDEO_NEWS;
+                }
+                else if (this.gallary_image_count == 3) {
+                    //图片数为3，则为三图
+                    return THREE_PICS_NEWS;
+                }
+
+                //中间大图，右下角显示图数
+                return CENTER_SINGLE_PIC_NEWS;
+            }
+        }
+
+        return TEXT_NEWS;
+    }
+    public  boolean isEmpty(List list){
+        if (list == null){
+            return true;
+        }
+        return list.size() == 0;
+    }
+>>>>>>> 8d1dbcd... 数据+首页适配+多布局
 }

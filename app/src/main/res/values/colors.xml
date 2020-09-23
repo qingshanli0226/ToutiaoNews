@@ -10,5 +10,9 @@
     <color name="colorGray">#7C7979</color>
     <color name="colorRed">#F02211</color>
     <color name="colorWhite">#FFFFFF</color>
+<<<<<<< HEAD
 
+=======
+    <color name="colorBlackT">#333030</color>
+>>>>>>> 8d1dbcd... 数据+首页适配+多布局
 </resources>

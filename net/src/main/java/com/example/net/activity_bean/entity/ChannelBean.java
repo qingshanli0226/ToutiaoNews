@@ -1,9 +1,18 @@
-package com.example.net.activity_bean;
+package com.example.net.activity_bean.entity;
 
 public class ChannelBean {
     private String title;
+    private String code;
     private boolean show;
     private boolean sign;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public boolean isSign() {
         return sign;
@@ -13,8 +22,9 @@ public class ChannelBean {
         this.sign = sign;
     }
 
-    public ChannelBean(String title, boolean show) {
+    public ChannelBean(String title,String code, boolean show) {
         this.title = title;
+        this.code=code;
         this.show = show;
     }
 

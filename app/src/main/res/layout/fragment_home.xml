@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:id="@+id/refresh_layout"
     android:layout_height="match_parent"
-    tools:context=".fragment.HomeFragment">
+    tools:context=".fragment.home.HomeFragment">
 
     <RelativeLayout
         android:layout_height="70dp"
