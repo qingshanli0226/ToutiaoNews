@@ -21,9 +21,12 @@ public class TouTiaoNewsConstant {
     public static final String ARGUMENT_CHANNEL = "argument_channel";
     //是否是视频页面
     public static final String ISVIDEO = "isVideo";
-    //
 
-
-
+    //webView的加载地址
+    public static final String WEBVIEW_URL = "webViewUrl";
+    //webView的作者标题
+    public static final String WEBVIEW_TITLE = "webView_Title";
+    //webView的作者头像
+    public static final String WEBVIEW_AVATAR = "webView_Avatar";
 
 }

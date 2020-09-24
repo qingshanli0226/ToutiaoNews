@@ -253,6 +253,8 @@
     <dimen name="spaceSize198">188dp</dimen>
     <dimen name="spaceSize199">199dp</dimen>
     <dimen name="spaceSize200">200dp</dimen>
+    <dimen name="spaceSize320">320dp</dimen>
+    <dimen name="spaceSize330">330dp</dimen>
 
 
     <integer name="weight1">1</integer>

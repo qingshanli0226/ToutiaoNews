@@ -8,6 +8,8 @@ import android.os.Looper;
 
 import com.example.common.CacheManager;
 import com.example.framework2.manager.UserManager;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 
 public class MyApp extends Application {
 
@@ -19,6 +21,7 @@ public class MyApp extends Application {
     private static Handler mHandler;//主线程Handler
 
     private static Resources sRes;
+    private RefWatcher refWatcher;
 
     @Override
     public void onCreate() {
@@ -32,6 +35,10 @@ public class MyApp extends Application {
         /*--------------注册-------------*/
         CacheManager.getCacheManager().init(this);//数据缓存注册
         UserManager.getInstance().init(this);
+
+        if(!LeakCanary.isInAnalyzerProcess(this)){
+            refWatcher = LeakCanary.install(this);
+        }
 
     }
 

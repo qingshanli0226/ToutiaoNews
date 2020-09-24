@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize0"
+        android:layout_weight="0.7">
+
+        <ImageView
+            android:layout_width="@dimen/spaceSize35"
+            android:layout_height="@dimen/spaceSize35"
+            android:src="@mipmap/back_normal"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/spaceSize10"
+            android:id="@+id/detailHeadBack"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:visibility="gone"
+            android:id="@+id/detailHeadLin">
+            <ImageView
+                android:layout_width="@dimen/spaceSize30"
+                android:layout_height="@dimen/spaceSize30"
+                android:src="@mipmap/ic_launcher"
+                android:id="@+id/detailHeadImg"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/spaceSize20"
+                android:text="央视网新闻"
+                android:textColor="#000"
+                android:layout_marginLeft="@dimen/spaceSize10"
+                android:id="@+id/detailHeadName"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="@dimen/spaceSize30"
+            android:layout_height="@dimen/spaceSize30"
+            android:src="@mipmap/new_more_titlebar"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/spaceSize10"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize0"
+        android:layout_weight="@integer/weight8"
+        android:id="@+id/detailScrollView">
+        <include layout="@layout/include_detail_webview"></include>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize0"
+        android:layout_weight="@integer/weight1"
+        android:gravity="center_vertical">
+
+       <Button
+           android:layout_width="@dimen/spaceSize160"
+           android:layout_height="@dimen/spaceSize40"
+           android:text="写评论..."
+           android:background="@drawable/detail_recommend_bac"
+           android:textSize="@dimen/spaceSize20"/>
+        
+        <ImageView
+            android:layout_width="@dimen/spaceSize30"
+            android:layout_height="@dimen/spaceSize30"
+            android:src="@mipmap/comment_count"
+            android:layout_marginLeft="@dimen/spaceSize30"/>
+
+        <ImageView
+            android:layout_width="@dimen/spaceSize30"
+            android:layout_height="@dimen/spaceSize30"
+            android:src="@mipmap/new_love_tabbar"
+            android:layout_marginLeft="@dimen/spaceSize30"/>
+
+        <ImageView
+            android:layout_width="@dimen/spaceSize30"
+            android:layout_height="@dimen/spaceSize30"
+            android:src="@mipmap/comment_like_icon"
+            android:layout_marginLeft="@dimen/spaceSize30"/>
+
+        <ImageView
+            android:layout_width="@dimen/spaceSize30"
+            android:layout_height="@dimen/spaceSize30"
+            android:src="@mipmap/share"
+            android:layout_marginLeft="@dimen/spaceSize30"/>
+
+    </LinearLayout>
+
+</LinearLayout>

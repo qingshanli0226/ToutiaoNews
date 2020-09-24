@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content" android:padding="@dimen/spaceSize5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical">
+            <TextView
+                android:id="@+id/rightTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/bigTextStyle"
+                android:maxLines="@integer/weight2"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <TextView
+                    android:id="@+id/rightAuthor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/spaceSize5"
+                    style="@style/smallTextStyle"
+                    android:layout_marginLeft="@dimen/spaceSize25"/>
+                <TextView
+                    android:id="@+id/rightCommentCount"
+                    android:padding="@dimen/spaceSize5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/smallTextStyle"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/textSize13"
+                    android:text="评论"/>
+                <TextView
+                    android:id="@+id/rightTime"
+                    android:padding="@dimen/spaceSize5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/smallTextStyle"
+                    android:text="刚刚"
+                    android:layout_marginLeft="@dimen/spaceSize5"
+                    />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/rightImg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/spaceSize5"/>
+
+            <TextView
+                android:id="@+id/rightShowTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:textSize="@dimen/textSize15"
+                android:textColor="#fff"
+                style="@style/PromptMargin" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize1"
+        android:background="#C2BFBF"></View>
+
+</LinearLayout>

@@ -1,5 +1,6 @@
 package com.example.toutiaonews.home.fragment;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -7,12 +8,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.common.CacheManager;
 import com.example.common.constant.TouTiaoNewsConstant;
 import com.example.common.mode.HomeRecommendBean;
-import com.example.common.mode.HomeRecommendContentBean;
+import com.example.common.mode.News;
+import com.example.common.untils.ContentBeanUntil;
 import com.example.framework2.base.BaseMVPFragment;
 import com.example.toutiaonews.R;
+import com.example.toutiaonews.home.DetailActivity;
 import com.example.toutiaonews.home.adapter.RecommendAdapter;
 import com.example.toutiaonews.welcome.contract.RecommendContract;
 import com.example.toutiaonews.welcome.presenter.RecommendPresenterImpl;
@@ -31,7 +35,7 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
     //数据集合
     ArrayList<HomeRecommendBean.DataBean> dataBeans;
     //数据集合
-    ArrayList<HomeRecommendContentBean> homeRecommendContentBeans = new ArrayList<>();
+    ArrayList<News> newsArrayList = new ArrayList<>();
     //适配器
     RecommendAdapter recommendAdapter;
     //频道值
@@ -52,13 +56,15 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
             Gson gson = new Gson();
             for (int i = 0; i < dataBeans.size(); i++) {
                 //把json数据转换为contentBean对象
-                HomeRecommendContentBean homeRecommendContentBean = gson.fromJson(dataBeans.get(i).getContent(), HomeRecommendContentBean.class);
-                homeRecommendContentBeans.add(homeRecommendContentBean);
+                News news = gson.fromJson(dataBeans.get(i).getContent(), News.class);
+                //从内存获取的数据给type赋值
+                ContentBeanUntil.setItemType(news);
+                newsArrayList.add(news);
             }
         }
 
         //创建适配器
-        recommendAdapter = new RecommendAdapter(R.layout.item_home_recommend, homeRecommendContentBeans);
+        recommendAdapter = new RecommendAdapter(newsArrayList);
         homeRecommendRv.setLayoutManager(new LinearLayoutManager(getContext()));
         homeRecommendRv.setAdapter(recommendAdapter);
 
@@ -78,12 +84,28 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 //上拉刷新
                 //清空数据
-                homeRecommendContentBeans.clear();
+                newsArrayList.clear();
                 long currentTime = System.currentTimeMillis();
                 //并把当前的时间戳存入sp文件中
                 CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.CURRENT_TIME, String.valueOf(currentTime));
                 //发起网络请求
                 iHttpPresenter.getRecommendData(stringChannel);
+            }
+        });
+
+        //点击事件
+        recommendAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                //使用bundle传值
+                Bundle bundle = new Bundle();
+                //加载的webView地址
+                bundle.putString(TouTiaoNewsConstant.WEBVIEW_URL,newsArrayList.get(position).getArticle_url());
+                //加载的作者标题
+                bundle.putString(TouTiaoNewsConstant.WEBVIEW_TITLE,newsArrayList.get(position).getUser_info().getName());
+                //加载的作者头像
+                bundle.putString(TouTiaoNewsConstant.WEBVIEW_AVATAR,newsArrayList.get(position).getUser_info().getAvatar_url());
+                launchActivity(DetailActivity.class,bundle);
             }
         });
     }
@@ -111,46 +133,24 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
 
     @Override
     public void onRecommendData(HomeRecommendBean homeRecommendBean) {
-
-
-        if (!homeRecommendBean.toString().equals("")) {
-
-            if (dataBeans != null) {
-
-                dataBeans.clear();
-                dataBeans = (ArrayList<HomeRecommendBean.DataBean>) homeRecommendBean.getData();
-                Gson gson = new Gson();
-                for (int i = 0; i < dataBeans.size(); i++) {
-                    //把json数据转换为contentBean对象
-                    HomeRecommendContentBean homeRecommendContentBean = gson.fromJson(dataBeans.get(i).getContent(), HomeRecommendContentBean.class);
-                    homeRecommendContentBeans.add(homeRecommendContentBean);
-                }
-
-                //停止上拉和下拉
-                homeRecommendSmart.finishRefresh();
-                homeRecommendSmart.finishLoadMore();
-
-                recommendAdapter.notifyDataSetChanged();
-            } else {
-                //没数据就显示提示信息 隐藏列表
-                homeRecommendLin.setVisibility(View.VISIBLE);
-                homeRecommendRv.setVisibility(View.GONE);
-
-                if (dataBeans.size() != 0) {
-                    dataBeans.clear();
-                }
-
-                dataBeans = (ArrayList<HomeRecommendBean.DataBean>) homeRecommendBean.getData();
-                Gson gson = new Gson();
-                for (int i = 0; i < dataBeans.size(); i++) {
-                    //把json数据转换为contentBean对象
-                    HomeRecommendContentBean homeRecommendContentBean = gson.fromJson(dataBeans.get(i).getContent(), HomeRecommendContentBean.class);
-                    homeRecommendContentBeans.add(homeRecommendContentBean);
-
-                }
+        if(!homeRecommendBean.toString().equals("")){
+            dataBeans.clear();
+            dataBeans = (ArrayList<HomeRecommendBean.DataBean>) homeRecommendBean.getData();
+            Gson gson = new Gson();
+            for (int i = 0; i < dataBeans.size(); i++) {
+                //把json数据转换为contentBean对象
+                News news = gson.fromJson(dataBeans.get(i).getContent(), News.class);
+                newsArrayList.add(news);
             }
+            //停止上拉和下拉
+            homeRecommendSmart.finishRefresh();
+            homeRecommendSmart.finishLoadMore();
+            recommendAdapter.notifyDataSetChanged();
+        } else{
+            //没数据就显示提示信息 隐藏列表
+            homeRecommendLin.setVisibility(View.VISIBLE);
+            homeRecommendRv.setVisibility(View.GONE);
         }
-
     }
 
     @Override

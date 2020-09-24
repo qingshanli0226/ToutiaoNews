@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/spaceSize5">
+
+    <TextView
+        android:id="@+id/centerTitle"
+        style="@style/bigTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_marginTop="@dimen/spaceSize3"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/spaceSize200">
+        <ImageView
+            android:id="@+id/centerImg"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/ic_launcher"
+            android:scaleType="fitXY"/>
+
+        <TextView
+            android:id="@+id/centerPrompt"
+            android:layout_width="@dimen/textSize15"
+            android:layout_height="@dimen/textSize15"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            style="@style/PromptMargin"
+            android:textSize="@dimen/textSize15"
+            android:padding="@dimen/spaceSize5"
+            android:textColor="@color/colorWhite" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/spaceSize3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/centerAuthor"
+            style="@style/smallTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/spaceSize5"
+            android:layout_marginLeft="@dimen/spaceSize25"
+            android:text="央视新闻网"/>
+
+        <TextView
+            android:id="@+id/centerCommentCount"
+            style="@style/smallTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/spaceSize5"
+            android:text="0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="评论"
+            android:textSize="@dimen/textSize13"/>
+
+        <TextView
+            android:id="@+id/centerTime"
+            style="@style/smallTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/spaceSize5"
+            android:text="刚刚"
+            android:layout_marginLeft="@dimen/spaceSize5"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize1"
+        android:background="#C2BFBF"></View>
+
+</LinearLayout>

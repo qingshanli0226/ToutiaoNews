@@ -1,11 +1,12 @@
 package com.example.common.mode;
 
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class HomeRecommendContentBean {
+public class HomeRecommendContentBean implements MultiItemEntity {
 
 
     /**
@@ -154,6 +155,16 @@ public class HomeRecommendContentBean {
     private int video_style;
     private List<ActionListBean> action_list;
     private List<FilterWordsBean> filter_words;
+
+    private int type;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public String getAbstractX() {
         return abstractX;
@@ -721,6 +732,11 @@ public class HomeRecommendContentBean {
 
     public void setFilter_words(List<FilterWordsBean> filter_words) {
         this.filter_words = filter_words;
+    }
+
+    @Override
+    public int getItemType() {
+        return type;
     }
 
     public static class ForwardInfoBean {
