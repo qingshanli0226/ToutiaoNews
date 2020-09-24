@@ -45,6 +45,8 @@ public class HomePresenterImpl extends HomeContract.HomePresenter {
 
                         if (newsList.size()!=0){  //判断有数据时再返回给view层
                             iHttpView.onHomeData(newsList);
+                        }else {
+                            iHttpView.showError("200","当前没有数据了。。");
                         }
 
                         //更改刷新时间

@@ -10,7 +10,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.bw.homemodule.R;
 import com.bw.homemodule.adapter.ColorTabLayoutAdapter;
 import com.bw.homemodule.home.view.NewsListFragment;
-import com.bw.homemodule.video.VideoFragment;
+import com.bw.homemodule.video.view.VideoFragment;
 import com.example.farmework.base.BaseFragment;
 import com.google.android.material.tabs.TabLayout;
 
@@ -43,7 +43,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             if (channel_codes[i].equals("video")){
                 fragments.add(new VideoFragment(channel_codes[i]));
             }else {
-                fragments.add(new NewsListFragment(channels[i],channel_codes[i]));
+                fragments.add(new NewsListFragment(channel_codes[i]));
             }
 
         }

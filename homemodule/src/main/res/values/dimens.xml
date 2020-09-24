@@ -9,6 +9,8 @@
     <dimen name="bigRv_Height">300dp</dimen>
     <dimen name="margin10dp">10dp</dimen>
     <dimen name="marginShowTime">13dp</dimen>
+    <dimen name="userImgWidth">60dp</dimen>
+    <dimen name="userImgHeight">60dp</dimen>
 
     <dimen name="imgHeight">180dp</dimen>
 
@@ -18,6 +20,6 @@
     <dimen name="textSizeBig">18sp</dimen>
     <dimen name="textSizeSmall">15sp</dimen>
 
-
+    
 
 </resources>

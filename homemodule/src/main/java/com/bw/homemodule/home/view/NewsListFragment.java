@@ -1,9 +1,13 @@
 package com.bw.homemodule.home.view;
 
+import android.util.EventLog;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,29 +16,30 @@ import com.bw.homemodule.R;
 import com.bw.homemodule.adapter.NewsListAdapter;
 import com.bw.homemodule.home.contract.HomeContract;
 import com.bw.homemodule.home.presenter.HomePresenterImpl;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.common.cache.CacheManager;
 import com.example.common.entity.News;
+import com.example.common.mine.BGRefrushLayout;
 import com.example.farmework.base.BaseMVPFragment;
 
 import java.util.ArrayList;
 
-
-public class NewsListFragment extends BaseMVPFragment<HomePresenterImpl, HomeContract.IHomeView> implements HomeContract.IHomeView {
-    private String channel;
+public class NewsListFragment extends BaseMVPFragment<HomePresenterImpl, HomeContract.IHomeView> implements HomeContract.IHomeView, BGRefrushLayout.IRefreshListener {
     private String channel_code;
     private ArrayList<News> newsList = new ArrayList<>();
     private long lastTime = 0;
     private RecyclerView newsRv;
     private NewsListAdapter newsListAdapter;
     private TextView errorText;
+    private BGRefrushLayout homeRefrush;
 
-    public NewsListFragment(String channel, String channel_code) {
-        this.channel = channel;
+    public NewsListFragment(String channel_code) {
         this.channel_code = channel_code;
     }
 
     @Override
     protected void initHttpData() {
+
         lastTime = CacheManager.getInstance().getFirstTime(channel_code, 0);
         if (lastTime == 0) {
             CacheManager.getInstance().putFirstTime(channel_code, System.currentTimeMillis());
@@ -58,21 +63,39 @@ public class NewsListFragment extends BaseMVPFragment<HomePresenterImpl, HomeCon
         newsRv.setAdapter(newsListAdapter);
         newsRv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        //添加recycleView 的分割线
         newsRv.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+
+
+        newsRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                LinearLayoutManager layoutManager = (LinearLayoutManager) newsRv.getLayoutManager();
+                int firstVisibleItemPosition = layoutManager.findFirstCompletelyVisibleItemPosition();
+                homeRefrush.setposition(firstVisibleItemPosition);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
+        homeRefrush.addRefreshListener(this);
+
     }
 
     @Override
     protected void initView() {
         newsRv = findViewById(R.id.newsRv);
         newsListAdapter = new NewsListAdapter(newsList);
-
         errorText = findViewById(R.id.show_error);
+        homeRefrush = findViewById(R.id.home_refrush);
     }
 
     @Override
     public void onHomeData(ArrayList<News> newsList) {
-        this.newsList.clear();
-        this.newsList.addAll(newsList);
+        this.newsList.addAll(0, newsList);
         newsListAdapter.notifyDataSetChanged();
 
         errorText.setVisibility(View.GONE);
@@ -81,7 +104,8 @@ public class NewsListFragment extends BaseMVPFragment<HomePresenterImpl, HomeCon
     @Override
     public void showError(String code, String message) {
         errorText.setVisibility(View.VISIBLE);
-        Toast.makeText(mActivity, "code:"+code+message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(mActivity, "code:" + code + message, Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
@@ -93,4 +117,10 @@ public class NewsListFragment extends BaseMVPFragment<HomePresenterImpl, HomeCon
     public void hideLoading() {
 
     }
+
+    @Override
+    public void onRefreshComplete() {
+        initHttpData();
+    }
+
 }

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="@dimen/bigRv_Height">
+
+    <RelativeLayout
+        android:layout_above="@+id/bottom_ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBlack">
+
+        <ImageView
+            android:id="@+id/vd_show_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/vd_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/back_round"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/margin10dp"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:id="@+id/vd_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/bigTextStyle"
+            android:textColor="@color/colorWhite"
+            android:layout_margin="@dimen/margin10dp"/>
+
+        <TextView
+            android:id="@+id/vd_watch_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/smallTextStyle"
+            android:layout_margin="@dimen/margin10dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_ll"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/userImgHeight"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorWhite">
+        
+        <ImageView
+            android:id="@+id/vd_user_img"
+            android:layout_width="@dimen/userImgWidth"
+            android:layout_height="@dimen/userImgHeight"
+            android:layout_marginLeft="@dimen/margin10dp"/>
+
+        <TextView
+            android:id="@+id/vd_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            style="@style/bigTextStyle"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/margin10dp"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/vd_add_Attention"
+                android:layout_toLeftOf="@+id/vd_comment_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="@dimen/margin10dp"
+                android:drawableLeft="@mipmap/add_focus"
+                android:text="@string/Attention"
+                android:gravity="center"
+                android:textSize="@dimen/textSizeBig"
+                android:textColor="@color/colorBlack"
+                />
+
+            <TextView
+                android:id="@+id/vd_comment_num"
+                android:layout_toLeftOf="@+id/waitwait"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="@dimen/margin10dp"
+                android:drawableLeft="@mipmap/comment_count"
+                android:gravity="center"
+                android:textSize="@dimen/textSizeBig"
+                android:textColor="@color/colorBlack"
+                />
+
+            <TextView
+                android:id="@+id/waitwait"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="。。。"
+                android:layout_centerInParent="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="@dimen/margin10dp"
+                android:textSize="@dimen/textSizeBig"
+                android:textColor="@color/colorBlack"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
