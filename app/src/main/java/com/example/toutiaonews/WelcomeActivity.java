@@ -7,8 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.framework2.manager.CacheManager;
-import com.example.net.activity_bean.NewsListBean;
+
 import com.example.net.activity_bean.response.NewsResponse;
+
 import com.example.net.http.HttpManager;
 
 import java.util.Timer;
@@ -49,16 +50,32 @@ public class WelcomeActivity extends AppCompatActivity {
 //                .subscribeOn(Schedulers.io())
 //                .observeOn(AndroidSchedulers.mainThread())
 //                .subscribe(new Observer<NewsResponse>() {
+        HttpManager.getHttpManager().setPath("http://is.snssdk.com/");
+        //请求数据
+//        HttpManager.getHttpManager()
+//                .getRetrofit()
+//                .getNewsList()
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Observer<NewsListBean>() {
 //                    @Override
 //                    public void onSubscribe(Disposable d) {
 //
 //                    }
 //
 //                    @Override
+
 //                    public void onNext(NewsResponse newsResponse) {
 //                        long a = System.currentTimeMillis()/1000;
 //
 //                        Log.i("WelcomeActivity  onNext", "onNext: " + newsResponse.data.get(0).content);
+
+//                    public void onNext(NewsListBean newsListBean) {
+//                        if (newsListBean!=null&&newsListBean.getMessage().equals("success")){
+//                            CacheManager.getInstance().setNewsListBean(newsListBean);
+//                            Log.e("fff", "onNext: "+newsListBean.getData().size() );
+//                        }
+
 //                    }
 //
 //                    @Override

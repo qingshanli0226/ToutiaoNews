@@ -1,13 +1,16 @@
 package com.example.net.activity_bean.entity;
 
 
+
 /**
  * @author ChayChan
  * @description: 用于记录获取到的新闻,用于上拉加载更多
  * @date 2017/6/26  16:07
  */
 
-public class NewsRecord{
+
+public class NewsRecord {
+
 
     private String channelCode;
     private int page;

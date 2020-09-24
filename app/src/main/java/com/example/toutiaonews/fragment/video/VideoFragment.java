@@ -1,4 +1,4 @@
-package com.example.toutiaonews.fragment;
+package com.example.toutiaonews.fragment.video;
 
 
 import android.os.Bundle;
@@ -14,10 +14,10 @@ import com.example.toutiaonews.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MicroFragment extends Fragment {
+public class VideoFragment extends Fragment {
 
 
-    public MicroFragment() {
+    public VideoFragment() {
         // Required empty public constructor
     }
 
@@ -26,7 +26,7 @@ public class MicroFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_micro, container, false);
+        return inflater.inflate(R.layout.fragment_video, container, false);
     }
 
 }

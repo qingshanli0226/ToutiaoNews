@@ -1,20 +1,22 @@
 package com.example.toutiaonews;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.framework2.mvp.view.BaseActivity;
-import com.example.toutiaonews.fragment.HomeFragment;
-import com.example.toutiaonews.fragment.MeFragment;
-import com.example.toutiaonews.fragment.MicroFragment;
-import com.example.videolibrary.VideoFragment;
+
+
+
+import com.example.toutiaonews.fragment.home.HomeFragment;
+import com.example.toutiaonews.fragment.me.MeFragment;
+import com.example.toutiaonews.fragment.micro.MicroFragment;
+import com.example.toutiaonews.fragment.video.VideoFragment;
+
 
 
 public class MainActivity extends BaseActivity {
