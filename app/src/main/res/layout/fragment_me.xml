@@ -3,11 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
-    >
-=======
     tools:context=".fragment.me.MeFragment">
->>>>>>> 8d1dbcd... 数据+首页适配+多布局
+
 
     <LinearLayout
         android:layout_width="match_parent"

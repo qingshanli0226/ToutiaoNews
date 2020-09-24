@@ -9,17 +9,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.framework2.mvp.view.BaseActivity;
-<<<<<<< HEAD
-import com.example.toutiaonews.fragment.HomeFragment;
-import com.example.toutiaonews.fragment.MeFragment;
-import com.example.toutiaonews.fragment.MicroFragment;
-import com.example.videolibrary.VideoFragment;
-=======
+
+
+
 import com.example.toutiaonews.fragment.home.HomeFragment;
 import com.example.toutiaonews.fragment.me.MeFragment;
 import com.example.toutiaonews.fragment.micro.MicroFragment;
 import com.example.toutiaonews.fragment.video.VideoFragment;
->>>>>>> 8d1dbcd... 数据+首页适配+多布局
+
 
 
 public class MainActivity extends BaseActivity {

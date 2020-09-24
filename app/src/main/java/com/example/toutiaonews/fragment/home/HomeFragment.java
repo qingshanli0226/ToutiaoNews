@@ -47,9 +47,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private PagerAdapter pagerAdapter;
 
     public void initData() {
-        fragments=new ArrayList<>();
-        noFragment=new ArrayList<>();
-        tabList=new ArrayList<>();
+
         String[] titles = getResources().getStringArray(R.array.channel);
         String[] codes = getResources().getStringArray(R.array.channel_code);
         for (int i = 0; i < titles.length; i++) {
@@ -63,61 +61,58 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void initChannel() {
-<<<<<<< HEAD:app/src/main/java/com/example/toutiaonews/fragment/HomeFragment.java
-        if (sp.getString(TAB_ON_DATA_KEY, null)==null){//判断是否为第一次进入
-=======
+        if (sp.getString(TAB_ON_DATA_KEY, null) == null) {//判断是否为第一次进入
 
 
-        String spString = sp.getString(TAB_ON_DATA_KEY, null);
-        Log.e("fff", "initChannel: sp"+spString );
-        if (spString==null){//判断是否为第一次进入
-            Bundle bundle = new Bundle();
-            fragments.clear();
->>>>>>> 8d1dbcd... 数据+首页适配+多布局:app/src/main/java/com/example/toutiaonews/fragment/home/HomeFragment.java
-            for (int i = 0; i < tabList.size(); i++) {
-                HomeChannelFragment channelFragment = new HomeChannelFragment();
+            String spString = sp.getString(TAB_ON_DATA_KEY, null);
+            Log.e("fff", "initChannel: sp" + spString);
+            if (spString == null) {//判断是否为第一次进入
+                Bundle bundle = new Bundle();
+                fragments.clear();
+                for (int i = 0; i < tabList.size(); i++) {
+                    HomeChannelFragment channelFragment = new HomeChannelFragment();
 //                Log.e("ffff------", "initChannel: "+ tabList.get(i).getCode());
-                bundle.putString("code",tabList.get(i).getCode());
-                channelFragment.setArguments(bundle);
-                fragments.add(channelFragment);
+                    bundle.putString("code", tabList.get(i).getCode());
+                    channelFragment.setArguments(bundle);
+                    fragments.add(channelFragment);
+                }
+                CacheManager.getInstance().setFragments(fragments);
+            } else {
+                //获取已选频道和未轩频道
+                List<ChannelBean> onList = new Gson().fromJson(sp.getString(TAB_ON_DATA_KEY, null), new TypeToken<List<ChannelBean>>() {
+                }.getType());
+                List<ChannelBean> noList = new Gson().fromJson(sp.getString(TAB_NO_DATA_KEY, null), new TypeToken<List<ChannelBean>>() {
+                }.getType());
+                //更新数据
+                CacheManager.getInstance().setNoList(noList);
+                CacheManager.getInstance().setOnList(onList);
+                Log.e("fff", noList.size() + "initChannel: " + onList.size());
+                fragments.clear();
+                noFragment.clear();
+
+                for (int i = 0; i < onList.size(); i++) {
+                    HomeChannelFragment homeChannelFragment = new HomeChannelFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("code", onList.get(i).getCode());
+                    Log.e("fff", "initChannel: on" + onList.get(i).getCode());
+                    homeChannelFragment.setArguments(bundle);
+                    fragments.add(homeChannelFragment);
+                }
+                for (int i = 0; i < noList.size(); i++) {
+                    HomeChannelFragment homeChannelFragment = new HomeChannelFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("code", noList.get(i).getCode());
+                    Log.e("fff", "initChannel:no " + onList.get(i).getCode());
+                    homeChannelFragment.setArguments(bundle);
+                    noFragment.add(homeChannelFragment);
+                }
             }
+
+            //缓存fragment
             CacheManager.getInstance().setFragments(fragments);
-        }else {
-            //获取已选频道和未轩频道
-            List<ChannelBean> onList = new Gson().fromJson(sp.getString(TAB_ON_DATA_KEY, null), new TypeToken<List<ChannelBean>>() {
-            }.getType());
-            List<ChannelBean> noList = new Gson().fromJson(sp.getString(TAB_NO_DATA_KEY, null), new TypeToken<List<ChannelBean>>() {
-            }.getType());
-            //更新数据
-            CacheManager.getInstance().setNoList(noList);
-            CacheManager.getInstance().setOnList(onList);
-            Log.e("fff", noList.size()+"initChannel: "+onList.size() );
-            fragments.clear();
-            noFragment.clear();
-
-            for (int i = 0; i < onList.size(); i++) {
-                HomeChannelFragment homeChannelFragment = new HomeChannelFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("code",onList.get(i).getCode());
-                Log.e("fff", "initChannel: on"+ onList.get(i).getCode());
-                homeChannelFragment.setArguments(bundle);
-                fragments.add(homeChannelFragment);
-            }
-            for (int i = 0; i < noList.size(); i++) {
-                HomeChannelFragment homeChannelFragment = new HomeChannelFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("code",noList.get(i).getCode());
-                Log.e("fff", "initChannel:no "+ onList.get(i).getCode());
-                homeChannelFragment.setArguments(bundle);
-                noFragment.add(homeChannelFragment);
-            }
+            CacheManager.getInstance().setNoFragments(noFragment);
         }
-
-        //缓存fragment
-        CacheManager.getInstance().setFragments(fragments);
-        CacheManager.getInstance().setNoFragments(noFragment);
     }
-
     @Override
     public void initPresenter() {}
 
@@ -176,6 +171,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     public void initView() {
+        fragments=new ArrayList<>();
+        noFragment=new ArrayList<>();
+        tabList=new ArrayList<>();
         sp=CacheManager.getInstance().getSharedPreferences();
         homeTab= (TabLayout) findViewById(R.id.home_tab);
         homeManager= (ImageView) findViewById(R.id.home_manager);

@@ -17,7 +17,7 @@ import java.util.List;
 public class CacheManager {
     private CacheManager() {
     }
-    private List<Fragment> fragments;
+    private List<Fragment> fragments=new ArrayList<>();
     private List<Fragment> noFragments=new ArrayList<>();
     private List<ChannelBean> onList;
     private List<ChannelBean> noList=new ArrayList<>();

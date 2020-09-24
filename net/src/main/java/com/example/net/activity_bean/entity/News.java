@@ -1,11 +1,9 @@
 package com.example.net.activity_bean.entity;
 
-<<<<<<< HEAD
-=======
+
 import android.text.TextUtils;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
->>>>>>> 8d1dbcd... 数据+首页适配+多布局
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -16,11 +14,9 @@ import java.util.List;
  * @date 2017/7/6  15:11
  */
 
-<<<<<<< HEAD
-public class News {
-=======
+
 public class News implements MultiItemEntity {
->>>>>>> 8d1dbcd... 数据+首页适配+多布局
+
 
 
     /**
@@ -109,8 +105,7 @@ public class News implements MultiItemEntity {
     public ImageEntity middle_image;
     public List<ImageEntity> image_list;
 
-<<<<<<< HEAD
-=======
+
     /**
      * 纯文字布局(文章、广告)
      */
@@ -127,14 +122,13 @@ public class News implements MultiItemEntity {
      * 三张图片布局(文章、广告)
      */
     public static final int THREE_PICS_NEWS = 400;
->>>>>>> 8d1dbcd... 数据+首页适配+多布局
+
 
     @Override
     public String toString() {
         return new Gson().toJson(this);
     }
-<<<<<<< HEAD
-=======
+
 
     @Override
     public int getItemType() {
@@ -178,5 +172,5 @@ public class News implements MultiItemEntity {
         }
         return list.size() == 0;
     }
->>>>>>> 8d1dbcd... 数据+首页适配+多布局
+
 }

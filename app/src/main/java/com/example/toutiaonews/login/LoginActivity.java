@@ -17,12 +17,7 @@ import com.example.framework.bean.BaseMVPActivity;
 import com.example.net.activity_bean.LoginBean;
 import com.example.toutiaonews.EventMessage;
 import com.example.toutiaonews.R;
-import com.example.toutiaonews.fragment.MeFragment;
 import com.example.toutiaonews.reg.RegMainActivity;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 public class LoginActivity extends BaseMVPActivity<LoginPresenterImpl, LoginContract.ILoginView> implements View.OnClickListener, LoginContract.ILoginView {
     private ImageView btnLoginback;

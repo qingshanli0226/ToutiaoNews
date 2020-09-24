@@ -1,9 +1,6 @@
 package com.example.net.activity_bean.entity;
 
-<<<<<<< HEAD
-=======
-//import org.litepal.crud.DataSupport;
->>>>>>> 8d1dbcd... 数据+首页适配+多布局
+
 
 /**
  * @author ChayChan
@@ -11,11 +8,9 @@ package com.example.net.activity_bean.entity;
  * @date 2017/6/26  16:07
  */
 
-<<<<<<< HEAD
-public class NewsRecord{
-=======
+
 public class NewsRecord {
->>>>>>> 8d1dbcd... 数据+首页适配+多布局
+
 
     private String channelCode;
     private int page;

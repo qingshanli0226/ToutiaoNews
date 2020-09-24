@@ -1,9 +1,5 @@
 package com.example.net.activity_bean.response;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 8d1dbcd... 数据+首页适配+多布局
 import com.example.net.activity_bean.entity.NewsData;
 import com.example.net.activity_bean.entity.TipEntity;
 import com.google.gson.Gson;
