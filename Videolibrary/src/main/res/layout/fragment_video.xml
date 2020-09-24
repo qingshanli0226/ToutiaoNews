@@ -29,7 +29,7 @@
             android:id="@+id/fragment_video_search_pic"
             android:layout_width="@dimen/dp_50"
             android:layout_height="@dimen/dp_50"
-            android:layout_alignParentRight="true"
+            android:contentDescription="@string/not_found"
             android:background="@color/color_white"
             android:padding="@dimen/dp_10"
             android:src="@mipmap/search_channel" />

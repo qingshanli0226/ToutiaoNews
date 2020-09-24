@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.danikula.videocache.HttpProxyCacheServer;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
@@ -17,9 +16,8 @@ import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 public class VideoActivity extends AppCompatActivity {
     private StandardGSYVideoPlayer gsyplayer;
     private OrientationUtils orientationUtils;
-    private String url="http://ips.ifeng.com/video19.ifeng.com/video09/2014/06/16/1989823-102-086-0009.mp4";
-    private String title="节目";
     private long time;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,11 +29,14 @@ public class VideoActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        gsyplayer = (StandardGSYVideoPlayer) findViewById(R.id.gsyplayer);
+        gsyplayer =  findViewById(R.id.gsy_player);
     }
 
 
     private void initData() {
+        String url = "http://ips.ifeng.com/video19.ifeng.com/video09/2014/06/16/1989823-102-086-0009.mp4";
+        String title = "节目";
+
         gsyplayer.setUp(url, false, title);
         //设置旋转
         orientationUtils = new OrientationUtils(this, gsyplayer);
@@ -53,9 +54,9 @@ public class VideoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (VideoActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){//竖屏
+                if (VideoActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {//竖屏
                     finish();
-                }else {
+                } else {
                     Toast.makeText(VideoActivity.this, "返回竖屏模式", Toast.LENGTH_SHORT).show();
                     orientationUtils.resolveByClick();
                 }
