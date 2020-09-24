@@ -2,7 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.toutiaonews">
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_CONTACTS"></uses-permission>
+    <uses-permission android:name="android.permission.READ_CONTACTS"></uses-permission>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+
     <application
+        android:networkSecurityConfig="@xml/http"
         android:name="com.example.videomodule.app.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,10 +18,10 @@
         android:theme="@style/TranslucentTheme">
         <meta-data
             android:name="design_width_in_dp"
-            android:value="600"/>
+            android:value="550"/>
         <meta-data
             android:name="design_height_in_dp"
-            android:value="1066"/>
+            android:value="1000"/>
         <activity android:name="com.example.videomodule.VideoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

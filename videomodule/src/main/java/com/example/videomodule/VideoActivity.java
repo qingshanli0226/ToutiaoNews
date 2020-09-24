@@ -6,8 +6,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.farmework.base.BaseActivity;
+import com.example.farmework.listener.PermissionListener;
 import com.example.toutiaonews.R;
 import com.example.videomodule.fragment.VideoFragment;
+
+import java.util.List;
 
 public class VideoActivity extends BaseActivity {
     private FrameLayout mainFrame;
@@ -27,5 +30,18 @@ public class VideoActivity extends BaseActivity {
     @Override
     protected void initView() {
         mainFrame = (FrameLayout) findViewById(R.id.main_frame);
+        requestPermissions(new String[]{"android.permission.INTERNET",
+        "android.permission.WRITE_CONTACTS","android.permission.READ_CONTACTS","android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE"}, new PermissionListener() {
+            @Override
+            public void Granted() {
+                //授权成功
+            }
+
+            @Override
+            public void onDeied(List<String> deniedPermissions) {
+                //授权失败
+            }
+        });
     }
 }

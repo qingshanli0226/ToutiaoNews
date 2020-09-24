@@ -31,8 +31,6 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.jzvd.JzvdStd;
-
 public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, VideoContract.IVideoView> implements VideoContract.IVideoView,BGRefrushLayout.IRefreshListener{
     private BGRefrushLayout videoRefrush;
     private boolean arguments;
@@ -40,8 +38,8 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
     private RecyclerView videoRv;
     private List<VideoDataBean> listData = new ArrayList<>();
     private VideoListAdapter videoListAdapter;
-
-
+    private boolean isRefrush = false;
+    private long visitTime;
     @Override
     protected void initHttpData() {
         mPresenter.getVideoData(channelCode);
@@ -77,7 +75,12 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
 
     @Override
     public void showError(String code, String message) {
+        Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+    }
 
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(getContext(), ""+message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -92,12 +95,8 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
     //拿到数据并进行解析
     @Override
     public void onVideoData(VideoDataBean videoBean) {
-        if(videoBean != null){
-            listData.add(0,videoBean);
-            videoListAdapter.notifyDataSetChanged();
-        }else{
-            Toast.makeText(getContext(), "没有新闻了", Toast.LENGTH_SHORT).show();
-        }
+        listData.add(0,videoBean);
+        videoListAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -108,6 +107,7 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
 
     @Override
     public void onRefreshComplete() {
+        isRefrush = true;
         mPresenter.getVideoData(channelCode);
     }
 }

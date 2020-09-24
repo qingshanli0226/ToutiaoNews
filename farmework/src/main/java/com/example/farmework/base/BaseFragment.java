@@ -12,16 +12,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public abstract class BaseFragment extends LazyLoadFragment {
-    private View rootView;
+import com.example.common.cache.CacheManager;
 
+public abstract class BaseFragment extends Fragment {
+    private View rootView;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(bandLayout(), container,false);
-        return rootView;
+        if (this.rootView != null) {
+            return rootView;
+        }
+        View lRootView = inflater.inflate(bandLayout(), container, false);
+        this.rootView = lRootView;
+        return lRootView;
     }
     protected abstract int bandLayout();
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -55,4 +61,5 @@ public abstract class BaseFragment extends LazyLoadFragment {
         intent.setClass(getContext(), activity);
         startActivity(intent);
     }
+
 }

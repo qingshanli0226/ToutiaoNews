@@ -25,7 +25,6 @@ public class VideoFragment extends BaseFragment {
     FragmentAdapter fragmentAdapter;
     private ImageView videoImage;
     private List<Channel> mChannelList = new ArrayList<>();
-
     private ViewPager videoView;
     List<VideoListFragments> fragments = new ArrayList<>();
     @Override
@@ -39,14 +38,12 @@ public class VideoFragment extends BaseFragment {
         for (Channel channel:mChannelList) {
             VideoListFragments newsFragment = new VideoListFragments();
             Bundle bundle = new Bundle();
-
             bundle.putString(Constant.CHANNEL_CODE, channel.channelCode);
-            Log.i("----channel", channel.channelCode);
             bundle.putBoolean(Constant.IS_VIDEO_LIST, true);//是否是视频列表页面,true
             newsFragment.setArguments(bundle);
             fragments.add(newsFragment);//添加到集合中
         }
-        fragmentAdapter = new FragmentAdapter(getChildFragmentManager(), 1, fragments,mChannelList);
+        fragmentAdapter = new FragmentAdapter(getChildFragmentManager(), fragments,mChannelList);
         videoView.setAdapter(fragmentAdapter);
         videoTab.setSelectedTabIndicatorHeight(0);
         videoTab.setupWithViewPager(videoView);
@@ -56,22 +53,6 @@ public class VideoFragment extends BaseFragment {
                 //滑到最后往左偏移
                 ViewGroup childAt = (ViewGroup) videoTab.getChildAt(0);
                 childAt.setMinimumWidth(childAt.getMeasuredWidth() + videoImage.getMeasuredWidth());
-            }
-        });
-        videoView.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                Jzvd.releaseAllVideos();
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
             }
         });
     }

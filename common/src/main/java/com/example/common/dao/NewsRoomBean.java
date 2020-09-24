@@ -9,8 +9,14 @@ public class NewsRoomBean {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
+    @ColumnInfo(name = "channelId")
+    private String channelId;
+
     @ColumnInfo(name = "newsImageUrl")
     private String newsImageUrl;
+
+    @ColumnInfo(name = "newsThumImage")
+    private String newsThumImage;
 
     @ColumnInfo(name = "newsTitle")
     private String newTitle;
@@ -20,6 +26,33 @@ public class NewsRoomBean {
 
     @ColumnInfo(name = "newsTime")
     private long newsTime;
+
+    @ColumnInfo(name = "newsCommon")
+    private int newsCommon;
+
+    public int getNewsCommon() {
+        return newsCommon;
+    }
+
+    public void setNewsCommon(int newsCommon) {
+        this.newsCommon = newsCommon;
+    }
+
+    public String getChannelId() {
+        return channelId;
+    }
+
+    public void setChannelId(String channelId) {
+        this.channelId = channelId;
+    }
+
+    public String getNewsThumImage() {
+        return newsThumImage;
+    }
+
+    public void setNewsThumImage(String newsThumImage) {
+        this.newsThumImage = newsThumImage;
+    }
 
     public int getId() {
         return id;

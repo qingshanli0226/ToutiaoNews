@@ -39,8 +39,19 @@ public class CacheManager {
         long firstTime = twoGroup.getLong(key, time);
         return firstTime;
     }
+
+    public synchronized void putVisitTime(String key,long visitTime){
+        edit.putLong(key, visitTime);
+        edit.commit();
+    }
+    public synchronized long getVisitTime(String key,long time){
+        long visitTime = twoGroup.getLong(key, time);
+        return visitTime;
+    }
+
+
     public synchronized void insert(NewsRoomBean newsRoomBean){
-        newsDao.insertAll(newsRoomBean);
+        newsDao.insertNews(newsRoomBean);
     }
 
     public synchronized List<NewsRoomBean> query(){
@@ -48,8 +59,8 @@ public class CacheManager {
         return all;
     }
 
-    public synchronized NewsRoomBean queryId(int id){
-        return newsDao.getNewsBean(id);
+    public synchronized NewsRoomBean queryChannel(String channel){
+        return newsDao.getNewsBean(channel);
     }
 
     public void delet(NewsRoomBean newsRoomBean){

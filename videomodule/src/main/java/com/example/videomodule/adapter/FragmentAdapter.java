@@ -1,5 +1,7 @@
 package com.example.videomodule.adapter;
 
+import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -15,8 +17,8 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     private List<VideoListFragments> mFragments;
     private List<Channel> mChannels;
 
-    public FragmentAdapter(@NonNull FragmentManager fm, int behavior, List<VideoListFragments> mFragments, List<Channel> mChannels) {
-        super(fm, behavior);
+    public FragmentAdapter(@NonNull FragmentManager fm, List<VideoListFragments> mFragments, List<Channel> mChannels) {
+        super(fm);
         this.mFragments = mFragments;
         this.mChannels = mChannels;
     }
@@ -37,8 +39,5 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         return mChannels.get(position).title;
     }
-    @Override
-    public int getItemPosition(Object object) {
-        return POSITION_NONE;
-    }
+
 }

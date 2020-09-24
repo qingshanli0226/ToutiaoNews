@@ -16,15 +16,20 @@ public interface NewsDao {
     @Query("SELECT * FROM news_table")
     List<NewsRoomBean> getAll();
 
-    @Query("SELECT * FROM news_table WHERE id =:sId")
-    NewsRoomBean getNewsBean(int sId);
+    @Query("SELECT * FROM news_table WHERE channelId =:channelId")
+    NewsRoomBean getNewsBean(String channelId);
 
     @Insert
-    void insertAll(NewsRoomBean... newsRoomBeans);
+    void insertNews(NewsRoomBean... newsRoomBeans);
 
     @Update
-    void updateStudent(NewsRoomBean... newsRoomBeans);
+    void updateNews(NewsRoomBean... newsRoomBeans);
 
     @Delete
     void delete(NewsRoomBean... newsRoomBeans);
+
+
+    @Query("DELETE FROM news_table WHERE newsTime =:newsTime")
+    void deleteNewsBean(long newsTime);
+
 }

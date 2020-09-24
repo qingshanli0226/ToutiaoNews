@@ -61,7 +61,7 @@ public class BGRefrushLayout extends LinearLayout {
         addView(linearLayout);
 
 
-        View headView = LayoutInflater.from(getContext()).inflate(R.layout.view_refrushlayout, null);
+        headView = LayoutInflater.from(getContext()).inflate(R.layout.view_refrushlayout, null);
         refrustImage = headView.findViewById(R.id.refrush_image);
         refrustText = headView.findViewById(R.id.refrush_text);
         refrustAnim = headView.findViewById(R.id.refrush_anim);
@@ -71,17 +71,11 @@ public class BGRefrushLayout extends LinearLayout {
 
         paddingTop = - headerViewHeight;
         linearLayout.setPadding(0, paddingTop, 0, 0);
-        headView.bringToFront();
     }
-
-    public void setposition(int position){
-        firstVisiblePosition = position;
-    }
-
-
+    private View headView;
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        super.onInterceptTouchEvent(ev);
+
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 oldY = (int) ev.getY();
@@ -94,7 +88,7 @@ public class BGRefrushLayout extends LinearLayout {
                     return false;
                 }
         }
-        return false;
+        return super.onInterceptTouchEvent(ev);
     }
     public void attchRecylerView(RecyclerView view){
         recyclerView = view;
@@ -146,7 +140,7 @@ public class BGRefrushLayout extends LinearLayout {
                                 iRefreshListener.onRefreshComplete();
                             }
                         }
-                    },2000);
+                    },1000);
                 } else {
                     linearLayout.setPadding(0,paddingTop,0,0);
                 }
