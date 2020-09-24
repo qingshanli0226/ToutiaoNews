@@ -1,5 +1,7 @@
 package com.example.toutiaonews.home.fragment;
 
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -9,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.common.CacheManager;
 import com.example.common.constant.TouTiaoNewsConstant;
+import com.example.common.dao.NetWorkDataEntity;
 import com.example.common.mode.VideoBean;
 import com.example.common.mode.VideoDataBean;
 import com.example.framework2.base.BaseMVPFragment;
@@ -32,6 +35,8 @@ public class HomeVideoFragment extends BaseMVPFragment<HomeVideoPresenterImpl, H
     String stringChannel;
     boolean isVideo;
 
+    private VideoDataBean videoDataBean;
+
     //视频数据源
     ArrayList<VideoDataBean> videoDataBeans = new ArrayList<>();
     //适配器
@@ -45,7 +50,7 @@ public class HomeVideoFragment extends BaseMVPFragment<HomeVideoPresenterImpl, H
     @Override
     protected void initData() {
         //创建适配器
-        homeVideoAdapter = new HomeVideoAdapter(R.layout.item_video_list,videoDataBeans);
+        homeVideoAdapter = new HomeVideoAdapter(R.layout.item_video_list, videoDataBeans);
         //设置适配器
         homeVideoRv.setAdapter(homeVideoAdapter);
         homeVideoRv.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -57,7 +62,7 @@ public class HomeVideoFragment extends BaseMVPFragment<HomeVideoPresenterImpl, H
                 //加载
                 long currentTime = System.currentTimeMillis();
                 //并把当前的时间戳存入sp文件中
-                CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.CURRENT_TIME,String.valueOf(currentTime));
+                CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.CURRENT_TIME, String.valueOf(currentTime));
                 //发起网络请求
                 iHttpPresenter.getVideoData(stringChannel);
             }
@@ -69,7 +74,7 @@ public class HomeVideoFragment extends BaseMVPFragment<HomeVideoPresenterImpl, H
                 videoDataBeans.clear();
                 long currentTime = System.currentTimeMillis();
                 //并把当前的时间戳存入sp文件中
-                CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.CURRENT_TIME,String.valueOf(currentTime));
+                CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.CURRENT_TIME, String.valueOf(currentTime));
                 //发起网络请求
                 iHttpPresenter.getVideoData(stringChannel);
             }
@@ -100,12 +105,12 @@ public class HomeVideoFragment extends BaseMVPFragment<HomeVideoPresenterImpl, H
     @Override
     public void onViewData(VideoBean videoBean) {
 
-        if(!videoBean.toString().equals("")){
+        if (!videoBean.toString().equals("")) {
             //循环添加数据
             List<VideoBean.DataBean> data = videoBean.getData();
             Gson gson = new Gson();
-            for (int i = 0; i < data.size() ; i++) {
-                VideoDataBean videoDataBean = gson.fromJson(data.get(i).getContent(), VideoDataBean.class);
+            for (int i = 0; i < data.size(); i++) {
+                videoDataBean = gson.fromJson(data.get(i).getContent(), VideoDataBean.class);
                 videoDataBeans.add(videoDataBean);
             }
 
@@ -114,7 +119,7 @@ public class HomeVideoFragment extends BaseMVPFragment<HomeVideoPresenterImpl, H
             homeVideoSmart.finishLoadMore();
             //刷新适配器
             homeVideoAdapter.notifyDataSetChanged();
-        } else{
+        } else {
             //没数据就显示提示信息 隐藏列表
             homeVideoLin.setVisibility(View.VISIBLE);
             homeVideoRv.setVisibility(View.GONE);
@@ -134,5 +139,50 @@ public class HomeVideoFragment extends BaseMVPFragment<HomeVideoPresenterImpl, H
     @Override
     public void hideLoading() {
 
+    }
+
+    private static final int NETWORKSTATE = 1;
+    Thread thread;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == NETWORKSTATE) {
+                videoDataBeans.add(videoDataBean);
+                homeVideoAdapter.notifyDataSetChanged();
+            }
+        }
+    };
+
+    @Override
+    public void onStart() {
+        if (thread == null) {
+            thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    if (!checkNetworkState()) {
+                        List<NetWorkDataEntity> allData = CacheManager.getCacheManager().getAllData();
+                        for (int i = 0; i < allData.size(); i++) {
+                            //做判断是否是这个页面的数据
+                            if (allData.get(i) != null && allData.get(i).getChannelCode().equals(stringChannel)) {
+                                String jsonUrl = allData.get(i).getJsonUrl();
+                                videoDataBean = new Gson().fromJson(jsonUrl, VideoDataBean.class);
+                                handler.sendEmptyMessage(NETWORKSTATE);
+                            }
+                        }
+                    }
+                }
+            });
+            thread.start();
+        }
+        super.onStart();
+    }
+
+    @Override
+    public void onDestroy() {
+        if (thread != null) {
+            thread.interrupt();
+        }
+        super.onDestroy();
     }
 }

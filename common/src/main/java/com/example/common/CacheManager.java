@@ -78,37 +78,14 @@ public class CacheManager {
 
     //查询所有
     public List<NetWorkDataEntity> getAllData() {
+        netWorkDatabase.getNetWorkDataDao().deleteReJson();
         return netWorkDatabase.getNetWorkDataDao().getAllData();
-    }
-
-    //查询图片地址---返回图片地址
-    public NetWorkDataEntity getImgUrl(String imgUrl) {
-        return netWorkDatabase.getNetWorkDataDao().getImgUrl(imgUrl);
-    }
-
-    //查询网页地址---返回网页地址
-    public NetWorkDataEntity getWebUrl(String webUrl) {
-        return netWorkDatabase.getNetWorkDataDao().getWebUrl(webUrl);
-    }
-
-    //查询视频地址---返回视频地址
-    public NetWorkDataEntity getVideoUrl(String videoUrl) {
-        return netWorkDatabase.getNetWorkDataDao().getVideoUrl(videoUrl);
-    }
-
-    //查询Json地址---返回Json地址
-    public NetWorkDataEntity getJsonUrl(String jsonUrl) {
-        return netWorkDatabase.getNetWorkDataDao().getJsonUrl(jsonUrl);
     }
 
     //添加数据
     public void insert(NetWorkDataEntity netWorkDataEntities) {
+        netWorkDatabase.getNetWorkDataDao().deleteReJson();
         netWorkDatabase.getNetWorkDataDao().insert(netWorkDataEntities);
-    }
-
-    //添加对象集合
-    public void insertList(List<NetWorkDataEntity> netWorkDataEntities) {
-        netWorkDatabase.getNetWorkDataDao().insertList(netWorkDataEntities);
     }
 
     //更新某一项
@@ -124,6 +101,11 @@ public class CacheManager {
     //删除全部
     public void deleteAll() {
         netWorkDatabase.getNetWorkDataDao().deleteAll();
+    }
+
+    //删除某一项
+    public void deleteCodeData(String channelCode) {
+        netWorkDatabase.getNetWorkDataDao().deleteCodeData(channelCode);
     }
 
 }

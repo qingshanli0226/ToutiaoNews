@@ -1,5 +1,7 @@
 package com.example.framework2.base;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
 
@@ -19,6 +21,8 @@ public abstract class BaseMVPFragment<T extends IPresenter, V extends IView> ext
 
     protected T iHttpPresenter;
     private MyLoadingBar loadingBar;
+
+    private ConnectivityManager manager;//判断网络连接
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -42,7 +46,7 @@ public abstract class BaseMVPFragment<T extends IPresenter, V extends IView> ext
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (iHttpPresenter != null){
+        if (iHttpPresenter != null) {
             iHttpPresenter.detachView();
             iHttpPresenter = null;
         }
@@ -58,4 +62,18 @@ public abstract class BaseMVPFragment<T extends IPresenter, V extends IView> ext
             loadingBar.stopAnimation();
         }
     }
+
+    //调用该方法判断网络状态--->返回一个boolean
+    protected boolean checkNetworkState() {
+        boolean flag = false;
+        //得到网络连接信息
+        manager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        //去进行判断网络是否连接
+        if (manager.getActiveNetworkInfo() != null) {
+            flag = manager.getActiveNetworkInfo().isAvailable();
+        }
+        return flag;
+    }
+
+
 }

@@ -1,6 +1,8 @@
 package com.example.toutiaonews.home.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -11,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.common.CacheManager;
 import com.example.common.constant.TouTiaoNewsConstant;
+import com.example.common.dao.NetWorkDataEntity;
 import com.example.common.mode.HomeRecommendBean;
+import com.example.common.mode.HomeRecommendContentBean;
 import com.example.common.mode.News;
 import com.example.common.untils.ContentBeanUntil;
 import com.example.framework2.base.BaseMVPFragment;
@@ -26,6 +30,11 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.http.HEAD;
+
+
 
 public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, RecommendContract.RecommendView> implements RecommendContract.RecommendView {
 
@@ -40,6 +49,7 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
     RecommendAdapter recommendAdapter;
     //频道值
     String stringChannel;
+
 
     @Override
     protected int getLayoutId() {
@@ -84,7 +94,9 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 //上拉刷新
                 //清空数据
+                CacheManager.getCacheManager().deleteCodeData(stringChannel);
                 newsArrayList.clear();
+
                 long currentTime = System.currentTimeMillis();
                 //并把当前的时间戳存入sp文件中
                 CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.CURRENT_TIME, String.valueOf(currentTime));
@@ -133,7 +145,7 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
 
     @Override
     public void onRecommendData(HomeRecommendBean homeRecommendBean) {
-        if(!homeRecommendBean.toString().equals("")){
+        if (!homeRecommendBean.toString().equals("")) {
             dataBeans.clear();
             dataBeans = (ArrayList<HomeRecommendBean.DataBean>) homeRecommendBean.getData();
             Gson gson = new Gson();
@@ -141,12 +153,22 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
                 //把json数据转换为contentBean对象
                 News news = gson.fromJson(dataBeans.get(i).getContent(), News.class);
                 newsArrayList.add(news);
+                HomeRecommendContentBean homeRecommendContentBean = gson.fromJson(dataBeans.get(i).getContent(), HomeRecommendContentBean.class);
+
+                //插入数据库
+                NetWorkDataEntity netWorkDataEntity = new NetWorkDataEntity();
+                netWorkDataEntity.setDataTime(System.currentTimeMillis());
+                netWorkDataEntity.setTitle(newsArrayList.get(i).getTitle());
+                netWorkDataEntity.setChannelCode(stringChannel);
+                netWorkDataEntity.setJsonUrl(dataBeans.get(i).getContent());
+
+                CacheManager.getCacheManager().insert(netWorkDataEntity);
             }
             //停止上拉和下拉
             homeRecommendSmart.finishRefresh();
             homeRecommendSmart.finishLoadMore();
             recommendAdapter.notifyDataSetChanged();
-        } else{
+        } else {
             //没数据就显示提示信息 隐藏列表
             homeRecommendLin.setVisibility(View.VISIBLE);
             homeRecommendRv.setVisibility(View.GONE);
@@ -166,5 +188,52 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
     @Override
     public void hideLoading() {
 
+    }
+
+    private News contentBean;
+
+    private static final int NETWORKSTATE = 1;
+    Thread thread;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == NETWORKSTATE) {
+                newsArrayList.add(contentBean);
+                recommendAdapter.notifyDataSetChanged();
+            }
+        }
+    };
+
+    @Override
+    public void onStart() {
+        if (thread == null) {
+            thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    if (!checkNetworkState()) {
+                        List<NetWorkDataEntity> allData = CacheManager.getCacheManager().getAllData();
+                        for (int i = 0; i < allData.size(); i++) {
+                            //做判断是否是这个页面的数据
+                            if (allData.get(i) != null && allData.get(i).getChannelCode().equals(stringChannel)) {
+                                String jsonUrl = allData.get(i).getJsonUrl();
+                                contentBean = new Gson().fromJson(jsonUrl, News.class);
+                                handler.sendEmptyMessage(NETWORKSTATE);
+                            }
+                        }
+                    }
+                }
+            });
+            thread.start();
+        }
+        super.onStart();
+    }
+
+    @Override
+    public void onDestroy() {
+        if (thread != null) {
+            thread.interrupt();
+        }
+        super.onDestroy();
     }
 }

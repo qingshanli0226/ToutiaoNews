@@ -1,5 +1,7 @@
 package com.example.toutiaonews.video.fragment;
 
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -7,10 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
-import com.blankj.utilcode.util.LogUtils;
 import com.example.common.CacheManager;
-
 import com.example.common.constant.Constant;
 import com.example.common.constant.TouTiaoNewsConstant;
 import com.example.common.dao.NetWorkDataEntity;
@@ -31,6 +30,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImpl, NewsVideoContract.IVideoView> implements NewsVideoContract.IVideoView {
+
+    private static final int NETWORKSTATE = 1;
+
     private String mChannelCode;//视频code
     private boolean isVideoList;
     private boolean isRecommendChannel;
@@ -45,7 +47,7 @@ public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImp
     private LinearLayout homeNewsVideoListLin;
 
     private NewsVideoListAdapter videoListAdapter;
-
+    private VideoDataBean videoDataBean;
 
     @Override
     protected int getLayoutId() {
@@ -63,6 +65,7 @@ public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImp
 
     @Override
     protected void initView() {
+
         videolistSr = findViewById(R.id.videolist_sr);
         videolistRv = findViewById(R.id.videolist_rv);
         homeNewsVideoListLin = (LinearLayout) findViewById(R.id.homeNewsVideoListLin);
@@ -71,6 +74,7 @@ public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImp
         videoListAdapter = new NewsVideoListAdapter(R.layout.item_video_list, listData);
         videolistRv.setAdapter(videoListAdapter);
         videolistRv.setLayoutManager(new LinearLayoutManager(getContext()));
+
 
         //上拉刷新，下拉加载
         videolistSr.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
@@ -88,6 +92,7 @@ public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImp
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 //上拉刷新
                 //清空数据
+                CacheManager.getCacheManager().deleteCodeData(mChannelCode);
                 listData.clear();
                 long currentTime = System.currentTimeMillis();
                 //并把当前的时间戳存入sp文件中
@@ -96,7 +101,6 @@ public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImp
                 iHttpPresenter.getNewsVideoData(mChannelCode);
             }
         });
-
     }
 
     @Override
@@ -112,18 +116,19 @@ public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImp
     //获取数据
     @Override
     public void onVideoData(VideoBean videoBean) {
-
-
         if (!videoBean.toString().equals("")) {
             list.addAll(videoBean.getData());
             Gson gson = new Gson();
             if (videoBean != null) {
                 for (int i = 0; i < list.size(); i++) {
                     String json = list.get(i).getContent();
-                    VideoDataBean videoDataBean = gson.fromJson(json, VideoDataBean.class);
+                    videoDataBean = gson.fromJson(json, VideoDataBean.class);
                     listData.add(videoDataBean);
                     //插入数据库
                     NetWorkDataEntity netWorkDataEntity = new NetWorkDataEntity();
+                    netWorkDataEntity.setDataTime(System.currentTimeMillis());
+                    netWorkDataEntity.setTitle(listData.get(i).getTitle());
+                    netWorkDataEntity.setChannelCode(mChannelCode);
                     netWorkDataEntity.setJsonUrl(json);
 
                     CacheManager.getCacheManager().insert(netWorkDataEntity);
@@ -134,15 +139,12 @@ public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImp
                 homeNewsVideoListLin.setVisibility(View.VISIBLE);
                 videolistRv.setVisibility(View.GONE);
             }
-        } else {
-            onRoomVideoData();
         }
 
         //停止上拉和下拉
         videolistSr.finishRefresh();
         videolistSr.finishLoadMore();
         videoListAdapter.notifyDataSetChanged();
-
     }
 
     @Override
@@ -160,17 +162,47 @@ public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImp
 
     }
 
-    //拿到数据库中的缓存视频页数据
-    private void onRoomVideoData() {
-        //从数据库中拿到数据
-        List<NetWorkDataEntity> allData = CacheManager.getCacheManager().getAllData();
-        for (int i = 0; i < allData.size(); i++) {
-            String jsonUrl = allData.get(i).getJsonUrl();
-            LogUtils.json(jsonUrl);
-            VideoDataBean videoDataBean = new Gson().fromJson(jsonUrl, VideoDataBean.class);
-            listData.add(videoDataBean);
+    Thread thread;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == NETWORKSTATE) {
+                listData.add(videoDataBean);
+                videoListAdapter.notifyDataSetChanged();
+            }
         }
+    };
+
+    @Override
+    public void onStart() {
+        if (thread == null) {
+            thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    if (!checkNetworkState()) {
+                        List<NetWorkDataEntity> allData = CacheManager.getCacheManager().getAllData();
+                        for (int i = 0; i < allData.size(); i++) {
+                            //做判断是否是这个页面的数据
+                            if (allData.get(i) != null && allData.get(i).getChannelCode().equals(mChannelCode)) {
+                                String jsonUrl = allData.get(i).getJsonUrl();
+                                videoDataBean = new Gson().fromJson(jsonUrl, VideoDataBean.class);
+                                handler.sendEmptyMessage(NETWORKSTATE);
+                            }
+                        }
+                    }
+                }
+            });
+            thread.start();
+        }
+        super.onStart();
     }
 
-
+    @Override
+    public void onDestroy() {
+        if (thread != null) {
+            thread.interrupt();
+        }
+        super.onDestroy();
+    }
 }

@@ -3,6 +3,7 @@ package com.example.common.dao;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -17,36 +18,15 @@ public interface NetWorkDataDao {
     /*------------查询------------*/
     //返回整个实体类集合
     //查询所有
-    @Query("SELECT DISTINCT * FROM  networkdataentity")
+    @Query("SELECT DISTINCT * FROM  NetWorkTable")
     List<NetWorkDataEntity> getAllData();
 
-    //查询图片地址---返回图片地址
-    @Query("SELECT DISTINCT * FROM networkdataentity WHERE imgUrl=:imgUrl")
-    NetWorkDataEntity getImgUrl(String imgUrl);
-
-    //查询网页地址---返回网页地址
-    @Query("SELECT DISTINCT * FROM networkdataentity WHERE webUrl=:webUrl")
-    NetWorkDataEntity getWebUrl(String webUrl);
-
-    //查询视频地址---返回视频地址
-    @Query("SELECT DISTINCT * FROM networkdataentity WHERE videoUrl=:videoUrl")
-    NetWorkDataEntity getVideoUrl(String videoUrl);
-
-    //查询Json地址---返回Json地址
-    @Query("SELECT DISTINCT * FROM networkdataentity WHERE jsonUrl=:jsonUrl")
-    NetWorkDataEntity getJsonUrl(String jsonUrl);
-
-
     /*------------添加------------*/
-
     //添加数据
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//封装了Room解决冲突的相关策略
     void insert(NetWorkDataEntity... netWorkDataEntities);
 
-
-    //添加对象集合
-    @Insert
-    void insertList(List<NetWorkDataEntity> netWorkDataEntities);
 
     /*------------更新&x修改------------*/
     //更新某一项
@@ -59,7 +39,16 @@ public interface NetWorkDataDao {
     void delete(NetWorkDataEntity... netWorkDataEntities);
 
     //删除全部
-    @Query("DELETE FROM networkdataentity")
+    @Query("DELETE FROM NetWorkTable")
     void deleteAll();
+
+    //删除某一页的数据
+    @Query("DELETE FROM NetWorkTable WHERE channelCode=:channelCode")
+    void deleteCodeData(String channelCode);
+
+    //删除重复数据
+    @Query("DELETE FROM NetWorkTable WHERE title IN (SELECT title FROM NetWorkTable GROUP BY title HAVING count(title) > 1)")
+    void deleteReJson();
+
 
 }
