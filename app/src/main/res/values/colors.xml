@@ -9,4 +9,5 @@
     <color name="lineVertical">#9C9B9B</color>
     <color name="lineAcross">#F2F4F3</color>
     <color name="backgrout">#F9F9F9</color>
+    <color name="buttonBackgrout">#FDFDFE</color>
 </resources>

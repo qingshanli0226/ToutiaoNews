@@ -10,6 +10,7 @@
     <dimen name="weight8">8</dimen>
     <dimen name="weight9">9</dimen>
     <dimen name="weight10">10</dimen>
+    <dimen name="weight20">20</dimen>
     <dimen name="dp0">0dp</dimen>
     <dimen name="dp1">1dp</dimen>
     <dimen name="dp2">2dp</dimen>
