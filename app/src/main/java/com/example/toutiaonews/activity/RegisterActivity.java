@@ -6,6 +6,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.farmework.base.BaseMVPActivity;
+import com.example.promptpagemodule.promptpage.promptpageview.PromptPageViewHolder;
+import com.example.promptpagemodule.promptpage.promptpageview.PromptView;
 import com.example.toutiaonews.R;
 import com.example.toutiaonews.bean.RegisterEntity;
 import com.example.toutiaonews.contract.RegisterContract;
@@ -17,7 +19,8 @@ public class RegisterActivity extends BaseMVPActivity<RegisterPresenter, Registe
     private Button register;
     private String usernamestr;
     private String passtr;
-
+    private PromptView ptpv;
+    private PromptPageViewHolder pageViewHolder;
     @Override
     protected void initPresenter() {
         iHttpPresenter = new RegisterPresenter();
@@ -25,6 +28,8 @@ public class RegisterActivity extends BaseMVPActivity<RegisterPresenter, Registe
 
     @Override
     protected void initHttpData() {
+        pageViewHolder=new PromptPageViewHolder(this);
+        ptpv.setHolder(pageViewHolder);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,6 +55,7 @@ public class RegisterActivity extends BaseMVPActivity<RegisterPresenter, Registe
         username = (EditText) findViewById(R.id.username);
         pas = (EditText) findViewById(R.id.pas);
         register = (Button) findViewById(R.id.register);
+        ptpv = (PromptView) findViewById(R.id.ptpv);
     }
 
     @Override
@@ -60,7 +66,7 @@ public class RegisterActivity extends BaseMVPActivity<RegisterPresenter, Registe
 
     @Override
     public void showError(String code, String message) {
-
+        ptpv.showEmptyView();
     }
 
     @Override
