@@ -50,7 +50,10 @@ public class VideoFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        initView(view);
+        fragmentVideoTab = view.findViewById(R.id.fragment_video_tab);
+        fragmentVideoSearchPic = view.findViewById(R.id.fragment_video_search_pic);
+        fragmentVideoVp = view.findViewById(R.id.fragment_video_vp);
+        fragmentList = new ArrayList<>();
 
         //添加tab数据
         tabAdd();
@@ -127,12 +130,7 @@ public class VideoFragment extends Fragment {
         });
     }
 
-    private void initView(@NonNull View view) {
-        fragmentVideoTab = view.findViewById(R.id.fragment_video_tab);
-        fragmentVideoSearchPic = view.findViewById(R.id.fragment_video_search_pic);
-        fragmentVideoVp = view.findViewById(R.id.fragment_video_vp);
-        fragmentList = new ArrayList<>();
-    }
+
 
     private void tabAdd() {
 

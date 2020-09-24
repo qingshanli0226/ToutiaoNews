@@ -60,8 +60,6 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
     protected void initHttpData() {
         Log.i(TAG, "initHttpData:     category       " + category);
         ihttpPresenter.getVideoChildData(category);
-
-
     }
 
     @Override
