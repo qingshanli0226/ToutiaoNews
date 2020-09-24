@@ -6,8 +6,10 @@ import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LayoutAnimationController;
 import android.view.animation.TranslateAnimation;
+
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.common.ARouterCommon;
@@ -15,16 +17,15 @@ import com.example.framework2.mvp.view.BaseLJZFragment;
 import com.example.video.R;
 import com.example.video.fragment_headlines.adapter.VideoAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.view.animation.Animation.RELATIVE_TO_SELF;
 
 public class VideoFragment extends BaseLJZFragment implements BaseQuickAdapter.OnItemChildClickListener {
-    private SmartRefreshLayout mRefreshListSrl;
     private RecyclerView mVideoListRv;
     private List<String> list;
-    private VideoAdapter videoAdapter;
 
     @Override
     protected int setContentView() {
@@ -33,11 +34,11 @@ public class VideoFragment extends BaseLJZFragment implements BaseQuickAdapter.O
 
     @Override
     protected void initView() {
-        mRefreshListSrl = (SmartRefreshLayout) rootView.findViewById(R.id.refresh_list_srl);
+        SmartRefreshLayout mRefreshListSrl = (SmartRefreshLayout) rootView.findViewById(R.id.refresh_list_srl);
         mVideoListRv = (RecyclerView) rootView.findViewById(R.id.video_list_rv);
         mVideoListRv.setLayoutManager(new StaggeredGridLayoutManager(2, RecyclerView.VERTICAL));
         list = new ArrayList<>();
-        videoAdapter = new VideoAdapter(R.layout.item_video, list);
+        VideoAdapter videoAdapter = new VideoAdapter(R.layout.item_video, list);
         mVideoListRv.setAdapter(videoAdapter);
         videoAdapter.setOnItemChildClickListener(this);
     }

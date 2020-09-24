@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Component</string>
+    <string name="find">搜索</string>
+    <string name="video">视频</string>
+    <string name="head_pic">头像</string>
+    <string name="more">更多</string>
+    <string name="start">开始</string>
+    <string name="pause">暂停</string>
+    <string name="fa_bu">发布</string>
+    <string name="initText">和平精英搞笑短片{落地不要慌，密室里面有惊喜}</string>
+    <string name="concern">关注</string>
 </resources>

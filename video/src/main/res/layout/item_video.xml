@@ -6,6 +6,7 @@
     android:layout_margin="1dp">
 
     <ImageView
+        android:contentDescription="@string/video"
         android:id="@+id/item_image_video"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -23,9 +24,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:text="和平精英搞笑短片{落地不要慌，密室里面有惊喜}"
+            android:text="@string/initText"
             android:textColor="@color/main_bg_color"
-            android:textSize="@dimen/dp_20">
+            android:textSize="20sp">
 
         </TextView>
 
@@ -36,11 +37,12 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true">
+                android:layout_alignParentStart="true">
 
                 <ImageView
                     android:id="@+id/item_head_pic"
                     android:layout_width="@dimen/dp_30"
+                    android:contentDescription="@string/head_pic"
                     android:layout_height="@dimen/dp_30">
 
                 </ImageView>
@@ -57,7 +59,7 @@
                 android:id="@+id/item_number_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_30"
-                android:layout_alignParentRight="true">
+                android:layout_alignParentEnd="true">
 
             </TextView>
         </RelativeLayout>

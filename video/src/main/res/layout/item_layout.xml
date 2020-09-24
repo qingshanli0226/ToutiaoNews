@@ -13,6 +13,7 @@
 
     <ImageView
         android:id="@+id/video_pic"
+        android:contentDescription="@string/video"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

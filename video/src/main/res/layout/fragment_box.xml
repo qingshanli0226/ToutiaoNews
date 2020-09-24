@@ -27,6 +27,7 @@
             android:layout_width="@dimen/dp_0"
             android:layout_height="@dimen/dp_50"
             android:layout_weight="1"
+            android:contentDescription="@string/find"
             android:src="@mipmap/search_channel"/>
 
     </LinearLayout>

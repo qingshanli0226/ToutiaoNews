@@ -7,6 +7,7 @@ import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.view.View;
 import android.widget.ImageView;
+
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.framework2.mvp.view.BaseActivity;
 import com.qiniu.pili.droid.shortvideo.PLAudioEncodeSetting;
@@ -17,17 +18,17 @@ import com.qiniu.pili.droid.shortvideo.PLRecordSetting;
 import com.qiniu.pili.droid.shortvideo.PLRecordStateListener;
 import com.qiniu.pili.droid.shortvideo.PLShortVideoRecorder;
 import com.qiniu.pili.droid.shortvideo.PLVideoEncodeSetting;
+
 import static com.example.common.ARouterCommon.VIDEO_LU_ACT;
 
 @Route(path = VIDEO_LU_ACT)
 public class LuAct extends BaseActivity implements PLRecordStateListener, View.OnClickListener {
-    private GLSurfaceView mGlSurfaceView;
     private PLShortVideoRecorder mShortVideoRecorder;
     private boolean flag = false;
     @SuppressLint("SdCardPath")
     private String path = "/sdcard";
     @SuppressLint("SdCardPath")
-    private String filePath = "/sdcard/record.mp4";
+    private String filePath = path + "/record.mp4";
 
     // 录制选项
     private PLRecordSetting getPlRecordSetting() {
@@ -164,7 +165,8 @@ public class LuAct extends BaseActivity implements PLRecordStateListener, View.O
                     "android.permission.FLASHLIGHT"
             }, 1000);
         }
-        mGlSurfaceView = (GLSurfaceView) findViewById(R.id.glSurfaceView);
+
+        GLSurfaceView mGlSurfaceView = findViewById(R.id.glSurfaceView);
 
         findViewById(R.id.start_lu).setOnClickListener(this);
         findViewById(R.id.stop_lu).setOnClickListener(this);
