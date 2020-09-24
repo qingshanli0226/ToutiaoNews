@@ -25,6 +25,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public int bandLayout() {
-        return R.layout.activity_main;
+        return R.layout.activity_main_user;
     }
 }

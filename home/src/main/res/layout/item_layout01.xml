@@ -20,8 +20,8 @@
             android:id="@+id/item01_tv_title_id"
             android:textColor="#000"
             android:textSize="@dimen/dp_20"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_width="@dimen/dp_300"
+            android:layout_height="@dimen/dp_50"/>
         <LinearLayout
             android:layout_marginTop="@dimen/dp_20"
             android:layout_width="match_parent"

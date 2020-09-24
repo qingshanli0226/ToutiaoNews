@@ -1,4 +1,4 @@
-package com.example.toutiaonews.fragment_mine;
+package com.example.user.fragment;
 
 import android.content.Intent;
 import android.util.Log;
@@ -18,12 +18,17 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.common.ARouterCommon;
 import com.example.common.UserCommon;
 import com.example.framework2.mvp.view.BaseFragment;
-import com.example.toutiaonews.MainActivity;
-import com.example.toutiaonews.R;
-import com.example.user.activity.LoginActivity;
-import com.example.toutiaonews.fragment_mine.dialog.MyDialog;
 
-import static android.app.Activity.RESULT_OK;
+import com.example.framework2.utils.Users;
+import com.example.user.activity.LoginActivity;
+import com.example.user.fragment.dialog.MyDialog;
+import com.example.video.R;
+import com.wildma.pictureselector.PictureBean;
+import com.wildma.pictureselector.PictureSelector;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class FragmentMine extends BaseFragment {
     private ImageView ivMineHead;
@@ -48,61 +53,46 @@ public class FragmentMine extends BaseFragment {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.iv_mine_head:
-                toCutHead();
-                break;
-            case R.id.tv_mine_name:
-                toLogin();
-                break;
-            case R.id.ll_mine_action:
-                toAction();
-                break;
-            case R.id.ll_mine_fans:
-                toFans();
-                break;
-            case R.id.ll_mine_seven:
-                toSeven();
-                break;
-            case R.id.tv_mine_collect:
-                toCollect();
-                break;
-            case R.id.tv_mine_history:
-                toHistory();
-                break;
-            case R.id.tv_mine_night:
-                setDayNight();
-                break;
-            case R.id.rl_mine_inform:
-                toInform();
-                break;
-            case R.id.rl_mine_store:
-                toStore();
-                break;
-            case R.id.rl_mine_JD:
-                toJDong();
-                break;
-            case R.id.rl_mine_disclose:
-                toDisclose();
-                break;
-            case R.id.rl_mine_feedback:
-                toFeedback();
-                break;
-            case R.id.rl_mine_setting:
-                toSetting();
-                break;
+        int id = view.getId();
+        if (id == R.id.iv_mine_head) {
+            toCutHead();
+        } else if (id == R.id.tv_mine_name) {
+            toLogin();
+        } else if (id == R.id.ll_mine_action) {
+            toAction();
+        } else if (id == R.id.ll_mine_fans) {
+            toFans();
+        } else if (id == R.id.ll_mine_seven) {
+            toSeven();
+        } else if (id == R.id.tv_mine_collect) {
+            toCollect();
+        } else if (id == R.id.tv_mine_history) {
+            toHistory();
+        } else if (id == R.id.tv_mine_night) {
+            setDayNight();
+        } else if (id == R.id.rl_mine_inform) {
+            toInform();
+        } else if (id == R.id.rl_mine_store) {
+            toStore();
+        } else if (id == R.id.rl_mine_JD) {
+            toJDong();
+        } else if (id == R.id.rl_mine_disclose) {
+            toDisclose();
+        } else if (id == R.id.rl_mine_feedback) {
+            toFeedback();
+        } else if (id == R.id.rl_mine_setting) {
+            toSetting();
         }
     }
 
     //切换头像
     private void toCutHead() {
-        if (UserCommon.isLogin){
-            Glide.with(this).load(R.mipmap.my_avatar)
-                    .apply(RequestOptions.bitmapTransform(new CircleCrop()))
-                    .into(ivMineHead);
-        }else {
-            Toast.makeText(getContext(), "未登录，不能切换头像", Toast.LENGTH_SHORT).show();
-        }
+        PictureSelector.create(FragmentMine.this, PictureSelector.SELECT_REQUEST_CODE).selectPicture();
+//        if (UserCommon.isLogin){
+//            PictureSelector.create(FragmentMine.this, SELECT_REQUEST_CODE).selectPicture();
+//        }else {
+//            Toast.makeText(getContext(), "未登录，不能切换头像", Toast.LENGTH_SHORT).show();
+//        }
     }
 
     //跳转设置页面
@@ -153,14 +143,14 @@ public class FragmentMine extends BaseFragment {
 
     //切换黑暗模式
     private void setDayNight() {
-        MainActivity activity = (MainActivity) getActivity();
+//        MainActivity activity = (MainActivity) getActivity();
         if (UserCommon.isDay){
-            activity.setNight();
+//            activity.setNight();
 //            activity.getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             Toast.makeText(getContext(), "切换夜间模式", Toast.LENGTH_SHORT).show();
             UserCommon.isDay = false;
         }else {
-            activity.setDay();
+//            activity.setDay();
 //            activity.getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             Toast.makeText(getContext(), "切换白天模式", Toast.LENGTH_SHORT).show();
             UserCommon.isDay = true;
@@ -179,6 +169,8 @@ public class FragmentMine extends BaseFragment {
     //初始化空间以及数据
     @Override
     public void initView() {
+        EventBus.getDefault().register(this);
+
         ivMineHead = (ImageView) findViewById(R.id.iv_mine_head);
         tvMineName = (TextView) findViewById(R.id.tv_mine_name);
         tvMineToMessage = (TextView) findViewById(R.id.tv_mine_toMessage);
@@ -228,7 +220,7 @@ public class FragmentMine extends BaseFragment {
                 Log.d("ljl", "clickRegister: 111");
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 Log.d("ljl", "clickRegister: 222");
-                startActivityForResult(intent,101);
+                startActivity(intent);
                 Log.d("ljl", "clickRegister: 333");
                 return true;
             }
@@ -240,33 +232,23 @@ public class FragmentMine extends BaseFragment {
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getEvent(Users user){
+        if (user.isLogin()){
+            tvMineName.setText(user.getUsername());
+            Glide.with(this).load(R.mipmap.icon).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(ivMineHead);
+        }else {
+
+        }
+    }
+
     //接收返回的数据
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(data!=null && resultCode == RESULT_OK && requestCode == 101){
-            //是获取注册界面回传过来的用户名
-            String userName = data.getStringExtra("username");
-            String actionNum = data.getStringExtra("actionNum");
-            String fansNum = data.getStringExtra("fansNum");
-            String sevenNum = data.getStringExtra("sevenNum");
-
-            Log.d("", "onActivityResult: "+userName);
-            Log.d("", "onActivityResult: "+actionNum);
-            Log.d("", "onActivityResult: "+fansNum);
-            Log.d("", "onActivityResult: "+sevenNum);
-            tvMineName.setText(userName+"");
-            tvMineActionNumId.setText(actionNum+"");
-            tvMineFansNumId.setText(fansNum+"");
-            tvMineSevenNumId.setText(sevenNum+"");
-
-            UserCommon.isLogin = true;
-
-            Glide.with(this).load(R.mipmap.my_avatar)
-                    .apply(RequestOptions.bitmapTransform(new CircleCrop()))
-                    .into(ivMineHead);
-
-            Log.d("ljl", "onActivityResult: 完成切换");
+        if (requestCode == PictureSelector.SELECT_REQUEST_CODE && data != null) {
+            PictureBean bean = (PictureBean) data.getExtras().get(PictureSelector.PICTURE_RESULT);
+            Glide.with(getContext()).load(bean.getPath()).transform(new CircleCrop()).into(ivMineHead);
         }
     }
 
@@ -279,6 +261,7 @@ public class FragmentMine extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         UserCommon.isLogin = false;
         Log.d("ljl", "onDestroy: 销毁，切换到最初状态");
     }

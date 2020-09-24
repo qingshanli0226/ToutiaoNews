@@ -61,7 +61,9 @@ dependencies {
     implementation project(path: ':framework')
     implementation project(path: ':net')
     implementation project(path: ':common')
-    implementation project(path: ':video')
+
     implementation 'org.greenrobot:greendao:3.2.2' // add library
     implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation 'com.github.wildma:PictureSelector:1.1.6'
+    implementation 'com.github.bumptech.glide:glide:4.5.0'
 }

@@ -1,4 +1,4 @@
-package com.example.toutiaonews.fragment_mine.dialog;
+package com.example.user.fragment.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.example.toutiaonews.R;
+import com.example.video.R;
 
 public class MyDialog extends Dialog {
     public MyDialog(@NonNull final Context context, int themeResId) {

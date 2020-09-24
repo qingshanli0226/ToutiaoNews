@@ -15,6 +15,5 @@ public class ARouterCommon {
     public static final String USER_SEVEN = "/user/activity/seven";
     public static final String USER_FANS = "/user/activity/fans";
     public static final String USER_ACTION = "/user/activity/action";
-    public static final String USER_REGISTER = "/user/activity/register";
     public static final String USER_LOGIN = "/user/activity/login";
 }

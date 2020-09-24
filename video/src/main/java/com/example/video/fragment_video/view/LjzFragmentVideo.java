@@ -58,7 +58,7 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
     private List<String> list = new ArrayList<>();
     private boolean flag = false;
 
-    LjzFragmentVideo(String str) {
+    public LjzFragmentVideo(String str) {
         this.indexStr = str;
     }
 
