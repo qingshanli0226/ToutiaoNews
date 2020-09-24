@@ -57,6 +57,10 @@ public class FragmentBox extends BaseFragment implements View.OnTouchListener {
             list.add(ljzFragmentVideo);
             Tools.getTools().putVideoCode(stringArray1[i]);
         }
+
+
+
+        
         mFragmentBoxVp.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
             @NonNull
             @Override
