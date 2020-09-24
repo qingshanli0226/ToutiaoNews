@@ -1,10 +1,13 @@
 package com.example.video.fragment_video.view;
 
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
+import android.view.animation.AnticipateOvershootInterpolator;
+import android.view.animation.BounceInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LayoutAnimationController;
 import android.view.animation.TranslateAnimation;
@@ -86,8 +89,6 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
      */
     @Override
     protected void initView() {
-
-
         mPresenter = new PresenterVideo(new ModelVideo(), this);
         mLoadingImage = (LoadingView) rootView.findViewById(R.id.loading_image);
         mRefreshListSrl = (SmartRefreshLayout) rootView.findViewById(R.id.refresh_list_srl);
@@ -110,6 +111,8 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
                 videoPause(recyclerView, newState);
             }
         });
+
+
         initData();
     }
 
@@ -127,7 +130,8 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
             ContentBean contentBean = new Gson().fromJson(datum.getContent(), ContentBean.class);
             videoBeanList.add(contentBean);
         }
-        playLayoutAnimation(getAnimationSetFromLeft(), true);
+//        playLayoutAnimation(getAnimationSetFromLeft(), true);
+        myVideoAdapter.notifyDataSetChanged();
 
     }
 
@@ -175,7 +179,7 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
         TranslateAnimation translateX1 = new TranslateAnimation(RELATIVE_TO_SELF, -1.0f, RELATIVE_TO_SELF, 0.1f,
                 RELATIVE_TO_SELF, 0, RELATIVE_TO_SELF, 0);
         translateX1.setDuration(300);
-        translateX1.setInterpolator(new DecelerateInterpolator());
+        translateX1.setInterpolator(new BounceInterpolator());
         translateX1.setStartOffset(0);
 
         TranslateAnimation translateX2 = new TranslateAnimation(RELATIVE_TO_SELF, 0.1f, RELATIVE_TO_SELF, -0.1f,
@@ -187,7 +191,7 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
         TranslateAnimation translateX3 = new TranslateAnimation(RELATIVE_TO_SELF, -0.1f, RELATIVE_TO_SELF, 0f,
                 RELATIVE_TO_SELF, 0, RELATIVE_TO_SELF, 0);
         translateX3.setStartOffset(350);
-        translateX3.setInterpolator(new DecelerateInterpolator());
+        translateX3.setInterpolator(new AnticipateOvershootInterpolator());
         translateX3.setDuration(50);
 
         animationSet.addAnimation(translateX1);
@@ -250,7 +254,7 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
         StandardGSYVideoPlayer player = viewByPosition.findViewById(R.id.item_video_GSY);
         ImageView pic = viewByPosition.findViewById(R.id.item_video_pic);
         pic.setVisibility(View.INVISIBLE);
-//        player.setUp(list.get(position), false, "");
+        player.setUp(list.get(position), false, "");
         player.startPlayLogic();
         videoPlayer = player;
         playIndex = position;
@@ -355,7 +359,6 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
     @Override
     public void getVideoData(Recommend recommend) {
         mLoadingImage.showContent();
-        showMessage("加载完成......");
         if (!flag) {
             videoBeanList.clear();
         }
@@ -364,11 +367,11 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
             ContentBean contentBean = new Gson().fromJson(datum.getContent(), ContentBean.class);
             videoBeanList.add(contentBean);
         }
-        Log.d("LjzFragmentVideo", "videoBeanList.size():" + videoBeanList.size());
 
         if (videoBeanList.size() != 0) {
 
-            playLayoutAnimation(getAnimationSetFromLeft(), true);
+            myVideoAdapter.notifyDataSetChanged();
+
         } else {
             initSqlData();
         }

@@ -13,7 +13,7 @@ public class App extends Application {
             ARouter.openLog();
         }
         app = this;
-//        AbnormalManager.getAbnormalManager().init(this);
+        AbnormalManager.getAbnormalManager().init(this);
         ARouter.init(this);
     }
 

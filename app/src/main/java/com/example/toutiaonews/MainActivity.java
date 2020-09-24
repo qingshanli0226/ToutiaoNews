@@ -36,6 +36,9 @@ public class MainActivity extends BaseActivity {
                     Manifest.permission.READ_EXTERNAL_STORAGE
             },1000);
         }
+
+
+
         initFragment();
         bbl.setOnItemSelectedListener(new BottomBarLayout.OnItemSelectedListener() {
             @Override

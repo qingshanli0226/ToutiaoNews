@@ -32,17 +32,7 @@
             android:name="com.example.user.activity.LoginActivity"
             android:theme="@style/AppTheme" />
 
-        <activity android:name=".fragment_mine.activity.SettingActivity" />
-        <activity android:name=".fragment_mine.activity.FeedbackActivity" />
-        <activity android:name=".fragment_mine.activity.DiscloseActivity" />
-        <activity android:name=".fragment_mine.activity.JDongActivity" />
-        <activity android:name=".fragment_mine.activity.StoreActivity" />
-        <activity android:name=".fragment_mine.activity.InformActivity" />
-        <activity android:name=".fragment_mine.activity.HistoryActivity" />
-        <activity android:name=".fragment_mine.activity.CollectActivity" />
-        <activity android:name=".fragment_mine.activity.SevenActivity" />
-        <activity android:name=".fragment_mine.activity.FansActivity" />
-        <activity android:name=".fragment_mine.activity.Action1Activity" />
+
 
         <activity
             android:name="com.example.user.activity.RegisterActivity"

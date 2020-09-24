@@ -1,23 +1,29 @@
 package com.example.video.fragment_video.view;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
 import com.example.framework2.mvp.view.BaseFragment;
 import com.example.framework2.utils.Tools;
 import com.example.video.R;
 import com.example.video.dao.DaoManager;
 import com.google.android.material.tabs.TabLayout;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 import static com.google.android.material.tabs.TabLayout.MODE_SCROLLABLE;
 
 
-public class FragmentBox extends BaseFragment {
+public class FragmentBox extends BaseFragment implements View.OnTouchListener {
     private TabLayout mTabTopTitle;
     private ViewPager mFragmentBoxVp;
     private List<Fragment> list;
@@ -45,13 +51,12 @@ public class FragmentBox extends BaseFragment {
             LjzFragmentVideo ljzFragmentVideo = new LjzFragmentVideo();
 
             Bundle bundle = new Bundle();
-            bundle.putString("index",stringArray1[i]);
+            bundle.putString("index", stringArray1[i]);
             ljzFragmentVideo.setArguments(bundle);
 
             list.add(ljzFragmentVideo);
             Tools.getTools().putVideoCode(stringArray1[i]);
         }
-
         mFragmentBoxVp.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
             @NonNull
             @Override
@@ -119,5 +124,16 @@ public class FragmentBox extends BaseFragment {
     @Override
     public int bandLayout() {
         return R.layout.fragment_box;
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+//        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN || motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
+//            mFragmentBoxVp.getParent().requestDisallowInterceptTouchEvent(true);
+//        } else {
+//            mFragmentBoxVp.getParent().requestDisallowInterceptTouchEvent(false);
+//        }
+        return false;
     }
 }
