@@ -95,8 +95,8 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
                 //上拉刷新
                 //清空数据
                 CacheManager.getCacheManager().deleteCodeData(stringChannel);
-                newsArrayList.clear();
 
+                newsArrayList.clear();
                 long currentTime = System.currentTimeMillis();
                 //并把当前的时间戳存入sp文件中
                 CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.CURRENT_TIME, String.valueOf(currentTime));
@@ -145,7 +145,7 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
 
     @Override
     public void onRecommendData(HomeRecommendBean homeRecommendBean) {
-        if (!homeRecommendBean.toString().equals("")) {
+        if(!homeRecommendBean.toString().equals("")){
             dataBeans.clear();
             dataBeans = (ArrayList<HomeRecommendBean.DataBean>) homeRecommendBean.getData();
             Gson gson = new Gson();
@@ -168,7 +168,7 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
             homeRecommendSmart.finishRefresh();
             homeRecommendSmart.finishLoadMore();
             recommendAdapter.notifyDataSetChanged();
-        } else {
+        } else{
             //没数据就显示提示信息 隐藏列表
             homeRecommendLin.setVisibility(View.VISIBLE);
             homeRecommendRv.setVisibility(View.GONE);
