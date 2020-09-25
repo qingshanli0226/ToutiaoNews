@@ -3,26 +3,20 @@ package com.example.toutiaonews.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Build;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.core.app.ActivityCompat;
-
 import com.example.farmework.base.BaseActivity;
 import com.example.toutiaonews.R;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.umeng.socialize.editorpage.ShareActivity;
 import com.umeng.socialize.media.UMImage;
 
 public class ParticularActivity extends BaseActivity {
@@ -39,6 +33,8 @@ public class ParticularActivity extends BaseActivity {
     private boolean isCollect=false;
     @Override
     protected void initData() {
+        //获取网页
+//        web.loadUrl();
         //关掉此要页面
         back.setOnClickListener(new View.OnClickListener() {
             @Override
