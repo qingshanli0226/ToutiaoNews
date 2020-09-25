@@ -2,7 +2,6 @@ package com.bw.homemodule.home;
 
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -22,8 +21,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private ViewPager viewPager;
     private ColorTabLayoutAdapter tabLayoutAdapter;
     private ArrayList<Fragment> fragments = new ArrayList<>();
-    private String[] channels,channel_codes;
     private ImageView homeAdd;
+    private ArrayList<String> channels =new ArrayList<>();
+    private ArrayList<String> channel_codes = new ArrayList<>();
+
 
     @Override
     protected int bandLayout() {
@@ -33,13 +34,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     protected void initData() {
         fragments.clear();
-        channels = null;
-        channel_codes=null;
+        channels.clear();
+        channel_codes.clear();
 
-        channels = getResources().getStringArray(R.array.channel);
-        channel_codes = getResources().getStringArray(R.array.channel_code);
+        String [] channels = getResources().getStringArray(R.array.channel);
+        String []channel_codes = getResources().getStringArray(R.array.channel_code);
 
         for (int i = 0; i < channels.length; i++) {
+            this.channels.add(channels[i]);
+            this.channel_codes.add(channel_codes[i]);
+
             if (channel_codes[i].equals("video")){
                 fragments.add(new VideoFragment(channel_codes[i]));
             }else {
@@ -48,9 +52,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
         }
 
-        tabLayoutAdapter = new ColorTabLayoutAdapter(getActivity().getSupportFragmentManager(), fragments, channels);
+        tabLayoutAdapter = new ColorTabLayoutAdapter(getActivity().getSupportFragmentManager(), fragments, this.channels);
         viewPager.setAdapter(tabLayoutAdapter);
-        viewPager.setOffscreenPageLimit(channels.length);
+        viewPager.setOffscreenPageLimit(this.channels.size());
         tabLayout.setupWithViewPager(viewPager);
 
 
@@ -74,7 +78,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.home_fragment_topAdd:
-                Toast.makeText(getActivity(), "add", Toast.LENGTH_SHORT).show();
                 break;
         }
     }

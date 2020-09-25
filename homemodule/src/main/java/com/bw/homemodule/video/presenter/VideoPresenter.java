@@ -1,5 +1,6 @@
 package com.bw.homemodule.video.presenter;
 
+import com.bw.homemodule.R;
 import com.bw.homemodule.video.contract.VideoContract;
 import com.example.common.entity.VideoBean;
 import com.example.common.entity.VideoDataBean;
@@ -33,13 +34,19 @@ public class VideoPresenter extends VideoContract.VideoPresenter {
                         List<VideoBean.DataBean> data = videoBean.getData();
 
                         ArrayList<VideoDataBean> videoDataBeans =new ArrayList<>();
+                        videoDataBeans.clear();
                         for (int i = 0; i < data.size(); i++) {
                             VideoBean.DataBean dataBean = data.get(i);
                             VideoDataBean videoDataBean = new Gson().fromJson(dataBean.getContent(), VideoDataBean.class);
                             videoDataBeans.add(videoDataBean);
                         }
 
-                        iHttpView.onVideoData(videoDataBeans);
+                        if (videoDataBeans.size()!=0){
+                            iHttpView.onVideoData(videoDataBeans);
+                        }else {
+                            iHttpView.showError("100","没有更多的数据了。。");
+                        }
+
                     }
 
                     @Override

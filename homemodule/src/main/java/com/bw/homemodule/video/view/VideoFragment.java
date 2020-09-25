@@ -62,6 +62,7 @@ public class VideoFragment extends BaseMVPFragment<VideoPresenter, VideoContract
         videoListAdapter= new VideoListAdapter(R.layout.video_item_layout,videoDataBeans);
 
         vdBGRefrush=findViewById(R.id.vd_Refush);
+        vdBGRefrush.attchRecylerView(rvVideo);
 
     }
 
@@ -73,7 +74,7 @@ public class VideoFragment extends BaseMVPFragment<VideoPresenter, VideoContract
 
     @Override
     public void showError(String code, String message) {
-
+        showMessage("code:"+code+message);
     }
 
     @Override

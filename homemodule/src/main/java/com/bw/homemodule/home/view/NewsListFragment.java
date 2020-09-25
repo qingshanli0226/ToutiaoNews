@@ -1,13 +1,9 @@
 package com.bw.homemodule.home.view;
 
-import android.util.EventLog;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +12,6 @@ import com.bw.homemodule.R;
 import com.bw.homemodule.adapter.NewsListAdapter;
 import com.bw.homemodule.home.contract.HomeContract;
 import com.bw.homemodule.home.presenter.HomePresenterImpl;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.common.cache.CacheManager;
 import com.example.common.entity.News;
 import com.example.common.mine.BGRefrushLayout;
@@ -67,20 +62,7 @@ public class NewsListFragment extends BaseMVPFragment<HomePresenterImpl, HomeCon
         newsRv.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
 
 
-        newsRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                LinearLayoutManager layoutManager = (LinearLayoutManager) newsRv.getLayoutManager();
-                int firstVisibleItemPosition = layoutManager.findFirstCompletelyVisibleItemPosition();
-                homeRefrush.setposition(firstVisibleItemPosition);
-            }
-
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-            }
-        });
+        homeRefrush.attchRecylerView(newsRv);
         homeRefrush.addRefreshListener(this);
 
     }

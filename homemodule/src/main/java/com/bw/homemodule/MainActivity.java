@@ -1,11 +1,12 @@
 package com.bw.homemodule;
 
+
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.bw.homemodule.R;
 import com.bw.homemodule.home.HomeFragment;
 import com.example.farmework.base.BaseActivity;
+
 
 
 public class MainActivity extends BaseActivity {
@@ -13,6 +14,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+
     }
 
     @Override
@@ -31,7 +33,7 @@ public class MainActivity extends BaseActivity {
         }
         fragmentTransaction.show(homeFragment);
         fragmentTransaction.commit();
-
-
     }
+
+
 }
