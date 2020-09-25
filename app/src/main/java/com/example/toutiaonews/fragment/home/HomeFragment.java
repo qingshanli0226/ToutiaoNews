@@ -45,7 +45,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private List<Fragment> noFragment;
     private List<Fragment> fragments;
     private PagerAdapter pagerAdapter;
-
+    private String spString ="";
     public void initData() {
 
         String[] titles = getResources().getStringArray(R.array.channel);
@@ -61,17 +61,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void initChannel() {
-        if (sp.getString(TAB_ON_DATA_KEY, null) == null) {//判断是否为第一次进入
 
-
-            String spString = sp.getString(TAB_ON_DATA_KEY, null);
+        spString=sp.getString(TAB_ON_DATA_KEY, null);
             Log.e("fff", "initChannel: sp" + spString);
-            if (spString == null) {//判断是否为第一次进入
-                Bundle bundle = new Bundle();
+            if (spString==null) {//判断是否为第一次进入
+
                 fragments.clear();
                 for (int i = 0; i < tabList.size(); i++) {
+                    Bundle bundle = new Bundle();
                     HomeChannelFragment channelFragment = new HomeChannelFragment();
-//                Log.e("ffff------", "initChannel: "+ tabList.get(i).getCode());
+                Log.e("ffff------", "initChannel: "+ tabList.get(i).getCode());
                     bundle.putString("code", tabList.get(i).getCode());
                     channelFragment.setArguments(bundle);
                     fragments.add(channelFragment);
@@ -112,7 +111,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             CacheManager.getInstance().setFragments(fragments);
             CacheManager.getInstance().setNoFragments(noFragment);
         }
-    }
+
     @Override
     public void initPresenter() {}
 
@@ -130,7 +129,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 //                Bundle bundle = new Bundle();
 //                bundle.getInt("name", position + 1);
 //                CacheManager.getInstance().getFragments().get(position).setArguments(bundle);
-                Log.e("fff--code", "getItem: "+CacheManager.getInstance().getFragments().get(position).getArguments().getString("code","") );
                 return CacheManager.getInstance().getFragments().get(position);
             }
 
@@ -194,15 +192,20 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
+        if (CacheManager.getInstance().getFragments().size()==0){
+            initChannel();
+        }
+        Log.e("rrr", CacheManager.getInstance().getNoFragments().size()+"edit: "+CacheManager.getInstance().getFragments().size() );
         pagerAdapter.notifyDataSetChanged();
         homeVp.setCurrentItem(0);
+        Log.e("ttt---", "onStart: " );
         Log.e("fff", "onStart: "+CacheManager.getInstance().getFragments().size() );
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-
+        sp=CacheManager.getInstance().getSharedPreferences();
         String s = new Gson().toJson(CacheManager.getInstance().getOnList());
         String s1 = new Gson().toJson(CacheManager.getInstance().getNoList());
         SharedPreferences.Editor editor = sp.edit();
@@ -212,4 +215,28 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         Log.e(s1+"fff", "onDestroy: " +s);
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e("ttt---", "onResume: " );
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.e("ttt---", "onStop: " );
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.e("ttt---", "onPause: " );
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.e("ttt---", "onDetach: " );
+    }
 }

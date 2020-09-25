@@ -3,8 +3,8 @@ package com.example.net.activity_bean.entity;
 public class ChannelBean {
     private String title;
     private String code;
-    private boolean show;
-    private boolean sign;
+    private boolean show;//是否显示该fragment
+    private boolean sign;//是否显示删除标志
 
     public String getCode() {
         return code;

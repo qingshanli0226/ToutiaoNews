@@ -17,7 +17,7 @@ import java.util.List;
 public class CacheManager {
     private CacheManager() {
     }
-    private List<Fragment> fragments=new ArrayList<>();
+    private List<Fragment> fragments;
     private List<Fragment> noFragments=new ArrayList<>();
     private List<ChannelBean> onList;
     private List<ChannelBean> noList=new ArrayList<>();
@@ -54,9 +54,9 @@ public class CacheManager {
         Log.e("fff",noFragments.size()+ "addChannel: "+fragments.size() );
         ChannelBean removeC = noList.remove(position);
         removeC.setShow(true);
-        onList.add(0,removeC);
+        onList.add(removeC);
         Fragment removeF = noFragments.remove(position);
-        fragments.add(0,removeF);
+        fragments.add(removeF);
     }
     public void deleteChannel(int position){
         ChannelBean removeC = onList.remove(position);
@@ -66,12 +66,10 @@ public class CacheManager {
         noFragments.add(0,removeF);
     }
     public List<ChannelBean> getOnList() {
-        onList.get(0).setSign(false);
         return onList;
     }
 
-    public void setOnList(List<ChannelBean> onList) {
-        onList.get(0).setSign(false);
+    public synchronized void setOnList(List<ChannelBean> onList) {
         this.onList = onList;
     }
 
