@@ -56,10 +56,15 @@
         <include layout="@layout/include_detail_webview"></include>
     </ScrollView>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize1"
+        android:background="#C2BFBF"></View>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/spaceSize0"
-        android:layout_weight="@integer/weight1"
+        android:layout_weight="0.7"
         android:gravity="center_vertical">
 
        <Button

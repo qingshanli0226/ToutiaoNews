@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -16,7 +17,6 @@ import com.example.common.CacheManager;
 import com.example.common.constant.TouTiaoNewsConstant;
 import com.example.common.dao.NetWorkDataEntity;
 import com.example.common.mode.HomeRecommendBean;
-import com.example.common.mode.HomeRecommendContentBean;
 import com.example.common.mode.News;
 import com.example.common.untils.ContentBeanUntil;
 import com.example.framework2.base.BaseMVPFragment;
@@ -42,13 +42,15 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
     private SmartRefreshLayout homeRecommendSmart;
     private LinearLayout homeRecommendLin;
     //数据集合
-    ArrayList<HomeRecommendBean.DataBean> dataBeans;
+    ArrayList<HomeRecommendBean.DataBean> dataBeans = new ArrayList<>();
     //数据集合
     ArrayList<News> newsArrayList = new ArrayList<>();
     //适配器
     RecommendAdapter recommendAdapter;
     //频道值
     String stringChannel;
+
+    boolean isOneData = true;
 
 
     @Override
@@ -58,21 +60,23 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
 
     @Override
     protected void initData() {
-        //获取recommendBean数据
-        HomeRecommendBean homeRecommendBean = CacheManager.getCacheManager().getHomeRecommendBean();
-        if (homeRecommendBean != null) {
-            //添加数据
-            dataBeans = (ArrayList<HomeRecommendBean.DataBean>) homeRecommendBean.getData();
-            Gson gson = new Gson();
-            for (int i = 0; i < dataBeans.size(); i++) {
-                //把json数据转换为contentBean对象
-                News news = gson.fromJson(dataBeans.get(i).getContent(), News.class);
-                //从内存获取的数据给type赋值
-                ContentBeanUntil.setItemType(news);
-                newsArrayList.add(news);
+        //是第一个页面（推荐页面）
+        if(stringChannel.equals("")){
+            //获取recommendBean数据
+            HomeRecommendBean homeRecommendBean = CacheManager.getCacheManager().getHomeRecommendBean();
+            if (homeRecommendBean != null) {
+                //添加数据
+                dataBeans = (ArrayList<HomeRecommendBean.DataBean>) homeRecommendBean.getData();
+                Gson gson = new Gson();
+                for (int i = 0; i < dataBeans.size(); i++) {
+                    //把json数据转换为contentBean对象
+                    News news = gson.fromJson(dataBeans.get(i).getContent(), News.class);
+                    //从内存获取的数据给type赋值
+                    ContentBeanUntil.setItemType(news);
+                    newsArrayList.add(news);
+                }
             }
         }
-
         //创建适配器
         recommendAdapter = new RecommendAdapter(newsArrayList);
         homeRecommendRv.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -132,8 +136,35 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
 
     @Override
     protected void initHttpData() {
-        //进页面请求数据
-        iHttpPresenter.getRecommendData(stringChannel);
+        //获取是否是第一次可见此Fragment的状态
+        boolean isLook = CacheManager.getCacheManager().getSPOfBoolean(TouTiaoNewsConstant.ISLOOK);
+        //获取用户可见时的时间戳
+        String userLookTime = CacheManager.getCacheManager().getSPOfString(TouTiaoNewsConstant.USERLOOKTIME);
+        //如果用户可见 和 视图创建了
+        if(isUserVisible && isViewCreated){
+            //第一次 一定会执行
+            if(isOneData){
+                //网络数据获取
+                iHttpPresenter.getRecommendData(stringChannel);
+                Log.i("hj123123", "initHttpData: "+stringChannel);
+                isOneData = false;
+                //储存第一次执行网络请求的时间戳
+                CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.ONETIME,String.valueOf(System.currentTimeMillis()));
+            } else{
+                //获取第一次网络请求的时间戳
+                String oneTime = CacheManager.getCacheManager().getSPOfString(TouTiaoNewsConstant.ONETIME);
+                //判断用户是否是第一次可见此Fragment  和  用户可见时的时间戳 - 第一次网络请求时的时间戳 是否超过5秒
+                if(isLook && Long.parseLong(userLookTime) - Long.parseLong(oneTime) > TouTiaoNewsConstant.REFRESHTIME){
+                    //清空数据
+                    newsArrayList.clear();
+                    //储存第二次（隔了一段时间后请求网络数据的boolean）的状态
+                    CacheManager.getCacheManager().setSPOfBoolean(TouTiaoNewsConstant.ISTWODATA,true);
+                    //请求数据
+                    iHttpPresenter.getRecommendData(stringChannel);
+                    Log.i("hj123123---", "initHttpData: "+stringChannel);
+                }
+            }
+        }
     }
 
     @Override
@@ -153,8 +184,6 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
                 //把json数据转换为contentBean对象
                 News news = gson.fromJson(dataBeans.get(i).getContent(), News.class);
                 newsArrayList.add(news);
-                HomeRecommendContentBean homeRecommendContentBean = gson.fromJson(dataBeans.get(i).getContent(), HomeRecommendContentBean.class);
-
                 //插入数据库
                 NetWorkDataEntity netWorkDataEntity = new NetWorkDataEntity();
                 netWorkDataEntity.setChannelCode(stringChannel);
@@ -171,6 +200,8 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
             homeRecommendLin.setVisibility(View.VISIBLE);
             homeRecommendRv.setVisibility(View.GONE);
         }
+
+
     }
 
     @Override

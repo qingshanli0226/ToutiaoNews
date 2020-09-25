@@ -17,9 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <service android:name="com.example.framework2.TouTiaoService"></service>
-
         <activity
             android:name=".main.MainActivity"
             android:launchMode="singleTask"
@@ -28,13 +26,15 @@
             android:name=".welcome.WelcomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".home.DetailActivity"></activity>
+        <activity android:name=".home.DetailActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".home.PlayerActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
     <meta-data

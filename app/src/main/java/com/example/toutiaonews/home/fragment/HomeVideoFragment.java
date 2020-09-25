@@ -1,8 +1,10 @@
 package com.example.toutiaonews.home.fragment;
 
 import android.annotation.SuppressLint;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -17,6 +19,7 @@ import com.example.common.mode.VideoBean;
 import com.example.common.mode.VideoDataBean;
 import com.example.framework2.base.BaseMVPFragment;
 import com.example.toutiaonews.R;
+import com.example.toutiaonews.home.PlayerActivity;
 import com.example.toutiaonews.home.adapter.HomeVideoAdapter;
 import com.example.toutiaonews.home.contract.HomeVideoContract;
 import com.example.toutiaonews.home.presenter.HomeVideoPresenterImpl;
@@ -36,9 +39,10 @@ public class HomeVideoFragment extends BaseMVPFragment<HomeVideoPresenterImpl, H
     private LinearLayout homeVideoLin;
     //频道号值
     String stringChannel;
-    boolean isVideo;
 
     private VideoDataBean videoDataBean;
+
+    boolean isOneData = true;
 
     //视频数据源
     ArrayList<VideoDataBean> videoDataBeans = new ArrayList<>();
@@ -82,9 +86,17 @@ public class HomeVideoFragment extends BaseMVPFragment<HomeVideoPresenterImpl, H
                 iHttpPresenter.getVideoData(stringChannel);
             }
         });
+
+        //点击事件
+        homeVideoAdapter.setOnItemClickListener((adapter, view, position) -> {
+            //bundle传值
+            Bundle bundle = new Bundle();
+            bundle.putString(TouTiaoNewsConstant.WEBVIEW_URL,videoDataBeans.get(position).getArticle_url());
+            launchActivity(PlayerActivity.class,bundle);
+        });
     }
 
-    @Override
+   @Override
     protected void initView() {
         //获取传递过来的频道值
         stringChannel = getArguments().getString(TouTiaoNewsConstant.ARGUMENT_CHANNEL);
@@ -95,9 +107,35 @@ public class HomeVideoFragment extends BaseMVPFragment<HomeVideoPresenterImpl, H
 
     @Override
     protected void initHttpData() {
-        //获取数据
-        iHttpPresenter.getVideoData(stringChannel);
+        //获取是否是第一次可见此Fragment的状态
+        boolean isLook = CacheManager.getCacheManager().getSPOfBoolean(TouTiaoNewsConstant.ISLOOK);
+        //获取用户可见时的时间戳
+        String userLookTime = CacheManager.getCacheManager().getSPOfString(TouTiaoNewsConstant.USERLOOKTIME);
+        if(isUserVisible && isViewCreated){
+            //第一次 一定会执行
+            if(isOneData){
+                //获取数据
+                iHttpPresenter.getVideoData(stringChannel);
+                Log.i("hj123123", "initHttpData: "+stringChannel);
+                isOneData = false;
+                //储存第一次执行网络请求的时间戳
+                CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.ONETIME,String.valueOf(System.currentTimeMillis()));
+            }else{
+                //获取第一次网络请求的时间戳
+                String oneTime = CacheManager.getCacheManager().getSPOfString(TouTiaoNewsConstant.ONETIME);
+                //判断用户是否是第一次可见此Fragment  和  用户可见时的时间戳 - 第一次网络请求时的时间戳 是否超过5秒
+                if(isLook && Long.parseLong(userLookTime) - Long.parseLong(oneTime) > TouTiaoNewsConstant.REFRESHTIME){
+                    //清空数据
+                    videoDataBeans.clear();
+                    //储存第二次（隔了一段时间后请求网络数据的boolean）的状态
+                    CacheManager.getCacheManager().setSPOfBoolean(TouTiaoNewsConstant.ISTWODATA,true);
+                    //请求数据
+                    iHttpPresenter.getVideoData(stringChannel);
+                    Log.i("hj123123---", "initHttpData: "+stringChannel);
+                }
+            }
 
+        }
     }
 
     @Override

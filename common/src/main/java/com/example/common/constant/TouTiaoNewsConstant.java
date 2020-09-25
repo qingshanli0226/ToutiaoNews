@@ -2,6 +2,9 @@ package com.example.common.constant;
 
 public class TouTiaoNewsConstant {
 
+    //定义 多久 时间 进行刷新数据
+    public static final long REFRESHTIME = 1000 * 60 * 10;
+
     //SharedPreferences管理的key值
     //用户名
     public static final String SP_USERNAME = "username";
@@ -21,6 +24,15 @@ public class TouTiaoNewsConstant {
     public static final String ARGUMENT_CHANNEL = "argument_channel";
     //是否是视频页面
     public static final String ISVIDEO = "isVideo";
+
+    //第一次进行网络请求的时间戳
+    public static final String ONETIME = "oneTime";
+    //用户可见时的时间戳
+    public static final String USERLOOKTIME = "userLookTime";
+    //用户是否是第一次可见此Fragment
+    public static final String ISLOOK = "isLook";
+    //隔了一段时间后请求网络数据的boolean
+    public static final String ISTWODATA = "isTwoData";
 
     //webView的加载地址
     public static final String WEBVIEW_URL = "webViewUrl";

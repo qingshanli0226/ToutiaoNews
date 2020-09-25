@@ -19,11 +19,22 @@ public class HomeVideoPresenterImpl extends HomeVideoContract.HomeVideoPresenter
 
     @Override
     public void getVideoData(String category) {
-        //获取sp文件里的时间戳
-        lastTime = CacheManager.getCacheManager().getSPOfString(TouTiaoNewsConstant.LAST_TIME);
-        currentTime = CacheManager.getCacheManager().getSPOfString(TouTiaoNewsConstant.CURRENT_TIME);
-        //储存时间戳
-        CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.LAST_TIME, currentTime);
+        //获取是否是隔一段时间后的请求网络数据的状态
+        boolean isTwoData = CacheManager.getCacheManager().getSPOfBoolean(TouTiaoNewsConstant.ISTWODATA);
+        if(isTwoData){
+            //如果是 获取用户可见时的时间戳
+            lastTime = CacheManager.getCacheManager().getSPOfString(TouTiaoNewsConstant.LAST_TIME);
+            currentTime = CacheManager.getCacheManager().getSPOfString(TouTiaoNewsConstant.USERLOOKTIME);
+            //储存时间戳
+            CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.LAST_TIME,currentTime);
+        } else{
+            //如果不是  就是刷新时候的时间戳
+            //获取sp文件里的时间戳
+            lastTime = CacheManager.getCacheManager().getSPOfString(TouTiaoNewsConstant.LAST_TIME);
+            currentTime = CacheManager.getCacheManager().getSPOfString(TouTiaoNewsConstant.CURRENT_TIME);
+            //储存时间戳
+            CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.LAST_TIME,currentTime);
+        }
         RetroCreator.getInvestApiService().getNewsVideoList(category, Long.parseLong(lastTime), Long.parseLong(currentTime))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

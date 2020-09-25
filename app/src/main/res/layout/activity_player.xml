@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize0"
+        android:layout_weight="@integer/weight9">
+
+        <include layout="@layout/include_player_webview"></include>
+
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize1"
+        android:background="#C2BFBF"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSize0"
+        android:layout_weight="0.7"
+        android:gravity="center_vertical">
+
+        <Button
+            android:layout_width="@dimen/spaceSize160"
+            android:layout_height="@dimen/spaceSize40"
+            android:text="写评论..."
+            android:background="@drawable/detail_recommend_bac"
+            android:textSize="@dimen/spaceSize20"/>
+
+        <ImageView
+            android:layout_width="@dimen/spaceSize30"
+            android:layout_height="@dimen/spaceSize30"
+            android:src="@mipmap/comment_count"
+            android:layout_marginLeft="@dimen/spaceSize30"/>
+
+        <ImageView
+            android:layout_width="@dimen/spaceSize30"
+            android:layout_height="@dimen/spaceSize30"
+            android:src="@mipmap/new_love_tabbar"
+            android:layout_marginLeft="@dimen/spaceSize30"/>
+
+        <ImageView
+            android:layout_width="@dimen/spaceSize30"
+            android:layout_height="@dimen/spaceSize30"
+            android:src="@mipmap/comment_like_icon"
+            android:layout_marginLeft="@dimen/spaceSize30"/>
+
+        <ImageView
+            android:layout_width="@dimen/spaceSize30"
+            android:layout_height="@dimen/spaceSize30"
+            android:src="@mipmap/share"
+            android:layout_marginLeft="@dimen/spaceSize30"/>
+
+    </LinearLayout>
+
+</LinearLayout>
