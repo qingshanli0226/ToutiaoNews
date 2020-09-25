@@ -1,1 +1,4 @@
-<resources></resources>
+<resources>
+    <string name="not_found">找不到此图片</string>
+    <string name="concern">关注</string>
+</resources>

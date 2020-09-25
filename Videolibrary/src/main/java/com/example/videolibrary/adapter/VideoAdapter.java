@@ -1,6 +1,5 @@
 package com.example.videolibrary.adapter;
 
-import android.view.View;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -11,7 +10,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.videolibrary.R;
 import com.example.videolibrary.VideoDataBean;
-import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 
 import java.util.List;
 

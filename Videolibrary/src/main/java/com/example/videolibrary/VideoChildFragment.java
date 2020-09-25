@@ -51,7 +51,7 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
 
     @Override
     protected void initView() {
-        category = getArguments().getString("category", "");
+        category = getArguments() != null ? getArguments().getString("category", "") : null;
         fragmentVideoChildRv = findViewById(R.id.fragment_video_child_rv);
         fragmentVideoChildSmart = findViewById(R.id.fragment_video_child_smart);
     }
@@ -60,8 +60,6 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
     protected void initHttpData() {
         Log.i(TAG, "initHttpData:     category       " + category);
         ihttpPresenter.getVideoChildData(category);
-
-
     }
 
     @Override
@@ -86,7 +84,7 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
 
         for (int i = 0; i < data.size(); i++) {
             String content = data.get(i).getContent();
-            VideoDataBean videoDataBean = gson.fromJson(content.toString(), VideoDataBean.class);
+            VideoDataBean videoDataBean = gson.fromJson(content, VideoDataBean.class);
             String articleUrl = videoDataBean.getArticle_url();
             Log.i(TAG, "onVideoChildData:         " + articleUrl);
             videoDataBeans.add(videoDataBean);

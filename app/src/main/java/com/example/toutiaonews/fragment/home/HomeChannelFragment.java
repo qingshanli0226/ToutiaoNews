@@ -30,7 +30,6 @@ public class HomeChannelFragment extends BaseFragment<ChannelItemPresenter> impl
     private final String TIME_LAST = "time";
     @Override
     public void onClick(View view) {
-
     }
 
     @Override
@@ -44,7 +43,6 @@ public class HomeChannelFragment extends BaseFragment<ChannelItemPresenter> impl
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL);
         myRcv.addItemDecoration(dividerItemDecoration);
         myRcv.setAdapter(adapter);
-
     }
 
     @Override
@@ -82,6 +80,4 @@ public class HomeChannelFragment extends BaseFragment<ChannelItemPresenter> impl
         }
         adapter.notifyDataSetChanged();
     }
-
-
 }

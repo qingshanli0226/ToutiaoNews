@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.net.activity_bean.VideoBean;
 import com.example.net.activity_bean.entity.Channel;
@@ -40,7 +39,7 @@ public class VideoFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_video, container, false);
@@ -51,7 +50,10 @@ public class VideoFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        initView(view);
+        fragmentVideoTab = view.findViewById(R.id.fragment_video_tab);
+        fragmentVideoSearchPic = view.findViewById(R.id.fragment_video_search_pic);
+        fragmentVideoVp = view.findViewById(R.id.fragment_video_vp);
+        fragmentList = new ArrayList<>();
 
         //添加tab数据
         tabAdd();
@@ -128,12 +130,7 @@ public class VideoFragment extends Fragment {
         });
     }
 
-    private void initView(@NonNull View view) {
-        fragmentVideoTab = view.findViewById(R.id.fragment_video_tab);
-        fragmentVideoSearchPic = view.findViewById(R.id.fragment_video_search_pic);
-        fragmentVideoVp = view.findViewById(R.id.fragment_video_vp);
-        fragmentList = new ArrayList<>();
-    }
+
 
     private void tabAdd() {
 
