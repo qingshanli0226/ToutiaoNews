@@ -1,5 +1,6 @@
 package com.example.toutiaonews.home.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -30,10 +31,9 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-
-import retrofit2.http.HEAD;
-
+import java.util.Set;
 
 
 public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, RecommendContract.RecommendView> implements RecommendContract.RecommendView {
@@ -95,7 +95,6 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
                 //上拉刷新
                 //清空数据
                 CacheManager.getCacheManager().deleteCodeData(stringChannel);
-
                 newsArrayList.clear();
                 long currentTime = System.currentTimeMillis();
                 //并把当前的时间戳存入sp文件中
@@ -112,12 +111,12 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
                 //使用bundle传值
                 Bundle bundle = new Bundle();
                 //加载的webView地址
-                bundle.putString(TouTiaoNewsConstant.WEBVIEW_URL,newsArrayList.get(position).getArticle_url());
+                bundle.putString(TouTiaoNewsConstant.WEBVIEW_URL, newsArrayList.get(position).getArticle_url());
                 //加载的作者标题
-                bundle.putString(TouTiaoNewsConstant.WEBVIEW_TITLE,newsArrayList.get(position).getUser_info().getName());
+                bundle.putString(TouTiaoNewsConstant.WEBVIEW_TITLE, newsArrayList.get(position).getUser_info().getName());
                 //加载的作者头像
-                bundle.putString(TouTiaoNewsConstant.WEBVIEW_AVATAR,newsArrayList.get(position).getUser_info().getAvatar_url());
-                launchActivity(DetailActivity.class,bundle);
+                bundle.putString(TouTiaoNewsConstant.WEBVIEW_AVATAR, newsArrayList.get(position).getUser_info().getAvatar_url());
+                launchActivity(DetailActivity.class, bundle);
             }
         });
     }
@@ -129,7 +128,6 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
         homeRecommendRv = (RecyclerView) findViewById(R.id.homeRecommendRv);
         homeRecommendSmart = (SmartRefreshLayout) findViewById(R.id.homeRecommendSmart);
         homeRecommendLin = (LinearLayout) findViewById(R.id.homeRecommendLin);
-
     }
 
     @Override
@@ -145,8 +143,10 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
 
     @Override
     public void onRecommendData(HomeRecommendBean homeRecommendBean) {
-        if(!homeRecommendBean.toString().equals("")){
-            dataBeans.clear();
+        if (!homeRecommendBean.toString().equals("")) {
+            if (dataBeans != null) {
+                dataBeans.clear();
+            }
             dataBeans = (ArrayList<HomeRecommendBean.DataBean>) homeRecommendBean.getData();
             Gson gson = new Gson();
             for (int i = 0; i < dataBeans.size(); i++) {
@@ -157,8 +157,6 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
 
                 //插入数据库
                 NetWorkDataEntity netWorkDataEntity = new NetWorkDataEntity();
-                netWorkDataEntity.setDataTime(System.currentTimeMillis());
-                netWorkDataEntity.setTitle(newsArrayList.get(i).getTitle());
                 netWorkDataEntity.setChannelCode(stringChannel);
                 netWorkDataEntity.setJsonUrl(dataBeans.get(i).getContent());
 
@@ -168,7 +166,7 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
             homeRecommendSmart.finishRefresh();
             homeRecommendSmart.finishLoadMore();
             recommendAdapter.notifyDataSetChanged();
-        } else{
+        } else {
             //没数据就显示提示信息 隐藏列表
             homeRecommendLin.setVisibility(View.VISIBLE);
             homeRecommendRv.setVisibility(View.GONE);
@@ -191,15 +189,24 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
     }
 
     private News contentBean;
+    private Set<String> netWorkDataEntities = new HashSet<>();//处理重复数据
 
     private static final int NETWORKSTATE = 1;
     Thread thread;
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
             if (msg.what == NETWORKSTATE) {
-                newsArrayList.add(contentBean);
+                //去重后的集合
+                ArrayList<String> stringArrayList = new ArrayList<>(netWorkDataEntities);
+                //遍历集合拿到唯一数据
+                for (int i = 0; i < stringArrayList.size(); i++) {
+                    String json = stringArrayList.get(i).toString();
+                    News news = new Gson().fromJson(json, News.class);
+                    newsArrayList.add(news);
+                }
                 recommendAdapter.notifyDataSetChanged();
             }
         }
@@ -215,12 +222,13 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
                         List<NetWorkDataEntity> allData = CacheManager.getCacheManager().getAllData();
                         for (int i = 0; i < allData.size(); i++) {
                             //做判断是否是这个页面的数据
-                            if (allData.get(i) != null && allData.get(i).getChannelCode().equals(stringChannel)) {
+                            if (allData.get(i).getJsonUrl() != null && allData.get(i).getChannelCode().equals(stringChannel)) {
                                 String jsonUrl = allData.get(i).getJsonUrl();
-                                contentBean = new Gson().fromJson(jsonUrl, News.class);
-                                handler.sendEmptyMessage(NETWORKSTATE);
+                                netWorkDataEntities.add(jsonUrl);//存入set集合
                             }
                         }
+                        //在全部查找完成后发送通知
+                        handler.sendEmptyMessage(NETWORKSTATE);
                     }
                 }
             });

@@ -78,13 +78,11 @@ public class CacheManager {
 
     //查询所有
     public List<NetWorkDataEntity> getAllData() {
-        netWorkDatabase.getNetWorkDataDao().deleteReJson();
         return netWorkDatabase.getNetWorkDataDao().getAllData();
     }
 
     //添加数据
     public void insert(NetWorkDataEntity netWorkDataEntities) {
-        netWorkDatabase.getNetWorkDataDao().deleteReJson();
         netWorkDatabase.getNetWorkDataDao().insert(netWorkDataEntities);
     }
 

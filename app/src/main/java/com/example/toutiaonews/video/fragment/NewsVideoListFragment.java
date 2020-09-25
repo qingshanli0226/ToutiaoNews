@@ -1,5 +1,6 @@
 package com.example.toutiaonews.video.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
@@ -27,7 +28,9 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImpl, NewsVideoContract.IVideoView> implements NewsVideoContract.IVideoView {
 
@@ -126,8 +129,6 @@ public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImp
                     listData.add(videoDataBean);
                     //插入数据库
                     NetWorkDataEntity netWorkDataEntity = new NetWorkDataEntity();
-                    netWorkDataEntity.setDataTime(System.currentTimeMillis());
-                    netWorkDataEntity.setTitle(listData.get(i).getTitle());
                     netWorkDataEntity.setChannelCode(mChannelCode);
                     netWorkDataEntity.setJsonUrl(json);
 
@@ -162,13 +163,22 @@ public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImp
 
     }
 
+    private Set<String> netWorkDataEntities = new HashSet<>();//处理重复数据
     Thread thread;
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
             if (msg.what == NETWORKSTATE) {
-                listData.add(videoDataBean);
+                //去重后的集合
+                ArrayList<String> stringArrayList = new ArrayList<>(netWorkDataEntities);
+                //遍历集合拿到唯一数据
+                for (int i = 0; i < stringArrayList.size(); i++) {
+                    String json = stringArrayList.get(i).toString();
+                    videoDataBean = new Gson().fromJson(json, VideoDataBean.class);
+                    listData.add(videoDataBean);
+                }
                 videoListAdapter.notifyDataSetChanged();
             }
         }
@@ -176,6 +186,7 @@ public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImp
 
     @Override
     public void onStart() {
+        //开启子线程
         if (thread == null) {
             thread = new Thread(new Runnable() {
                 @Override
@@ -184,12 +195,13 @@ public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImp
                         List<NetWorkDataEntity> allData = CacheManager.getCacheManager().getAllData();
                         for (int i = 0; i < allData.size(); i++) {
                             //做判断是否是这个页面的数据
-                            if (allData.get(i) != null && allData.get(i).getChannelCode().equals(mChannelCode)) {
+                            if (allData.get(i).getJsonUrl() != null && allData.get(i).getChannelCode().equals(mChannelCode)) {
                                 String jsonUrl = allData.get(i).getJsonUrl();
-                                videoDataBean = new Gson().fromJson(jsonUrl, VideoDataBean.class);
-                                handler.sendEmptyMessage(NETWORKSTATE);
+                                netWorkDataEntities.add(jsonUrl);//存入set集合
                             }
                         }
+                        //在全部查找完成后发送通知
+                        handler.sendEmptyMessage(NETWORKSTATE);
                     }
                 }
             });
