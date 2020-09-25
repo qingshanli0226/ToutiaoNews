@@ -26,6 +26,12 @@
     <string name="register_text">注册</string>
     <string name="username_text">账户</string>
     <string name="password_text">密码</string>
+    <string name="issue_button_text">发布</string>
+    <string name="merge_checkout_text">合并转发</string>
+    <string name="writecommentary_text">写评论...</string>
+    <string name="aite_text">\@</string>
+    <string name="well_text">#</string>
+    <string name="laugh_text">笑脸</string>
 
     <string-array name="tab">
         <item>首页</item>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0"
+        android:layout_weight="@dimen/weight1">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/back_normal" />
+
+        <ImageView
+            android:id="@+id/more"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/new_more_titlebar" />
+    </RelativeLayout>
+
+    <WebView
+        android:id="@+id/web"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0"
+        android:layout_weight="@dimen/weight20">
+
+    </WebView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0"
+        android:layout_weight="@dimen/weight1">
+
+        <TextView
+            android:paddingLeft="@dimen/dp10"
+            android:id="@+id/writeCommentary"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="match_parent"
+            android:layout_weight="@dimen/weight4"
+            android:background="@drawable/writecommentary_backgroud"
+            android:gravity="center_vertical"
+            android:text="@string/writecommentary_text" />
+
+        <ImageView
+            android:id="@+id/commentary"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="@dimen/weight1"
+            android:src="@mipmap/comment_count" />
+
+        <ImageView
+            android:id="@+id/collect"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="@dimen/weight1"
+            android:src="@mipmap/new_love_tabbar" />
+
+        <ImageView
+            android:id="@+id/share"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="@dimen/weight1"
+            android:src="@mipmap/share" />
+    </LinearLayout>
+</LinearLayout>

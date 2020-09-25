@@ -88,6 +88,7 @@ public class LoginActivity extends BaseMVPActivity<LoginPresenter, LoginContract
 
     @Override
     public void showError(String code, String message) {
+
     }
 
     @Override
