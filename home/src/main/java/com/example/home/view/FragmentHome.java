@@ -51,7 +51,6 @@ public class FragmentHome extends BaseFragment {
 
         }
 
-
         viewpager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
             @NonNull
             @Override
