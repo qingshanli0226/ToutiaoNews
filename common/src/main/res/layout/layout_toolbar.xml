@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/common_my_back"
+        android:id="@+id/toolbar_back">
+    </ImageView>
+    <TextView
+        android:layout_toRightOf="@id/toolbar_back"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:textSize="26sp"
+        android:gravity="center"
+        android:textColor="#000"
+        android:id="@+id/toolbar_title">
+    </TextView>
+
+</RelativeLayout>

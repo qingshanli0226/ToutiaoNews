@@ -27,8 +27,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.common.CustomControl;
+import com.example.common.NetCommon;
 import com.example.framework2.mvp.view.IFragment;
 import com.example.toutiaonews.EventMessage;
+import com.example.toutiaonews.NewsDataActivity;
 import com.example.toutiaonews.login.LoginActivity;
 import com.example.toutiaonews.R;
 import com.example.toutiaonews.reg.RegMainActivity;
@@ -86,9 +88,27 @@ public class MeFragment extends Fragment {
         initview();
         initlogin();
         initPhoto();
+        initexitLogin();
         return view;
     }
-//    @Subscribe(threadMode = ThreadMode.MAIN)
+    //退出登录
+    private void initexitLogin() {
+        myName.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                //判断是否登录
+                if (NetCommon.NEW_ISLOGIN){
+                    NetCommon.NEW_ISLOGIN=false;
+                    Toast.makeText(getContext(), "退出登录", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getContext(), "您还没有登录，不可以退出噢", Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            }
+        });
+    }
+
+    //    @Subscribe(threadMode = ThreadMode.MAIN)
 //    public void onRece(EventMessage msg){
 //        EventBus.getDefault().post(msg.getMessage());
 //    }
@@ -98,7 +118,6 @@ public class MeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 PictureSelector.create(MeFragment.this, SELECT_REQUEST_CODE).selectPicture();
-
             }
         });
     }
@@ -108,25 +127,27 @@ public class MeFragment extends Fragment {
         myName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //pop
-                View inflate = LayoutInflater.from(getContext()).inflate(R.layout.login_pop, null, false);
-                PopupWindow popupWindow = new PopupWindow(inflate, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
-                popupWindow.showAtLocation(myPhoto, Gravity.CENTER, 0, 0);
-                Button loginBtn = inflate.findViewById(R.id.login_btn);
-                Button regiterBtn = inflate.findViewById(R.id.regihter_btn);
-                loginBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        login();
-
-                    }
-                });
-                regiterBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        register();
-                    }
-                });
+                //未登录状态才可以登录显示.
+                if (!NetCommon.NEW_ISLOGIN){
+                    //pop
+                    View inflate = LayoutInflater.from(getContext()).inflate(R.layout.login_pop, null, false);
+                    PopupWindow popupWindow = new PopupWindow(inflate, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
+                    popupWindow.showAtLocation(myPhoto, Gravity.CENTER, 0, 0);
+                    Button loginBtn = inflate.findViewById(R.id.login_btn);
+                    Button regiterBtn = inflate.findViewById(R.id.regihter_btn);
+                    loginBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            login();
+                        }
+                    });
+                    regiterBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            register();
+                        }
+                    });
+                }
             }
         });
     }
@@ -173,8 +194,8 @@ public class MeFragment extends Fragment {
         title1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
+                Intent intent = new Intent(getActivity(), NewsDataActivity.class);
+                startActivity(intent);
             }
         });
 

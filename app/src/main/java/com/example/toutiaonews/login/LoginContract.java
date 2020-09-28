@@ -1,11 +1,8 @@
 package com.example.toutiaonews.login;
 
 import com.example.framework.bean.BasePresenter;
-
 import com.example.framework.bean.IView;
 import com.example.net.activity_bean.LoginBean;
-
-import io.reactivex.Observable;
 
 public class LoginContract {
     public interface ILoginView extends IView {

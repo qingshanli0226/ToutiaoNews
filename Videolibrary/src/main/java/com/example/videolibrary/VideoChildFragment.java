@@ -29,8 +29,6 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
     private static final String TAG = "VideoChildFragment AAA";
     private RecyclerView fragmentVideoChildRv;
     private SmartRefreshLayout fragmentVideoChildSmart;
-
-
     private VideoAdapter videoAdapter;
     private List<VideoDataBean> videoDataBeans;
 

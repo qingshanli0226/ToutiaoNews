@@ -182,4 +182,5 @@ public class ChannelActivity extends BaseActivity {
         edit();
         finish();
     }
+
 }

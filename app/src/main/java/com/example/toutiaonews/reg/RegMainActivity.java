@@ -18,7 +18,6 @@ public class RegMainActivity extends BaseMVPActivity<RegPresenterImpl,RegContrac
     private ImageView btnRegback;
     private EditText regUsername;
     private EditText regPwd;
-    private EditText regPwdd;
     private Button btnReg;
 
     @Override
@@ -37,7 +36,6 @@ public class RegMainActivity extends BaseMVPActivity<RegPresenterImpl,RegContrac
         btnRegback = (ImageView) findViewById(R.id.btn_regback);
         regUsername = (EditText) findViewById(R.id.reg_username);
         regPwd = (EditText) findViewById(R.id.reg_pwd);
-        regPwdd = (EditText) findViewById(R.id.reg_pwdd);
         btnReg = (Button) findViewById(R.id.btn_reg);
         btnReg.setOnClickListener(this);
         btnRegback.setOnClickListener(this);
@@ -78,7 +76,7 @@ public class RegMainActivity extends BaseMVPActivity<RegPresenterImpl,RegContrac
                 finish();
                 break;
             case R.id.btn_reg:
-                Log.i("zcx", "注册onClick: "+regUsername.getText().toString()+regPwd.getText().toString()+regPwdd.getText().toString());
+                Log.i("zcx", "注册onClick: "+regUsername.getText().toString()+regPwd.getText().toString());
                 iHttpPresenter.reg(regUsername.getText().toString(), regPwd.getText().toString());
                 Toast.makeText(this, "点击注册 ", Toast.LENGTH_SHORT).show();
                 break;

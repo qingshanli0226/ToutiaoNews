@@ -48,10 +48,11 @@ public interface ApiServer {
     Observable<NewsResponse> getNewsList(@Query("category") String category, @Query("min_behot_time") long lastTime, @Query("last_refresh_sub_entrance_interval") long currentTime);
     @POST("login")
     @FormUrlEncoded
-    Observable<BaseBean<LoginBean>> loginIn(@FieldMap TreeMap<String,String> params);
+//    Observable<BaseBean<LoginBean>> loginIn(@FieldMap TreeMap<String,String> params);
+    Observable<LoginBean> loginIn(@Field("name")String name,@Field("password")String password);
     @POST("register")
     @FormUrlEncoded
-    Observable<BaseBean<RegisterBean>> register(@FieldMap TreeMap<String,String> params);
+    Observable<RegisterBean> register(@Field("name")String name,@Field("password")String password);
     /**
      * 获取视频列表
      *
