@@ -1,6 +1,5 @@
-package com.example.video.fragment_video.view;
+package com.example.home.view;
 
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
@@ -21,17 +20,17 @@ import com.example.common.ARouterCommon;
 import com.example.framework2.mvp.view.BaseLJZFragment;
 import com.example.framework2.mvp.view.LoadingView;
 import com.example.framework2.utils.Tools;
+import com.example.home.R;
+import com.example.home.adapter.MyVideoAdapter;
+import com.example.home.contract.ContractHomeVideo;
+import com.example.home.model.ModelHomeVideo;
+import com.example.home.presenter.PresenterHomeVideo;
 import com.example.net.bean.ContentBean;
 import com.example.net.bean.Recommend;
 import com.example.net.connecct.NetConnect;
 import com.example.net.http.HttpManager;
-import com.example.video.R;
 import com.example.video.bean.SqlBean;
 import com.example.video.dao.DaoManager;
-import com.example.video.fragment_video.adapter.MyVideoAdapter;
-import com.example.video.fragment_video.contract.ContractVideo;
-import com.example.video.fragment_video.model.ModelVideo;
-import com.example.video.fragment_video.presenter.PresenterVideo;
 import com.google.gson.Gson;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -45,7 +44,7 @@ import java.util.Objects;
 
 import static android.view.animation.Animation.RELATIVE_TO_SELF;
 
-public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements BaseQuickAdapter.OnItemChildClickListener, OnRefreshLoadMoreListener, ContractVideo.View {
+public class LjzFragmentVideo extends BaseLJZFragment<PresenterHomeVideo> implements BaseQuickAdapter.OnItemChildClickListener, OnRefreshLoadMoreListener, ContractHomeVideo.View {
     private RecyclerView mVideoListRv;
     private SmartRefreshLayout mRefreshListSrl;
     private int playIndex = 0;
@@ -64,7 +63,7 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
 
     @Override
     protected int setContentView() {
-        return R.layout.fragment_video;
+        return R.layout.item_layout02;
     }
 
     /**
@@ -89,11 +88,11 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
     @Override
     protected void initView() {
 
-        mLoadingImage = (LoadingView) rootView.findViewById(R.id.loading_image);
+        mLoadingImage = (LoadingView) rootView.findViewById(R.id.loading_image_Hv);
 
-        mPresenter = new PresenterVideo(new ModelVideo(), this);
-        mRefreshListSrl = (SmartRefreshLayout) rootView.findViewById(R.id.refresh_list_srl);
-        mVideoListRv = (RecyclerView) rootView.findViewById(R.id.video_list_rv);
+        mPresenter = new PresenterHomeVideo(new ModelHomeVideo(), this);
+        mRefreshListSrl = (SmartRefreshLayout) rootView.findViewById(R.id.refresh_list_srl_Hv);
+        mVideoListRv = (RecyclerView) rootView.findViewById(R.id.video_list_rv_Hv);
         mRefreshListSrl.setOnRefreshLoadMoreListener(this);
 
 
@@ -101,7 +100,6 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
         myVideoAdapter = new MyVideoAdapter(R.layout.item_video_box, videoBeanList);
         mVideoListRv.setLayoutManager(new LinearLayoutManager(getContext()));
         mVideoListRv.setAdapter(myVideoAdapter);
-
 
         myVideoAdapter.setOnItemChildClickListener(this);
 
@@ -225,7 +223,6 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
         }
 
         if (id == R.id.item_more_img) {
-
             ARouter.getInstance().build(ARouterCommon.VIDEO_PLAY_ACT).withObject("content", position).navigation();
         }
     }

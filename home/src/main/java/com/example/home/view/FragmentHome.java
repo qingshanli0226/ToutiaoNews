@@ -1,4 +1,4 @@
-package com.example.toutiaonews.fragment_home;
+package com.example.home.view;
 
 import android.view.View;
 import android.widget.EditText;
@@ -10,9 +10,8 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.framework2.mvp.view.BaseFragment;
-import com.example.toutiaonews.R;
+import com.example.home.R;
 import com.example.home.fragment.FragmentRecommend;
-import com.example.video.fragment_video.view.LjzFragmentVideo;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;

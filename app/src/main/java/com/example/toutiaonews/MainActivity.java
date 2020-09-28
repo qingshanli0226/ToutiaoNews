@@ -11,7 +11,7 @@ import com.chaychan.library.BottomBarItem;
 import com.chaychan.library.BottomBarLayout;
 import com.example.framework2.mvp.view.BaseActivity;
 import com.example.video.fragment_headlines.FragmentHeadlines;
-import com.example.toutiaonews.fragment_home.FragmentHome;
+import com.example.home.view.FragmentHome;
 import com.example.user.fragment.FragmentMine;
 import com.example.video.fragment_video.view.FragmentBox;
 

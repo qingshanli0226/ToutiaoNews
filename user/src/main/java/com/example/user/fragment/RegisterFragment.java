@@ -9,13 +9,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.fragment.app.FragmentActivity;
-
 import com.example.framework2.mvp.view.BaseFragment;
 import com.example.user.activity.LoginActivity;
 import com.example.video.R;
-
-import org.greenrobot.eventbus.EventBus;
 
 
 public class RegisterFragment extends BaseFragment {
