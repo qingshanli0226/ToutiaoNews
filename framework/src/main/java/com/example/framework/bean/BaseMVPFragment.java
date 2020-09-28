@@ -9,8 +9,9 @@ import androidx.annotation.Nullable;
 
 public abstract class BaseMVPFragment<P extends IPresenter, V extends IView> extends BaseFragment {
     protected P ihttpPresenter;
-    protected boolean isUserVisible = false;
-    protected boolean isViewCreated = false;
+
+    private boolean isUserVisible = false;
+    private boolean isViewCreated = false;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -20,19 +21,17 @@ public abstract class BaseMVPFragment<P extends IPresenter, V extends IView> ext
 //        initHttpData();
         isViewCreated = true;
         loadNetWorkData();
-        Log.d("yue", "setUserVisibleHint:  isViewCreated   " + isViewCreated);
     }
+
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        this.isUserVisible = isVisibleToUser;
-        Log.d("yue", "setUserVisibleHint:  isUserVisible " + isVisibleToUser);
+     this.isUserVisible = isVisibleToUser;
         loadNetWorkData();
     }
     protected void loadNetWorkData() {
         if (isUserVisible && isViewCreated) {
-            Log.d("yue ", "loadNetWorkData:  isUserVisible && isViewCreated ");
             initHttpData();
         }
     }

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.example.framework.bean.BaseMVPFragment;
 import com.example.net.activity_bean.VideoBean;
 import com.example.videolibrary.adapter.VideoAdapter;
@@ -30,6 +31,8 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
     private List<VideoDataBean> videoDataBeans;
     private String category;
     private boolean isRefresh = true;
+
+//    private long time;
 
     public VideoChildFragment() {
     }
@@ -60,6 +63,7 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
     protected void initHttpData() {
         Log.i(TAG, "initHttpData:     category       " + category);
         ihttpPresenter.getVideoChildData(category);
+
     }
 
     @Override
@@ -78,8 +82,21 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
             return;
         }
 
+
+
+        if (videoDataBeans.size() > 0) {
+            long videoDataTime = SPUtils.getInstance().getLong("videoDataTime");
+
+            if (((System.currentTimeMillis() / 1000) - videoDataTime) < 30) {
+                Log.i(TAG, "onVideoChildData:   小于30秒  不请求数据 ");
+                return;
+            }
+        }
+
         if (isRefresh) {
             videoDataBeans.clear();
+            //获取到数据 储存当前时间
+            SPUtils.getInstance().put("videoDataTime",System.currentTimeMillis() / 1000);
         }
 
         for (int i = 0; i < data.size(); i++) {
@@ -122,6 +139,5 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
         isRefresh = true;//说明是刷新 需要清除list的数据
         ihttpPresenter.getVideoChildData(category);
     }
-
 
 }

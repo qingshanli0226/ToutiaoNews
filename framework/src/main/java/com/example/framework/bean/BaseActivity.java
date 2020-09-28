@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-    private String TAG;
+    String TAG;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
