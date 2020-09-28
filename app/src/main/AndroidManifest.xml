@@ -38,14 +38,13 @@
         <activity android:name=".activity.RegisterActivity"></activity>
         <activity
             android:name=".activity.ParticularActivity"
-            android:process="remoteWeb"></activity>
+            android:process=":remoteWeb"></activity>
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 

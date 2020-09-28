@@ -1,23 +1,45 @@
 package com.example.toutiaonews.activity;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.os.Build;
+import android.text.Editable;
 import android.view.Gravity;
 import android.view.View;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.farmework.base.BaseActivity;
 import com.example.toutiaonews.R;
+import com.example.toutiaonews.expression.EmojiAdapter;
+import com.example.toutiaonews.expression.EmojiEntity;
+import com.example.toutiaonews.expression.FileUtil;
+import com.example.toutiaonews.expression.JsonParseUtil;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
+
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.List;
 
 public class ParticularActivity extends BaseActivity {
     private ImageView back;
@@ -31,10 +53,15 @@ public class ParticularActivity extends BaseActivity {
     private String htmlurl;
     private String picurl;
     private boolean isCollect=false;
+    private boolean isemoji=false;
     @Override
     protected void initData() {
         //获取网页
-//        web.loadUrl();
+        String s = "http://toutiao.com/group/6876240504984437256/\\" ;
+
+        web.getSettings().setJavaScriptEnabled(true);
+        web.setWebViewClient(new WebViewClient());
+        web.loadUrl(s);
         //关掉此要页面
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,12 +114,59 @@ public class ParticularActivity extends BaseActivity {
     //写评论
     private void getOnWriteCommentary(){
         PopupWindow popupWindow = new PopupWindow();
-        popupWindow.setHeight(150);
+        popupWindow.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
         popupWindow.setWidth(getWallpaperDesiredMinimumWidth()/2);
         View inflate = getLayoutInflater().inflate(R.layout.popopwindow_writecommentary, null);
         popupWindow.setContentView(inflate);
+        popupWindow.setFocusable(true);
         popupWindow.setOutsideTouchable(true);
         popupWindow.showAtLocation(writeCommentary,Gravity.BOTTOM,0,0);
+        final Button issue = inflate.findViewById(R.id.issue);
+        final EditText mes = inflate.findViewById(R.id.mes);
+        final RecyclerView recExpression = inflate.findViewById(R.id.recExpression);
+//        String emoji = FileUtil.readAssetsFile(this, "Emoji.json");
+//        List<EmojiEntity> emojiEntities = JsonParseUtil.parseEmojiList(emoji);
+//        EmojiAdapter emojiAdapter = new EmojiAdapter(emojiEntities);
+//        recExpression.setAdapter(emojiAdapter);
+        final List<EmojiEntity> emojiEntities = JsonParseUtil.parseEmojiList(FileUtil.readAssetsFile(this, "Emoji.json"));
+//        EmojiAdapter emojiAdapter = new EmojiAdapter(emojiEntities);
+        final EmojiAdapter emojiAdapter = new EmojiAdapter(R.layout.item_emoji, emojiEntities);
+        recExpression.setAdapter(emojiAdapter);
+        recExpression.setLayoutManager(new StaggeredGridLayoutManager(7,StaggeredGridLayoutManager.HORIZONTAL));
+
+        //表情
+        TextView smiling = inflate.findViewById(R.id.smiling);
+        smiling.setText(emojiEntities.get(0).getUnicode());
+        smiling.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isemoji){
+                    isemoji=false;
+                    recExpression.setVisibility(View.GONE);
+                }else {
+                    isemoji=true;
+                    recExpression.setVisibility(View.VISIBLE);
+                }
+
+            }
+        });
+        //点击输入表情
+        emojiAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                String unicode = emojiEntities.get(position).getUnicode();
+                Editable text = mes.getText();
+                mes.setText(text+unicode);
+            }
+        });
+
+        //点击发布
+        issue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ParticularActivity.this, "发布", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
     }
