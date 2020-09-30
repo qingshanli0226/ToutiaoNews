@@ -92,6 +92,11 @@ public class LoginActivity extends BaseMVPActivity<LoginPresenter, LoginContract
     }
 
     @Override
+    public void showMessage(String message) {
+
+    }
+
+    @Override
     public void showLoading() {
         loadDialog.show();
     }

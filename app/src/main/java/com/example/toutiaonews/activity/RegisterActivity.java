@@ -70,6 +70,11 @@ public class RegisterActivity extends BaseMVPActivity<RegisterPresenter, Registe
     }
 
     @Override
+    public void showMessage(String message) {
+
+    }
+
+    @Override
     public void showLoading() {
 
     }
