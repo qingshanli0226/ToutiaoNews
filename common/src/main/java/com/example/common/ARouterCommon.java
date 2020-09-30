@@ -2,7 +2,9 @@ package com.example.common;
 
 public class ARouterCommon {
     public static final String VIDEO_PLAY_ACT = "/video/play_act";
+    public static final String VIDEO_PLAY_ACT_O = "/home/play_act";
     public static final String VIDEO_PLAY_L_ACT = "/video/play_l_act";
+    public static final String VIDEO_PLAY_L_ACT_O = "/home/play_l_act";
     public static final String VIDEO_LU_ACT = "/video/video_lu_act";
     public static final String USER_SETTING = "/user/activity/setting";
     public static final String USER_FEEDBANCK = "/user/activity/feedbanck";
@@ -15,6 +17,5 @@ public class ARouterCommon {
     public static final String USER_SEVEN = "/user/activity/seven";
     public static final String USER_FANS = "/user/activity/fans";
     public static final String USER_ACTION = "/user/activity/action";
-    public static final String USER_REGISTER = "/user/activity/register";
     public static final String USER_LOGIN = "/user/activity/login";
 }

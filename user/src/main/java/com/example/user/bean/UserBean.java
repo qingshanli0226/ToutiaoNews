@@ -1,12 +1,6 @@
 package com.example.user.bean;
 
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.annotation.Id;
-
-@Entity
 public class UserBean {
-    @Id(autoincrement = true)
     Long user_id;
     private String username;
     private String password;
@@ -14,7 +8,6 @@ public class UserBean {
     private int actionNum;
     private int fansNum;
     private int sevenNum;
-    @Generated(hash = 577129318)
     public UserBean(Long user_id, String username, String password,
             String passwordAgain, int actionNum, int fansNum, int sevenNum) {
         this.user_id = user_id;
@@ -26,7 +19,6 @@ public class UserBean {
         this.sevenNum = sevenNum;
     }
 
-    @Generated(hash = 1203313951)
     public UserBean() {
     }
 

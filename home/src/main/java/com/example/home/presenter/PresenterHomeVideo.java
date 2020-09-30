@@ -1,36 +1,32 @@
-package com.example.video.fragment_video.presenter;
+package com.example.home.presenter;
+
 
 import com.example.framework2.mvp.presenter.BasePresenter;
+import com.example.home.contract.ContractHomeVideo;
 import com.example.net.bean.Recommend;
 import com.example.net.http.HttpManager;
 import com.example.net.observer.BaseObserver;
 import com.example.video.bean.SqlBean;
 import com.example.video.dao.DaoManager;
-import com.example.video.fragment_video.contract.ContractVideo;
-import java.util.List;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 
-public class PresenterVideo extends BasePresenter<ContractVideo.View, ContractVideo.Model> {
+import java.util.List;
+
+public class PresenterHomeVideo extends BasePresenter<ContractHomeVideo.View, ContractHomeVideo.Model> {
     private boolean flag = false;
 
-    public PresenterVideo(ContractVideo.Model mModel, ContractVideo.View mView) {
+    public PresenterHomeVideo(ContractHomeVideo.Model mModel, ContractHomeVideo.View mView) {
         super(mModel, mView);
     }
 
-
-    public void getVideoData(long listTime, String index) {
+    public void getVideoData(long listTime, final String index) {
         mModel.getData(new BaseObserver<Recommend>() {
             @Override
             public void success(Recommend s) {
                 List<SqlBean> sqlBeans = DaoManager.getDaoMessage().selectAll();
                 for (SqlBean sqlBean : sqlBeans) {
                     String title = sqlBean.getTitle();
-                    if (title.equals(index)){
+                    if (title.equals(index))
                         flag = true;
-                        break;
-                    }
-
                 }
                 if (s.getData().size() != 0)
                     if (flag) {
@@ -39,6 +35,7 @@ public class PresenterVideo extends BasePresenter<ContractVideo.View, ContractVi
                         DaoManager.getDaoMessage().insert(index, HttpManager.getHttpManager().getGson().toJson(s));
                     }
                 mView.getVideoData(s);
+
             }
 
             @Override
@@ -47,13 +44,6 @@ public class PresenterVideo extends BasePresenter<ContractVideo.View, ContractVi
             }
 
 
-        }, new Consumer<Disposable>() {
-            @Override
-            public void accept(Disposable disposable) throws Exception {
-                mDisposable = disposable;
-                mView.hideView();
-            }
         }, listTime, index);
-
     }
 }

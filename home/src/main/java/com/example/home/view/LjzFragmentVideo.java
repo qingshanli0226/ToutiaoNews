@@ -1,13 +1,8 @@
-package com.example.video.fragment_video.view;
+package com.example.home.view;
 
-import android.animation.ObjectAnimator;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
-import android.view.animation.AnticipateOvershootInterpolator;
-import android.view.animation.BounceInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LayoutAnimationController;
 import android.view.animation.TranslateAnimation;
@@ -25,17 +20,17 @@ import com.example.common.ARouterCommon;
 import com.example.framework2.mvp.view.BaseLJZFragment;
 import com.example.framework2.mvp.view.LoadingView;
 import com.example.framework2.utils.Tools;
+import com.example.home.R;
+import com.example.home.adapter.MyVideoAdapter;
+import com.example.home.contract.ContractHomeVideo;
+import com.example.home.model.ModelHomeVideo;
+import com.example.home.presenter.PresenterHomeVideo;
 import com.example.net.bean.ContentBean;
 import com.example.net.bean.Recommend;
 import com.example.net.connecct.NetConnect;
 import com.example.net.http.HttpManager;
-import com.example.video.R;
 import com.example.video.bean.SqlBean;
 import com.example.video.dao.DaoManager;
-import com.example.video.fragment_video.adapter.MyVideoAdapter;
-import com.example.video.fragment_video.contract.ContractVideo;
-import com.example.video.fragment_video.model.ModelVideo;
-import com.example.video.fragment_video.presenter.PresenterVideo;
 import com.google.gson.Gson;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -49,7 +44,7 @@ import java.util.Objects;
 
 import static android.view.animation.Animation.RELATIVE_TO_SELF;
 
-public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements BaseQuickAdapter.OnItemChildClickListener, OnRefreshLoadMoreListener, ContractVideo.View {
+public class LjzFragmentVideo extends BaseLJZFragment<PresenterHomeVideo> implements BaseQuickAdapter.OnItemChildClickListener, OnRefreshLoadMoreListener, ContractHomeVideo.View {
     private RecyclerView mVideoListRv;
     private SmartRefreshLayout mRefreshListSrl;
     private int playIndex = 0;
@@ -62,16 +57,20 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
     private List<String> list = new ArrayList<>();
     private boolean flag = false;
 
+    public LjzFragmentVideo(String str) {
+        this.indexStr = str;
+    }
+
     @Override
     protected int setContentView() {
-        return R.layout.fragment_video;
+        return R.layout.item_layout02;
     }
 
     /**
      * 播放RecyclerView动画
      *
-     * @param animation 动画
-     * @param isReverse 顺序
+     * @param animation
+     * @param isReverse
      */
     private void playLayoutAnimation(Animation animation, boolean isReverse) {
         LayoutAnimationController controller = new LayoutAnimationController(animation);
@@ -88,10 +87,12 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
      */
     @Override
     protected void initView() {
-        mPresenter = new PresenterVideo(new ModelVideo(), this);
-        mLoadingImage = (LoadingView) rootView.findViewById(R.id.loading_image);
-        mRefreshListSrl = (SmartRefreshLayout) rootView.findViewById(R.id.refresh_list_srl);
-        mVideoListRv = (RecyclerView) rootView.findViewById(R.id.video_list_rv);
+
+        mLoadingImage = (LoadingView) rootView.findViewById(R.id.loading_image_Hv);
+
+        mPresenter = new PresenterHomeVideo(new ModelHomeVideo(), this);
+        mRefreshListSrl = (SmartRefreshLayout) rootView.findViewById(R.id.refresh_list_srl_Hv);
+        mVideoListRv = (RecyclerView) rootView.findViewById(R.id.video_list_rv_Hv);
         mRefreshListSrl.setOnRefreshLoadMoreListener(this);
 
 
@@ -99,7 +100,6 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
         myVideoAdapter = new MyVideoAdapter(R.layout.item_video_box, videoBeanList);
         mVideoListRv.setLayoutManager(new LinearLayoutManager(getContext()));
         mVideoListRv.setAdapter(myVideoAdapter);
-
 
         myVideoAdapter.setOnItemChildClickListener(this);
 
@@ -110,14 +110,9 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
                 videoPause(recyclerView, newState);
             }
         });
-
-
         initData();
     }
 
-    /**
-     * 在数据库中获取数据
-     */
     private void initSqlData() {
         SqlBean select = DaoManager.getDaoMessage().select(indexStr);
         if (select == null) {
@@ -129,18 +124,11 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
             ContentBean contentBean = new Gson().fromJson(datum.getContent(), ContentBean.class);
             videoBeanList.add(contentBean);
         }
-//        playLayoutAnimation(getAnimationSetFromLeft(), true);
-        myVideoAdapter.notifyDataSetChanged();
+        playLayoutAnimation(getAnimationSetFromLeft(), true);
 
     }
 
-    /**
-     * 初始化视频播放数据
-     */
     private void initData() {
-        Bundle arguments = getArguments();
-        indexStr = (String) arguments.get("index");
-        Log.e("hq", "initData: "+indexStr );
         list.add("http://vfx.mtime.cn/Video/2019/03/18/mp4/190318214226685784.mp4");
         list.add("http://vfx.mtime.cn/Video/2019/03/19/mp4/190319104618910544.mp4");
         list.add("http://vfx.mtime.cn/Video/2019/03/19/mp4/190319125415785691.mp4");
@@ -170,15 +158,13 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
 
     }
 
-    /**
-     * @return 动画
-     */
+
     private AnimationSet getAnimationSetFromLeft() {
         AnimationSet animationSet = new AnimationSet(true);
         TranslateAnimation translateX1 = new TranslateAnimation(RELATIVE_TO_SELF, -1.0f, RELATIVE_TO_SELF, 0.1f,
                 RELATIVE_TO_SELF, 0, RELATIVE_TO_SELF, 0);
         translateX1.setDuration(300);
-        translateX1.setInterpolator(new BounceInterpolator());
+        translateX1.setInterpolator(new DecelerateInterpolator());
         translateX1.setStartOffset(0);
 
         TranslateAnimation translateX2 = new TranslateAnimation(RELATIVE_TO_SELF, 0.1f, RELATIVE_TO_SELF, -0.1f,
@@ -190,7 +176,7 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
         TranslateAnimation translateX3 = new TranslateAnimation(RELATIVE_TO_SELF, -0.1f, RELATIVE_TO_SELF, 0f,
                 RELATIVE_TO_SELF, 0, RELATIVE_TO_SELF, 0);
         translateX3.setStartOffset(350);
-        translateX3.setInterpolator(new AnticipateOvershootInterpolator());
+        translateX3.setInterpolator(new DecelerateInterpolator());
         translateX3.setDuration(50);
 
         animationSet.addAnimation(translateX1);
@@ -237,7 +223,7 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
         }
 
         if (id == R.id.item_more_img) {
-            ARouter.getInstance().build(ARouterCommon.VIDEO_PLAY_ACT).navigation();
+            ARouter.getInstance().build(ARouterCommon.VIDEO_PLAY_ACT).withObject("content", position).navigation();
         }
     }
 
@@ -259,18 +245,14 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
         playPic = pic;
     }
 
-    /**
-     * 定义一个暂停的方法
-     */
+
     public void onPlayPause() {
         if (videoPlayer != null) {
             videoPlayer.onVideoPause();
         }
     }
 
-    /**
-     * 播放器继续播放
-     */
+
     @Override
     public void onResume() {
         super.onResume();
@@ -279,9 +261,6 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
         }
     }
 
-    /**
-     * 播放器暂停
-     */
     @Override
     public void onPause() {
         super.onPause();
@@ -290,9 +269,7 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
         }
     }
 
-    /**
-     * 销毁播放器
-     */
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -343,20 +320,15 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
         flag = false;
     }
 
-    /**
-     * @param view view
-     */
     @Override
     public void onClick(View view) {
 
     }
 
-    /**
-     * @param recommend 实体类
-     */
     @Override
     public void getVideoData(Recommend recommend) {
         mLoadingImage.showContent();
+        showMessage("加载完成。。。");
         if (!flag) {
             videoBeanList.clear();
         }
@@ -365,13 +337,8 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
             ContentBean contentBean = new Gson().fromJson(datum.getContent(), ContentBean.class);
             videoBeanList.add(contentBean);
         }
-
-        if (videoBeanList.size() != 0) {
-
-            myVideoAdapter.notifyDataSetChanged();
-
-        } else {
-            initSqlData();
-        }
+        playLayoutAnimation(getAnimationSetFromLeft(), true);
     }
+
+
 }
