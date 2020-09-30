@@ -14,19 +14,15 @@ import androidx.room.PrimaryKey;
 
 import com.example.common.cache.CacheManager;
 import com.example.common.constant.Constant;
-import com.example.common.entity.NewsDetail;
-import com.example.common.entity.Video;
-import com.example.common.entity.VideoBean;
+import com.example.common.dao.NewsRoomBean;
 import com.example.common.entity.VideoDataBean;
 import com.example.common.mine.BGRefrushLayout;
-import com.example.common.response.NewsResponse;
-import com.example.farmework.base.BaseFragment;
 import com.example.farmework.base.BaseMVPFragment;
 import com.example.toutiaonews.R;
 import com.example.videomodule.adapter.VideoListAdapter;
+import com.example.videomodule.adapter.VideoListAdapter2;
 import com.example.videomodule.video.contract.VideoContract;
 import com.example.videomodule.video.presenter.VideoPresenterImpl;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,14 +31,26 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
     private BGRefrushLayout videoRefrush;
     private boolean arguments;
     private String channelCode;
+    private String channel;
     private RecyclerView videoRv;
     private List<VideoDataBean> listData = new ArrayList<>();
+    private List<NewsRoomBean> listRoomData = new ArrayList<>();
     private VideoListAdapter videoListAdapter;
-    private boolean isRefrush = false;
+    private VideoListAdapter2 videoListAdapter2;
     private long visitTime;
+    private NewsRoomBean newsRoomBean;
     @Override
     protected void initHttpData() {
-        mPresenter.getVideoData(channelCode);
+        boolean b = CacheManager.getInstance().getisVisit(channel, false);
+        visitTime = CacheManager.getInstance().getVisitTime(channelCode, 0);
+            if(b){
+                if(System.currentTimeMillis() - visitTime >= 10000){
+                    mPresenter.getVideoData(channelCode,channel);
+                    CacheManager.getInstance().putisVisit(channel, false);
+                }
+            }else{
+                mPresenter.getVideoData(channelCode,channel);
+            }
     }
 
     @Override
@@ -57,12 +65,14 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
 
     @Override
     protected void initData() {
+        newsRoomBean = CacheManager.getInstance().queryChannel(channelCode);
         arguments  = getArguments().getBoolean(Constant.IS_VIDEO_LIST);
         channelCode  = getArguments().getString(Constant.CHANNEL_CODE);
+        channel  = getArguments().getString("channel");
         videoRefrush.attchRecylerView(videoRv);
         videoRefrush.addRefreshListener(this);
-        videoListAdapter = new VideoListAdapter(R.layout.item_listview, listData);
-        videoRv.setAdapter(videoListAdapter);
+            videoListAdapter2 = new VideoListAdapter2(R.layout.item_listview, listRoomData);
+            videoRv.setAdapter(videoListAdapter2);
         videoRv.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
@@ -92,11 +102,14 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
     public void hideLoading() {
 
     }
+
     //拿到数据并进行解析
     @Override
     public void onVideoData(VideoDataBean videoBean) {
         listData.add(0,videoBean);
-        videoListAdapter.notifyDataSetChanged();
+
+        listRoomData.add(0,newsRoomBean);
+        videoListAdapter2.notifyDataSetChanged();
     }
 
     @Override
@@ -107,7 +120,6 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
 
     @Override
     public void onRefreshComplete() {
-        isRefrush = true;
-        mPresenter.getVideoData(channelCode);
+        mPresenter.getVideoData(channelCode,channel);
     }
 }

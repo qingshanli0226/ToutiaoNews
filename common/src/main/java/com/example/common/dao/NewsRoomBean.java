@@ -1,12 +1,15 @@
 package com.example.common.dao;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "news_table")
 public class NewsRoomBean {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "Id")
     private int id;
 
     @ColumnInfo(name = "channelId")
@@ -30,6 +33,25 @@ public class NewsRoomBean {
     @ColumnInfo(name = "newsCommon")
     private int newsCommon;
 
+    @ColumnInfo(name = "newsCount")
+    private int newsCount = 0;
+
+    public int getNewsCount() {
+        return newsCount;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNewsCount(int newsCount) {
+        this.newsCount = newsCount;
+    }
+
     public int getNewsCommon() {
         return newsCommon;
     }
@@ -52,14 +74,6 @@ public class NewsRoomBean {
 
     public void setNewsThumImage(String newsThumImage) {
         this.newsThumImage = newsThumImage;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getNewsImageUrl() {

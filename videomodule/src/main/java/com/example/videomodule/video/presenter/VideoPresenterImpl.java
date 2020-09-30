@@ -4,6 +4,8 @@ import android.os.Message;
 import android.util.Log;
 
 import com.example.common.cache.CacheManager;
+import com.example.common.dao.NewsDatabeans;
+import com.example.common.dao.NewsRoomBean;
 import com.example.common.entity.Video;
 import com.example.common.entity.VideoBean;
 import com.example.common.entity.VideoDataBean;
@@ -29,12 +31,12 @@ import io.reactivex.schedulers.Schedulers;
 public class VideoPresenterImpl extends VideoContract.VideoPresenter {
     private long firstTime;
     @Override
-    public void getVideoData(String category) {
-        firstTime = CacheManager.getInstance().getFirstTime(category,0);
+    public void getVideoData(String category,String channel) {
+        firstTime = CacheManager.getInstance().getFirstTime("first",0);
         if(firstTime != 0){
             firstTime = System.currentTimeMillis() / 1000;
         }
-
+        CacheManager.getInstance().putVisitTime(category, System.currentTimeMillis());
         RetrofitManager.getNewsApi().getVideoList(category,firstTime,System.currentTimeMillis()/1000)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -42,11 +44,22 @@ public class VideoPresenterImpl extends VideoContract.VideoPresenter {
                     @Override
                     public void onNext(VideoBean videoBean) {
                         firstTime = System.currentTimeMillis() / 1000;
-                        CacheManager.getInstance().putFirstTime(category,firstTime);
+                        CacheManager.getInstance().putFirstTime("first",firstTime);
                         if(videoBean != null){
+                            CacheManager.getInstance().putisVisit(channel, true);
                             Gson gson = new Gson();
                             for (int i = 0; i < videoBean.getData().size(); i++) {
                                 VideoDataBean videoDataBean = gson.fromJson(videoBean.getData().get(i).getContent(), VideoDataBean.class);
+                                NewsRoomBean newsRoomBean = new NewsRoomBean();
+                                newsRoomBean.setChannelId(category);
+                                newsRoomBean.setNewsCommon(videoDataBean.getComment_count());
+                                newsRoomBean.setNewsImageUrl(videoDataBean.getUser_info().getAvatar_url());
+                                newsRoomBean.setNewsName(videoDataBean.getUser_info().getName());
+                                newsRoomBean.setNewsThumImage(videoDataBean.getShare_large_image().getUrl());
+                                newsRoomBean.setNewsTime(System.currentTimeMillis()/1000);
+                                newsRoomBean.setNewTitle(videoDataBean.getTitle());
+//        newsRoomBean.setNewsCount(videoBean.getVideo_detail_info().getVideo_watch_count());
+                                CacheManager.getInstance().insert(newsRoomBean);
                                 iHttpView.onVideoData(videoDataBean);
                             }
                         }else{

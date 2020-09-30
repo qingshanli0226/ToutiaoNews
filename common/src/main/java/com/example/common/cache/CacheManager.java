@@ -2,6 +2,7 @@ package com.example.common.cache;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.example.common.dao.NewsDao;
 import com.example.common.dao.NewsDatabeans;
@@ -40,6 +41,16 @@ public class CacheManager {
         return firstTime;
     }
 
+    public synchronized void putisVisit(String key,boolean isVisit){
+        edit.putBoolean(key, isVisit);
+        edit.commit();
+    }
+    public boolean getisVisit(String key,boolean isVisit){
+        boolean visitTime = twoGroup.getBoolean(key, isVisit);
+        return visitTime;
+    }
+
+
     public synchronized void putVisitTime(String key,long visitTime){
         edit.putLong(key, visitTime);
         edit.commit();
@@ -51,6 +62,7 @@ public class CacheManager {
 
 
     public synchronized void insert(NewsRoomBean newsRoomBean){
+        Log.i("----", "111");
         newsDao.insertNews(newsRoomBean);
     }
 
