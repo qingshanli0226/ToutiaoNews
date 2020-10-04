@@ -7,7 +7,14 @@
     <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
         android:id="@+id/GSY_play"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/dp_250">
 
     </com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer>
+
+   <TextView
+       android:id="@+id/video_title"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+   </TextView>
 </LinearLayout>

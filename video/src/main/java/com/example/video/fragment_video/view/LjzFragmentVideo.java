@@ -25,8 +25,8 @@ import com.example.common.ARouterCommon;
 import com.example.framework2.mvp.view.BaseLJZFragment;
 import com.example.framework2.mvp.view.LoadingView;
 import com.example.framework2.utils.Tools;
-import com.example.net.bean.ContentBean;
-import com.example.net.bean.Recommend;
+import com.example.net.bean.VideoContentEntity;
+import com.example.net.bean.VideoEntity;
 import com.example.net.connecct.NetConnect;
 import com.example.net.http.HttpManager;
 import com.example.video.R;
@@ -55,7 +55,7 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
     private int playIndex = 0;
     private StandardGSYVideoPlayer videoPlayer;
     private ImageView playPic;
-    private ArrayList<ContentBean> videoBeanList;
+    private ArrayList<VideoContentEntity> videoBeanList;
     private MyVideoAdapter myVideoAdapter;
     private String indexStr;
     private LoadingView mLoadingImage;
@@ -125,9 +125,9 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
             return;
         }
         String videoJson = select.getVideoJson();
-        Recommend recommend = HttpManager.getHttpManager().getGson().fromJson(videoJson, Recommend.class);
-        for (Recommend.DataBean datum : recommend.getData()) {
-            ContentBean contentBean = new Gson().fromJson(datum.getContent(), ContentBean.class);
+        VideoEntity recommend = HttpManager.getHttpManager().getGson().fromJson(videoJson, VideoEntity.class);
+        for (VideoEntity.DataBean datum : recommend.getData()) {
+            VideoContentEntity contentBean = new Gson().fromJson(datum.getContent(), VideoContentEntity.class);
             videoBeanList.add(contentBean);
         }
 //        playLayoutAnimation(getAnimationSetFromLeft(), true);
@@ -141,7 +141,7 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
     private void initData() {
         Bundle arguments = getArguments();
         indexStr = (String) arguments.get("index");
-        Log.e("hq", "initData: "+indexStr );
+        Log.e("hq", "initData: " + indexStr);
         list.add("http://vfx.mtime.cn/Video/2019/03/18/mp4/190318214226685784.mp4");
         list.add("http://vfx.mtime.cn/Video/2019/03/19/mp4/190319104618910544.mp4");
         list.add("http://vfx.mtime.cn/Video/2019/03/19/mp4/190319125415785691.mp4");
@@ -239,7 +239,7 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
         }
 
         if (id == R.id.item_more_img) {
-            ARouter.getInstance().build(ARouterCommon.VIDEO_PLAY_ACT).navigation();
+            ARouter.getInstance().build(ARouterCommon.VIDEO_PLAY_ACT).withString("ContentBean", HttpManager.getHttpManager().getGson().toJson(videoBeanList.get(position))).navigation();
         }
     }
 
@@ -354,17 +354,17 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
     }
 
     /**
-     * @param recommend 实体类
+     * @param videoEntity 实体类
      */
     @Override
-    public void getVideoData(Recommend recommend) {
+    public void getVideoData(VideoEntity videoEntity) {
         mLoadingImage.showContent();
         if (!flag) {
             videoBeanList.clear();
         }
 
-        for (Recommend.DataBean datum : recommend.getData()) {
-            ContentBean contentBean = new Gson().fromJson(datum.getContent(), ContentBean.class);
+        for (VideoEntity.DataBean datum : videoEntity.getData()) {
+            VideoContentEntity contentBean = new Gson().fromJson(datum.getContent(), VideoContentEntity.class);
             videoBeanList.add(contentBean);
         }
 

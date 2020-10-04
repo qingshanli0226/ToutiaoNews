@@ -8,4 +8,6 @@
     <color name="main_bg_color">#fff</color>
     <color name="main_tv_color">#1E1E1E</color>
     <color name="main_title_color">#f00</color>
+    <color name="_title_video">#64D6D6D6</color>
+    <color name="_title_text">#404040</color>
 </resources>

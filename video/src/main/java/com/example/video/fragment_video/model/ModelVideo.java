@@ -6,6 +6,7 @@ import com.example.framework2.mvp.model.BaseModel;
 import com.example.framework2.utils.Tools;
 import com.example.net.api_srever.ApiServer;
 import com.example.net.bean.Recommend;
+import com.example.net.bean.VideoEntity;
 import com.example.net.http.HttpManager;
 import com.example.net.observer.BaseObserver;
 import com.example.video.fragment_video.contract.ContractVideo;
@@ -22,7 +23,7 @@ public class ModelVideo extends BaseModel implements ContractVideo.Model {
 
 
     @Override
-    public void getData(BaseObserver<Recommend> baseObserver, Consumer<Disposable> consumer, long listTime, String index) {
+    public void getData(BaseObserver<VideoEntity> baseObserver, Consumer<Disposable> consumer, long listTime, String index) {
 
         long currentTimeMillis = System.currentTimeMillis();
         Tools.getTools().putVideoTime(index + "_time", currentTimeMillis);
@@ -31,7 +32,7 @@ public class ModelVideo extends BaseModel implements ContractVideo.Model {
         HttpManager.getHttpManager()
                 .getRetrofit()
                 .create(ApiServer.class)
-                .getVideo(index, listTime / 1000, currentTimeMillis / 1000)
+                .getVideoData(index, listTime / 1000, currentTimeMillis / 1000)
                 .delay(3, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(consumer)

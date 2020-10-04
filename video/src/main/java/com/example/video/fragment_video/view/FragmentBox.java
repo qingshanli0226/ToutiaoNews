@@ -60,7 +60,6 @@ public class FragmentBox extends BaseFragment implements View.OnTouchListener {
 
 
 
-        
         mFragmentBoxVp.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
             @NonNull
             @Override
