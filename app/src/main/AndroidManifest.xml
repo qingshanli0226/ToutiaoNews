@@ -17,26 +17,19 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:name">
 
-        <activity android:name="com.example.user.activity.SettingActivity" />
-        <activity android:name="com.example.user.activity.FeedbackActivity" />
-        <activity android:name="com.example.user.activity.DiscloseActivity" />
-        <activity android:name="com.example.user.activity.JDongActivity" />
-        <activity android:name="com.example.user.activity.StoreActivity" />
-        <activity android:name="com.example.user.activity.InformActivity" />
-        <activity android:name="com.example.user.activity.HistoryActivity" />
-        <activity android:name="com.example.user.activity.CollectActivity" />
-        <activity android:name="com.example.user.activity.SevenActivity" />
-        <activity android:name="com.example.user.activity.FansActivity" />
-        <activity android:name="com.example.user.activity.Action1Activity" />
-        <activity
-            android:name="com.example.user.activity.LoginActivity"
-            android:theme="@style/AppTheme" />
+        <activity android:name="com.example.user.activity.SettingActivity" android:theme="@style/AppTheme"/>
+        <activity android:name="com.example.user.activity.FeedbackActivity" android:theme="@style/AppTheme"/>
+        <activity android:name="com.example.user.activity.DiscloseActivity" android:theme="@style/AppTheme"/>
+        <activity android:name="com.example.user.activity.JDongActivity" android:theme="@style/AppTheme"/>
+        <activity android:name="com.example.user.activity.StoreActivity" android:theme="@style/AppTheme"/>
+        <activity android:name="com.example.user.activity.InformActivity" android:theme="@style/AppTheme"/>
+        <activity android:name="com.example.user.activity.HistoryActivity" android:theme="@style/AppTheme"/>
+        <activity android:name="com.example.user.activity.CollectActivity" android:theme="@style/AppTheme"/>
+        <activity android:name="com.example.user.activity.SevenActivity" android:theme="@style/AppTheme"/>
+        <activity android:name="com.example.user.activity.FansActivity" android:theme="@style/AppTheme"/>
+        <activity android:name="com.example.user.activity.Action1Activity" android:theme="@style/AppTheme"/>
+        <activity android:name="com.example.user.activity.LoginActivity" android:theme="@style/AppTheme"/>
 
-
-
-        <activity
-            android:name="com.example.user.activity.RegisterActivity"
-            android:theme="@style/AppTheme" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask"

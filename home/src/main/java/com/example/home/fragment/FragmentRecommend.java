@@ -1,14 +1,16 @@
 package com.example.home.fragment;
 
-import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationSet;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LayoutAnimationController;
+import android.view.animation.TranslateAnimation;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.framework2.mvp.view.BaseFragment;
-import com.example.framework2.mvp.view.LoadingView;
+import com.example.framework2.mvp.view.BaseLJZFragment;
 import com.example.home.R;
 import com.example.home.adapter.MyAdapter;
 import com.example.home.contract.ContractRecommend;
@@ -16,37 +18,42 @@ import com.example.home.model.ModelRecommend;
 import com.example.home.presenter.PresenterRecommend;
 import com.example.net.bean.ContentBean;
 import com.example.net.bean.Recommend;
+import com.example.net.connecct.NetConnect;
 import com.google.gson.Gson;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class FragmentRecommend extends BaseFragment<PresenterRecommend> implements ContractRecommend.View, OnRefreshListener {
-    private ArrayList<Recommend.DataBean> list_recommend = new ArrayList<>();
+import static android.view.animation.Animation.RELATIVE_TO_SELF;
+
+public class FragmentRecommend extends BaseLJZFragment<PresenterRecommend> implements ContractRecommend.View, OnRefreshLoadMoreListener {
     private ArrayList<ContentBean> list_content = new ArrayList<>();
-    private LoadingView loadingImage;
     private SmartRefreshLayout refreshListSrlRecommend;
     private RecyclerView videoListRvRecommend;
     private MyAdapter myAdapter;
-    private String str = "推荐";
+    private String indexStr;
     private PresenterRecommend presenterRecommend;
+    private boolean flag = false;
 
-    @Override
-    public void onClick(View view) {
-
+    public FragmentRecommend(String str){
+        this.indexStr = str;
     }
 
     @Override
-    public void initView() {
+    protected int setContentView() {
+        return R.layout.activity_fragment_recommend;
+    }
+
+    @Override
+    protected void initView() {
+
         presenterRecommend = new PresenterRecommend(new ModelRecommend(), this);
 
-        loadingImage = (LoadingView) findViewById(R.id.loading_image);
-        refreshListSrlRecommend = findViewById(R.id.refresh_list_srl_recommend);
-        videoListRvRecommend = (RecyclerView) findViewById(R.id.video_list_rv_recommend);
-        refreshListSrlRecommend.setOnRefreshListener(this);
+        refreshListSrlRecommend = rootView.findViewById(R.id.refresh_list_srl_recommend);
+        videoListRvRecommend = rootView.findViewById(R.id.video_list_rv_recommend);
+        refreshListSrlRecommend.setOnRefreshLoadMoreListener(this);
 
         myAdapter = new MyAdapter(getContext(),list_content);
         videoListRvRecommend.setAdapter(myAdapter);
@@ -54,42 +61,85 @@ public class FragmentRecommend extends BaseFragment<PresenterRecommend> implemen
     }
 
     @Override
-    public void initData() {
-        long currentTimeMillis = System.currentTimeMillis();
-        presenterRecommend.getRecommendData(currentTimeMillis,str);
+    protected void lazyLoad() {
+        if (NetConnect.isNetworkConnected(getContext())) {
+            presenterRecommend.getRecommendData(System.currentTimeMillis(), indexStr);
+
+        } else {
+            showMessage("请检查网络连接");
+        }
     }
 
     @Override
-    public void initPresenter() {
+    public void onClick(View view) {
 
-    }
-
-    @Override
-    public int bandLayout() {
-        return R.layout.activity_fragment_recommend;
     }
 
     @Override
     public void getRecommendData(Recommend recommendBean) {
-        refreshListSrlRecommend.finishRefresh(true);
 
-        list_content.clear();
+        if (!flag) {
+            list_content.clear();
+        }
 
-        List<Recommend.DataBean> data = recommendBean.getData();
-        list_recommend.addAll(data);
-
-        for (int i = 0; i < list_recommend.size(); i++) {
-            String content = list_recommend.get(i).getContent();
-            ContentBean contentBean = new Gson().fromJson(content, ContentBean.class);
+        for (Recommend.DataBean datum : recommendBean.getData()) {
+            ContentBean contentBean = new Gson().fromJson(datum.getContent(), ContentBean.class);
             list_content.add(contentBean);
         }
 
-        Log.d("1008611", "getRecommendData: "+list_content.size());
+        playLayoutAnimation(getAnimationSetFromLeft(), true);
+
+    }
+
+    private AnimationSet getAnimationSetFromLeft() {
+        AnimationSet animationSet = new AnimationSet(true);
+        TranslateAnimation translateX1 = new TranslateAnimation(RELATIVE_TO_SELF, -1.0f, RELATIVE_TO_SELF, 0.1f,
+                RELATIVE_TO_SELF, 0, RELATIVE_TO_SELF, 0);
+        translateX1.setDuration(300);
+        translateX1.setInterpolator(new DecelerateInterpolator());
+        translateX1.setStartOffset(0);
+
+        TranslateAnimation translateX2 = new TranslateAnimation(RELATIVE_TO_SELF, 0.1f, RELATIVE_TO_SELF, -0.1f,
+                RELATIVE_TO_SELF, 0, RELATIVE_TO_SELF, 0);
+        translateX2.setStartOffset(300);
+        translateX2.setInterpolator(new DecelerateInterpolator());
+        translateX2.setDuration(50);
+
+        TranslateAnimation translateX3 = new TranslateAnimation(RELATIVE_TO_SELF, -0.1f, RELATIVE_TO_SELF, 0f,
+                RELATIVE_TO_SELF, 0, RELATIVE_TO_SELF, 0);
+        translateX3.setStartOffset(350);
+        translateX3.setInterpolator(new DecelerateInterpolator());
+        translateX3.setDuration(50);
+
+        animationSet.addAnimation(translateX1);
+        animationSet.addAnimation(translateX2);
+        animationSet.addAnimation(translateX3);
+        animationSet.setDuration(400);
+
+        return animationSet;
+    }
+
+    private void playLayoutAnimation(AnimationSet animations, boolean isReverse) {
+        LayoutAnimationController controller = new LayoutAnimationController(animations);
+        controller.setDelay(0.1f);
+        controller.setOrder(isReverse ? LayoutAnimationController.ORDER_REVERSE : LayoutAnimationController.ORDER_NORMAL);
+
+        videoListRvRecommend.setLayoutAnimation(controller);
+        videoListRvRecommend.scheduleLayoutAnimation();
         myAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        presenterRecommend.getRecommendData(System.currentTimeMillis(),str);
+        presenterRecommend.getRecommendData(System.currentTimeMillis(), indexStr);
+        refreshListSrlRecommend.finishRefresh(true);
+        flag = false;
+    }
+
+    @Override
+    public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+        presenterRecommend.getRecommendData(System.currentTimeMillis(), indexStr);
+        refreshListSrlRecommend.finishLoadMore(true);
+        flag = true;
     }
 }
