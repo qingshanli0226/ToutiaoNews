@@ -40,7 +40,7 @@ public class VideoAct extends BaseActivity {
 
     @Override
     public void initView() {
-        mMessageList = (RecyclerView) findViewById(R.id.message_list);
+//        mMessageList = (RecyclerView) findViewById(R.id.message_list);
         mGSYPlay = (StandardGSYVideoPlayer) findViewById(R.id.GSY_play);
         orientationUtils = new OrientationUtils(this, mGSYPlay);
     }
