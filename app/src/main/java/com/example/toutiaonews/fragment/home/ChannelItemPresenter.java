@@ -2,8 +2,11 @@ package com.example.toutiaonews.fragment.home;
 
 import android.util.Log;
 
+import com.example.framework2.cache.entity.NewEntity;
+import com.example.framework2.manager.CacheManager;
 import com.example.framework2.mvp.presenter.BasePresenter;
 import com.example.net.activity_bean.response.NewsResponse;
+import com.google.gson.Gson;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -21,9 +24,14 @@ public class ChannelItemPresenter extends BasePresenter<ChannelItemContract.View
 
             @Override
             public void onNext(NewsResponse listBean) {
-                if (listBean!=null){
+                if (listBean.data!=null){
                     Log.e("fff", "onNext: "+listBean.data.size());
-
+                    NewEntity newEntity = new NewEntity();
+                    newEntity.setCode(mView.getCode());
+                    newEntity.setTime(System.currentTimeMillis());
+                    String json = new Gson().toJson(listBean);
+                    newEntity.setJsonStr(json);
+                    CacheManager.getInstance().addNewEntity(newEntity);
                     mView.getedData(listBean.data);
                 }
             }

@@ -8,6 +8,10 @@ import android.util.Log;
 import androidx.fragment.app.Fragment;
 
 import com.example.common.NetCommon;
+import com.example.framework2.cache.dao.DaoMaster;
+import com.example.framework2.cache.dao.DaoSession;
+import com.example.framework2.cache.dao.NewEntityDao;
+import com.example.framework2.cache.entity.NewEntity;
 import com.example.net.activity_bean.entity.ChannelBean;
 
 
@@ -17,6 +21,7 @@ import java.util.List;
 public class CacheManager {
     private CacheManager() {
     }
+    private NewEntityDao newEntityDao;
     private List<Fragment> fragments;
     private List<Fragment> noFragments=new ArrayList<>();
     private List<ChannelBean> onList;
@@ -84,9 +89,21 @@ public class CacheManager {
 
     public void init(Context context){
         sharedPreferences = context.getSharedPreferences(NetCommon.SP_NAME, Context.MODE_PRIVATE);
-
+        DaoMaster.DevOpenHelper openHelper = new DaoMaster.DevOpenHelper(context, "news.db");
+        DaoMaster daoMaster = new DaoMaster(openHelper.getWritableDb());
+        DaoSession daoSession = daoMaster.newSession();
+        newEntityDao=daoSession.getNewEntityDao();
     }
-
+    public void addNewEntity(NewEntity newEntity){
+        newEntityDao.insert(newEntity);
+    }
+    public void deleteNewEntity(NewEntity newEntity){
+        newEntityDao.delete(newEntity);
+    }
+    public List<NewEntity> findNewEntity(){
+        List<NewEntity> list = newEntityDao.queryBuilder().list();
+        return list;
+    }
 
     public void addActivity(Activity activity) {
         if (!activityList.contains(activity)) {

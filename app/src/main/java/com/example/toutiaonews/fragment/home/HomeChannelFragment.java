@@ -10,10 +10,12 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.framework2.cache.entity.NewEntity;
 import com.example.framework2.manager.CacheManager;
 import com.example.framework2.mvp.view.BaseFragment;
 import com.example.net.activity_bean.entity.News;
 import com.example.net.activity_bean.entity.NewsData;
+import com.example.net.activity_bean.response.NewsResponse;
 import com.example.toutiaonews.R;
 import com.google.gson.Gson;
 
@@ -36,6 +38,11 @@ public class HomeChannelFragment extends BaseFragment<ChannelItemPresenter> impl
     public void initView() {
          sp = CacheManager.getInstance().getSharedPreferences();
         newsList = new ArrayList<>();
+        List<NewEntity> newEntity = CacheManager.getInstance().findNewEntity();
+        if (newEntity.size()>0){
+            NewsResponse newsResponse = new Gson().fromJson(newEntity.get(0).getJsonStr(), NewsResponse.class);
+            getedData(newsResponse.data);
+        }
         myRcv= (RecyclerView) findViewById(R.id.my_rcv);
         codeBundle = getArguments();
         adapter=new ChannelItemAdapter(newsList);
@@ -73,6 +80,7 @@ public class HomeChannelFragment extends BaseFragment<ChannelItemPresenter> impl
 
     @Override
     public void getedData(List<NewsData> listBean) {
+
         newsList.clear();
         for (NewsData dataBean : listBean) {
             News news = new Gson().fromJson(dataBean.content, News.class);

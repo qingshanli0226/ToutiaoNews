@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -38,6 +39,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private TabLayout homeTab;
     private ImageView homeManager;
     private ViewPager homeVp;
+    private EditText homeEdit;
     private final String TAB_ON_DATA_KEY = "OnTabJson";
     private final String TAB_NO_DATA_KEY = "NOTabJson";
     private  SharedPreferences sp;
@@ -176,6 +178,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         homeTab= (TabLayout) findViewById(R.id.home_tab);
         homeManager= (ImageView) findViewById(R.id.home_manager);
         homeVp= (ViewPager) findViewById(R.id.home_vp);
+        homeEdit= (EditText) findViewById(R.id.home_edit);
         homeManager.setOnClickListener(this);
     }
 

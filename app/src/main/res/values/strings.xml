@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ToutiaoNews</string>
+    <string name="app_name">今日头条</string>
     <string name="home_index">首页</string>
     <string name="video_index">视频</string>
     <string name="heading_index">微头条</string>
