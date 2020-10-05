@@ -62,7 +62,6 @@ public class CacheManager {
 
 
     public synchronized void insert(NewsRoomBean newsRoomBean){
-        Log.i("----", "111");
         newsDao.insertNews(newsRoomBean);
     }
 

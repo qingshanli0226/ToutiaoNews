@@ -7,7 +7,7 @@ import com.example.farmework.base.IView;
 
 public interface VideoContract {
     interface IVideoView extends IView{
-        void onVideoData(VideoDataBean videoBean);
+        void onVideoData(VideoBean videoBean);
     }
 
     abstract class VideoPresenter extends BasePresenter<IVideoView>{

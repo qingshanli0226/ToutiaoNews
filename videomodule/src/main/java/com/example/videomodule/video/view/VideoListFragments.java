@@ -1,28 +1,25 @@
 package com.example.videomodule.video.view;
 
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
-import android.widget.VideoView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.PrimaryKey;
 
 import com.example.common.cache.CacheManager;
 import com.example.common.constant.Constant;
 import com.example.common.dao.NewsRoomBean;
+import com.example.common.entity.VideoBean;
 import com.example.common.entity.VideoDataBean;
 import com.example.common.mine.BGRefrushLayout;
 import com.example.farmework.base.BaseMVPFragment;
 import com.example.toutiaonews.R;
 import com.example.videomodule.adapter.VideoListAdapter;
-import com.example.videomodule.adapter.VideoListAdapter2;
 import com.example.videomodule.video.contract.VideoContract;
 import com.example.videomodule.video.presenter.VideoPresenterImpl;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,24 +30,39 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
     private String channelCode;
     private String channel;
     private RecyclerView videoRv;
-    private List<VideoDataBean> listData = new ArrayList<>();
-    private List<NewsRoomBean> listRoomData = new ArrayList<>();
+    private List<VideoDataBean> listVideoData = new ArrayList<>();
     private VideoListAdapter videoListAdapter;
-    private VideoListAdapter2 videoListAdapter2;
     private long visitTime;
-    private NewsRoomBean newsRoomBean;
+
+
+    private void initJsonData() {
+        NewsRoomBean query = CacheManager.getInstance().queryChannel(channelCode);
+        Gson gson = new Gson();
+        if(query != null){
+            String jsonUrl = query.getJsonUrl();
+            VideoDataBean videoDataBean = gson.fromJson(jsonUrl, VideoDataBean.class);
+            Log.i("----", videoDataBean.getAction_extra());
+            listVideoData.add(videoDataBean);
+        }
+        videoListAdapter = new VideoListAdapter(R.layout.item_listview,listVideoData);
+        videoRv.setAdapter(videoListAdapter);
+        videoRv.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
+
     @Override
     protected void initHttpData() {
         boolean b = CacheManager.getInstance().getisVisit(channel, false);
         visitTime = CacheManager.getInstance().getVisitTime(channelCode, 0);
-            if(b){
-                if(System.currentTimeMillis() - visitTime >= 10000){
-                    mPresenter.getVideoData(channelCode,channel);
-                    CacheManager.getInstance().putisVisit(channel, false);
-                }
+        if(b){
+            if(System.currentTimeMillis() - visitTime >= 10000){
+                mPresenter.getVideoData(channelCode, channel);
+                CacheManager.getInstance().putisVisit(channel, false);
             }else{
-                mPresenter.getVideoData(channelCode,channel);
+                initJsonData();
             }
+        }else{
+            mPresenter.getVideoData(channelCode, channel);
+        }
     }
 
     @Override
@@ -65,15 +77,12 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
 
     @Override
     protected void initData() {
-        newsRoomBean = CacheManager.getInstance().queryChannel(channelCode);
         arguments  = getArguments().getBoolean(Constant.IS_VIDEO_LIST);
         channelCode  = getArguments().getString(Constant.CHANNEL_CODE);
         channel  = getArguments().getString("channel");
         videoRefrush.attchRecylerView(videoRv);
         videoRefrush.addRefreshListener(this);
-            videoListAdapter2 = new VideoListAdapter2(R.layout.item_listview, listRoomData);
-            videoRv.setAdapter(videoListAdapter2);
-        videoRv.setLayoutManager(new LinearLayoutManager(getContext()));
+
     }
 
     @Override
@@ -105,11 +114,16 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
 
     //拿到数据并进行解析
     @Override
-    public void onVideoData(VideoDataBean videoBean) {
-        listData.add(0,videoBean);
-
-        listRoomData.add(0,newsRoomBean);
-        videoListAdapter2.notifyDataSetChanged();
+    public void onVideoData(VideoBean videoBean) {
+        for (int i = 0; i < videoBean.getData().size(); i++) {
+            NewsRoomBean newsRoomBean = new NewsRoomBean();
+            newsRoomBean.setChannelId(channelCode);
+            Log.i("----json", videoBean.getData().get(i).getContent());
+            newsRoomBean.setJsonUrl(videoBean.getData().get(i).getContent());
+            newsRoomBean.setNewsTime(System.currentTimeMillis());
+            CacheManager.getInstance().insert(newsRoomBean);
+        }
+        initJsonData();
     }
 
     @Override

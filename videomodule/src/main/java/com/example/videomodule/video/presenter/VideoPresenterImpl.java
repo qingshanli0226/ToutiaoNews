@@ -47,21 +47,7 @@ public class VideoPresenterImpl extends VideoContract.VideoPresenter {
                         CacheManager.getInstance().putFirstTime("first",firstTime);
                         if(videoBean != null){
                             CacheManager.getInstance().putisVisit(channel, true);
-                            Gson gson = new Gson();
-                            for (int i = 0; i < videoBean.getData().size(); i++) {
-                                VideoDataBean videoDataBean = gson.fromJson(videoBean.getData().get(i).getContent(), VideoDataBean.class);
-                                NewsRoomBean newsRoomBean = new NewsRoomBean();
-                                newsRoomBean.setChannelId(category);
-                                newsRoomBean.setNewsCommon(videoDataBean.getComment_count());
-                                newsRoomBean.setNewsImageUrl(videoDataBean.getUser_info().getAvatar_url());
-                                newsRoomBean.setNewsName(videoDataBean.getUser_info().getName());
-                                newsRoomBean.setNewsThumImage(videoDataBean.getShare_large_image().getUrl());
-                                newsRoomBean.setNewsTime(System.currentTimeMillis()/1000);
-                                newsRoomBean.setNewTitle(videoDataBean.getTitle());
-//        newsRoomBean.setNewsCount(videoBean.getVideo_detail_info().getVideo_watch_count());
-                                CacheManager.getInstance().insert(newsRoomBean);
-                                iHttpView.onVideoData(videoDataBean);
-                            }
+                            iHttpView.onVideoData(videoBean);
                         }else{
                             iHttpView.showError("", "请求失败");
                         }
