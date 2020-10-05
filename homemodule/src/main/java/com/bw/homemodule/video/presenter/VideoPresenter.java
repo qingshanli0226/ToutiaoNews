@@ -2,6 +2,7 @@ package com.bw.homemodule.video.presenter;
 
 import com.bw.homemodule.R;
 import com.bw.homemodule.video.contract.VideoContract;
+import com.example.common.cache.CacheManager;
 import com.example.common.entity.VideoBean;
 import com.example.common.entity.VideoDataBean;
 import com.example.farmework.base.BasePresenter;
@@ -18,7 +19,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class VideoPresenter extends VideoContract.VideoPresenter {
     @Override
-    public void getVideoData(String category, long lastTime) {
+    public void getVideoData(final String category, long lastTime) {
         RetrofitManager.getNewsApi()
                 .getVideoList(category,lastTime,System.currentTimeMillis())
                 .subscribeOn(Schedulers.io())
@@ -46,6 +47,9 @@ public class VideoPresenter extends VideoContract.VideoPresenter {
                         }else {
                             iHttpView.showError("100","没有更多的数据了。。");
                         }
+
+                        //更改刷新时间
+                        CacheManager.getInstance().putFirstTime(category,System.currentTimeMillis());
 
                     }
 

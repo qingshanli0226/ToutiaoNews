@@ -7,8 +7,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.bw.homemodule.home.HomeFragment;
 import com.example.farmework.base.BaseActivity;
 
-
-
 public class MainActivity extends BaseActivity {
     private HomeFragment homeFragment;
 

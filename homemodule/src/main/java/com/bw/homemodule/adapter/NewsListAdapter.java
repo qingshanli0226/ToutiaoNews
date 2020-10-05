@@ -111,4 +111,5 @@ public class NewsListAdapter extends BaseMultiItemQuickAdapter<News, BaseViewHol
         Glide.with(mContext).load(news.image_list.get(2).url).into((ImageView) helper.getView(R.id.iv_img3));
     }
 
+
 }
