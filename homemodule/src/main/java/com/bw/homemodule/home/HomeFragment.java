@@ -43,13 +43,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         for (int i = 0; i < channels.length; i++) {
             this.channels.add(channels[i]);
             this.channel_codes.add(channel_codes[i]);
-
             if (channel_codes[i].equals("video")){
                 fragments.add(new VideoFragment(channel_codes[i]));
             }else {
                 fragments.add(new NewsListFragment(channel_codes[i]));
             }
-
         }
 
         tabLayoutAdapter = new ColorTabLayoutAdapter(getActivity().getSupportFragmentManager(), fragments, this.channels);
@@ -67,11 +65,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         homeAdd = findViewById(R.id.home_fragment_topAdd);
 
         homeAdd.setOnClickListener(this);
-    }
-
-    @Override
-    protected void onFragmentVisibleChange(boolean isVisible) {
-        super.onFragmentVisibleChange(isVisible);
     }
 
     @Override

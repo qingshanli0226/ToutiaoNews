@@ -1,6 +1,5 @@
 package com.bw.homemodule.video.view;
 
-import android.util.Log;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,12 +17,14 @@ import java.util.ArrayList;
 
 public class VideoFragment extends BaseMVPFragment<VideoPresenter, VideoContract.IVideoView> implements VideoContract.IVideoView, BGRefrushLayout.IRefreshListener {
     private RecyclerView rvVideo;
-
     private String channel_code;
     private long lastTime;
     private VideoListAdapter videoListAdapter;
     private ArrayList<VideoDataBean> videoDataBeans = new ArrayList<>();
     private BGRefrushLayout vdBGRefrush;
+    private boolean isRefresh = false;
+    private static final long refreshTime = 1000 * 60 * 2;
+
 
     public VideoFragment(String channel_code) {
         this.channel_code = channel_code;
@@ -35,7 +36,17 @@ public class VideoFragment extends BaseMVPFragment<VideoPresenter, VideoContract
         if (lastTime == 0) {
             CacheManager.getInstance().putFirstTime(channel_code, System.currentTimeMillis());
         }
-        mPresenter.getVideoData(channel_code, CacheManager.getInstance().getFirstTime(channel_code, 0));
+
+        long firstTime = CacheManager.getInstance().getFirstTime(channel_code, 0);
+        if (System.currentTimeMillis() - firstTime > refreshTime) {
+            mPresenter.getVideoData(channel_code, firstTime);
+            return;
+        }
+
+        if (isRefresh) {
+            mPresenter.getVideoData(channel_code, firstTime);
+            return;
+        }
     }
 
     @Override
@@ -58,23 +69,29 @@ public class VideoFragment extends BaseMVPFragment<VideoPresenter, VideoContract
 
     @Override
     protected void initView() {
-        rvVideo=findViewById(R.id.rv_video);
-        videoListAdapter= new VideoListAdapter(R.layout.video_item_layout,videoDataBeans);
+        rvVideo = findViewById(R.id.rv_video);
+        videoListAdapter = new VideoListAdapter(R.layout.video_item_layout, videoDataBeans);
 
-        vdBGRefrush=findViewById(R.id.vd_Refush);
+        vdBGRefrush = findViewById(R.id.vd_Refush);
         vdBGRefrush.attchRecylerView(rvVideo);
 
     }
 
     @Override
     public void onVideoData(ArrayList<VideoDataBean> videoDataBeans) {
-        this.videoDataBeans.addAll(0,videoDataBeans);
+        this.videoDataBeans.addAll(0, videoDataBeans);
         videoListAdapter.notifyDataSetChanged();
+        isRefresh = false;
     }
 
     @Override
     public void showError(String code, String message) {
-        showMessage("code:"+code+message);
+        showMessage("code:" + code + message);
+    }
+
+    @Override
+    public void showMessage(String message) {
+
     }
 
     @Override
@@ -89,6 +106,7 @@ public class VideoFragment extends BaseMVPFragment<VideoPresenter, VideoContract
 
     @Override
     public void onRefreshComplete() {
+        isRefresh = true;
         initHttpData();
     }
 }

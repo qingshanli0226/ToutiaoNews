@@ -1,8 +1,8 @@
 package com.bw.homemodule.home.view;
 
+import android.graphics.Color;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,6 +27,8 @@ public class NewsListFragment extends BaseMVPFragment<HomePresenterImpl, HomeCon
     private NewsListAdapter newsListAdapter;
     private TextView errorText;
     private BGRefrushLayout homeRefrush;
+    private boolean isRefresh = false;
+    private static final long refreshTime = 1000 * 60 * 2;
 
     public NewsListFragment(String channel_code) {
         this.channel_code = channel_code;
@@ -39,8 +41,18 @@ public class NewsListFragment extends BaseMVPFragment<HomePresenterImpl, HomeCon
         if (lastTime == 0) {
             CacheManager.getInstance().putFirstTime(channel_code, System.currentTimeMillis());
         }
-        mPresenter.getHomeData(channel_code, CacheManager.getInstance().getFirstTime(channel_code, 0));
 
+        //懒加载控制数据刷新的逻辑
+        long firstTime = CacheManager.getInstance().getFirstTime(channel_code, 0);
+        if (System.currentTimeMillis() - firstTime > refreshTime) {
+            mPresenter.getHomeData(channel_code, firstTime);
+            return;
+        }
+
+        if (isRefresh) {
+            mPresenter.getHomeData(channel_code, firstTime);
+            return;
+        }
     }
 
     @Override
@@ -61,7 +73,6 @@ public class NewsListFragment extends BaseMVPFragment<HomePresenterImpl, HomeCon
         //添加recycleView 的分割线
         newsRv.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
 
-
         homeRefrush.attchRecylerView(newsRv);
         homeRefrush.addRefreshListener(this);
 
@@ -78,15 +89,20 @@ public class NewsListFragment extends BaseMVPFragment<HomePresenterImpl, HomeCon
     @Override
     public void onHomeData(ArrayList<News> newsList) {
         this.newsList.addAll(0, newsList);
-        newsListAdapter.notifyDataSetChanged();
-
         errorText.setVisibility(View.GONE);
+        newsListAdapter.notifyDataSetChanged();
+        isRefresh = false;
+
     }
 
     @Override
     public void showError(String code, String message) {
         errorText.setVisibility(View.VISIBLE);
-        Toast.makeText(mActivity, "code:" + code + message, Toast.LENGTH_SHORT).show();
+        showMessage("code" + code + message);
+    }
+
+    @Override
+    public void showMessage(String message) {
 
     }
 
@@ -102,6 +118,7 @@ public class NewsListFragment extends BaseMVPFragment<HomePresenterImpl, HomeCon
 
     @Override
     public void onRefreshComplete() {
+        isRefresh = true;
         initHttpData();
     }
 
