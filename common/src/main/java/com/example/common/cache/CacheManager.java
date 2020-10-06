@@ -77,4 +77,8 @@ public class CacheManager {
     public void delet(NewsRoomBean newsRoomBean){
         newsDao.delete(newsRoomBean);
     }
+
+    public void deletTime(long newsTime){
+        newsDao.deleteNewsBean(newsTime);
+    }
 }

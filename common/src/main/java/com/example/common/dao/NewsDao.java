@@ -20,7 +20,7 @@ public interface NewsDao {
     @Query("SELECT * FROM news_table WHERE channelId =:channelId")
     NewsRoomBean getNewsBean(String channelId);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertNews(NewsRoomBean... newsRoomBeans);
 
     @Update

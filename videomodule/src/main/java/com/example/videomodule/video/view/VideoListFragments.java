@@ -43,6 +43,7 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
     };
 
     private void initJsonData() {
+        listVideoData.clear();
         List<NewsRoomBean> query = CacheManager.getInstance().query();
         Gson gson = new Gson();
         for (int i = 0; i < query.size(); i++) {
@@ -51,6 +52,10 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
                 String jsonUrl = newsRoomBean.getJsonUrl();
                 VideoDataBean videoDataBean = gson.fromJson(jsonUrl, VideoDataBean.class);
                 listVideoData.add(0,videoDataBean);
+                long newsTime = newsRoomBean.getNewsTime();
+                if(System.currentTimeMillis() - newsTime >= 100000){
+                    CacheManager.getInstance().deletTime(newsTime);
+                }
             }
         }
         videoListAdapter = new VideoListAdapter(R.layout.item_listview,listVideoData);
@@ -63,7 +68,7 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
         boolean b = CacheManager.getInstance().getisVisit(channel, false);
         visitTime = CacheManager.getInstance().getVisitTime(channelCode, 0);
         if(b){
-            if(System.currentTimeMillis() - visitTime >= 100000){
+            if(System.currentTimeMillis() - visitTime >= 50000){
                 mPresenter.getVideoData(channelCode, channel);
                 CacheManager.getInstance().putisVisit(channel, false);
             }else{
