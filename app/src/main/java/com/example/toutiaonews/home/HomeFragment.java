@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -23,6 +24,7 @@ public class HomeFragment extends BaseFragment {
 
     private ViewPager homeVp;
     private TabLayout homeTab;
+    private ImageView homeAddChannel;
 
     //vp的数据源
     String[] items;
@@ -115,12 +117,21 @@ public class HomeFragment extends BaseFragment {
 
             }
         });
+
+        //点击添加频道号
+        homeAddChannel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showToast("添加频道");
+            }
+        });
     }
 
     @Override
     protected void initView() {
         homeTab = (TabLayout) findViewById(R.id.homeTab);
         homeVp = (ViewPager) findViewById(R.id.homeVp);
+        homeAddChannel = (ImageView) findViewById(R.id.homeAddChannel);
         if(recommendFragment == null){
             recommendFragment = new RecommendFragment();
         }
