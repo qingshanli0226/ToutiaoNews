@@ -115,6 +115,7 @@ public class ChannelItemAdapter extends BaseMultiItemQuickAdapter<News, BaseView
         helper.addOnClickListener(R.id.channel_item_three_linear);
         helper.addOnClickListener(R.id.channel_itemt_text_linear);
 
+
     }
 
     @Override

@@ -12,7 +12,9 @@ import com.example.common.NetCommon;
 import com.example.framework.bean.BaseMVPActivity;
 import com.example.net.activity_bean.LoginBean;
 import com.example.toutiaonews.R;
+
 import com.example.toutiaonews.fragment.me.MeFragment;
+
 import com.example.toutiaonews.reg.RegMainActivity;
 
 public class LoginActivity extends BaseMVPActivity<LoginPresenterImpl, LoginContract.ILoginView> implements View.OnClickListener, LoginContract.ILoginView {

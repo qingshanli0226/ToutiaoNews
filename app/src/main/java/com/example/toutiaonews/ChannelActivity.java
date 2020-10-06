@@ -241,10 +241,14 @@ public class ChannelActivity extends BaseActivity {
 
 
     }
+
+
+
     @Override
     protected void onStop() {
         super.onStop();
     }
+
     @Override
     protected void onResume() {
         super.onResume();
