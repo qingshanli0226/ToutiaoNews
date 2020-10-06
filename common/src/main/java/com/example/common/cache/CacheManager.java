@@ -2,13 +2,8 @@ package com.example.common.cache;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-<<<<<<< HEAD
-import android.util.Log;
-=======
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.widget.Toast;
->>>>>>> 网络判断
 
 import com.example.common.dao.NewsDao;
 import com.example.common.dao.NewsDatabeans;
@@ -49,30 +44,6 @@ public class CacheManager {
         return firstTime;
     }
 
-<<<<<<< HEAD
-    public synchronized void putisVisit(String key,boolean isVisit){
-        edit.putBoolean(key, isVisit);
-        edit.commit();
-    }
-    public boolean getisVisit(String key,boolean isVisit){
-        boolean visitTime = twoGroup.getBoolean(key, isVisit);
-        return visitTime;
-    }
-
-
-    public synchronized void putVisitTime(String key,long visitTime){
-=======
-    public synchronized void putVisitTime(String key, long visitTime) {
->>>>>>> 网络判断
-        edit.putLong(key, visitTime);
-        edit.commit();
-    }
-
-    public synchronized long getVisitTime(String key, long time) {
-        long visitTime = twoGroup.getLong(key, time);
-        return visitTime;
-    }
-
 
     public synchronized void insert(NewsRoomBean newsRoomBean) {
         newsDao.insertNews(newsRoomBean);
@@ -91,10 +62,10 @@ public class CacheManager {
         newsDao.delete(newsRoomBean);
     }
 
-<<<<<<< HEAD
-    public void deletTime(long newsTime){
+    public void deletTime(long newsTime) {
         newsDao.deleteNewsBean(newsTime);
-=======
+    }
+
     public boolean isConnect(Context context) {
         //普通网络判断
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -104,6 +75,5 @@ public class CacheManager {
         } else {   //没有网返回false
             return false;
         }
->>>>>>> 网络判断
     }
 }
