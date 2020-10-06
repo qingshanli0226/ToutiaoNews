@@ -5,6 +5,7 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,16 +34,24 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
     private List<VideoDataBean> listVideoData = new ArrayList<>();
     private VideoListAdapter videoListAdapter;
     private long visitTime;
-
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            initJsonData();
+        }
+    };
 
     private void initJsonData() {
-        NewsRoomBean query = CacheManager.getInstance().queryChannel(channelCode);
+        List<NewsRoomBean> query = CacheManager.getInstance().query();
         Gson gson = new Gson();
-        if(query != null){
-            String jsonUrl = query.getJsonUrl();
-            VideoDataBean videoDataBean = gson.fromJson(jsonUrl, VideoDataBean.class);
-            Log.i("----", videoDataBean.getAction_extra());
-            listVideoData.add(videoDataBean);
+        for (int i = 0; i < query.size(); i++) {
+            NewsRoomBean newsRoomBean = query.get(i);
+            if(newsRoomBean.getChannelId().equals(channelCode)){
+                String jsonUrl = newsRoomBean.getJsonUrl();
+                VideoDataBean videoDataBean = gson.fromJson(jsonUrl, VideoDataBean.class);
+                listVideoData.add(0,videoDataBean);
+            }
         }
         videoListAdapter = new VideoListAdapter(R.layout.item_listview,listVideoData);
         videoRv.setAdapter(videoListAdapter);
@@ -54,7 +63,7 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
         boolean b = CacheManager.getInstance().getisVisit(channel, false);
         visitTime = CacheManager.getInstance().getVisitTime(channelCode, 0);
         if(b){
-            if(System.currentTimeMillis() - visitTime >= 10000){
+            if(System.currentTimeMillis() - visitTime >= 100000){
                 mPresenter.getVideoData(channelCode, channel);
                 CacheManager.getInstance().putisVisit(channel, false);
             }else{
@@ -123,13 +132,14 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
             newsRoomBean.setNewsTime(System.currentTimeMillis());
             CacheManager.getInstance().insert(newsRoomBean);
         }
-        initJsonData();
+        handler.sendEmptyMessage(0);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         videoRefrush.cancel();
+        handler.sendEmptyMessage(0);
     }
 
     @Override
