@@ -40,7 +40,7 @@ public class HomeChannelFragment extends BaseFragment<ChannelItemPresenter> impl
         codeBundle = getArguments();
         adapter=new ChannelItemAdapter(newsList);
         myRcv.setLayoutManager(new LinearLayoutManager(getActivity()));
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL);
+        DividerItemDecoration dividerItemDecoration =  new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL);
         myRcv.addItemDecoration(dividerItemDecoration);
         myRcv.setAdapter(adapter);
     }
