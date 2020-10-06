@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.MyFragment">
+    tools:context=".fragment.home.HomeChannelFragment">
 
    <androidx.recyclerview.widget.RecyclerView
+       android:padding="@dimen/dp_10"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
        android:id="@+id/my_rcv"></androidx.recyclerview.widget.RecyclerView>

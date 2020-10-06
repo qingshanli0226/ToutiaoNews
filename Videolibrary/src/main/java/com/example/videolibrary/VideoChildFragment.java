@@ -2,13 +2,13 @@ package com.example.videolibrary;
 
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.example.framework.bean.BaseMVPFragment;
 import com.example.net.activity_bean.VideoBean;
 import com.example.videolibrary.adapter.VideoAdapter;
@@ -22,22 +22,19 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl, VideoChildContract.IVideoChildView> implements VideoChildContract.IVideoChildView, OnRefreshLoadMoreListener {
     private static final String TAG = "VideoChildFragment AAA";
     private RecyclerView fragmentVideoChildRv;
     private SmartRefreshLayout fragmentVideoChildSmart;
     private VideoAdapter videoAdapter;
     private List<VideoDataBean> videoDataBeans;
-
     private String category;
     private boolean isRefresh = true;
 
+//    private long time;
 
     public VideoChildFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -52,15 +49,12 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
         fragmentVideoChildRv.setAdapter(videoAdapter);
         fragmentVideoChildRv.setLayoutManager(new LinearLayoutManager(getContext()));
 
-
-
-
         fragmentVideoChildSmart.setOnRefreshLoadMoreListener(this);
     }
 
     @Override
     protected void initView() {
-        category = getArguments().getString("category","");
+        category = getArguments() != null ? getArguments().getString("category", "") : null;
         fragmentVideoChildRv = findViewById(R.id.fragment_video_child_rv);
         fragmentVideoChildSmart = findViewById(R.id.fragment_video_child_smart);
     }
@@ -88,18 +82,32 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
             return;
         }
 
+
+
+        if (videoDataBeans.size() > 0) {
+            long videoDataTime = SPUtils.getInstance().getLong("videoDataTime");
+
+            if (((System.currentTimeMillis() / 1000) - videoDataTime) < 30) {
+                Log.i(TAG, "onVideoChildData:   小于30秒  不请求数据 ");
+                return;
+            }
+        }
+
         if (isRefresh) {
             videoDataBeans.clear();
+            //获取到数据 储存当前时间
+            SPUtils.getInstance().put("videoDataTime",System.currentTimeMillis() / 1000);
         }
 
         for (int i = 0; i < data.size(); i++) {
             String content = data.get(i).getContent();
-            VideoDataBean videoDataBean = gson.fromJson(content.toString(), VideoDataBean.class);
+            VideoDataBean videoDataBean = gson.fromJson(content, VideoDataBean.class);
             String articleUrl = videoDataBean.getArticle_url();
             Log.i(TAG, "onVideoChildData:         " + articleUrl);
             videoDataBeans.add(videoDataBean);
             videoAdapter.notifyDataSetChanged();
         }
+        Log.i(TAG, "initHttpData:     videoDataBeans.size()       " + videoDataBeans.size());
     }
 
     @Override
@@ -131,4 +139,5 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
         isRefresh = true;//说明是刷新 需要清除list的数据
         ihttpPresenter.getVideoChildData(category);
     }
+
 }

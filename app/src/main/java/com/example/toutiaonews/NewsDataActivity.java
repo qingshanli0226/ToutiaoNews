@@ -16,8 +16,10 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -40,6 +42,8 @@ import java.util.function.IntUnaryOperator;
 public class NewsDataActivity extends AppCompatActivity {
     private CustomToolbar toolbar;
     private WebView newsWebview;
+    private String url;
+    private String title;
     private int lastScrollY;
     private int startScrollY;
     private int effectiveScrollY = 10;
@@ -48,8 +52,8 @@ public class NewsDataActivity extends AppCompatActivity {
     private ImageView newsCount;
     private ImageView newsLove;
     private ImageView newsShare;
-
     private EditText spi;
+
     private Button commentSend;
     private CheckBox popCheck;
     private ImageView popIma;
@@ -71,7 +75,18 @@ public class NewsDataActivity extends AppCompatActivity {
         newsCount = (ImageView) findViewById(R.id.news_count);
         newsLove = (ImageView) findViewById(R.id.news_love);
         newsShare = (ImageView) findViewById(R.id.news_share);
-        newsWebview.loadUrl("https://www.baidu.com/?tn=44004473_2_oem_dg");
+//        newsWebview.loadUrl("https://www.baidu.com/?tn=44004473_2_oem_dg");
+        Intent intent = getIntent();
+        url = intent.getStringExtra("web");
+        title=intent.getStringExtra("title");
+        newsWebview.setWebViewClient(new WebViewClient(){
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                view.loadUrl(url);
+                return true;
+    }
+});
+//        newsWebview.loadUrl(url);
         //声明WebSettings子类
         WebSettings webSettings = newsWebview.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -84,7 +99,7 @@ public class NewsDataActivity extends AppCompatActivity {
         webSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
         webSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
         initData();
-    }
+}
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void initData() {
@@ -101,19 +116,19 @@ public class NewsDataActivity extends AppCompatActivity {
         newsScroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View view, int i, int i1, int i2, int i3) {
-                if (i3>500){
-                    title.setText("设置标题");
+                    if (i3>500){
+                    title.setText(title+"");
                 }else {
                     title.setText("");
                 }
             }
-        });
+    });
        newsComment.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-                initpop();
-           }
-       });
+        @Override
+        public void onClick(View view) {
+            initpop();
+        }
+    });
     }
 
     private void initpop() {

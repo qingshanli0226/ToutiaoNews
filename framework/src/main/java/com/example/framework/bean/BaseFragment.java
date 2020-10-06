@@ -11,6 +11,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public abstract class BaseFragment extends Fragment {
+    private Boolean isInitData = false; //标志位,判断数据是否初始化
+    private Boolean isVisibleToUser = false; //标志位,判断fragment是否可见
+    private Boolean isPrepareView = false; //标志位,判断view已经加载完成 避免空指针操作
 
     private View rootView;
 

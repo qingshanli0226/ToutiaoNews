@@ -3,12 +3,8 @@ package com.example.videolibrary.mvp;
 import android.util.Log;
 
 import com.blankj.utilcode.util.SPUtils;
-import com.example.framework2.manager.CacheManager;
 import com.example.net.activity_bean.VideoBean;
-import com.example.net.activity_bean.response.NewsResponse;
 import com.example.net.http.HttpManager;
-
-import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;

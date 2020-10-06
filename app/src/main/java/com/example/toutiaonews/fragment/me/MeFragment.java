@@ -1,4 +1,4 @@
-package com.example.toutiaonews.fragment;
+package com.example.toutiaonews.fragment.me;
 
 
 
@@ -194,8 +194,6 @@ public class MeFragment extends Fragment {
         title1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), NewsDataActivity.class);
-                startActivity(intent);
             }
         });
 

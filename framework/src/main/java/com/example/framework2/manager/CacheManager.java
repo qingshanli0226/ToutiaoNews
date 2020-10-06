@@ -1,27 +1,16 @@
 package com.example.framework2.manager;
 
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.IBinder;
-import android.text.TextUtils;
 import android.util.Log;
-import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.common.NetCommon;
-import com.example.framework2.MyService;
-import com.example.net.activity_bean.ChannelBean;
-import com.example.net.activity_bean.NewsListBean;
+import com.example.net.activity_bean.entity.ChannelBean;
 
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +21,6 @@ public class CacheManager {
     private List<Fragment> noFragments=new ArrayList<>();
     private List<ChannelBean> onList;
     private List<ChannelBean> noList=new ArrayList<>();
-    private NewsListBean newsListBean;
     private SharedPreferences sharedPreferences;
     private List<Activity> activityList=new ArrayList<>();
     private static CacheManager instance;
@@ -66,9 +54,9 @@ public class CacheManager {
         Log.e("fff",noFragments.size()+ "addChannel: "+fragments.size() );
         ChannelBean removeC = noList.remove(position);
         removeC.setShow(true);
-        onList.add(0,removeC);
+        onList.add(removeC);
         Fragment removeF = noFragments.remove(position);
-        fragments.add(0,removeF);
+        fragments.add(removeF);
     }
     public void deleteChannel(int position){
         ChannelBean removeC = onList.remove(position);
@@ -78,12 +66,10 @@ public class CacheManager {
         noFragments.add(0,removeF);
     }
     public List<ChannelBean> getOnList() {
-        onList.get(0).setSign(false);
         return onList;
     }
 
-    public void setOnList(List<ChannelBean> onList) {
-        onList.get(0).setSign(false);
+    public synchronized void setOnList(List<ChannelBean> onList) {
         this.onList = onList;
     }
 
@@ -95,13 +81,6 @@ public class CacheManager {
         this.noList = noList;
     }
 
-    public NewsListBean getNewsListBean() {
-        return newsListBean;
-    }
-
-    public void setNewsListBean(NewsListBean newsListBean) {
-        this.newsListBean = newsListBean;
-    }
 
     public void init(Context context){
         sharedPreferences = context.getSharedPreferences(NetCommon.SP_NAME, Context.MODE_PRIVATE);

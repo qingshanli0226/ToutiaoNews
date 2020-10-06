@@ -12,7 +12,7 @@ import com.example.common.NetCommon;
 import com.example.framework.bean.BaseMVPActivity;
 import com.example.net.activity_bean.LoginBean;
 import com.example.toutiaonews.R;
-import com.example.toutiaonews.fragment.MeFragment;
+import com.example.toutiaonews.fragment.me.MeFragment;
 import com.example.toutiaonews.reg.RegMainActivity;
 
 public class LoginActivity extends BaseMVPActivity<LoginPresenterImpl, LoginContract.ILoginView> implements View.OnClickListener, LoginContract.ILoginView {
@@ -64,28 +64,28 @@ public class LoginActivity extends BaseMVPActivity<LoginPresenterImpl, LoginCont
         btnGoReg.setOnClickListener(this);
     }
 
-    @Override
-    protected int getLayoutId() {
-        return R.layout.activity_login;
-    }
+        @Override
+        protected int getLayoutId() {
+            return R.layout.activity_login;
+        }
 
-    @Override
-    public void onLogin(LoginBean loginBean) {
-        String name = loginUsername.getText().toString();
-        String pwd = loginPwd.getText().toString();
-        Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
-        MeFragment.myName.setText(loginUsername.getText().toString() + "");
-        NetCommon.NEW_ISLOGIN=true;
-        spWrite(name,pwd,NetCommon.NEW_ISLOGIN);
-        finish();
-    }
+        @Override
+        public void onLogin(LoginBean loginBean) {
+            String name = loginUsername.getText().toString();
+            String pwd = loginPwd.getText().toString();
+            Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
+            MeFragment.myName.setText(loginUsername.getText().toString() + "");
+            NetCommon.NEW_ISLOGIN=true;
+            spWrite(name,pwd,NetCommon.NEW_ISLOGIN);
+            finish();
+        }
     //存储到sp
     private void spWrite(String name,String pwd,boolean flag) {
         SharedPreferences sp = getSharedPreferences("username", 0);
         SharedPreferences.Editor edit = sp.edit();
-        edit.putString("name",name);
-        edit.putString("pwd",pwd);
-        edit.putBoolean("islogin",flag);
+            edit.putString("name",name);
+            edit.putString("pwd",pwd);
+            edit.putBoolean("islogin",flag);
         edit.commit();
     }
 
@@ -98,11 +98,11 @@ public class LoginActivity extends BaseMVPActivity<LoginPresenterImpl, LoginCont
     @Override
     public void showLoaing() {
 
+
     }
 
     @Override
     public void hideLoaing() {
-
     }
 
 }
