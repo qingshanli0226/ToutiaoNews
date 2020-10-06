@@ -3,11 +3,13 @@ package com.bw.homemodule.home.view;
 import android.graphics.Color;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bw.homemodule.App;
 import com.bw.homemodule.R;
 import com.bw.homemodule.adapter.NewsListAdapter;
 import com.bw.homemodule.home.contract.HomeContract;
@@ -37,22 +39,29 @@ public class NewsListFragment extends BaseMVPFragment<HomePresenterImpl, HomeCon
     @Override
     protected void initHttpData() {
 
-        lastTime = CacheManager.getInstance().getFirstTime(channel_code, 0);
-        if (lastTime == 0) {
-            CacheManager.getInstance().putFirstTime(channel_code, System.currentTimeMillis());
+        if (CacheManager.getInstance().isConnect(App.app)){  //判断是否有网
+            //有网就开始数据请求
+            lastTime = CacheManager.getInstance().getFirstTime(channel_code, 0);
+            if (lastTime == 0) {
+                CacheManager.getInstance().putFirstTime(channel_code, System.currentTimeMillis());
+            }
+
+            //懒加载控制数据刷新的逻辑
+            long firstTime = CacheManager.getInstance().getFirstTime(channel_code, 0);
+            if (System.currentTimeMillis() - firstTime > refreshTime) {
+                mPresenter.getHomeData(channel_code, firstTime);
+                return;
+            }
+
+            if (isRefresh) {
+                mPresenter.getHomeData(channel_code, firstTime);
+                return;
+            }
+        }else {
+            Toast.makeText(getContext(), "当前没有网络哦", Toast.LENGTH_SHORT).show();
         }
 
-        //懒加载控制数据刷新的逻辑
-        long firstTime = CacheManager.getInstance().getFirstTime(channel_code, 0);
-        if (System.currentTimeMillis() - firstTime > refreshTime) {
-            mPresenter.getHomeData(channel_code, firstTime);
-            return;
-        }
 
-        if (isRefresh) {
-            mPresenter.getHomeData(channel_code, firstTime);
-            return;
-        }
     }
 
     @Override

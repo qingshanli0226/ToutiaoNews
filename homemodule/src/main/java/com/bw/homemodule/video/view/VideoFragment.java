@@ -1,9 +1,12 @@
 package com.bw.homemodule.video.view;
 
 
+import android.widget.Toast;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bw.homemodule.App;
 import com.bw.homemodule.R;
 import com.bw.homemodule.adapter.VideoListAdapter;
 import com.bw.homemodule.video.contract.VideoContract;
@@ -32,21 +35,28 @@ public class VideoFragment extends BaseMVPFragment<VideoPresenter, VideoContract
 
     @Override
     protected void initHttpData() {
-        lastTime = CacheManager.getInstance().getFirstTime(channel_code, 0);
-        if (lastTime == 0) {
-            CacheManager.getInstance().putFirstTime(channel_code, System.currentTimeMillis());
+
+        if (CacheManager.getInstance().isConnect(App.app)) {  //判断是否有网
+            //有网就开始数据请求
+            lastTime = CacheManager.getInstance().getFirstTime(channel_code, 0);
+            if (lastTime == 0) {
+                CacheManager.getInstance().putFirstTime(channel_code, System.currentTimeMillis());
+            }
+
+            long firstTime = CacheManager.getInstance().getFirstTime(channel_code, 0);
+            if (System.currentTimeMillis() - firstTime > refreshTime) {
+                mPresenter.getVideoData(channel_code, firstTime);
+                return;
+            }
+
+            if (isRefresh) {
+                mPresenter.getVideoData(channel_code, firstTime);
+                return;
+            }
+        }else {
+            Toast.makeText(getContext(), "当前没有网络哦", Toast.LENGTH_SHORT).show();
         }
 
-        long firstTime = CacheManager.getInstance().getFirstTime(channel_code, 0);
-        if (System.currentTimeMillis() - firstTime > refreshTime) {
-            mPresenter.getVideoData(channel_code, firstTime);
-            return;
-        }
-
-        if (isRefresh) {
-            mPresenter.getVideoData(channel_code, firstTime);
-            return;
-        }
     }
 
     @Override
