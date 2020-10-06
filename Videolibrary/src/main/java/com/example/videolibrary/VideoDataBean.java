@@ -1299,6 +1299,17 @@ public class VideoDataBean {
     }
 
     public static class ShareLargeImageBean {
+        @Override
+        public String toString() {
+            return "ShareLargeImageBean{" +
+                    "url='" + url + '\'' +
+                    ", width=" + width +
+                    ", uri='" + uri + '\'' +
+                    ", height=" + height +
+                    ", url_list=" + url_list +
+                    '}';
+        }
+
         /**
          * url : http://p6-tt-ipv6.byteimg.com/img/tos-cn-i-0000/f5391dd7133847f395169ea8bfc1d6ba~tplv-tt-cs0:960:540.webp
          * width : 960
@@ -1306,6 +1317,7 @@ public class VideoDataBean {
          * uri : large/tos-cn-i-0000/f5391dd7133847f395169ea8bfc1d6ba
          * height : 540
          */
+
 
         private String url;
         private int width;
@@ -1354,9 +1366,17 @@ public class VideoDataBean {
         }
 
         public static class UrlListBeanXX {
+            @Override
+            public String toString() {
+                return "UrlListBeanXX{" +
+                        "url='" + url + '\'' +
+                        '}';
+            }
+
             /**
              * url : http://p6-tt-ipv6.byteimg.com/img/tos-cn-i-0000/f5391dd7133847f395169ea8bfc1d6ba~tplv-tt-cs0:960:540.webp
              */
+
 
             private String url;
 
@@ -1397,6 +1417,21 @@ public class VideoDataBean {
     }
 
     public static class UserInfoBean {
+        @Override
+        public String toString() {
+            return "UserInfoBean{" +
+                    "avatar_url='" + avatar_url + '\'' +
+                    ", name='" + name + '\'' +
+                    ", description='" + description + '\'' +
+                    ", user_id=" + user_id +
+                    ", user_verified=" + user_verified +
+                    ", follow=" + follow +
+                    ", follower_count=" + follower_count +
+                    ", schema='" + schema + '\'' +
+                    ", live_info_type=" + live_info_type +
+                    '}';
+        }
+
         /**
          * avatar_url : https://sf1-ttcdn-tos.pstatp.com/img/pgc-image/2e2f33e37e124327b7f114b5c66ff35f~120x256.image
          * name : 綵姑娘的㕾蘑菇
@@ -1408,6 +1443,9 @@ public class VideoDataBean {
          * schema : sslocal://profile?uid=6864911006&refer=video
          * live_info_type : 1
          */
+
+
+
 
         private String avatar_url;
         private String name;

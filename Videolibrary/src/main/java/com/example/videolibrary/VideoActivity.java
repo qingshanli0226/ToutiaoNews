@@ -16,7 +16,6 @@ import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 public class VideoActivity extends AppCompatActivity {
     private StandardGSYVideoPlayer gsyplayer;
     private OrientationUtils orientationUtils;
-    private long time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,27 +40,21 @@ public class VideoActivity extends AppCompatActivity {
         //设置旋转
         orientationUtils = new OrientationUtils(this, gsyplayer);
         //设置全屏按键功能
-        gsyplayer.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        gsyplayer.getFullscreenButton().setOnClickListener(v -> {
 //                time = gsyplayer.getGSYVideoManager().getDuration();
 //                gsyplayer.getGSYVideoManager().seekTo(time);
-                orientationUtils.resolveByClick();  //此方法是切换屏幕旋转，例如现在是竖屏，调用后变横屏，反正一样，设置这个之前，先把Activity禁止横竖屏切换，并且竖屏模式，不然此方法无
-            }
+            orientationUtils.resolveByClick();  //此方法是切换屏幕旋转，例如现在是竖屏，调用后变横屏，反正一样，设置这个之前，先把Activity禁止横竖屏切换，并且竖屏模式，不然此方法无
         });
 
-        gsyplayer.getBackButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        gsyplayer.getBackButton().setOnClickListener(view -> {
 
-                if (VideoActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {//竖屏
-                    finish();
-                } else {
-                    Toast.makeText(VideoActivity.this, "返回竖屏模式", Toast.LENGTH_SHORT).show();
-                    orientationUtils.resolveByClick();
-                }
-
+            if (VideoActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {//竖屏
+                finish();
+            } else {
+                Toast.makeText(VideoActivity.this, "返回竖屏模式", Toast.LENGTH_SHORT).show();
+                orientationUtils.resolveByClick();
             }
+
         });
         gsyplayer.startPlayLogic();
 

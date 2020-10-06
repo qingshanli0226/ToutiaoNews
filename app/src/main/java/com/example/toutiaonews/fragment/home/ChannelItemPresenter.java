@@ -16,9 +16,7 @@ public class ChannelItemPresenter extends BasePresenter<ChannelItemContract.View
         mModel.requestGetData(mView.getCode(),lastTime ,new Observer<NewsResponse>() {
             @Override
             public void onSubscribe(Disposable d) {
-
             }
-
             @Override
             public void onNext(NewsResponse listBean) {
                 if (listBean!=null){

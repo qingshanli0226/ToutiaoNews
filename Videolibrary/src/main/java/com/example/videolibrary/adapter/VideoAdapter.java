@@ -1,5 +1,6 @@
 package com.example.videolibrary.adapter;
 
+import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -26,6 +27,8 @@ public class VideoAdapter extends BaseQuickAdapter<VideoDataBean, BaseViewHolder
 
         JZVideoPlayerStandard jzVideoPlayerStandard = helper.getView(R.id.item_video_jiaozi);
 
+//        Log.i("getUrl  ", "convert:   getUrl "+item.getShare_large_image().getUrl());
+        Log.i("getUrl  ", "convert:   getUrl "+item.getArticle_url());
         Glide.with(mContext).load(item.getShare_large_image().getUrl()).into(jzVideoPlayerStandard.thumbImageView);
         Glide.with(mContext).load(item.getUser_info().getAvatar_url()).apply(new RequestOptions().circleCrop()).into((ImageView) helper.getView(R.id.item_video_user_pic));
         helper.setText(R.id.item_video_user_name, item.getUser_info().getName());
