@@ -1,14 +1,11 @@
 package com.example.toutiaonews.activity;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.os.Build;
 import android.text.Editable;
 import android.view.Gravity;
 import android.view.View;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
@@ -21,7 +18,6 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.farmework.base.BaseActivity;
 import com.example.toutiaonews.R;
@@ -35,10 +31,6 @@ import com.umeng.socialize.UMShareListener;
 
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
 
 public class ParticularActivity extends BaseActivity {
@@ -124,16 +116,10 @@ public class ParticularActivity extends BaseActivity {
         final Button issue = inflate.findViewById(R.id.issue);
         final EditText mes = inflate.findViewById(R.id.mes);
         final RecyclerView recExpression = inflate.findViewById(R.id.recExpression);
-//        String emoji = FileUtil.readAssetsFile(this, "Emoji.json");
-//        List<EmojiEntity> emojiEntities = JsonParseUtil.parseEmojiList(emoji);
-//        EmojiAdapter emojiAdapter = new EmojiAdapter(emojiEntities);
-//        recExpression.setAdapter(emojiAdapter);
         final List<EmojiEntity> emojiEntities = JsonParseUtil.parseEmojiList(FileUtil.readAssetsFile(this, "Emoji.json"));
-//        EmojiAdapter emojiAdapter = new EmojiAdapter(emojiEntities);
         final EmojiAdapter emojiAdapter = new EmojiAdapter(R.layout.item_emoji, emojiEntities);
         recExpression.setAdapter(emojiAdapter);
         recExpression.setLayoutManager(new StaggeredGridLayoutManager(7,StaggeredGridLayoutManager.HORIZONTAL));
-
         //表情
         TextView smiling = inflate.findViewById(R.id.smiling);
         smiling.setText(emojiEntities.get(0).getUnicode());
@@ -155,8 +141,9 @@ public class ParticularActivity extends BaseActivity {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 String unicode = emojiEntities.get(position).getUnicode();
+                int selectionStart = mes.getSelectionStart();
                 Editable text = mes.getText();
-                mes.setText(text+unicode);
+                text.insert(selectionStart,unicode);
             }
         });
 
@@ -170,6 +157,17 @@ public class ParticularActivity extends BaseActivity {
 
 
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (web!=null){
+            web.removeAllViews();
+            web.destroy();
+            web=null;
+        }
+    }
+
     //分享
     private void getOnShare(){
         UMImage image = new UMImage(ParticularActivity.this, picurl);//网络图片
