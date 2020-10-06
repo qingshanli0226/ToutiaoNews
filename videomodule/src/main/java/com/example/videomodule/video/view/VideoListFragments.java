@@ -43,16 +43,22 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
     };
 
     private void initJsonData() {
+        //每次加载数据库前把之前集合清干净，防止出现重复
         listVideoData.clear();
+        //查询全部
         List<NewsRoomBean> query = CacheManager.getInstance().query();
         Gson gson = new Gson();
         for (int i = 0; i < query.size(); i++) {
             NewsRoomBean newsRoomBean = query.get(i);
+            //找到当前标签的json
             if(newsRoomBean.getChannelId().equals(channelCode)){
                 String jsonUrl = newsRoomBean.getJsonUrl();
+                //解析
                 VideoDataBean videoDataBean = gson.fromJson(jsonUrl, VideoDataBean.class);
+                //添加到集合第0项
                 listVideoData.add(0,videoDataBean);
                 long newsTime = newsRoomBean.getNewsTime();
+                //下次调用如果当前标签数据存的时间大于100000，删掉
                 if(System.currentTimeMillis() - newsTime >= 100000){
                     CacheManager.getInstance().deletTime(newsTime);
                 }
@@ -65,9 +71,11 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
 
     @Override
     protected void initHttpData() {
+        //是否请求过网络数据
         boolean b = CacheManager.getInstance().getisVisit(channel, false);
         visitTime = CacheManager.getInstance().getVisitTime(channelCode, 0);
         if(b){
+            //时间戳，下次加载时间
             if(System.currentTimeMillis() - visitTime >= 50000){
                 mPresenter.getVideoData(channelCode, channel);
                 CacheManager.getInstance().putisVisit(channel, false);
@@ -96,7 +104,6 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
         channel  = getArguments().getString("channel");
         videoRefrush.attchRecylerView(videoRv);
         videoRefrush.addRefreshListener(this);
-
     }
 
     @Override
@@ -137,6 +144,7 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
             newsRoomBean.setNewsTime(System.currentTimeMillis());
             CacheManager.getInstance().insert(newsRoomBean);
         }
+        //插入数据库更新UI
         handler.sendEmptyMessage(0);
     }
 

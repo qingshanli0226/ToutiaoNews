@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="RelativeHight">90dp</dimen>
+    <dimen name="Image">40dp</dimen>
+    <dimen name="ImageMargin">10dp</dimen>
+    <dimen name="TextMargin">140dp</dimen>
+    <dimen name="TextSize">25sp</dimen>
+    <dimen name="LinearHight">100dp</dimen>
+</resources>

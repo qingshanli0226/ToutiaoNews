@@ -43,9 +43,11 @@ public class VideoPresenterImpl extends VideoContract.VideoPresenter {
                 .subscribe(new BaseObserable<VideoBean>() {
                     @Override
                     public void onNext(VideoBean videoBean) {
+                        //参数时间戳
                         firstTime = System.currentTimeMillis() / 1000;
                         CacheManager.getInstance().putFirstTime("first",firstTime);
                         if(videoBean != null){
+                            //请求过网络数据
                             CacheManager.getInstance().putisVisit(channel, true);
                             iHttpView.onVideoData(videoBean);
                         }else{
