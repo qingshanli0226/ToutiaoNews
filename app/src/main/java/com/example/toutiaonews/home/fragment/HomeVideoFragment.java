@@ -78,6 +78,7 @@ public class HomeVideoFragment extends BaseMVPFragment<HomeVideoPresenterImpl, H
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 //刷新
                 //清空数据
+                CacheManager.getCacheManager().deleteCodeData(stringChannel);
                 videoDataBeans.clear();
                 long currentTime = System.currentTimeMillis();
                 //并把当前的时间戳存入sp文件中
@@ -91,12 +92,12 @@ public class HomeVideoFragment extends BaseMVPFragment<HomeVideoPresenterImpl, H
         homeVideoAdapter.setOnItemClickListener((adapter, view, position) -> {
             //bundle传值
             Bundle bundle = new Bundle();
-            bundle.putString(TouTiaoNewsConstant.WEBVIEW_URL,videoDataBeans.get(position).getArticle_url());
-            launchActivity(PlayerActivity.class,bundle);
+            bundle.putString(TouTiaoNewsConstant.WEBVIEW_URL, videoDataBeans.get(position).getArticle_url());
+            launchActivity(PlayerActivity.class, bundle);
         });
     }
 
-   @Override
+    @Override
     protected void initView() {
         //获取传递过来的频道值
         stringChannel = getArguments().getString(TouTiaoNewsConstant.ARGUMENT_CHANNEL);
@@ -111,27 +112,27 @@ public class HomeVideoFragment extends BaseMVPFragment<HomeVideoPresenterImpl, H
         boolean isLook = CacheManager.getCacheManager().getSPOfBoolean(TouTiaoNewsConstant.ISLOOK);
         //获取用户可见时的时间戳
         String userLookTime = CacheManager.getCacheManager().getSPOfString(TouTiaoNewsConstant.USERLOOKTIME);
-        if(isUserVisible && isViewCreated){
+        if (isUserVisible && isViewCreated) {
             //第一次 一定会执行
-            if(isOneData){
+            if (isOneData) {
                 //获取数据
                 iHttpPresenter.getVideoData(stringChannel);
-                Log.i("hj123123", "initHttpData: "+stringChannel);
+                Log.i("hj123123", "initHttpData: " + stringChannel);
                 isOneData = false;
                 //储存第一次执行网络请求的时间戳
-                CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.ONETIME,String.valueOf(System.currentTimeMillis()));
-            }else{
+                CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.ONETIME, String.valueOf(System.currentTimeMillis()));
+            } else {
                 //获取第一次网络请求的时间戳
                 String oneTime = CacheManager.getCacheManager().getSPOfString(TouTiaoNewsConstant.ONETIME);
                 //判断用户是否是第一次可见此Fragment  和  用户可见时的时间戳 - 第一次网络请求时的时间戳 是否超过5秒
-                if(isLook && Long.parseLong(userLookTime) - Long.parseLong(oneTime) > TouTiaoNewsConstant.REFRESHTIME){
+                if (isLook && Long.parseLong(userLookTime) - Long.parseLong(oneTime) > TouTiaoNewsConstant.REFRESHTIME) {
                     //清空数据
                     videoDataBeans.clear();
                     //储存第二次（隔了一段时间后请求网络数据的boolean）的状态
-                    CacheManager.getCacheManager().setSPOfBoolean(TouTiaoNewsConstant.ISTWODATA,true);
+                    CacheManager.getCacheManager().setSPOfBoolean(TouTiaoNewsConstant.ISTWODATA, true);
                     //请求数据
                     iHttpPresenter.getVideoData(stringChannel);
-                    Log.i("hj123123---", "initHttpData: "+stringChannel);
+                    Log.i("hj123123---", "initHttpData: " + stringChannel);
                 }
             }
 

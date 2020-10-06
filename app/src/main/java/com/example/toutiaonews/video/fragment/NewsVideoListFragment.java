@@ -114,42 +114,42 @@ public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImp
         videoListAdapter.setOnItemClickListener((adapter, view, position) -> {
             //bundle传值
             Bundle bundle = new Bundle();
-            bundle.putString(TouTiaoNewsConstant.WEBVIEW_URL,listData.get(position).getArticle_url());
-            launchActivity(PlayerActivity.class,bundle);
+            bundle.putString(TouTiaoNewsConstant.WEBVIEW_URL, listData.get(position).getArticle_url());
+            launchActivity(PlayerActivity.class, bundle);
         });
     }
 
-   @Override
+    @Override
     protected void initHttpData() {
-       //获取是否是第一次可见此Fragment的状态
-       boolean isLook = CacheManager.getCacheManager().getSPOfBoolean(TouTiaoNewsConstant.ISLOOK);
-       //获取用户可见时的时间戳
-       String userLookTime = CacheManager.getCacheManager().getSPOfString(TouTiaoNewsConstant.USERLOOKTIME);
-       //如果用户可见 和 视图创建了
-       if(isUserVisible && isViewCreated){
-           //第一次 一定会执行
-           if(isOneData){
-               //网络数据获取
-               iHttpPresenter.getNewsVideoData(mChannelCode);
-               Log.i("hj123123", "initHttpData: "+mChannelCode);
-               isOneData = false;
-               //储存第一次执行网络请求的时间戳
-               CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.ONETIME,String.valueOf(System.currentTimeMillis()));
-           } else{
-               //获取第一次网络请求的时间戳
-               String oneTime = CacheManager.getCacheManager().getSPOfString(TouTiaoNewsConstant.ONETIME);
-               //判断用户是否是第一次可见此Fragment  和  用户可见时的时间戳 - 第一次网络请求时的时间戳 是否超过5秒
-               if(isLook && Long.parseLong(userLookTime) - Long.parseLong(oneTime) > TouTiaoNewsConstant.REFRESHTIME){
-                   //清空数据
-                   listData.clear();
-                   //储存第二次（隔了一段时间后请求网络数据的boolean）的状态
-                   CacheManager.getCacheManager().setSPOfBoolean(TouTiaoNewsConstant.ISTWODATA,true);
-                   //请求数据
-                   iHttpPresenter.getNewsVideoData(mChannelCode);
-                   Log.i("hj123123---", "initHttpData: "+mChannelCode);
-               }
-           }
-       }
+        //获取是否是第一次可见此Fragment的状态
+        boolean isLook = CacheManager.getCacheManager().getSPOfBoolean(TouTiaoNewsConstant.ISLOOK);
+        //获取用户可见时的时间戳
+        String userLookTime = CacheManager.getCacheManager().getSPOfString(TouTiaoNewsConstant.USERLOOKTIME);
+        //如果用户可见 和 视图创建了
+        if (isUserVisible && isViewCreated) {
+            //第一次 一定会执行
+            if (isOneData) {
+                //网络数据获取
+                iHttpPresenter.getNewsVideoData(mChannelCode);
+                Log.i("hj123123", "initHttpData: " + mChannelCode);
+                isOneData = false;
+                //储存第一次执行网络请求的时间戳
+                CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.ONETIME, String.valueOf(System.currentTimeMillis()));
+            } else {
+                //获取第一次网络请求的时间戳
+                String oneTime = CacheManager.getCacheManager().getSPOfString(TouTiaoNewsConstant.ONETIME);
+                //判断用户是否是第一次可见此Fragment  和  用户可见时的时间戳 - 第一次网络请求时的时间戳 是否超过5秒
+                if (isLook && Long.parseLong(userLookTime) - Long.parseLong(oneTime) > TouTiaoNewsConstant.REFRESHTIME) {
+                    //清空数据
+                    listData.clear();
+                    //储存第二次（隔了一段时间后请求网络数据的boolean）的状态
+                    CacheManager.getCacheManager().setSPOfBoolean(TouTiaoNewsConstant.ISTWODATA, true);
+                    //请求数据
+                    iHttpPresenter.getNewsVideoData(mChannelCode);
+                    Log.i("hj123123---", "initHttpData: " + mChannelCode);
+                }
+            }
+        }
     }
 
     @Override
