@@ -1,21 +1,24 @@
 package com.example.toutiaonews.fragment.home;
 
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-
+import android.widget.Toast;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.framework2.cache.entity.NewEntity;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.example.framework2.manager.CacheManager;
 import com.example.framework2.mvp.view.BaseFragment;
 import com.example.net.activity_bean.entity.News;
 import com.example.net.activity_bean.entity.NewsData;
 import com.example.net.activity_bean.response.NewsResponse;
+import com.example.toutiaonews.NewsDataActivity;
 import com.example.toutiaonews.R;
 import com.google.gson.Gson;
 
@@ -50,6 +53,44 @@ public class HomeChannelFragment extends BaseFragment<ChannelItemPresenter> impl
         DividerItemDecoration dividerItemDecoration =  new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL);
         myRcv.addItemDecoration(dividerItemDecoration);
         myRcv.setAdapter(adapter);
+        //添加点击事件
+        myRcv.addOnItemTouchListener(new OnItemChildClickListener() {
+            @Override
+            public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+
+            }
+
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                super.onItemChildClick(adapter, view, position);
+                switch (view.getId()){
+                    case R.id.channel_item_center_linear:
+                        Intent intent = new Intent(getActivity(), NewsDataActivity.class);
+                        intent.putExtra("web",newsList.get(position).article_url);
+                        intent.putExtra("title",newsList.get(position).tag);
+                        startActivity(intent);
+                        break;
+                    case R.id.channel_item_right_linear:
+                        Intent intent1 = new Intent(getActivity(), NewsDataActivity.class);
+                        intent1.putExtra("web",newsList.get(position).article_url);
+                        intent1.putExtra("title",newsList.get(position).tag);
+                        startActivity(intent1);
+                        break;
+                    case R.id.channel_item_three_linear:
+                        Intent intent2 = new Intent(getActivity(), NewsDataActivity.class);
+                        intent2.putExtra("web",newsList.get(position).article_url);
+                        intent2.putExtra("title",newsList.get(position).tag);
+                        startActivity(intent2);
+                        break;
+                    case R.id.channel_itemt_text_linear:
+                        Intent intent3 = new Intent(getActivity(), NewsDataActivity.class);
+                        intent3.putExtra("web",newsList.get(position).article_url);
+                        intent3.putExtra("title",newsList.get(position).tag);
+                        startActivity(intent3);
+                        break;
+                }
+            }
+        });
     }
 
     @Override

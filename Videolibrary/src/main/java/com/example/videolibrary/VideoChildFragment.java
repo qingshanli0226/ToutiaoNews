@@ -5,15 +5,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
+import com.example.common.NetCommon;
 import com.example.framework.bean.BaseMVPFragment;
 import com.example.net.activity_bean.VideoBean;
 import com.example.videolibrary.adapter.VideoAdapter;
 import com.example.videolibrary.mvp.VideoChildContract;
 import com.example.videolibrary.mvp.VideoChildPresenterImpl;
+import com.example.videolibrary.utils.SqlUtils;
 import com.google.gson.Gson;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -31,6 +35,7 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
     private List<VideoDataBean> videoDataBeans;
     private String category;
     private boolean isRefresh = true;
+    private SQLiteDatabase db;
 
 //    private long time;
 
@@ -57,13 +62,14 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
         category = getArguments() != null ? getArguments().getString("category", "") : null;
         fragmentVideoChildRv = findViewById(R.id.fragment_video_child_rv);
         fragmentVideoChildSmart = findViewById(R.id.fragment_video_child_smart);
+
+
     }
 
     @Override
     protected void initHttpData() {
         Log.i(TAG, "initHttpData:     category       " + category);
         ihttpPresenter.getVideoChildData(category);
-
     }
 
     @Override
@@ -82,8 +88,6 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
             return;
         }
 
-
-
         if (videoDataBeans.size() > 0) {
             long videoDataTime = SPUtils.getInstance().getLong("videoDataTime");
 
@@ -96,7 +100,8 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
         if (isRefresh) {
             videoDataBeans.clear();
             //获取到数据 储存当前时间
-            SPUtils.getInstance().put("videoDataTime",System.currentTimeMillis() / 1000);
+            SPUtils.getInstance().put("videoDataTime", System.currentTimeMillis() / 1000);
+            db = new SqlUtils(getContext(), "videoData.db", null, 1).getWritableDatabase();
         }
 
         for (int i = 0; i < data.size(); i++) {
@@ -106,6 +111,13 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
             Log.i(TAG, "onVideoChildData:         " + articleUrl);
             videoDataBeans.add(videoDataBean);
             videoAdapter.notifyDataSetChanged();
+
+            //存储到数据库
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("UserInfoBean", videoDataBean.getUser_info().toString());
+            contentValues.put("ShareLargeImageBean", videoDataBean.getShare_large_image().toString());
+            db.insert("videoData", null, contentValues);
+            Log.i("BBBBBBBBBBBBBBBBBBB", "onVideoChildData:      num : ___________     "+db.query("videoData",null,null,null,null,null,null).getCount());
         }
         Log.i(TAG, "initHttpData:     videoDataBeans.size()       " + videoDataBeans.size());
     }

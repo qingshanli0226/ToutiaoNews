@@ -3,14 +3,18 @@ package com.example.toutiaonews;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.example.common.NetCommon;
 import com.example.framework2.manager.CacheManager;
 
 import com.example.net.activity_bean.response.NewsResponse;
 
 import com.example.net.http.HttpManager;
+import com.example.toutiaonews.fragment.me.MeFragment;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -37,6 +41,17 @@ public class WelcomeActivity extends AppCompatActivity {
                 timer.cancel();
             }
         },3000);
+        
+        //sp读取
+        if (NetCommon.NEW_ISLOGIN){
+            SharedPreferences sp = getSharedPreferences("username", 0);
+            String name = sp.getString("name", null);
+            boolean islogin = sp.getBoolean("islogin", false);
+            MeFragment.myName.setText(name);
+            Log.e("sp",name+"----------------"+islogin);
+        }else {
+            Toast.makeText(this, "没有存储", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void initData() {

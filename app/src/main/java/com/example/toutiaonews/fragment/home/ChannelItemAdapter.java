@@ -110,6 +110,12 @@ public class ChannelItemAdapter extends BaseMultiItemQuickAdapter<News, BaseView
         helper.setText(R.id.channel_item_author,item.source);
         helper.setText(R.id.channel_item_common,item.comment_count+"评论");
         helper.setText(R.id.channel_item_datetime,getLongToString(item.behot_time));
+        helper.addOnClickListener(R.id.channel_item_center_linear);
+        helper.addOnClickListener(R.id.channel_item_right_linear);
+        helper.addOnClickListener(R.id.channel_item_three_linear);
+        helper.addOnClickListener(R.id.channel_itemt_text_linear);
+
+
     }
 
     @Override

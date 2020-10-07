@@ -1,6 +1,7 @@
 package com.example.videolibrary;
 
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 
 import com.example.net.activity_bean.VideoBean;
 import com.example.net.activity_bean.entity.Channel;
+import com.example.videolibrary.utils.SqlUtils;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -27,11 +29,11 @@ import java.util.List;
  */
 public class VideoFragment extends Fragment {
     private TabLayout fragmentVideoTab;
-    private ImageView fragmentVideoSearchPic;
     private ViewPager fragmentVideoVp;
     private List<Fragment> fragmentList;
-    private List<VideoBean> videoBeans;
+
     private List<Channel> mChannelList;
+    private SQLiteDatabase db;
 
     public VideoFragment() {
         // Required empty public constructor
@@ -49,17 +51,18 @@ public class VideoFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ImageView fragmentVideoSearchPic;
 
         fragmentVideoTab = view.findViewById(R.id.fragment_video_tab);
         fragmentVideoSearchPic = view.findViewById(R.id.fragment_video_search_pic);
         fragmentVideoVp = view.findViewById(R.id.fragment_video_vp);
         fragmentList = new ArrayList<>();
 
+
         //添加tab数据
         tabAdd();
 
-
-        videoBeans = new ArrayList<>();
+        List<VideoBean> videoBeans = new ArrayList<>();
 
         for (int i = 0; i < mChannelList.size(); i++) {
             VideoChildFragment videoChildFragment = new VideoChildFragment();
@@ -131,7 +134,6 @@ public class VideoFragment extends Fragment {
     }
 
 
-
     private void tabAdd() {
 
         String[] channels = getResources().getStringArray(R.array.channel_video);
@@ -142,7 +144,7 @@ public class VideoFragment extends Fragment {
             String code = channelCodes[i];
             mChannelList.add(new Channel(title, code));
             fragmentVideoTab.addTab(fragmentVideoTab.newTab().setText(mChannelList.get(i).title));
-            Log.i("AAAAAAAAA", "tabAdd: "+code);
+            Log.i("AAAAAAAAA", "tabAdd: " + code);
         }
 
     }

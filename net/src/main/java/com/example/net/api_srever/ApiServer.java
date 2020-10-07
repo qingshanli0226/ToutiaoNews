@@ -53,10 +53,11 @@ public interface ApiServer {
 
     @POST("login")
     @FormUrlEncoded
-    Observable<BaseBean<LoginBean>> loginIn(@FieldMap TreeMap<String,String> params);
+//    Observable<BaseBean<LoginBean>> loginIn(@FieldMap TreeMap<String,String> params);
+    Observable<LoginBean> loginIn(@Field("name")String name,@Field("password")String password);
     @POST("register")
     @FormUrlEncoded
-    Observable<BaseBean<RegisterBean>> register(@FieldMap TreeMap<String,String> params);
+    Observable<RegisterBean> register(@Field("name")String name,@Field("password")String password);
     /**
      * 获取视频列表
      *

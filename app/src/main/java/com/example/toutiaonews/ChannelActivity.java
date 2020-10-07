@@ -218,6 +218,7 @@ public class ChannelActivity extends BaseActivity {
         finish();
     }
 
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -240,6 +241,8 @@ public class ChannelActivity extends BaseActivity {
 
 
     }
+
+
 
     @Override
     protected void onStop() {

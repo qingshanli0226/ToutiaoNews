@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="#F4F1F4"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <com.example.common.CustomToolbar
+        android:layout_width="match_parent"
+        android:background="#fff"
+        android:layout_height="50dp"
+        android:id="@+id/tag_toolbar">
+    </com.example.common.CustomToolbar>
+    <EditText
+        android:layout_marginTop="5dp"
+        android:layout_width="360dp"
+        android:layout_height="40dp"
+        android:id="@+id/tag_ed"
+        android:layout_gravity="center"
+        android:background="@drawable/tag_cicle"
+        android:drawableLeft="@drawable/search_channel"
+        android:hint="搜索话题">
+    </EditText>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="20dp"
+        android:background="#fff"
+        android:id="@+id/tag_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </androidx.recyclerview.widget.RecyclerView>
+</LinearLayout>
