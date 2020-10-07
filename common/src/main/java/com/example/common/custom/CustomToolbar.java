@@ -1,4 +1,4 @@
-package com.example.common;
+package com.example.common.custom;
 
 import android.content.Context;
 import android.os.Build;
@@ -12,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toolbar;
 
 import androidx.annotation.RequiresApi;
+
+import com.example.common.R;
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class CustomToolbar extends Toolbar {

@@ -31,7 +31,7 @@ public class RetroCreator  {
                 .addInterceptor(new MyInterceptor())
                 .build();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(NetCommon.BASE_URL)
+                .baseUrl("http://49.233.93.155:8080/")
                 .client(okHttpClient)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())

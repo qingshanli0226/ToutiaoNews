@@ -4,59 +4,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_marginTop="20dp"
+    android:orientation="vertical"
     tools:context=".NewsDataActivity">
-    <com.example.common.CustomToolbar
-        android:layout_weight="1"
+
+    <com.example.common.custom.CustomToolbar
+        android:id="@+id/news_toolbar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/news_toolbar">
-    </com.example.common.CustomToolbar>
+        android:layout_weight="1"></com.example.common.custom.CustomToolbar>
+
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_weight="15"
         android:id="@+id/news_scroll"
-        android:layout_height="0dp">
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="15">
+
         <WebView
+            android:id="@+id/news_webview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/news_webview">
-        </WebView>
+            android:layout_height="match_parent"></WebView>
+
     </ScrollView>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="horizontal"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_height="0dp">
+        android:orientation="horizontal">
+
         <EditText
-            android:layout_marginLeft="10dp"
+            android:id="@+id/news_comment"
             android:layout_width="200dp"
             android:layout_height="40dp"
-            android:id="@+id/news_comment"
-            android:hint="       写评论..."
-            android:background="@drawable/bg_circle">
-        </EditText>
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/bg_circle"
+            android:hint="       写评论..."></EditText>
+
         <ImageView
-            android:layout_marginLeft="20dp"
+            android:id="@+id/news_count"
             android:layout_width="40dp"
             android:layout_height="match_parent"
-            android:src="@drawable/comment_count"
-            android:id="@+id/news_count">
-        </ImageView>
-        <ImageView
             android:layout_marginLeft="20dp"
+            android:src="@drawable/comment_count"></ImageView>
+
+        <ImageView
+            android:id="@+id/news_love"
             android:layout_width="40dp"
             android:layout_height="match_parent"
-            android:src="@drawable/new_love_tabbar"
-            android:id="@+id/news_love">
-        </ImageView>
-        <ImageView
             android:layout_marginLeft="20dp"
+            android:src="@drawable/new_love_tabbar"></ImageView>
+
+        <ImageView
+            android:id="@+id/news_share"
             android:layout_width="40dp"
             android:layout_height="match_parent"
-            android:src="@drawable/share"
-            android:id="@+id/news_share">
-        </ImageView>
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/share"></ImageView>
     </LinearLayout>
 </LinearLayout>

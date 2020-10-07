@@ -2,29 +2,55 @@ package com.example.toutiaonews;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.example.common.NetCommon;
-import com.example.framework2.manager.CacheManager;
-
-import com.example.net.activity_bean.response.NewsResponse;
-
 import com.example.net.http.HttpManager;
-import com.example.toutiaonews.fragment.me.MeFragment;
-
+import com.example.toutiaonews.service.MyLoginService;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-
 public class WelcomeActivity extends AppCompatActivity {
+    private String token;
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //sp读取
+        boolean isLogin = SPUtils.getInstance().getBoolean("islogin", false);
+        if (isLogin){
+            token = SPUtils.getInstance().getString("token", null);
+        }else {
+            Toast.makeText(this, "没有登录记录", Toast.LENGTH_SHORT).show();
+        }
+        initService(this,token);
+
+    }
+    //自动登录的服务
+    private void initService(Context context,String token) {
+        Intent intent = new Intent();
+        intent.setClass(context, MyLoginService.class);
+        startService(intent);
+        context.bindService(intent, new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                MyLoginService.MyLoginBinder myLoginBinder= (MyLoginService.MyLoginBinder) service;
+                myLoginBinder.getService().autoLogin(token);
+            }
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+
+            }
+        },Context.BIND_AUTO_CREATE);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,16 +68,7 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         },3000);
         
-        //sp读取
-        if (NetCommon.NEW_ISLOGIN){
-            SharedPreferences sp = getSharedPreferences("username", 0);
-            String name = sp.getString("name", null);
-            boolean islogin = sp.getBoolean("islogin", false);
-            MeFragment.myName.setText(name);
-            Log.e("sp",name+"----------------"+islogin);
-        }else {
-            Toast.makeText(this, "没有存储", Toast.LENGTH_SHORT).show();
-        }
+
     }
 
     private void initData() {

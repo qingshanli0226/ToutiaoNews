@@ -4,6 +4,7 @@ package com.example.net.api_srever;
 import com.example.net.activity_bean.LoginBean;
 
 import com.example.net.activity_bean.RegisterBean;
+import com.example.net.activity_bean.autoLoginBean;
 import com.example.net.model.BaseBean;
 
 import java.util.HashMap;
@@ -50,14 +51,16 @@ public interface ApiServer {
      */
     @GET(GET_ARTICLE_LIST)
     Observable<NewsResponse> getNewsList(@Query("category") String category, @Query("min_behot_time") long lastTime, @Query("last_refresh_sub_entrance_interval") long currentTime);
-
+    @FormUrlEncoded
     @POST("login")
-    @FormUrlEncoded
-//    Observable<BaseBean<LoginBean>> loginIn(@FieldMap TreeMap<String,String> params);
     Observable<LoginBean> loginIn(@Field("name")String name,@Field("password")String password);
-    @POST("register")
+
     @FormUrlEncoded
+    @POST("register")
     Observable<RegisterBean> register(@Field("name")String name,@Field("password")String password);
+
+    @POST("autoLogin")
+    Observable<autoLoginBean> getAutoLogin(@Field("token") String token);
     /**
      * 获取视频列表
      *
