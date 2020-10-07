@@ -21,6 +21,7 @@ import com.example.net.activity_bean.response.NewsResponse;
 import com.example.toutiaonews.NewsDataActivity;
 import com.example.toutiaonews.R;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +44,13 @@ public class HomeChannelFragment extends BaseFragment<ChannelItemPresenter> impl
         newsList = new ArrayList<>();
         List<NewEntity> newEntity = CacheManager.getInstance().findNewEntity();
         if (newEntity.size()>0){
-            NewsResponse newsResponse = new Gson().fromJson(newEntity.get(0).getJsonStr(), NewsResponse.class);
-            getedData(newsResponse.data);
+            List<NewsData> newsDatas = new Gson().fromJson(newEntity.get(0).getJsonStr(),  new TypeToken<List<NewsData>>() {
+            }.getType());
+            Log.e("rrr", "initView: "+newsDatas.size() );
+            if (newsDatas.size()>0){
+                getedData(newsDatas);
+            }
+
         }
         myRcv= (RecyclerView) findViewById(R.id.my_rcv);
         codeBundle = getArguments();

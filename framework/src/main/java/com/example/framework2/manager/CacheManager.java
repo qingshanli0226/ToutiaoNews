@@ -13,6 +13,7 @@ import com.example.framework2.cache.dao.DaoSession;
 import com.example.framework2.cache.dao.NewEntityDao;
 import com.example.framework2.cache.entity.NewEntity;
 import com.example.net.activity_bean.entity.ChannelBean;
+import com.google.gson.Gson;
 
 
 import java.util.ArrayList;
@@ -21,6 +22,8 @@ import java.util.List;
 public class CacheManager {
     private CacheManager() {
     }
+
+
     private NewEntityDao newEntityDao;
     private List<Fragment> fragments;
     private List<Fragment> noFragments=new ArrayList<>();
@@ -35,6 +38,15 @@ public class CacheManager {
         }
 
         return instance;
+    }
+    public void saveSp(){
+        sharedPreferences=getSharedPreferences();
+        String s = new Gson().toJson(getOnList());
+        String s1 = new Gson().toJson(getNoList());
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(NetCommon.TAB_ON_DATA_KEY, s);
+        editor.putString(NetCommon.TAB_NO_DATA_KEY,s1);
+        editor.commit();
     }
     public List<Fragment> getNoFragments() {
         return noFragments;
@@ -93,14 +105,15 @@ public class CacheManager {
         DaoMaster daoMaster = new DaoMaster(openHelper.getWritableDb());
         DaoSession daoSession = daoMaster.newSession();
         newEntityDao=daoSession.getNewEntityDao();
+
     }
-    public void addNewEntity(NewEntity newEntity){
+    public synchronized void addNewEntity(NewEntity newEntity){
         newEntityDao.insert(newEntity);
     }
-    public void deleteNewEntity(NewEntity newEntity){
+    public synchronized void deleteNewEntity(NewEntity newEntity){
         newEntityDao.delete(newEntity);
     }
-    public List<NewEntity> findNewEntity(){
+    public synchronized List<NewEntity> findNewEntity(){
         List<NewEntity> list = newEntityDao.queryBuilder().list();
         return list;
     }

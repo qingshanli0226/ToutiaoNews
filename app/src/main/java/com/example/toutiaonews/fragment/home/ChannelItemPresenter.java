@@ -27,7 +27,7 @@ public class ChannelItemPresenter extends BasePresenter<ChannelItemContract.View
                     NewEntity newEntity = new NewEntity();
                     newEntity.setCode(mView.getCode());
                     newEntity.setTime(System.currentTimeMillis());
-                    String json = new Gson().toJson(listBean);
+                    String json = new Gson().toJson(listBean.data);
                     newEntity.setJsonStr(json);
                     CacheManager.getInstance().addNewEntity(newEntity);
                     mView.getedData(listBean.data);

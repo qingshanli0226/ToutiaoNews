@@ -33,7 +33,8 @@ public class NetCommon {
     public static final String PLAYER_VIDEO_URL = "videoUrl";
     public static final String PLAYER_VIDEO_LIST = "videoList";
     public static final String PLAYER_VIDEO_POSITION = "position";
-
+    public static final String TAB_ON_DATA_KEY = "OnTabJson";
+    public static final String TAB_NO_DATA_KEY = "NOTabJson";
 
     public static final String spName = "shopmall";
     public static final String tokenName = "token";

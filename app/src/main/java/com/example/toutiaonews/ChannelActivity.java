@@ -52,6 +52,7 @@ public class ChannelActivity extends BaseActivity {
             CacheManager.getInstance().setNoList(channelNoBeans);
             CacheManager.getInstance().setFragments(channelOnFragments);
             CacheManager.getInstance().setNoFragments(channelNoFragments);
+            CacheManager.getInstance().saveSp();
     }
 
 

@@ -24,7 +24,7 @@ public class NewEntityDao extends AbstractDao<NewEntity, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Id = new Property(0, long.class, "id", true, "_id");
+        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Code = new Property(1, String.class, "code", false, "CODE");
         public final static Property Time = new Property(2, long.class, "time", false, "TIME");
         public final static Property JsonStr = new Property(3, String.class, "jsonStr", false, "JSON_STR");
@@ -43,7 +43,7 @@ public class NewEntityDao extends AbstractDao<NewEntity, Long> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"NEW_ENTITY\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ," + // 0: id
+                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"CODE\" TEXT," + // 1: code
                 "\"TIME\" INTEGER NOT NULL ," + // 2: time
                 "\"JSON_STR\" TEXT);"); // 3: jsonStr
@@ -58,7 +58,11 @@ public class NewEntityDao extends AbstractDao<NewEntity, Long> {
     @Override
     protected final void bindValues(DatabaseStatement stmt, NewEntity entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getId());
+ 
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
+        }
  
         String code = entity.getCode();
         if (code != null) {
@@ -75,7 +79,11 @@ public class NewEntityDao extends AbstractDao<NewEntity, Long> {
     @Override
     protected final void bindValues(SQLiteStatement stmt, NewEntity entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getId());
+ 
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
+        }
  
         String code = entity.getCode();
         if (code != null) {
@@ -91,13 +99,13 @@ public class NewEntityDao extends AbstractDao<NewEntity, Long> {
 
     @Override
     public Long readKey(Cursor cursor, int offset) {
-        return cursor.getLong(offset + 0);
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     @Override
     public NewEntity readEntity(Cursor cursor, int offset) {
         NewEntity entity = new NewEntity( //
-            cursor.getLong(offset + 0), // id
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // code
             cursor.getLong(offset + 2), // time
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // jsonStr
@@ -107,7 +115,7 @@ public class NewEntityDao extends AbstractDao<NewEntity, Long> {
      
     @Override
     public void readEntity(Cursor cursor, NewEntity entity, int offset) {
-        entity.setId(cursor.getLong(offset + 0));
+        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setCode(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setTime(cursor.getLong(offset + 2));
         entity.setJsonStr(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
@@ -130,7 +138,7 @@ public class NewEntityDao extends AbstractDao<NewEntity, Long> {
 
     @Override
     public boolean hasKey(NewEntity entity) {
-        throw new UnsupportedOperationException("Unsupported for entities with a non-null key");
+        return entity.getId() != null;
     }
 
     @Override

@@ -22,6 +22,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.common.NetCommon;
 import com.example.framework2.manager.CacheManager;
 import com.example.framework2.mvp.view.BaseFragment;
 import com.example.net.activity_bean.entity.ChannelBean;
@@ -40,8 +41,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private ImageView homeManager;
     private ViewPager homeVp;
     private EditText homeEdit;
-    private final String TAB_ON_DATA_KEY = "OnTabJson";
-    private final String TAB_NO_DATA_KEY = "NOTabJson";
+
     private  SharedPreferences sp;
     private List<ChannelBean> tabList;
     private List<Fragment> noFragment;
@@ -50,13 +50,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private String spString ="";
     public void initData() {
 
-        String[] titles = getResources().getStringArray(R.array.channel);
-        String[] codes = getResources().getStringArray(R.array.channel_code);
-        for (int i = 0; i < titles.length; i++) {
-            tabList.add(new ChannelBean(titles[i],codes[i],true));
-        }
-        CacheManager.getInstance().setOnList(tabList);
-        initChannel();
+
+//        initChannel();
         initVp();
         initTab();
 
@@ -64,7 +59,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     private void initChannel() {
 
-        spString=sp.getString(TAB_ON_DATA_KEY, null);
+        spString=sp.getString(NetCommon.TAB_ON_DATA_KEY, null);
             Log.e("fff", "initChannel: sp" + spString);
             if (spString==null) {//判断是否为第一次进入
 
@@ -80,9 +75,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 CacheManager.getInstance().setFragments(fragments);
             } else {
                 //获取已选频道和未轩频道
-                List<ChannelBean> onList = new Gson().fromJson(sp.getString(TAB_ON_DATA_KEY, null), new TypeToken<List<ChannelBean>>() {
+                List<ChannelBean> onList = new Gson().fromJson(sp.getString(NetCommon.TAB_ON_DATA_KEY, null), new TypeToken<List<ChannelBean>>() {
                 }.getType());
-                List<ChannelBean> noList = new Gson().fromJson(sp.getString(TAB_NO_DATA_KEY, null), new TypeToken<List<ChannelBean>>() {
+                List<ChannelBean> noList = new Gson().fromJson(sp.getString(NetCommon.TAB_NO_DATA_KEY, null), new TypeToken<List<ChannelBean>>() {
                 }.getType());
                 //更新数据
                 CacheManager.getInstance().setNoList(noList);
@@ -195,9 +190,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-        if (CacheManager.getInstance().getFragments().size()==0){
-            initChannel();
-        }
+//        if (CacheManager.getInstance().getFragments().size()==0){
+//            initChannel();
+//        }
         Log.e("rrr", CacheManager.getInstance().getNoFragments().size()+"edit: "+CacheManager.getInstance().getFragments().size() );
         pagerAdapter.notifyDataSetChanged();
         homeVp.setCurrentItem(0);
@@ -208,14 +203,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        sp=CacheManager.getInstance().getSharedPreferences();
-        String s = new Gson().toJson(CacheManager.getInstance().getOnList());
-        String s1 = new Gson().toJson(CacheManager.getInstance().getNoList());
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putString(TAB_ON_DATA_KEY, s);
-        editor.putString(TAB_NO_DATA_KEY,s1);
-        editor.commit();
-        Log.e(s1+"fff", "onDestroy: " +s);
+
     }
 
 

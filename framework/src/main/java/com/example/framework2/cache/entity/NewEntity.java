@@ -7,12 +7,12 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity
 public class NewEntity {
     @Id(autoincrement = true)
-    long id;
+    Long id;
     private String code;
     private long time;
     private String jsonStr;
-    @Generated(hash = 1535269073)
-    public NewEntity(long id, String code, long time, String jsonStr) {
+    @Generated(hash = 1284006656)
+    public NewEntity(Long id, String code, long time, String jsonStr) {
         this.id = id;
         this.code = code;
         this.time = time;
@@ -21,10 +21,10 @@ public class NewEntity {
     @Generated(hash = 957491840)
     public NewEntity() {
     }
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public String getCode() {
@@ -45,4 +45,5 @@ public class NewEntity {
     public void setJsonStr(String jsonStr) {
         this.jsonStr = jsonStr;
     }
+   
 }
