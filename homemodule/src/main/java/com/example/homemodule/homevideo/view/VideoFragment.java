@@ -60,7 +60,11 @@ public class VideoFragment extends BaseMVPFragment<VideoPresenter, VideoContract
 
     @Override
     protected int bandLayout() {
+<<<<<<< HEAD:homemodule/src/main/java/com/example/homemodule/homevideo/view/VideoFragment.java
         return R.layout.fragment_homevideo;
+=======
+        return R.layout.home_fragment_video;
+>>>>>>> 主页面缓存整合:homemodule/src/main/java/com/bw/homemodule/video/view/VideoFragment.java
     }
 
     @Override
