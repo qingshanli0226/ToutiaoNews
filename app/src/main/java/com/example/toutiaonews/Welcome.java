@@ -18,6 +18,7 @@ public class Welcome extends BaseActivity {
     private final int TAG = 1001;
     private int time = 5;
     private TextView mTimeDao;
+    private Timer timer;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(@NonNull Message msg) {
@@ -26,6 +27,7 @@ public class Welcome extends BaseActivity {
                 mTimeDao.setText(String.valueOf(time));
                 if (time == 0) {
                     startActivity(new Intent(Welcome.this, MainActivity.class));
+                    finish();
                 }
                 time--;
             }
@@ -44,7 +46,7 @@ public class Welcome extends BaseActivity {
 
     @Override
     public void initData() {
-        Timer timer = new Timer();
+        timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -56,5 +58,12 @@ public class Welcome extends BaseActivity {
     @Override
     public int bandLayout() {
         return R.layout.layout_welcome;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        timer.cancel();
+        handler.removeCallbacksAndMessages(null);
     }
 }
