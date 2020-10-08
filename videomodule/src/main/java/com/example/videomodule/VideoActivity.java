@@ -7,7 +7,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.farmework.base.BaseActivity;
 import com.example.farmework.listener.PermissionListener;
-import com.example.toutiaonews.R;
 import com.example.videomodule.fragment.VideoFragment;
 
 import java.util.List;

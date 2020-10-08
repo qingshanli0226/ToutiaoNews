@@ -16,7 +16,7 @@ import com.example.common.entity.VideoBean;
 import com.example.common.entity.VideoDataBean;
 import com.example.common.mine.BGRefrushLayout;
 import com.example.farmework.base.BaseMVPFragment;
-import com.example.toutiaonews.R;
+import com.example.videomodule.R;
 import com.example.videomodule.adapter.VideoListAdapter;
 import com.example.videomodule.video.contract.VideoContract;
 import com.example.videomodule.video.presenter.VideoPresenterImpl;
@@ -34,29 +34,18 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
     private List<VideoDataBean> listVideoData = new ArrayList<>();
     private VideoListAdapter videoListAdapter;
     private long visitTime;
-    Handler handler = new Handler(){
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            super.handleMessage(msg);
-            initJsonData();
-        }
-    };
 
-    private void initJsonData() {
+    private void putRoomData() {
         //每次加载数据库前把之前集合清干净，防止出现重复
         listVideoData.clear();
         //查询全部
         List<NewsRoomBean> query = CacheManager.getInstance().query();
-        Gson gson = new Gson();
         for (int i = 0; i < query.size(); i++) {
             NewsRoomBean newsRoomBean = query.get(i);
             //找到当前标签的json
             if(newsRoomBean.getChannelId().equals(channelCode)){
                 String jsonUrl = newsRoomBean.getJsonUrl();
-                //解析
-                VideoDataBean videoDataBean = gson.fromJson(jsonUrl, VideoDataBean.class);
-                //添加到集合第0项
-                listVideoData.add(0,videoDataBean);
+                initGsonData(jsonUrl);
                 long newsTime = newsRoomBean.getNewsTime();
                 //下次调用如果当前标签数据存的时间大于100000，删掉
                 if(System.currentTimeMillis() - newsTime >= 100000){
@@ -64,23 +53,29 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
                 }
             }
         }
-        videoListAdapter = new VideoListAdapter(R.layout.item_listview,listVideoData);
-        videoRv.setAdapter(videoListAdapter);
-        videoRv.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
+
+    private void initGsonData(String jsonurl) {
+        Gson gson = new Gson();
+        //解析
+        VideoDataBean videoDataBean = gson.fromJson(jsonurl, VideoDataBean.class);
+        //添加到集合第0项
+        listVideoData.add(0,videoDataBean);
+        videoListAdapter.notifyDataSetChanged();
     }
 
     @Override
     protected void initHttpData() {
         //是否请求过网络数据
         boolean b = CacheManager.getInstance().getisVisit(channel, false);
-        visitTime = CacheManager.getInstance().getVisitTime(channelCode, 0);
         if(b){
+            visitTime = CacheManager.getInstance().getVisitTime(channelCode, 0);
             //时间戳，下次加载时间
             if(System.currentTimeMillis() - visitTime >= 50000){
                 mPresenter.getVideoData(channelCode, channel);
                 CacheManager.getInstance().putisVisit(channel, false);
             }else{
-                initJsonData();
+                putRoomData();
             }
         }else{
             mPresenter.getVideoData(channelCode, channel);
@@ -104,6 +99,9 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
         channel  = getArguments().getString("channel");
         videoRefrush.attchRecylerView(videoRv);
         videoRefrush.addRefreshListener(this);
+        videoListAdapter = new VideoListAdapter(R.layout.item_listview,listVideoData);
+        videoRv.setAdapter(videoListAdapter);
+        videoRv.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     @Override
@@ -137,22 +135,19 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
     @Override
     public void onVideoData(VideoBean videoBean) {
         for (int i = 0; i < videoBean.getData().size(); i++) {
+            initGsonData(videoBean.getData().get(i).getContent());
             NewsRoomBean newsRoomBean = new NewsRoomBean();
             newsRoomBean.setChannelId(channelCode);
-            Log.i("----json", videoBean.getData().get(i).getContent());
             newsRoomBean.setJsonUrl(videoBean.getData().get(i).getContent());
             newsRoomBean.setNewsTime(System.currentTimeMillis());
             CacheManager.getInstance().insert(newsRoomBean);
         }
-        //插入数据库更新UI
-        handler.sendEmptyMessage(0);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         videoRefrush.cancel();
-        handler.sendEmptyMessage(0);
     }
 
     @Override

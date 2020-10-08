@@ -16,6 +16,7 @@ public class CacheManager {
     private SharedPreferences twoGroup;
     private NewsDao newsDao;
     private SharedPreferences.Editor edit;
+    private Context mContext;
 
     public static CacheManager getInstance() {
         if (cacheManager == null) {
@@ -29,9 +30,30 @@ public class CacheManager {
     }
 
     public void init(Context context) {
+        mContext = context;
         twoGroup = context.getSharedPreferences("TwoGroup", Context.MODE_PRIVATE);
         edit = twoGroup.edit();
         newsDao = NewsDatabeans.getInstance(context).getNewsDao();
+    }
+
+    public synchronized boolean getisVisit(String key, boolean isVisit) {
+        boolean IsVisit = twoGroup.getBoolean(key, isVisit);
+        return IsVisit;
+    }
+
+    public synchronized void putisVisit(String key, boolean isVisit) {
+        edit.putBoolean(key, isVisit);
+        edit.commit();
+    }
+
+    public synchronized long getVisitTime(String key, long VisitTime) {
+        long visitTime = twoGroup.getLong(key, VisitTime);
+        return visitTime;
+    }
+
+    public synchronized void putVisitTime(String key, long VisitTime) {
+        edit.putLong(key, VisitTime);
+        edit.commit();
     }
 
     public synchronized void putFirstTime(String key, long firstTime) {
@@ -66,9 +88,9 @@ public class CacheManager {
         newsDao.deleteNewsBean(newsTime);
     }
 
-    public boolean isConnect(Context context) {
+    public boolean isConnect() {
         //普通网络判断
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         if (activeNetworkInfo != null) { //有网返回true
             return true;

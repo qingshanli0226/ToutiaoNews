@@ -1,7 +1,6 @@
 package com.example.videomodule.video.contract;
 
 import com.example.common.entity.VideoBean;
-import com.example.common.entity.VideoDataBean;
 import com.example.farmework.base.BasePresenter;
 import com.example.farmework.base.IView;
 

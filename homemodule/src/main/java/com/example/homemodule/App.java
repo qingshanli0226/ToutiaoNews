@@ -1,13 +1,20 @@
-package com.example.videomodule.app;
+package com.example.homemodule;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.example.common.cache.CacheManager;
 
 public class App extends Application {
+
+    public static Context app;
+
     @Override
     public void onCreate() {
         super.onCreate();
-//        CacheManager.getInstance().init(this);
+
+        app = this;
+        //sp储存时间戳
+        CacheManager.getInstance().init(this);
     }
 }

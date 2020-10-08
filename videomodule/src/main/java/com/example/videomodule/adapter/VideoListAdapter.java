@@ -9,11 +9,12 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.common.entity.VideoDataBean;
-import com.example.toutiaonews.R;
+import com.example.videomodule.R;
 
 import java.util.List;
 
 import cn.jzvd.JzvdStd;
+
 
 public class VideoListAdapter extends BaseQuickAdapter<VideoDataBean, BaseViewHolder> {
 

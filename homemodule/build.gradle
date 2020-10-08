@@ -1,4 +1,4 @@
-boolean isModule = true
+boolean isModule = false
 if (isModule) {
     apply plugin: 'com.android.application'
 } else {
@@ -7,23 +7,16 @@ if (isModule) {
 
 android {
     compileSdkVersion 29
-
-    if (!isModule){
-        buildToolsVersion "29.0.3"
-    }
-
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
-        if (isModule) {
-            applicationId "com.example.homemodule"
-            minSdkVersion 24
-        } else {
-            minSdkVersion 22
-        }
         targetSdkVersion 29
+        minSdkVersion 24
         versionCode 1
         versionName "1.0"
-
+        if(isModule){
+            applicationId "com.example.homemodule"
+        }
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }

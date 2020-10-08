@@ -8,12 +8,14 @@ import android.content.SharedPreferences;
 import android.os.IBinder;
 import androidx.fragment.app.Fragment;
 import com.example.farmework.base.BaseActivity;
+import com.example.homemodule.home.HomeFragment;
 import com.example.toutiaonews.R;
 import com.example.toutiaonews.appcontract.TouTiaoAppLication;
 import com.example.toutiaonews.fragment.MeFragment;
 import com.example.toutiaonews.fragment.MicroFragment;
 import com.example.toutiaonews.service.TouTiaoIntentService;
 import com.example.toutiaonews.view.LoadDialog;
+import com.example.videomodule.fragment.VideoFragment;
 import com.next.easynavigation.view.EasyNavigationBar;
 import java.util.ArrayList;
 import java.util.List;
@@ -71,8 +73,8 @@ public class MainActivity extends BaseActivity {
     protected void initView() {
         loadDialog=new LoadDialog(this);
         String[] stringArray = getResources().getStringArray(R.array.tab);
-        listFragment.add(new MicroFragment());
-        listFragment.add(new MicroFragment());
+        listFragment.add(new HomeFragment());
+        listFragment.add(new VideoFragment());
         listFragment.add(new MicroFragment());
         listFragment.add(new MeFragment());
         easyBar = (EasyNavigationBar) findViewById(R.id.easyBar);

@@ -1,7 +1,6 @@
 package com.example.videomodule.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -10,7 +9,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.common.constant.Constant;
 import com.example.common.entity.Channel;
 import com.example.farmework.base.BaseFragment;
-import com.example.toutiaonews.R;
+import com.example.videomodule.R;
 import com.example.videomodule.adapter.FragmentAdapter;
 import com.example.videomodule.video.view.VideoListFragments;
 

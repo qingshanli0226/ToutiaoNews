@@ -1,6 +1,5 @@
 package com.example.videomodule.adapter;
 
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
