@@ -3,8 +3,13 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:id="@+id/video_refrush"
     android:layout_height="match_parent">
-        <androidx.recyclerview.widget.RecyclerView
+        <com.example.promptpagemodule.promptpage.promptpageview.PromptView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/video_rv"></androidx.recyclerview.widget.RecyclerView>
+            android:id="@+id/video_prompt"
+            android:layout_height="match_parent">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/video_rv"></androidx.recyclerview.widget.RecyclerView>
+        </com.example.promptpagemodule.promptpage.promptpageview.PromptView>
 </com.example.common.mine.BGRefrushLayout>

@@ -13,9 +13,10 @@
             android:id="@+id/video_tab"
             android:background="@color/white"
             app:tabMode="scrollable"
-            app:tabTextAppearance="@style/TabStyle"
-            app:tabSelectedTextColor="@color/red"
-            app:tabTextColor="@color/black"
+            app:tabIndicatorColor="@color/color_f85959"
+            app:tabTextAppearance="@style/TextAppearanceVideo"
+            app:tabSelectedTextColor="@color/color_f85959"
+            app:tabTextColor="#ff222222"
             android:layout_height="@dimen/video_tabHight"></me.weyye.library.colortrackview.ColorTrackTabLayout>
         <ImageView
             android:layout_width="@dimen/imageWidth"
@@ -28,7 +29,6 @@
             android:src="@mipmap/search_channel"
             android:layout_centerVertical="true"/>
     </RelativeLayout>
-
     <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"

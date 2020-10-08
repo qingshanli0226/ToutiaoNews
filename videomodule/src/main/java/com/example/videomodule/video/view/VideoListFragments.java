@@ -16,6 +16,8 @@ import com.example.common.entity.VideoBean;
 import com.example.common.entity.VideoDataBean;
 import com.example.common.mine.BGRefrushLayout;
 import com.example.farmework.base.BaseMVPFragment;
+import com.example.promptpagemodule.promptpage.promptpageview.PromptPageViewHolder;
+import com.example.promptpagemodule.promptpage.promptpageview.PromptView;
 import com.example.videomodule.R;
 import com.example.videomodule.adapter.VideoListAdapter;
 import com.example.videomodule.video.contract.VideoContract;
@@ -34,7 +36,7 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
     private List<VideoDataBean> listVideoData = new ArrayList<>();
     private VideoListAdapter videoListAdapter;
     private long visitTime;
-
+    private PromptView videoPrompt;
     private void putRoomData() {
         //每次加载数据库前把之前集合清干净，防止出现重复
         listVideoData.clear();
@@ -102,18 +104,21 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
         videoListAdapter = new VideoListAdapter(R.layout.item_listview,listVideoData);
         videoRv.setAdapter(videoListAdapter);
         videoRv.setLayoutManager(new LinearLayoutManager(getContext()));
+        PromptPageViewHolder promptPageViewHolder = new PromptPageViewHolder(getContext());
+        videoPrompt.setHolder(promptPageViewHolder);
     }
 
     @Override
     protected void initView() {
         videoRefrush = (BGRefrushLayout) findViewById(R.id.video_refrush);
         videoRv = (RecyclerView) findViewById(R.id.video_rv);
+        videoPrompt = (PromptView) findViewById(R.id.video_prompt);
     }
 
 
     @Override
     public void showError(String code, String message) {
-        Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+        videoPrompt.showEmptyView();
     }
 
     @Override
