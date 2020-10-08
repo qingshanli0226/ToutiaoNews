@@ -3,13 +3,7 @@
     package="com.example.homemodule">
 
     <application>
-<<<<<<< HEAD
-        <activity android:name=".HomeActivity">
-=======
         <activity android:name=".HomeActivity"></activity>
     </application>
->>>>>>> 主页面缓存整合
 
-        </activity>
-    </application>
 </manifest>
