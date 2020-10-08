@@ -54,7 +54,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         viewPager.setAdapter(tabLayoutAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
-
     }
 
     @Override

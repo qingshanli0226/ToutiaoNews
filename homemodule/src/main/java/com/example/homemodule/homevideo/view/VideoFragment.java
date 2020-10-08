@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.common.cache.CacheManager;
+import com.example.common.constant.Constant;
 import com.example.common.entity.VideoDataBean;
 import com.example.common.mine.BGRefrushLayout;
 import com.example.farmework.base.BaseMVPFragment;
@@ -25,7 +26,6 @@ public class VideoFragment extends BaseMVPFragment<VideoPresenter, VideoContract
     private ArrayList<VideoDataBean> videoDataBeans = new ArrayList<>();
     private BGRefrushLayout vdBGRefrush;
     private boolean isRefresh = false;
-    private static final long refreshTime = 1000 * 60 * 2;
 
 
     public VideoFragment(String channel_code) {
@@ -43,16 +43,11 @@ public class VideoFragment extends BaseMVPFragment<VideoPresenter, VideoContract
             }
 
             long firstTime = CacheManager.getInstance().getFirstTime(channel_code, 0);
-            if (System.currentTimeMillis() - firstTime > refreshTime) {
+            if (System.currentTimeMillis() - firstTime > Constant.REFRESH_TIME || isRefresh) {
                 mPresenter.getVideoData(channel_code, firstTime);
-                return;
             }
 
-            if (isRefresh) {
-                mPresenter.getVideoData(channel_code, firstTime);
-                return;
-            }
-        }else {
+        } else {
             Toast.makeText(getContext(), "当前没有网络哦", Toast.LENGTH_SHORT).show();
         }
 

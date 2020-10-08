@@ -10,7 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.common.cache.CacheManager;
+import com.example.common.constant.Constant;
+import com.example.common.dao.NewsRoomBean;
 import com.example.common.entity.News;
+import com.example.common.entity.NewsData;
 import com.example.common.mine.BGRefrushLayout;
 import com.example.farmework.base.BaseMVPFragment;
 import com.example.homemodule.App;
@@ -18,8 +21,12 @@ import com.example.homemodule.R;
 import com.example.homemodule.adapter.NewsListAdapter;
 import com.example.homemodule.home.contract.HomeContract;
 import com.example.homemodule.home.presenter.HomePresenterImpl;
+import com.example.homemodule.untils.NewsItemTypeUntil;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class NewsListFragment extends BaseMVPFragment<HomePresenterImpl, HomeContract.IHomeView> implements HomeContract.IHomeView, BGRefrushLayout.IRefreshListener {
     private String channel_code;
@@ -30,7 +37,7 @@ public class NewsListFragment extends BaseMVPFragment<HomePresenterImpl, HomeCon
     private TextView errorText;
     private BGRefrushLayout homeRefrush;
     private boolean isRefresh = false;
-    private static final long refreshTime = 1000 * 60 * 2;
+
 
     public NewsListFragment(String channel_code) {
         this.channel_code = channel_code;
@@ -40,6 +47,7 @@ public class NewsListFragment extends BaseMVPFragment<HomePresenterImpl, HomeCon
     protected void initHttpData() {
 
         if (CacheManager.getInstance().isConnect()){  //判断是否有网
+
             //有网就开始数据请求
             lastTime = CacheManager.getInstance().getFirstTime(channel_code, 0);
             if (lastTime == 0) {
@@ -48,17 +56,15 @@ public class NewsListFragment extends BaseMVPFragment<HomePresenterImpl, HomeCon
 
             //懒加载控制数据刷新的逻辑
             long firstTime = CacheManager.getInstance().getFirstTime(channel_code, 0);
-            if (System.currentTimeMillis() - firstTime > refreshTime) {
+            if (System.currentTimeMillis() - firstTime > Constant.REFRESH_TIME || isRefresh || System.currentTimeMillis() - firstTime <= 1000) {
                 mPresenter.getHomeData(channel_code, firstTime);
-                return;
+            }else {
+                showSqlDatas();
             }
 
-            if (isRefresh) {
-                mPresenter.getHomeData(channel_code, firstTime);
-                return;
-            }
-        }else {
+        } else {
             Toast.makeText(getContext(), "当前没有网络哦", Toast.LENGTH_SHORT).show();
+            showSqlDatas();
         }
 
 
@@ -131,4 +137,30 @@ public class NewsListFragment extends BaseMVPFragment<HomePresenterImpl, HomeCon
         initHttpData();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        homeRefrush.cancel();
+    }
+
+    private void showSqlDatas(){
+        List<NewsRoomBean> newsRoomBeans = CacheManager.getInstance().query();
+        for (int i = 0; i < newsRoomBeans.size(); i++) {
+            NewsRoomBean newsRoomBean = newsRoomBeans.get(i);
+            if (newsRoomBean.getChannelId().equals(channel_code)) {
+                if (newsRoomBean != null) {
+                    String jsonUrl = newsRoomBean.getJsonUrl();
+                    ArrayList<NewsData> newsDatas = new Gson().fromJson(jsonUrl, new TypeToken<ArrayList<NewsData>>() {
+                    }.getType());
+                    for (int j = 0; j < newsDatas.size(); j++) {
+                        News news = new Gson().fromJson(newsDatas.get(j).content, News.class);
+                        NewsItemTypeUntil.ChangeItemType(news);
+                        newsList.add(news);
+                    }
+
+                }
+            }
+        }
+        newsListAdapter.notifyDataSetChanged();
+    }
 }

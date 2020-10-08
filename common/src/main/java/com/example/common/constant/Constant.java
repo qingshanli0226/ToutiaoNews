@@ -44,4 +44,6 @@ public class Constant {
     public static final String SOCKET_TIMEOUT_ERROR_CODE = "40000";
     public static final String SOCKET_TIMEOUT_ERROR_MESSAGE = "连接超时错误";
 
+    //主页面控制fragment来回切换刷新数据的时间间隔
+    public static final long REFRESH_TIME = 1000 * 60 * 2;
 }

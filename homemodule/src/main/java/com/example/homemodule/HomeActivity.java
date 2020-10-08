@@ -17,7 +17,7 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     protected int bandLayout() {
-        return R.layout.activity_main;
+        return R.layout.homemodule_activity_main;
     }
 
     @Override
