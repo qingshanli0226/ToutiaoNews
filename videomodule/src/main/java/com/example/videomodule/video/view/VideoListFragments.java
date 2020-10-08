@@ -152,7 +152,6 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
     @Override
     public void onDestroy() {
         super.onDestroy();
-        videoRefrush.cancel();
     }
 
     @Override

@@ -139,6 +139,7 @@ public class BGRefrushLayout extends LinearLayout {
                             if(iRefreshListener != null){
                                 iRefreshListener.onRefreshComplete();
                             }
+                            rotationY.cancel();
                         }
                     },1000);
                 } else {
@@ -198,6 +199,6 @@ public class BGRefrushLayout extends LinearLayout {
     }
 
     public void cancel(){
-        rotationY.cancel();
+
     }
 }

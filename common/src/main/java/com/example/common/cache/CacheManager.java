@@ -10,6 +10,8 @@ import com.example.common.dao.NewsDatabeans;
 import com.example.common.dao.NewsRoomBean;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class CacheManager {
     private static CacheManager cacheManager;
@@ -17,6 +19,7 @@ public class CacheManager {
     private NewsDao newsDao;
     private SharedPreferences.Editor edit;
     private Context mContext;
+    private ExecutorService executorService = Executors.newCachedThreadPool();
 
     public static CacheManager getInstance() {
         if (cacheManager == null) {
@@ -66,7 +69,6 @@ public class CacheManager {
         return firstTime;
     }
 
-
     public synchronized void insert(NewsRoomBean newsRoomBean) {
         newsDao.insertNews(newsRoomBean);
     }
@@ -98,4 +100,9 @@ public class CacheManager {
             return false;
         }
     }
+
+    public ExecutorService getExecutor(){
+        return executorService;
+    }
+
 }
