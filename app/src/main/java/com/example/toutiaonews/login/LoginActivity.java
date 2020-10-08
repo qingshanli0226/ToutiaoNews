@@ -1,4 +1,4 @@
-package com.example.toutiaonews.activity;
+package com.example.toutiaonews.login;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -8,11 +8,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 import com.example.farmework.base.BaseMVPActivity;
 import com.example.toutiaonews.R;
+import com.example.toutiaonews.register.RegisterActivity;
 import com.example.toutiaonews.appcontract.TouTiaoAppLication;
 import com.example.toutiaonews.bean.LoginEntity;
-import com.example.toutiaonews.contract.LoginContract;
-import com.example.toutiaonews.presenter.LoginPresenter;
-import com.example.toutiaonews.view.LoadDialog;
 
 public class LoginActivity extends BaseMVPActivity<LoginPresenter, LoginContract.ILoginView> implements LoginContract.ILoginView {
     private EditText username;
@@ -23,7 +21,6 @@ public class LoginActivity extends BaseMVPActivity<LoginPresenter, LoginContract
     private String passtr;
     private TouTiaoAppLication application;
     private Button req;
-    private LoadDialog loadDialog;
     @Override
     protected void initPresenter() {
         iHttpPresenter=new LoginPresenter();
@@ -44,7 +41,7 @@ public class LoginActivity extends BaseMVPActivity<LoginPresenter, LoginContract
         req.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
     }
@@ -67,7 +64,6 @@ public class LoginActivity extends BaseMVPActivity<LoginPresenter, LoginContract
         login = (Button) findViewById(R.id.login);
          application = (TouTiaoAppLication) getApplication();
         sp = application.sp;
-        loadDialog=new LoadDialog(this);
     }
     @Override
     public void onLoginData(LoginEntity loginEntity) {
@@ -98,11 +94,9 @@ public class LoginActivity extends BaseMVPActivity<LoginPresenter, LoginContract
 
     @Override
     public void showLoading() {
-        loadDialog.show();
     }
 
     @Override
     public void hideLoading() {
-        loadDialog.hide();
     }
 }

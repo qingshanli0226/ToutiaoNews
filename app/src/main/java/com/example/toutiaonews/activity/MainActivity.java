@@ -14,7 +14,6 @@ import com.example.toutiaonews.appcontract.TouTiaoAppLication;
 import com.example.toutiaonews.fragment.MeFragment;
 import com.example.toutiaonews.fragment.MicroFragment;
 import com.example.toutiaonews.service.TouTiaoIntentService;
-import com.example.toutiaonews.view.LoadDialog;
 import com.example.videomodule.fragment.VideoFragment;
 import com.next.easynavigation.view.EasyNavigationBar;
 import java.util.ArrayList;
@@ -29,7 +28,6 @@ public class MainActivity extends BaseActivity {
     private SharedPreferences sp;
     private String token;
     private TouTiaoAppLication application;
-    private LoadDialog loadDialog;
 
     @Override
     protected void initData() {
@@ -71,7 +69,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        loadDialog=new LoadDialog(this);
         String[] stringArray = getResources().getStringArray(R.array.tab);
         listFragment.add(new HomeFragment());
         listFragment.add(new VideoFragment());
@@ -79,6 +76,9 @@ public class MainActivity extends BaseActivity {
         listFragment.add(new MeFragment());
         easyBar = (EasyNavigationBar) findViewById(R.id.easyBar);
         easyBar.fragmentManager(getSupportFragmentManager())
+                .tabTextSize(20)
+                .navigationHeight(70)
+                .iconSize(30)
                 .mode(EasyNavigationBar.NavigationMode.MODE_NORMAL)
                 .normalIconItems(normalIcon)
                 .selectIconItems(selectIcon)

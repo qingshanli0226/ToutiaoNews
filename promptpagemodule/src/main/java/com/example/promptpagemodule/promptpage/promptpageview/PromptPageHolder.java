@@ -2,6 +2,9 @@ package com.example.promptpagemodule.promptpage.promptpageview;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.TextView;
+
+import com.example.promptpagemodule.R;
 
 public abstract class PromptPageHolder {
     public View mLoadingView;

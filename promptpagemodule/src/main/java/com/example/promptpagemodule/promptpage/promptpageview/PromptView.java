@@ -2,8 +2,12 @@ package com.example.promptpagemodule.promptpage.promptpageview;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.example.promptpagemodule.R;
 
 public class PromptView extends LinearLayout {
     private final int KEY_NORMAL= 0, KEY_LOADING = 1, KEY_EMPTY= 2, KEY_RETRY = 3;
@@ -30,6 +34,10 @@ public class PromptView extends LinearLayout {
         mHolder.mEmptyView.setLayoutParams(params);
         mHolder.mRetryView.setLayoutParams(params);
         mHolder.mLoadingView.setLayoutParams(params);
+    }
+    public void setErrorMessage(String message){
+        TextView errorMes = mHolder.mEmptyView.findViewById(R.id.errorMes);
+        errorMes.setText(message);
     }
     public void showEmptyView(){
         if (mViewType==KEY_EMPTY)

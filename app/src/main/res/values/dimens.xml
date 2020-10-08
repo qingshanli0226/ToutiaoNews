@@ -43,4 +43,5 @@
     <dimen name="sp100" >100sp</dimen>
     <dimen name="sp200" >200sp</dimen>
     <dimen name="sp300" >300sp</dimen>
+    <dimen name="me_text_size" >25sp</dimen>
 </resources>

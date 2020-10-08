@@ -1,4 +1,4 @@
-package com.example.toutiaonews.activity;
+package com.example.toutiaonews.register;
 
 import android.view.View;
 import android.widget.Button;
@@ -10,8 +10,6 @@ import com.example.promptpagemodule.promptpage.promptpageview.PromptPageViewHold
 import com.example.promptpagemodule.promptpage.promptpageview.PromptView;
 import com.example.toutiaonews.R;
 import com.example.toutiaonews.bean.RegisterEntity;
-import com.example.toutiaonews.contract.RegisterContract;
-import com.example.toutiaonews.presenter.RegisterPresenter;
 
 public class RegisterActivity extends BaseMVPActivity<RegisterPresenter, RegisterContract.registerView> implements RegisterContract.registerView {
     private EditText username;
