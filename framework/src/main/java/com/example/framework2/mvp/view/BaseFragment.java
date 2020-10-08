@@ -13,7 +13,7 @@ import com.example.framework2.mvp.presenter.IPresenter;
 import com.example.framework2.utils.Tools;
 
 
-public abstract class BaseFragment<P extends IPresenter> extends Fragment implements IFragment, IView, View.OnClickListener {
+public abstract class  BaseFragment<P extends IPresenter> extends Fragment implements IFragment, IView, View.OnClickListener {
     protected P mPresenter;
     private View baseView;
 

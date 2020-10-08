@@ -36,6 +36,9 @@
             android:theme="@style/TranslucentTheme"
 
             android:windowIsTranslucent="true">
+
+        </activity>
+        <activity android:name=".Welcome" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

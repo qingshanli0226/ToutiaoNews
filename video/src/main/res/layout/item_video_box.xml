@@ -23,20 +23,15 @@
 
         </ImageView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:background="@color/_title_video"
-            android:layout_height="@dimen/dp_40"
-            android:layout_alignParentTop="true">
             <TextView
                 android:layout_width="wrap_content"
-                android:id="@+id/item_title_video"
+                android:id="@+id/item_title_video_top"
+                android:background="_title_video"
                 android:singleLine="true"
                 android:gravity="center_vertical"
                 android:textSize="@dimen/dp_25"
                 android:textColor="@color/_title_text"
-                android:layout_height="match_parent"/>
-        </LinearLayout>
+                android:layout_height="@dimen/dp_40"/>
     </RelativeLayout>
 
     <LinearLayout

@@ -128,7 +128,6 @@ public class FragmentBox extends BaseFragment implements View.OnTouchListener {
     public int bandLayout() {
         return R.layout.fragment_box;
     }
-
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
