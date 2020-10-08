@@ -1,7 +1,6 @@
-package com.example.toutiaonews.presenter;
+package com.example.toutiaonews.register;
 
 import com.example.toutiaonews.bean.RegisterEntity;
-import com.example.toutiaonews.contract.RegisterContract;
 import com.example.toutiaonews.net.RetrofitManager;
 
 import io.reactivex.Observer;

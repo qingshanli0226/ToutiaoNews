@@ -16,7 +16,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.farmework.base.BaseFragment;
 import com.example.toutiaonews.R;
 import com.example.toutiaonews.appcontract.TouTiaoAppLication;
-import com.example.toutiaonews.activity.LoginActivity;
+import com.example.toutiaonews.login.LoginActivity;
 import com.wildma.pictureselector.PictureBean;
 import com.wildma.pictureselector.PictureSelector;
 import static com.wildma.pictureselector.PictureSelector.PICTURE_RESULT;
@@ -26,6 +26,7 @@ public class MeFragment extends BaseFragment {
     private Button unLogin;
     private RelativeLayout loginAfter;
     private TouTiaoAppLication application;
+    private RelativeLayout norLogin;
     @Override
     protected int bandLayout() {
         return R.layout.me_fragment;
@@ -104,6 +105,7 @@ public class MeFragment extends BaseFragment {
         loginAfter = (RelativeLayout) findViewById(R.id.loginAfter);
         handPic = (ImageView) findViewById(R.id.handPic);
         backUnlogin = (ImageView) findViewById(R.id.backUnlogin);
+        norLogin = (RelativeLayout) findViewById(R.id.norLogin);
         Glide.with(this).load(R.mipmap.my_avatar).transform(new CircleCrop()).into(handPic);
          application = (TouTiaoAppLication) getActivity().getApplication();
          autoLogin();
@@ -111,10 +113,10 @@ public class MeFragment extends BaseFragment {
 
     private void autoLogin() {
         if (application.tofLogin){
-            unLogin.setVisibility(View.GONE);
+            norLogin.setVisibility(View.GONE);
             loginAfter.setVisibility(View.VISIBLE);
         }else {
-            unLogin.setVisibility(View.VISIBLE);
+            norLogin.setVisibility(View.VISIBLE);
             loginAfter.setVisibility(View.GONE);
         }
     }

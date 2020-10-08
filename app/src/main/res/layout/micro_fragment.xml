@@ -34,17 +34,18 @@
             <ImageView
                 android:layout_marginLeft="@dimen/dp20"
                 android:src="@mipmap/micro_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="@dimen/dp40"
+                android:layout_height="@dimen/dp40" />
             <TextView
+                android:textSize="@dimen/me_text_size"
                 android:layout_marginLeft="@dimen/dp10"
                 android:text="@string/micro_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <View
-                android:layout_marginLeft="@dimen/dp30"
+                android:layout_marginLeft="@dimen/dp10"
                 android:background="@color/textNormalColor"
-                android:layout_width="@dimen/dp1"
+                android:layout_width="@dimen/dp2"
                 android:layout_height="match_parent"></View>
         </LinearLayout>
         <LinearLayout
@@ -55,17 +56,18 @@
             <ImageView
                 android:layout_marginLeft="@dimen/dp20"
                 android:src="@mipmap/micro_pic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="@dimen/dp40"
+                android:layout_height="@dimen/dp40" />
             <TextView
+                android:textSize="@dimen/me_text_size"
                 android:text="@string/micro_pic"
                 android:layout_marginLeft="@dimen/dp10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <View
-                android:layout_marginLeft="@dimen/dp30"
+                android:layout_marginLeft="@dimen/dp10"
                 android:background="@color/textNormalColor"
-                android:layout_width="@dimen/dp1"
+                android:layout_width="@dimen/dp2"
                 android:layout_height="match_parent"></View>
         </LinearLayout>
         <LinearLayout
@@ -76,17 +78,18 @@
             <ImageView
                 android:layout_marginLeft="@dimen/dp20"
                 android:src="@mipmap/micro_video"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="@dimen/dp40"
+                android:layout_height="@dimen/dp40" />
             <TextView
+                android:textSize="@dimen/me_text_size"
                 android:text="@string/micro_void"
                 android:layout_marginLeft="@dimen/dp10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <View
-                android:layout_marginLeft="@dimen/dp30"
+                android:layout_marginLeft="@dimen/dp10"
                 android:background="@color/textNormalColor"
-                android:layout_width="@dimen/dp1"
+                android:layout_width="@dimen/dp2"
                 android:layout_height="match_parent"></View>
         </LinearLayout>
     </LinearLayout>

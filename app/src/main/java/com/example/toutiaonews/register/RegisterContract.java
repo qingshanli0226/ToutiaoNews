@@ -1,4 +1,4 @@
-package com.example.toutiaonews.contract;
+package com.example.toutiaonews.register;
 
 import com.example.farmework.base.BasePresenter;
 import com.example.farmework.base.IView;

@@ -36,8 +36,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.WelcomeActivity"></activity>
-        <activity android:name=".activity.LoginActivity"></activity>
-        <activity android:name=".activity.RegisterActivity"></activity>
+        <activity android:name=".login.LoginActivity"></activity>
+        <activity android:name=".register.RegisterActivity"></activity>
         <activity
             android:name=".activity.ParticularActivity"
             android:process=":remoteWeb"></activity>
