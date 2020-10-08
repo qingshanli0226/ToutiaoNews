@@ -2,6 +2,7 @@ package com.example.homemodule.home.presenter;
 
 
 import com.example.common.cache.CacheManager;
+import com.example.common.dao.NewsRoomBean;
 import com.example.common.entity.News;
 import com.example.common.entity.NewsData;
 import com.example.common.response.NewsResponse;
@@ -11,6 +12,7 @@ import com.example.net.retrofit.RetrofitManager;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -41,6 +43,19 @@ public class HomePresenterImpl extends HomeContract.HomePresenter {
                                 NewsItemTypeUntil.ChangeItemType(news);
                                 newsList.add(news);
                             }
+
+//                            List<NewsRoomBean> newsRoomBeans = CacheManager.getInstance().query();
+//                            for (int i = 0; i < newsRoomBeans.size(); i++) {
+//                                NewsRoomBean newsRoomBean = newsRoomBeans.get(i);
+//
+//                            }
+                            //将每次获得的数据放入数据库
+                            NewsRoomBean newsRoomBean = new NewsRoomBean();
+                            String json = new Gson().toJson(newsResponse.data);
+                            newsRoomBean.setChannelId(category);
+                            newsRoomBean.setJsonUrl(json);
+                            newsRoomBean.setNewsTime(System.currentTimeMillis());
+                            CacheManager.getInstance().insert(newsRoomBean);
                         }
 
                         if (newsList.size()!=0){  //判断有数据时再返回给view层
