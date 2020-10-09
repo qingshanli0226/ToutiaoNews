@@ -19,7 +19,7 @@ public class CacheManager {
     private NewsDao newsDao;
     private SharedPreferences.Editor edit;
     private Context mContext;
-    private ExecutorService executorService = Executors.newCachedThreadPool();
+    public static ExecutorService executorService = Executors.newCachedThreadPool();
 
     public static CacheManager getInstance() {
         if (cacheManager == null) {
@@ -39,12 +39,12 @@ public class CacheManager {
         newsDao = NewsDatabeans.getInstance(context).getNewsDao();
     }
 
-    public synchronized boolean getisVisit(String key, boolean isVisit) {
+    public synchronized boolean getIsVisit(String key, boolean isVisit) {
         boolean IsVisit = twoGroup.getBoolean(key, isVisit);
         return IsVisit;
     }
 
-    public synchronized void putisVisit(String key, boolean isVisit) {
+    public synchronized void putIsVisit(String key, boolean isVisit) {
         edit.putBoolean(key, isVisit);
         edit.commit();
     }
@@ -78,15 +78,15 @@ public class CacheManager {
         return all;
     }
 
-    public synchronized NewsRoomBean queryChannel(String channel) {
+    public synchronized List<NewsRoomBean> queryChannel(String channel) {
         return newsDao.getNewsBean(channel);
     }
 
-    public void delet(NewsRoomBean newsRoomBean) {
+    public synchronized void delet(NewsRoomBean newsRoomBean) {
         newsDao.delete(newsRoomBean);
     }
 
-    public void deletTime(long newsTime) {
+    public synchronized void deletTime(long newsTime) {
         newsDao.deleteNewsBean(newsTime);
     }
 
@@ -101,8 +101,5 @@ public class CacheManager {
         }
     }
 
-    public ExecutorService getExecutor(){
-        return executorService;
-    }
 
 }

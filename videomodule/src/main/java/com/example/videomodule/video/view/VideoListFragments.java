@@ -1,5 +1,6 @@
 package com.example.videomodule.video.view;
 
+import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -15,6 +16,8 @@ import com.example.common.dao.NewsRoomBean;
 import com.example.common.entity.VideoBean;
 import com.example.common.entity.VideoDataBean;
 import com.example.common.mine.BGRefrushLayout;
+import com.example.common.runnable.MyRunnable;
+import com.example.common.runnable.ThreadInterface;
 import com.example.farmework.base.BaseMVPFragment;
 import com.example.promptpagemodule.promptpage.promptpageview.PromptPageViewHolder;
 import com.example.promptpagemodule.promptpage.promptpageview.PromptView;
@@ -25,11 +28,13 @@ import com.example.videomodule.video.presenter.VideoPresenterImpl;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ExecutorService;
 
 public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, VideoContract.IVideoView> implements VideoContract.IVideoView,BGRefrushLayout.IRefreshListener{
     private BGRefrushLayout videoRefrush;
-    private boolean arguments;
     private String channelCode;
     private String channel;
     private RecyclerView videoRv;
@@ -37,52 +42,80 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
     private VideoListAdapter videoListAdapter;
     private long visitTime;
     private PromptView videoPrompt;
-    private void putRoomData() {
-        //每次加载数据库前把之前集合清干净，防止出现重复
-        listVideoData.clear();
-        //查询全部
-        List<NewsRoomBean> query = CacheManager.getInstance().query();
-        for (int i = 0; i < query.size(); i++) {
-            NewsRoomBean newsRoomBean = query.get(i);
-            //找到当前标签的json
-            if(newsRoomBean.getChannelId().equals(channelCode)){
-                String jsonUrl = newsRoomBean.getJsonUrl();
-                initGsonData(jsonUrl);
-                long newsTime = newsRoomBean.getNewsTime();
-                //下次调用如果当前标签数据存的时间大于100000，删掉
-                if(System.currentTimeMillis() - newsTime >= 100000){
-                    CacheManager.getInstance().deletTime(newsTime);
-                }
+
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 0) {
+                videoListAdapter.notifyDataSetChanged();
+            }else if(msg.what == 1){
+                putRoomData();
             }
         }
+    };
+    private void putRoomData() {
+        MyRunnable myRunnable = new MyRunnable(new ThreadInterface() {
+            @Override
+            public void readDbCache() {
+                //每次加载数据库前把之前集合清干净，防止出现重复
+                listVideoData.clear();
+                //查询全部
+                List<NewsRoomBean> query = CacheManager.getInstance().queryChannel(channelCode);
+                for (int i = 0; i < query.size(); i++) {
+                    NewsRoomBean newsRoomBean = query.get(i);
+                    //找到当前标签的json
+                    String jsonUrl = newsRoomBean.getJsonUrl();
+                    Log.i("----json", jsonUrl);
+                    initGsonData(jsonUrl,1);
+                    long newsTime = newsRoomBean.getNewsTime();
+                    //下次调用如果当前标签数据存的时间大于100000，删掉
+                    if(System.currentTimeMillis() - newsTime >= 100000){
+                        CacheManager.getInstance().deletTime(newsTime);
+                    }
+
+                }
+            }
+        });
+        CacheManager.executorService.execute(myRunnable);
+
     }
 
-    private void initGsonData(String jsonurl) {
+    private void initGsonData(String jsonurl,int type) {
         Gson gson = new Gson();
         //解析
         VideoDataBean videoDataBean = gson.fromJson(jsonurl, VideoDataBean.class);
         //添加到集合第0项
-        listVideoData.add(0,videoDataBean);
-        videoListAdapter.notifyDataSetChanged();
+        if(type == 0){
+            listVideoData.add(0,videoDataBean);
+        }else{
+            listVideoData.add(videoDataBean);
+        }
+        handler.sendEmptyMessage(0);
     }
 
     @Override
     protected void initHttpData() {
-        //是否请求过网络数据
-        boolean b = CacheManager.getInstance().getisVisit(channel, false);
-        if(b){
-            visitTime = CacheManager.getInstance().getVisitTime(channelCode, 0);
-            //时间戳，下次加载时间
-            if(System.currentTimeMillis() - visitTime >= 50000){
-                mPresenter.getVideoData(channelCode, channel);
-                CacheManager.getInstance().putisVisit(channel, false);
+        if(CacheManager.getInstance().isConnect()){
+            //是否请求过网络数据
+            boolean isVisit = CacheManager.getInstance().getIsVisit(channel, false);
+            if(isVisit){
+                visitTime = CacheManager.getInstance().getVisitTime(channelCode, 0);
+                //时间戳，下次加载时间
+                if(System.currentTimeMillis() - visitTime >= 50000){
+                    mPresenter.getVideoData(channelCode, channel);
+                    CacheManager.getInstance().putIsVisit(channel, false);
+                }else{
+                    handler.sendEmptyMessage(1);
+                }
             }else{
-                putRoomData();
+                mPresenter.getVideoData(channelCode, channel);
             }
         }else{
-            mPresenter.getVideoData(channelCode, channel);
+            handler.sendEmptyMessage(1);
         }
     }
+
 
     @Override
     protected void initPresenter() {
@@ -96,7 +129,6 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
 
     @Override
     protected void initData() {
-        arguments  = getArguments().getBoolean(Constant.IS_VIDEO_LIST);
         channelCode  = getArguments().getString(Constant.CHANNEL_CODE);
         channel  = getArguments().getString("channel");
         videoRefrush.attchRecylerView(videoRv);
@@ -118,7 +150,7 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
 
     @Override
     public void showError(String code, String message) {
-        videoPrompt.showEmptyView();
+        videoPrompt.setErrorMessage(message);
     }
 
     @Override
@@ -138,24 +170,21 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
 
     //拿到数据并进行解析
     @Override
-    public void onVideoData(VideoBean videoBean) {
-        for (int i = 0; i < videoBean.getData().size(); i++) {
-            initGsonData(videoBean.getData().get(i).getContent());
-            NewsRoomBean newsRoomBean = new NewsRoomBean();
-            newsRoomBean.setChannelId(channelCode);
-            newsRoomBean.setJsonUrl(videoBean.getData().get(i).getContent());
-            newsRoomBean.setNewsTime(System.currentTimeMillis());
-            CacheManager.getInstance().insert(newsRoomBean);
-        }
+    public void onVideoData(String videoBean) {
+        initGsonData(videoBean,0);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        videoRefrush.cancel();
+        handler.removeMessages(0);
     }
 
     @Override
     public void onRefreshComplete() {
         mPresenter.getVideoData(channelCode,channel);
     }
+
+
 }

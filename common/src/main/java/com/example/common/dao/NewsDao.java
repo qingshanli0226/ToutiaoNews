@@ -17,8 +17,8 @@ public interface NewsDao {
     @Query("SELECT * FROM news_table")
     List<NewsRoomBean> getAll();
 
-    @Query("SELECT * FROM news_table WHERE channelId =:channelId")
-    NewsRoomBean getNewsBean(String channelId);
+    @Query("SELECT * FROM news_table WHERE channelId =:channelId order by newsTime desc")
+    List<NewsRoomBean> getNewsBean(String channelId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertNews(NewsRoomBean... newsRoomBeans);

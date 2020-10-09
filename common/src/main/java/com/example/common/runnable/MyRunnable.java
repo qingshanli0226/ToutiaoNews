@@ -8,7 +8,7 @@ public class MyRunnable implements Runnable {
         this.threadInterface = new WeakReference<>(threadInterface);
     }
     @Override
-    public void run() {
+    public synchronized void run() {
         threadInterface.get().readDbCache();
     }
 }

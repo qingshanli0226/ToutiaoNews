@@ -2,6 +2,7 @@ package com.example.net.api;
 
 import com.example.common.entity.NewsDetail;
 import com.example.common.entity.VideoBean;
+import com.example.common.entity.VideoDataBean;
 import com.example.common.entity.VideoModel;
 import com.example.common.response.CommentResponse;
 import com.example.common.response.NewsResponse;

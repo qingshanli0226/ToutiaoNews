@@ -2,7 +2,9 @@ package com.example.videomodule.video.presenter;
 
 
 import com.example.common.cache.CacheManager;
+import com.example.common.dao.NewsRoomBean;
 import com.example.common.entity.VideoBean;
+import com.example.common.entity.VideoDataBean;
 import com.example.net.obserable.BaseObserable;
 import com.example.net.retrofit.RetrofitManager;
 import com.example.videomodule.video.contract.VideoContract;
@@ -28,8 +30,18 @@ public class VideoPresenterImpl extends VideoContract.VideoPresenter {
                         firstTime = System.currentTimeMillis() / 1000;
                         CacheManager.getInstance().putFirstTime("first",firstTime);
                         //请求过网络数据
-                        CacheManager.getInstance().putisVisit(channel, true);
-                        iHttpView.onVideoData(videoBean);
+                        CacheManager.getInstance().putIsVisit(channel, true);
+                        synchronized (String.class){
+                            for (int i = 0; i < videoBean.getData().size(); i++) {
+                                String content = videoBean.getData().get(i).getContent();
+                                NewsRoomBean newsRoomBean = new NewsRoomBean();
+                                newsRoomBean.setChannelId(category);
+                                newsRoomBean.setJsonUrl(content);
+                                newsRoomBean.setNewsTime(System.currentTimeMillis());
+                                CacheManager.getInstance().insert(newsRoomBean);
+                                iHttpView.onVideoData(content);
+                            }
+                        }
                     }
 
                     @Override
