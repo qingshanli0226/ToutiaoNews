@@ -113,6 +113,14 @@ public class CacheManager {
     public synchronized void deleteNewEntity(NewEntity newEntity){
         newEntityDao.delete(newEntity);
     }
+    public NewEntity findOneEntity(String code){
+        List<NewEntity> list = newEntityDao.queryBuilder().where(NewEntityDao.Properties.Code.eq(code)).orderAsc(NewEntityDao.Properties.Time).limit(1).list();
+        Log.e("rrr", "findOneEntity: "+list.size() );
+        if (list.size()==0){
+            return null;
+        }
+        return list.get(0);
+    }
     public synchronized List<NewEntity> findNewEntity(){
         List<NewEntity> list = newEntityDao.queryBuilder().list();
         return list;

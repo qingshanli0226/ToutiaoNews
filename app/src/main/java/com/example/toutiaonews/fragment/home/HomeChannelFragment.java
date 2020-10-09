@@ -42,18 +42,11 @@ public class HomeChannelFragment extends BaseFragment<ChannelItemPresenter> impl
     public void initView() {
          sp = CacheManager.getInstance().getSharedPreferences();
         newsList = new ArrayList<>();
-        List<NewEntity> newEntity = CacheManager.getInstance().findNewEntity();
-        if (newEntity.size()>0){
-            List<NewsData> newsDatas = new Gson().fromJson(newEntity.get(0).getJsonStr(),  new TypeToken<List<NewsData>>() {
-            }.getType());
-            Log.e("rrr", "initView: "+newsDatas.size() );
-            if (newsDatas.size()>0){
-                getedData(newsDatas);
-            }
-
-        }
-        myRcv= (RecyclerView) findViewById(R.id.my_rcv);
         codeBundle = getArguments();
+
+
+
+        myRcv= (RecyclerView) findViewById(R.id.my_rcv);
         adapter=new ChannelItemAdapter(newsList);
         myRcv.setLayoutManager(new LinearLayoutManager(getActivity()));
         DividerItemDecoration dividerItemDecoration =  new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL);
@@ -97,6 +90,14 @@ public class HomeChannelFragment extends BaseFragment<ChannelItemPresenter> impl
                 }
             }
         });
+
+        NewEntity oneEntity = CacheManager.getInstance().findOneEntity(getCode());
+        if (oneEntity==null){
+            return;
+        }
+        List<NewsData> newsDatas = new Gson().fromJson(oneEntity.getJsonStr(),  new TypeToken<List<NewsData>>() {
+        }.getType());
+        getedData(newsDatas);
     }
 
     @Override
@@ -121,14 +122,14 @@ public class HomeChannelFragment extends BaseFragment<ChannelItemPresenter> impl
 
     @Override
     public String getCode() {
-        Log.e("fff", "getCode: "+codeBundle.getString("code") );
+//        Log.e("fff", "getCode: "+codeBundle.getString("code") );
         return codeBundle.getString("code");
     }
 
     @Override
     public void getedData(List<NewsData> listBean) {
 
-        newsList.clear();
+//        newsList.clear();
         for (NewsData dataBean : listBean) {
             News news = new Gson().fromJson(dataBean.content, News.class);
             newsList.add(news);
