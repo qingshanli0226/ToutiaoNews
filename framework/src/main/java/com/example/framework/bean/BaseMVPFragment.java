@@ -1,7 +1,6 @@
 package com.example.framework.bean;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -30,6 +29,7 @@ public abstract class BaseMVPFragment<P extends IPresenter, V extends IView> ext
      this.isUserVisible = isVisibleToUser;
         loadNetWorkData();
     }
+
     protected void loadNetWorkData() {
         if (isUserVisible && isViewCreated) {
             initHttpData();

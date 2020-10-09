@@ -37,6 +37,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     //——	PhotoView (choose any one)
     implementation 'com.github.chrisbanes:PhotoView:2.1.4'
+    implementation 'com.blankj:utilcode:1.23.4'    //工具类
 //图片文件选择器
     implementation 'com.github.wildma:PictureSelector:1.1.6'
     implementation 'org.greenrobot:eventbus:3.1.1' //EventBus依赖

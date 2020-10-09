@@ -25,5 +25,5 @@ public abstract class BaseMVPActivity<P extends IPresenter, V extends IView> ext
     protected void onDestroy() {
         super.onDestroy();
         iHttpPresenter.detachView();
-    }
 }
+                }

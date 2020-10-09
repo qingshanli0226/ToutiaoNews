@@ -1,4 +1,4 @@
-package com.example.common;
+package com.example.common.custom;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -9,6 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+
+import com.example.common.R;
 
 public class CustomControl extends LinearLayout {
     private TextView myTitle;

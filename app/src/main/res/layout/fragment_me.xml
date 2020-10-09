@@ -150,36 +150,36 @@
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_height="365dp">
-            <com.example.common.CustomControl
+            <com.example.common.custom.CustomControl
                 android:id="@+id/customControl_one"
                 android:layout_width="match_parent"
                 android:layout_height="60dp">
-            </com.example.common.CustomControl>
-            <com.example.common.CustomControl
+            </com.example.common.custom.CustomControl>
+            <com.example.common.custom.CustomControl
                 android:layout_width="match_parent"
                 android:id="@+id/customControl_two"
                 android:layout_height="60dp">
-            </com.example.common.CustomControl>
-            <com.example.common.CustomControl
+            </com.example.common.custom.CustomControl>
+            <com.example.common.custom.CustomControl
                 android:layout_width="match_parent"
                 android:id="@+id/customControl_three"
                 android:layout_height="60dp">
-            </com.example.common.CustomControl>
-            <com.example.common.CustomControl
+            </com.example.common.custom.CustomControl>
+            <com.example.common.custom.CustomControl
                 android:layout_width="match_parent"
                 android:id="@+id/customControl_four"
                 android:layout_height="60dp">
-            </com.example.common.CustomControl>
-            <com.example.common.CustomControl
+            </com.example.common.custom.CustomControl>
+            <com.example.common.custom.CustomControl
                 android:layout_width="match_parent"
                 android:id="@+id/customControl_five"
                 android:layout_height="60dp">
-            </com.example.common.CustomControl>
-            <com.example.common.CustomControl
+            </com.example.common.custom.CustomControl>
+            <com.example.common.custom.CustomControl
                 android:layout_width="match_parent"
                 android:id="@+id/customControl_six"
                 android:layout_height="60dp">
-            </com.example.common.CustomControl>
+            </com.example.common.custom.CustomControl>
         </LinearLayout>
     </LinearLayout>
 

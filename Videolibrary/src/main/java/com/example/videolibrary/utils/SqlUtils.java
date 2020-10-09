@@ -11,7 +11,7 @@ public class SqlUtils extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("create table videoData(UserInfoBean varchar(300),ShareLargeImageBean varchar(500))");
+        sqLiteDatabase.execSQL("create table videoData(voideDataStr varchar(300))");
     }
 
     @Override

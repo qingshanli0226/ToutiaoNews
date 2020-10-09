@@ -2,24 +2,17 @@ package com.example.toutiaonews;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -30,14 +23,13 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.common.CustomToolbar;
-import com.example.common.NetCommon;
+import com.blankj.utilcode.util.SPUtils;
+import com.example.common.custom.CustomToolbar;
 import com.example.toutiaonews.emoji.EmojiAdapter;
 import com.example.toutiaonews.emoji.FileUtil;
 import com.example.toutiaonews.emoji.JsonParseUtil;
 import com.example.toutiaonews.login.LoginActivity;
 
-import java.util.function.IntUnaryOperator;
 
 public class NewsDataActivity extends AppCompatActivity {
     private CustomToolbar toolbar;
@@ -61,7 +53,13 @@ public class NewsDataActivity extends AppCompatActivity {
     private ImageView popTag;
     private ImageView popFace;
 
+    private boolean isLogin;
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        isLogin = SPUtils.getInstance().getBoolean("islogin");
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -75,18 +73,17 @@ public class NewsDataActivity extends AppCompatActivity {
         newsCount = (ImageView) findViewById(R.id.news_count);
         newsLove = (ImageView) findViewById(R.id.news_love);
         newsShare = (ImageView) findViewById(R.id.news_share);
-//        newsWebview.loadUrl("https://www.baidu.com/?tn=44004473_2_oem_dg");
         Intent intent = getIntent();
         url = intent.getStringExtra("web");
         title=intent.getStringExtra("title");
-        newsWebview.setWebViewClient(new WebViewClient(){
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                view.loadUrl(url);
-                return true;
-    }
-});
-//        newsWebview.loadUrl(url);
+        newsWebview.loadUrl("https://www.baidu.com/?tn=44004473_2_oem_dg");
+//        newsWebview.setWebViewClient(new WebViewClient(){
+//            @Override
+//            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+//                view.loadUrl(url);
+//                return true;
+//    }
+//});
         //声明WebSettings子类
         WebSettings webSettings = newsWebview.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -144,8 +141,13 @@ public class NewsDataActivity extends AppCompatActivity {
         popFace = inflate.findViewById(R.id.pop_face);
         RecyclerView rvEmoji = inflate.findViewById(R.id.rv_emoji);
         //判断登录状态
-        if (NetCommon.NEW_ISLOGIN){
-            Toast.makeText(this, "感谢发表", Toast.LENGTH_SHORT).show();
+        if (isLogin){
+            commentSend.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(NewsDataActivity.this, "可以发表", Toast.LENGTH_SHORT).show();
+                }
+            });
         }else {
             //发布按钮
             commentSend.setOnClickListener(new View.OnClickListener() {
@@ -204,6 +206,12 @@ public class NewsDataActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isLogin = SPUtils.getInstance().getBoolean("islogin");
     }
 
     @Override

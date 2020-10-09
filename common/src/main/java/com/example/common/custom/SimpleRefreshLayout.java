@@ -1,4 +1,4 @@
-package com.example.common;
+package com.example.common.custom;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -104,7 +104,6 @@ public class SimpleRefreshLayout extends ViewGroup {
 
                 break;
             case MotionEvent.ACTION_UP:
-
                 if (isPullDown) {
                     if (Math.abs(getScrollY()) >= effectiveScrollY) {
                         if (mRefreshListener != null) {
