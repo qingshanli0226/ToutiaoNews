@@ -245,14 +245,6 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterHomeVideo> implem
         playPic = pic;
     }
 
-
-    public void onPlayPause() {
-        if (videoPlayer != null) {
-            videoPlayer.onVideoPause();
-        }
-    }
-
-
     @Override
     public void onResume() {
         super.onResume();

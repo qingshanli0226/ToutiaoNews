@@ -11,7 +11,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.framework2.mvp.view.BaseFragment;
 import com.example.home.R;
-import com.example.home.fragment.FragmentRecommend;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
