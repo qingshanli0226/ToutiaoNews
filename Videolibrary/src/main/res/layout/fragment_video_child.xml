@@ -6,7 +6,7 @@
     android:orientation="vertical"
     tools:context="com.example.videolibrary.VideoChildFragment">
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+    <com.example.common.SimpleRefreshLayout
         android:id="@+id/fragment_video_child_smart"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -19,7 +19,8 @@
 
         </androidx.recyclerview.widget.RecyclerView>
 
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </com.example.common.SimpleRefreshLayout>
+
 
 
 

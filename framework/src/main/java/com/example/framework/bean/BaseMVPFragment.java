@@ -26,7 +26,7 @@ public abstract class BaseMVPFragment<P extends IPresenter, V extends IView> ext
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-     this.isUserVisible = isVisibleToUser;
+        this.isUserVisible = isVisibleToUser;
         loadNetWorkData();
     }
 

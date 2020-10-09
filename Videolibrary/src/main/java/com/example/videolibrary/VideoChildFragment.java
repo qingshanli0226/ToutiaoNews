@@ -6,12 +6,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.framework.bean.BaseMVPFragment;
 import com.example.net.activity_bean.VideoBean;
 import com.example.videolibrary.adapter.VideoAdapter;
@@ -29,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl, VideoChildContract.IVideoChildView> implements VideoChildContract.IVideoChildView, OnRefreshLoadMoreListener {
+public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl, VideoChildContract.IVideoChildView> implements VideoChildContract.IVideoChildView, OnRefreshLoadMoreListener, BaseQuickAdapter.OnItemChildClickListener {
     private static final String TAG = "Video";
     private RecyclerView fragmentVideoChildRv;
     private SmartRefreshLayout fragmentVideoChildSmart;
@@ -38,8 +41,6 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
     private String category;
     private boolean isRefresh = true;
     private SQLiteDatabase db;
-
-//    private long time;
 
     public VideoChildFragment() {
     }
@@ -57,6 +58,7 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
         fragmentVideoChildRv.setLayoutManager(new LinearLayoutManager(getContext()));
 
         fragmentVideoChildSmart.setOnRefreshLoadMoreListener(this);
+        videoAdapter.setOnItemChildClickListener(this);
     }
 
     @Override
@@ -94,20 +96,23 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
             }
             Toast.makeText(getContext(), "您刷新的频率太快了,暂无数据!!!", Toast.LENGTH_SHORT).show();
             //数据库获取数据
+
+
             int videoDataNum = db.query("videoData", null, null, null, null, null, null).getCount();
             if (videoDataNum > 0) {
-                Cursor cursor = db.query("videoData", null, null, null, null, null, null);
-                while (cursor.moveToNext()) {
-                    String voideDataStr = cursor.getString(cursor.getColumnIndex("voideDataStr"));
-                    Log.i("yueaa", "onVideoChildData: " + voideDataStr);
+                new Thread(() -> {
+                    Cursor cursor = db.query("videoData", null, null, null, null, null, null);
+                    while (cursor.moveToNext()) {
+                        String voideDataStr = cursor.getString(cursor.getColumnIndex("voideDataStr"));
+                        Log.i("yueaa", "onVideoChildData: " + voideDataStr);
 
-                    VideoDataBean videoDataBean = gson.fromJson(voideDataStr, VideoDataBean.class);
-                    String articleUrl = videoDataBean.getArticle_url();
-                    Log.i(TAG, "onVideoChildData:         " + articleUrl);
-                    videoDataBeans.add(videoDataBean);
-                    videoAdapter.notifyDataSetChanged();
-
-                }
+                        VideoDataBean videoDataBean = gson.fromJson(voideDataStr, VideoDataBean.class);
+                        String articleUrl = videoDataBean.getArticle_url();//视频播放网址
+                        Log.i(TAG, "onVideoChildData:         " + articleUrl);
+                        videoDataBeans.add(videoDataBean);
+                        videoAdapter.notifyDataSetChanged();
+                    }
+                }).start();
             } else {
                 Log.i(TAG, "onVideoChildData AAA:  数据库无数据 ");
             }
@@ -121,7 +126,6 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
                 return;
             }
         }
-
 
         //获取到数据 储存当前时间
         SPUtils.getInstance().put("videoDataTime", System.currentTimeMillis() / 1000);
@@ -185,5 +189,14 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
     public void onDestroy() {
         super.onDestroy();
 //        db.delete("videoData", null, null);
+    }
+
+    @Override
+    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+        if (view.getId() == R.id.item_video_jiaozi) {
+
+//            new Intent(getContext(),Newda);
+
+        }
     }
 }
