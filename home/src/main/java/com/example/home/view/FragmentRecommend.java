@@ -1,5 +1,6 @@
-package com.example.home.fragment;
+package com.example.home.view;
 
+import android.content.Intent;
 import android.view.View;
 import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
@@ -10,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.example.common.ARouterCommon;
 import com.example.framework2.mvp.view.BaseLJZFragment;
 import com.example.home.R;
 import com.example.home.adapter.MyAdapter;
@@ -58,6 +61,13 @@ public class FragmentRecommend extends BaseLJZFragment<PresenterRecommend> imple
         myAdapter = new MyAdapter(getContext(),list_content);
         videoListRvRecommend.setAdapter(myAdapter);
         videoListRvRecommend.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        myAdapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                toDetailPage(list_content.get(position).getUrl());
+            }
+        });
     }
 
     @Override
@@ -141,5 +151,9 @@ public class FragmentRecommend extends BaseLJZFragment<PresenterRecommend> imple
         presenterRecommend.getRecommendData(System.currentTimeMillis(), indexStr);
         refreshListSrlRecommend.finishLoadMore(true);
         flag = true;
+    }
+
+    public void toDetailPage(String url){
+        ARouter.getInstance().build(ARouterCommon.NEWS_DETAIL_PAGE).withString("url",url).navigation();
     }
 }

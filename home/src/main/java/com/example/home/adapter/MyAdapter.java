@@ -1,6 +1,7 @@
 package com.example.home.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.home.R;
+import com.example.home.view.FragmentRecommend;
 import com.example.net.bean.ContentBean;
 
 import java.util.ArrayList;
@@ -18,10 +20,36 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private Context context;
     private ArrayList<ContentBean> list;
 
+    //点击事件
+    //第一步 定义接口
+    public interface OnItemClickListener {
+        void onClick(int position);
+    }
+
+    private OnItemClickListener listener;
+
+    //第二步， 写一个公共的方法
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+
+    //长按点击
+    public interface OnItemLongClickListener {
+        void onClick(int position);
+    }
+
+    private OnItemLongClickListener longClickListener;
+
+    public void setOnItemLongClickListener(OnItemLongClickListener longClickListener) {
+        this.longClickListener = longClickListener;
+    }
+
     public MyAdapter(Context context, ArrayList<ContentBean> list) {
         this.context = context;
         this.list = list;
     }
+
 
     @NonNull
     @Override
@@ -31,7 +59,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.item01TvTitleId.setText(list.get(position).getAbstractX()+"");
 
         holder.item01TvAddressId.setText(list.get(position).getMedia_name()+"");
@@ -42,6 +70,25 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         }
         holder.item01TvPlNumId.setText(list.get(position).getRepin_count()+"");
         holder.item01TvTimeId.setText("刚刚");
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.onClick(position);
+                }
+            }
+        });
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (longClickListener != null) {
+                    longClickListener.onClick(position);
+                }
+                return true;
+            }
+        });
 
     }
 
