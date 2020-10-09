@@ -4,9 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.example.common.myselfview.MyLoadingBar
-        android:id="@+id/loadingbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></com.example.common.myselfview.MyLoadingBar>
+    <name.quanke.app.libs.emptylayout.EmptyLayout
+        android:id="@+id/emptyLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></name.quanke.app.libs.emptylayout.EmptyLayout>
 
 </RelativeLayout>

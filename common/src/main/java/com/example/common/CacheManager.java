@@ -8,11 +8,16 @@ import com.example.common.dao.NetWorkDatabase;
 import com.example.common.mode.HomeRecommendBean;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class CacheManager {
     private SharedPreferences sharedPreferences;//向SP取数据
     private SharedPreferences.Editor editor;//向SP存数据
     private NetWorkDatabase netWorkDatabase;//Room数据库
+
+    //缓存线程池
+    public static ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
 
     private HomeRecommendBean homeRecommendBean;
 

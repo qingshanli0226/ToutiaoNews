@@ -9,6 +9,7 @@ import com.example.toutiaonews.home.contract.HomeVideoContract;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
@@ -42,9 +43,15 @@ public class HomeVideoPresenterImpl extends HomeVideoContract.HomeVideoPresenter
                     @Override
                     public void accept(Disposable disposable) throws Exception {
                         gDisposable = disposable;
+                        iHttpView.showLoading();
                     }
                 })
-                .subscribe(new Observer<VideoBean>() {
+                .doFinally(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        iHttpView.hideLoading();
+                    }
+                }).subscribe(new Observer<VideoBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 

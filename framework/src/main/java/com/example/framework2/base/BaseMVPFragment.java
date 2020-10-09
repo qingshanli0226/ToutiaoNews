@@ -10,8 +10,9 @@ import androidx.annotation.Nullable;
 
 import com.example.common.CacheManager;
 import com.example.common.constant.TouTiaoNewsConstant;
-import com.example.common.myselfview.MyLoadingBar;
 import com.example.framework2.R;
+
+import name.quanke.app.libs.emptylayout.EmptyLayout;
 
 /**
  * 请求网络数据Fragment
@@ -22,7 +23,8 @@ import com.example.framework2.R;
 public abstract class BaseMVPFragment<T extends IPresenter, V extends IView> extends BaseFragment {
 
     protected T iHttpPresenter;
-    private MyLoadingBar loadingBar;
+    private EmptyLayout emptyLayout;
+
 
     private ConnectivityManager manager;//判断网络连接
 
@@ -32,11 +34,7 @@ public abstract class BaseMVPFragment<T extends IPresenter, V extends IView> ext
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        if (loadingBar == null) {
-            loadingBar = findViewById(R.id.loadingbar);
-        }
-
+        emptyLayout = findViewById(R.id.emptyLayout);
         initPresenter();
         iHttpPresenter.attachView((V) this);
 
@@ -49,10 +47,10 @@ public abstract class BaseMVPFragment<T extends IPresenter, V extends IView> ext
         super.setUserVisibleHint(isVisibleToUser);
         isUserVisible = isVisibleToUser;
         //把此Fragment的可见状态付给是否是第一次用户可见此Fragment
-        CacheManager.getCacheManager().setSPOfBoolean(TouTiaoNewsConstant.ISLOOK,this.isUserVisible);
-        if(isVisibleToUser){
+        CacheManager.getCacheManager().setSPOfBoolean(TouTiaoNewsConstant.ISLOOK, this.isUserVisible);
+        if (isVisibleToUser) {
             //储存用户可见的时间戳
-            CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.USERLOOKTIME,String.valueOf(System.currentTimeMillis()));
+            CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.USERLOOKTIME, String.valueOf(System.currentTimeMillis()));
         }
         initHttpData();
     }
@@ -70,24 +68,13 @@ public abstract class BaseMVPFragment<T extends IPresenter, V extends IView> ext
             iHttpPresenter.detachView();
             iHttpPresenter = null;
         }
-        if (loadingBar != null) {
-            loadingBar.stopAnimation();
-        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
         //当此Fragment不与用户可见时 更新第一次进行网络请求的时间戳
-        CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.ONETIME,String.valueOf(System.currentTimeMillis()));
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (loadingBar != null) {
-            loadingBar.stopAnimation();
-        }
+        CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.ONETIME, String.valueOf(System.currentTimeMillis()));
     }
 
     //调用该方法判断网络状态--->返回一个boolean

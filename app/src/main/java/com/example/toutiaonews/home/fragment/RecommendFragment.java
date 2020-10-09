@@ -18,6 +18,8 @@ import com.example.common.constant.TouTiaoNewsConstant;
 import com.example.common.dao.NetWorkDataEntity;
 import com.example.common.mode.HomeRecommendBean;
 import com.example.common.mode.News;
+import com.example.common.thread.MyRunnable;
+import com.example.common.thread.ThreadInterface;
 import com.example.common.untils.ContentBeanUntil;
 import com.example.framework2.base.BaseMVPFragment;
 import com.example.toutiaonews.R;
@@ -34,6 +36,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+
+import name.quanke.app.libs.emptylayout.EmptyLayout;
 
 
 public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, RecommendContract.RecommendView> implements RecommendContract.RecommendView {
@@ -51,6 +56,7 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
     String stringChannel;
 
     boolean isOneData = true;
+    private EmptyLayout emptyLayout;
 
 
     @Override
@@ -61,7 +67,7 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
     @Override
     protected void initData() {
         //是第一个页面（推荐页面）
-        if(stringChannel.equals("")){
+        if (stringChannel.equals("")) {
             //获取recommendBean数据
             HomeRecommendBean homeRecommendBean = CacheManager.getCacheManager().getHomeRecommendBean();
             if (homeRecommendBean != null) {
@@ -123,6 +129,29 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
                 launchActivity(DetailActivity.class, bundle);
             }
         });
+
+        //开启线程
+        ExecutorService cachedThreadPool = CacheManager.cachedThreadPool;
+        MyRunnable myRunnable = new MyRunnable(new ThreadInterface() {
+            @Override
+            public void readDbCache() {
+                //判断无网络时请求数据库
+                if (!checkNetworkState()) {
+                    List<NetWorkDataEntity> allData = CacheManager.getCacheManager().getAllData();
+                    for (int i = 0; i < allData.size(); i++) {
+                        //做判断是否是这个页面的数据
+                        if (allData.get(i).getJsonUrl() != null && allData.get(i).getChannelCode().equals(stringChannel)) {
+                            String jsonUrl = allData.get(i).getJsonUrl();
+                            netWorkDataEntities.add(jsonUrl);//存入set集合
+                        }
+                    }
+                    //在全部查找完成后发送通知
+                    handler.sendEmptyMessage(NETWORKSTATE);
+                }
+            }
+        });
+        //提交事务
+        cachedThreadPool.execute(myRunnable);
     }
 
     @Override
@@ -132,6 +161,7 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
         homeRecommendRv = (RecyclerView) findViewById(R.id.homeRecommendRv);
         homeRecommendSmart = (SmartRefreshLayout) findViewById(R.id.homeRecommendSmart);
         homeRecommendLin = (LinearLayout) findViewById(R.id.homeRecommendLin);
+        emptyLayout = findViewById(R.id.emptyLayout);
     }
 
     @Override
@@ -141,27 +171,27 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
         //获取用户可见时的时间戳
         String userLookTime = CacheManager.getCacheManager().getSPOfString(TouTiaoNewsConstant.USERLOOKTIME);
         //如果用户可见 和 视图创建了
-        if(isUserVisible && isViewCreated){
+        if (isUserVisible && isViewCreated) {
             //第一次 一定会执行
-            if(isOneData){
+            if (isOneData) {
                 //网络数据获取
                 iHttpPresenter.getRecommendData(stringChannel);
-                Log.i("hj123123", "initHttpData: "+stringChannel);
+                Log.i("hj123123", "initHttpData: " + stringChannel);
                 isOneData = false;
                 //储存第一次执行网络请求的时间戳
-                CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.ONETIME,String.valueOf(System.currentTimeMillis()));
-            } else{
+                CacheManager.getCacheManager().setSPOfString(TouTiaoNewsConstant.ONETIME, String.valueOf(System.currentTimeMillis()));
+            } else {
                 //获取第一次网络请求的时间戳
                 String oneTime = CacheManager.getCacheManager().getSPOfString(TouTiaoNewsConstant.ONETIME);
                 //判断用户是否是第一次可见此Fragment  和  用户可见时的时间戳 - 第一次网络请求时的时间戳 是否超过5秒
-                if(isLook && Long.parseLong(userLookTime) - Long.parseLong(oneTime) > TouTiaoNewsConstant.REFRESHTIME){
+                if (isLook && Long.parseLong(userLookTime) - Long.parseLong(oneTime) > TouTiaoNewsConstant.REFRESHTIME) {
                     //清空数据
                     newsArrayList.clear();
                     //储存第二次（隔了一段时间后请求网络数据的boolean）的状态
-                    CacheManager.getCacheManager().setSPOfBoolean(TouTiaoNewsConstant.ISTWODATA,true);
+                    CacheManager.getCacheManager().setSPOfBoolean(TouTiaoNewsConstant.ISTWODATA, true);
                     //请求数据
                     iHttpPresenter.getRecommendData(stringChannel);
-                    Log.i("hj123123---", "initHttpData: "+stringChannel);
+                    Log.i("hj123123---", "initHttpData: " + stringChannel);
                 }
             }
         }
@@ -179,6 +209,9 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
                 dataBeans.clear();
             }
             dataBeans = (ArrayList<HomeRecommendBean.DataBean>) homeRecommendBean.getData();
+            if (dataBeans.size() == 0) {
+                emptyLayout.showEmpty();
+            }
             Gson gson = new Gson();
             for (int i = 0; i < dataBeans.size(); i++) {
                 //把json数据转换为contentBean对象
@@ -211,19 +244,24 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
 
     @Override
     public void showLoading() {
-
+        if (checkNetworkState()) {
+            emptyLayout.showLoading();
+        } else {
+            emptyLayout.showError();
+        }
     }
 
     @Override
     public void hideLoading() {
-
+        if (checkNetworkState() && dataBeans.size() != 0) {
+            emptyLayout.hide();
+        }
     }
 
     private News contentBean;
     private Set<String> netWorkDataEntities = new HashSet<>();//处理重复数据
 
     private static final int NETWORKSTATE = 1;
-    Thread thread;
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
@@ -243,36 +281,4 @@ public class RecommendFragment extends BaseMVPFragment<RecommendPresenterImpl, R
         }
     };
 
-    @Override
-    public void onStart() {
-        if (thread == null) {
-            thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    if (!checkNetworkState()) {
-                        List<NetWorkDataEntity> allData = CacheManager.getCacheManager().getAllData();
-                        for (int i = 0; i < allData.size(); i++) {
-                            //做判断是否是这个页面的数据
-                            if (allData.get(i).getJsonUrl() != null && allData.get(i).getChannelCode().equals(stringChannel)) {
-                                String jsonUrl = allData.get(i).getJsonUrl();
-                                netWorkDataEntities.add(jsonUrl);//存入set集合
-                            }
-                        }
-                        //在全部查找完成后发送通知
-                        handler.sendEmptyMessage(NETWORKSTATE);
-                    }
-                }
-            });
-            thread.start();
-        }
-        super.onStart();
-    }
-
-    @Override
-    public void onDestroy() {
-        if (thread != null) {
-            thread.interrupt();
-        }
-        super.onDestroy();
-    }
 }

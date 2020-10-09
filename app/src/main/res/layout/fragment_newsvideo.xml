@@ -4,6 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <name.quanke.app.libs.emptylayout.EmptyLayout
+        android:id="@+id/emptyLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></name.quanke.app.libs.emptylayout.EmptyLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

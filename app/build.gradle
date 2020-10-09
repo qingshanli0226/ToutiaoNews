@@ -58,6 +58,7 @@ android {
         //今日头条适配
         implementation 'me.jessyan:autosize:1.2.1'
 
+        implementation 'com.github.quanke:AndroidEmptyLayout:v1.0.0'
         //工具类
         implementation 'com.blankj:utilcode:1.27.2'
 

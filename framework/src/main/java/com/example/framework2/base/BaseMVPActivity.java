@@ -4,8 +4,9 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 
-import com.example.common.myselfview.MyLoadingBar;
 import com.example.framework2.R;
+
+import name.quanke.app.libs.emptylayout.EmptyLayout;
 
 
 /**
@@ -18,16 +19,16 @@ public abstract class BaseMVPActivity<T extends IPresenter, V extends IView> ext
 
     protected T iHttpPresenter;
 
-    private MyLoadingBar loadingBar;
+    private EmptyLayout emptyLayout;
+
+
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (loadingBar == null) {
-            loadingBar = findViewById(R.id.loadingbar);
-        }
+        emptyLayout = findViewById(R.id.emptyLayout);
 
         initPresenter();
         iHttpPresenter.attachView((V) this);
@@ -47,17 +48,7 @@ public abstract class BaseMVPActivity<T extends IPresenter, V extends IView> ext
             iHttpPresenter.detachView();
             iHttpPresenter = null;
         }
-        if (loadingBar != null) {
-            loadingBar.stopAnimation();
-        }
-    }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (loadingBar != null) {
-            loadingBar.stopAnimation();
-        }
     }
 
 }

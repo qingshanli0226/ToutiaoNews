@@ -17,6 +17,8 @@ import com.example.common.constant.TouTiaoNewsConstant;
 import com.example.common.dao.NetWorkDataEntity;
 import com.example.common.mode.VideoBean;
 import com.example.common.mode.VideoDataBean;
+import com.example.common.thread.MyRunnable;
+import com.example.common.thread.ThreadInterface;
 import com.example.framework2.base.BaseMVPFragment;
 import com.example.toutiaonews.R;
 import com.example.toutiaonews.home.PlayerActivity;
@@ -32,6 +34,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+
+import name.quanke.app.libs.emptylayout.EmptyLayout;
 
 public class HomeVideoFragment extends BaseMVPFragment<HomeVideoPresenterImpl, HomeVideoContract.HomeVideoView> implements HomeVideoContract.HomeVideoView {
     private RecyclerView homeVideoRv;
@@ -43,6 +48,8 @@ public class HomeVideoFragment extends BaseMVPFragment<HomeVideoPresenterImpl, H
     private VideoDataBean videoDataBean;
 
     boolean isOneData = true;
+    private EmptyLayout emptyLayout;
+
 
     //视频数据源
     ArrayList<VideoDataBean> videoDataBeans = new ArrayList<>();
@@ -95,6 +102,30 @@ public class HomeVideoFragment extends BaseMVPFragment<HomeVideoPresenterImpl, H
             bundle.putString(TouTiaoNewsConstant.WEBVIEW_URL, videoDataBeans.get(position).getArticle_url());
             launchActivity(PlayerActivity.class, bundle);
         });
+
+        //开启线程
+        ExecutorService cachedThreadPool = CacheManager.cachedThreadPool;
+        MyRunnable myRunnable = new MyRunnable(new ThreadInterface() {
+            @Override
+            public void readDbCache() {
+                //判断无网络时请求数据库
+                if (!checkNetworkState()) {
+                    List<NetWorkDataEntity> allData = CacheManager.getCacheManager().getAllData();
+                    for (int i = 0; i < allData.size(); i++) {
+                        //做判断是否是这个页面的数据
+                        if (allData.get(i).getJsonUrl() != null && allData.get(i).getChannelCode().equals(stringChannel)) {
+                            String jsonUrl = allData.get(i).getJsonUrl();
+                            netWorkDataEntities.add(jsonUrl);//存入set集合
+                        }
+                    }
+                    //在全部查找完成后发送通知
+                    handler.sendEmptyMessage(NETWORKSTATE);
+                }
+            }
+        });
+        //提交事务
+        cachedThreadPool.execute(myRunnable);
+
     }
 
     @Override
@@ -104,6 +135,7 @@ public class HomeVideoFragment extends BaseMVPFragment<HomeVideoPresenterImpl, H
         homeVideoRv = (RecyclerView) findViewById(R.id.homeVideoRv);
         homeVideoSmart = (SmartRefreshLayout) findViewById(R.id.homeVideoSmart);
         homeVideoLin = (LinearLayout) findViewById(R.id.homeVideoLin);
+        emptyLayout = findViewById(R.id.emptyLayout);
     }
 
     @Override
@@ -144,12 +176,17 @@ public class HomeVideoFragment extends BaseMVPFragment<HomeVideoPresenterImpl, H
         iHttpPresenter = new HomeVideoPresenterImpl();
     }
 
+    private List<VideoBean.DataBean> data = new ArrayList<>();
+
     @Override
     public void onViewData(VideoBean videoBean) {
 
         if (!videoBean.toString().equals("")) {
             //循环添加数据
-            List<VideoBean.DataBean> data = videoBean.getData();
+            data = videoBean.getData();
+            if (data.size() == 0) {
+                emptyLayout.showEmpty();
+            }
             Gson gson = new Gson();
             for (int i = 0; i < data.size(); i++) {
                 videoDataBean = gson.fromJson(data.get(i).getContent(), VideoDataBean.class);
@@ -175,17 +212,22 @@ public class HomeVideoFragment extends BaseMVPFragment<HomeVideoPresenterImpl, H
 
     @Override
     public void showLoading() {
-
+        if (checkNetworkState()) {
+            emptyLayout.showLoading();
+        } else {
+            emptyLayout.showError();
+        }
     }
 
     @Override
     public void hideLoading() {
-
+        if (checkNetworkState() && data.size() != 0) {
+            emptyLayout.hide();
+        }
     }
 
     private static final int NETWORKSTATE = 1;
     private Set<String> netWorkDataEntities = new HashSet<>();//处理重复数据
-    Thread thread;
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
@@ -204,37 +246,4 @@ public class HomeVideoFragment extends BaseMVPFragment<HomeVideoPresenterImpl, H
             }
         }
     };
-
-    @Override
-    public void onStart() {
-        if (thread == null) {
-            thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    if (!checkNetworkState()) {
-                        List<NetWorkDataEntity> allData = CacheManager.getCacheManager().getAllData();
-                        for (int i = 0; i < allData.size(); i++) {
-                            //做判断是否是这个页面的数据
-                            if (allData.get(i).getJsonUrl() != null && allData.get(i).getChannelCode().equals(stringChannel)) {
-                                String jsonUrl = allData.get(i).getJsonUrl();
-                                netWorkDataEntities.add(jsonUrl);//存入set集合
-                            }
-                        }
-                        //在全部查找完成后发送通知
-                        handler.sendEmptyMessage(NETWORKSTATE);
-                    }
-                }
-            });
-            thread.start();
-        }
-        super.onStart();
-    }
-
-    @Override
-    public void onDestroy() {
-        if (thread != null) {
-            thread.interrupt();
-        }
-        super.onDestroy();
-    }
 }

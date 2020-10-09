@@ -49,4 +49,6 @@ dependencies {
 
     implementation project(':common')
     implementation project(':net')
+
+    implementation 'com.github.quanke:AndroidEmptyLayout:v1.0.0'
 }

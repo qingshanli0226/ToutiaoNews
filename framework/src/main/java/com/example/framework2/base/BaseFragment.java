@@ -14,7 +14,6 @@ import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.framework2.R;
 import com.github.nukc.stateview.StateView;
 
 public abstract class BaseFragment extends LazyLoadFragment {
@@ -27,25 +26,7 @@ public abstract class BaseFragment extends LazyLoadFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-
-        if (rootView == null) {
-            rootView = inflater.inflate(getLayoutId(), container, false);
-
-            mStateView = StateView.inject(getStateViewRoot());
-            if (mStateView != null) {
-                mStateView.setRetryResource(R.layout.page_net_error);//错误页
-            }
-        } else {
-            ViewGroup parent = (ViewGroup) rootView.getParent();
-            if (parent != null) {
-                parent.removeView(rootView);
-            }
-        }
-        return rootView;
-    }
-
-    public View getStateViewRoot() {
-        return rootView;
+        return rootView = inflater.inflate(getLayoutId(), container, false);
     }
 
     protected abstract int getLayoutId();

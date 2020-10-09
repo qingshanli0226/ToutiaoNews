@@ -18,6 +18,8 @@ import com.example.common.constant.TouTiaoNewsConstant;
 import com.example.common.dao.NetWorkDataEntity;
 import com.example.common.mode.VideoBean;
 import com.example.common.mode.VideoDataBean;
+import com.example.common.thread.MyRunnable;
+import com.example.common.thread.ThreadInterface;
 import com.example.framework2.base.BaseMVPFragment;
 import com.example.toutiaonews.R;
 import com.example.toutiaonews.home.PlayerActivity;
@@ -34,6 +36,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+
+import name.quanke.app.libs.emptylayout.EmptyLayout;
 
 public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImpl, NewsVideoContract.IVideoView> implements NewsVideoContract.IVideoView {
 
@@ -43,6 +48,8 @@ public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImp
     private boolean isVideoList;
     private boolean isRecommendChannel;
     private String[] channelCodes;
+    private EmptyLayout emptyLayout;
+
 
     //数据集合
     private List<VideoDataBean> listData = new ArrayList<>();
@@ -69,20 +76,43 @@ public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImp
 
         channelCodes = UIUtils.getStringArr(R.array.channel_code_video);
         isRecommendChannel = mChannelCode.equals(channelCodes[0]);//是否是推荐频道
+
+        //开启线程
+        ExecutorService cachedThreadPool = CacheManager.cachedThreadPool;
+        MyRunnable myRunnable = new MyRunnable(new ThreadInterface() {
+            @Override
+            public void readDbCache() {
+                //判断无网络时请求数据库
+                if (!checkNetworkState()) {
+                    List<NetWorkDataEntity> allData = CacheManager.getCacheManager().getAllData();
+                    for (int i = 0; i < allData.size(); i++) {
+                        //做判断是否是这个页面的数据
+                        if (allData.get(i).getJsonUrl() != null && allData.get(i).getChannelCode().equals(mChannelCode)) {
+                            String jsonUrl = allData.get(i).getJsonUrl();
+                            netWorkDataEntities.add(jsonUrl);//存入set集合
+                        }
+                    }
+                    //在全部查找完成后发送通知
+                    handler.sendEmptyMessage(NETWORKSTATE);
+                }
+            }
+        });
+        //提交事务
+        cachedThreadPool.execute(myRunnable);
+
     }
 
     @Override
     protected void initView() {
-
         videolistSr = findViewById(R.id.videolist_sr);
         videolistRv = findViewById(R.id.videolist_rv);
-        homeNewsVideoListLin = (LinearLayout) findViewById(R.id.homeNewsVideoListLin);
+        emptyLayout = findViewById(R.id.emptyLayout);
 
+        homeNewsVideoListLin = (LinearLayout) findViewById(R.id.homeNewsVideoListLin);
 
         videoListAdapter = new NewsVideoListAdapter(R.layout.item_video_list, listData);
         videolistRv.setAdapter(videoListAdapter);
         videolistRv.setLayoutManager(new LinearLayoutManager(getContext()));
-
 
         //上拉刷新，下拉加载
         videolistSr.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
@@ -162,6 +192,9 @@ public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImp
     public void onVideoData(VideoBean videoBean) {
         if (!videoBean.toString().equals("")) {
             list.addAll(videoBean.getData());
+            if (list.size() == 0) {
+                emptyLayout.showEmpty();
+            }
             Gson gson = new Gson();
             if (videoBean != null) {
                 for (int i = 0; i < list.size(); i++) {
@@ -196,16 +229,21 @@ public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImp
 
     @Override
     public void showLoading() {
-
+        if (checkNetworkState()) {
+            emptyLayout.showLoading();
+        } else {
+            emptyLayout.showError();
+        }
     }
 
     @Override
     public void hideLoading() {
-
+        if (checkNetworkState() && list.size() != 0) {
+            emptyLayout.hide();
+        }
     }
 
     private Set<String> netWorkDataEntities = new HashSet<>();//处理重复数据
-    Thread thread;
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
@@ -225,37 +263,4 @@ public class NewsVideoListFragment extends BaseMVPFragment<NewsVideoPresenterImp
         }
     };
 
-    @Override
-    public void onStart() {
-        //开启子线程
-        if (thread == null) {
-            thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    if (!checkNetworkState()) {
-                        List<NetWorkDataEntity> allData = CacheManager.getCacheManager().getAllData();
-                        for (int i = 0; i < allData.size(); i++) {
-                            //做判断是否是这个页面的数据
-                            if (allData.get(i).getJsonUrl() != null && allData.get(i).getChannelCode().equals(mChannelCode)) {
-                                String jsonUrl = allData.get(i).getJsonUrl();
-                                netWorkDataEntities.add(jsonUrl);//存入set集合
-                            }
-                        }
-                        //在全部查找完成后发送通知
-                        handler.sendEmptyMessage(NETWORKSTATE);
-                    }
-                }
-            });
-            thread.start();
-        }
-        super.onStart();
-    }
-
-    @Override
-    public void onDestroy() {
-        if (thread != null) {
-            thread.interrupt();
-        }
-        super.onDestroy();
-    }
 }
