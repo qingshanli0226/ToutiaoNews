@@ -1,9 +1,9 @@
 package com.example.video.fragment_video.view;
 
-import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnticipateOvershootInterpolator;
@@ -12,6 +12,9 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LayoutAnimationController;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -96,7 +99,7 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
 
 
         videoBeanList = new ArrayList<>();
-        myVideoAdapter = new MyVideoAdapter(R.layout.item_video_box, videoBeanList);
+        myVideoAdapter = new MyVideoAdapter(R.layout.video_item_box, videoBeanList);
         mVideoListRv.setLayoutManager(new LinearLayoutManager(getContext()));
         mVideoListRv.setAdapter(myVideoAdapter);
 
@@ -165,7 +168,6 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
         } else {
             initSqlData();
             showMessage("请检查网络连接");
-
         }
 
     }
@@ -222,6 +224,7 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
             }
         }
     }
+
     /**
      * 适配器子控件的点击事件
      *
@@ -235,10 +238,30 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterVideo> implements
         if (id == R.id.item_video_pic) {
             setVideoPlayer(position);
         }
+        if (id == R.id.item_message_txt) {
+            ARouter.getInstance().build(ARouterCommon.VIDEO_PLAY_ACT)
+                    .withString("ContentBean", HttpManager.getHttpManager().getGson().toJson(videoBeanList.get(position)))
+                    .withInt("index", position).navigation();
+        }
 
         if (id == R.id.item_more_img) {
-            ARouter.getInstance().build(ARouterCommon.VIDEO_PLAY_ACT).withString("ContentBean", HttpManager.getHttpManager().getGson().toJson(videoBeanList.get(position))).navigation();
+            showMenu(position);
         }
+    }
+
+    private void showMenu(int position) {
+
+        PopupWindow popupWindow = new PopupWindow(getContext());
+        popupWindow.setWidth(500);
+        popupWindow.setHeight(300);
+        popupWindow.setOutsideTouchable(true);
+        View inflate = LinearLayout.inflate(getContext(), R.layout.video_menu_layout, null);
+        ((TextView) inflate.findViewById(R.id.filter_words1)).setText(videoBeanList.get(position).getFilter_words().get(0).getName());
+        ((TextView) inflate.findViewById(R.id.filter_words2)).setText(videoBeanList.get(position).getFilter_words().get(1).getName());
+        ((TextView) inflate.findViewById(R.id.filter_words3)).setText(videoBeanList.get(position).getFilter_words().get(2).getName());
+        popupWindow.setContentView(inflate);
+
+        popupWindow.showAsDropDown(rootView.findViewById(R.id.item_more_img));
     }
 
     /**

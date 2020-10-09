@@ -97,7 +97,7 @@ public class LjzFragmentVideo extends BaseLJZFragment<PresenterHomeVideo> implem
 
 
         videoBeanList = new ArrayList<>();
-        myVideoAdapter = new MyVideoAdapter(R.layout.item_video_box, videoBeanList);
+        myVideoAdapter = new MyVideoAdapter(R.layout.video_item_box, videoBeanList);
         mVideoListRv.setLayoutManager(new LinearLayoutManager(getContext()));
         mVideoListRv.setAdapter(myVideoAdapter);
 

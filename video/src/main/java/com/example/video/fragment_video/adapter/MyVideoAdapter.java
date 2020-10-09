@@ -32,7 +32,7 @@ public class MyVideoAdapter extends BaseQuickAdapter<VideoContentEntity, BaseVie
             Glide.with(mContext).load(item.getMedia_info().getAvatar_url()).transform(new CircleCrop()).into((ImageView) helper.getView(R.id.item_head_pic));
             helper.setText(R.id.item_name_txt, item.getMedia_info().getName());
         }
-//        helper.setText(R.id.item_title_video_top, item.getAbstractX());
+        helper.setText(R.id.item_title_video_top, item.getAbstractX());
 
 
         helper.addOnClickListener(R.id.item_video_pic)

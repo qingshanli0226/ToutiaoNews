@@ -3,11 +3,15 @@ package com.example.video;
 import android.content.res.Configuration;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.common.ARouterCommon;
 import com.example.framework2.mvp.view.BaseActivity;
 import com.example.net.bean.ContentBean;
@@ -28,10 +32,14 @@ public class VideoAct extends BaseActivity {
     public String videoUrl = "http://vfx.mtime.cn/Video/2019/03/18/mp4/190318214226685784.mp4";
     @Autowired(name = "ContentBean")
     public String contentBean;
+    @Autowired(name = "index")
+    public int index;
     private boolean isPause;
     private boolean isPlay;
     private boolean isChange = true;
     private RecyclerView mMessageList;
+    private ImageView mVideoHeadPic;
+    private TextView mVideoNameTxt;
 
     @Override
     public void onClick(View view) {
@@ -40,16 +48,24 @@ public class VideoAct extends BaseActivity {
 
     @Override
     public void initView() {
-//        mMessageList = (RecyclerView) findViewById(R.id.message_list);
+        mMessageList = (RecyclerView) findViewById(R.id.message_list);
         mGSYPlay = (StandardGSYVideoPlayer) findViewById(R.id.GSY_play);
+        mVideoHeadPic = (ImageView) findViewById(R.id.video_head_pic);
+        mVideoNameTxt = (TextView) findViewById(R.id.video_name_txt);
+
         orientationUtils = new OrientationUtils(this, mGSYPlay);
     }
 
     @Override
     public void initData() {
 
+        Log.d("VideoAct", contentBean);
+        Log.d("VideoAct", "index:" + index);
         VideoContentEntity contentBean = HttpManager.getHttpManager().getGson().fromJson(this.contentBean, VideoContentEntity.class);
-
+        if (contentBean.getMedia_info() != null) {
+            Glide.with(this).load(contentBean.getMedia_info().getAvatar_url()).transform(new CircleCrop()).into(mVideoHeadPic)            ;
+            mVideoNameTxt.setText(contentBean.getMedia_info().getName());
+        }
         mGSYPlay.setUp(videoUrl, true, "");
         mGSYPlay.startPlayLogic();
         mGSYPlay.getBackButton().setOnClickListener(new View.OnClickListener() {

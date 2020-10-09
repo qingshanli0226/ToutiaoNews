@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
     android:orientation="vertical">
 
     <RelativeLayout
@@ -24,9 +25,9 @@
         </ImageView>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:id="@+id/item_title_video_top"
-                android:background="_title_video"
+                android:background="@color/_title_video"
                 android:singleLine="true"
                 android:gravity="center_vertical"
                 android:textSize="@dimen/dp_25"

@@ -33,7 +33,7 @@ public class ModelVideo extends BaseModel implements ContractVideo.Model {
                 .getRetrofit()
                 .create(ApiServer.class)
                 .getVideoData(index, listTime / 1000, currentTimeMillis / 1000)
-                .delay(3, TimeUnit.SECONDS)
+//                .delay(3, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(consumer)
                 .observeOn(AndroidSchedulers.mainThread())
