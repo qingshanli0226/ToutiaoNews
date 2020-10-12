@@ -1,0 +1,41 @@
+<resources>
+    <string name="tab_home_name">首页</string>
+    <string name="tab_video_name">视频</string>
+    <string name="tab_micro_name">微头条</string>
+    <string name="tab_me_name">我的</string>
+    <string name="micro_text">文字</string>
+    <string name="micro_pic">图片</string>
+    <string name="micro_void">视频</string>
+    <string name="me_name">ChayChan</string>
+    <string name="dynamic_state_text">动态</string>
+    <string name="fans_text">粉丝</string>
+    <string name="visitor_text">7天访客</string>
+    <string name="collect_text">收藏</string>
+    <string name="history_text">历史</string>
+    <string name="night_text">夜间</string>
+    <string name="message_notification_text">消息通知</string>
+    <string name="headline_mall_text">头条商城</string>
+    <string name="Jingdong_special_supply_text">京东特供</string>
+    <string name="want_to_report_text">我要爆料</string>
+    <string name="user_feedback_text">用户反馈</string>
+    <string name="system_settings_text">系统设置</string>
+    <string name="headline_mall_after_text">邀请好友得200元现金奖励</string>
+    <string name="Jingdong_special_supply_after_text">新人领188元红包</string>
+    <string name="login_text">登录</string>
+    <string name="register_text">注册</string>
+    <string name="username_text">账户</string>
+    <string name="password_text">密码</string>
+    <string name="issue_button_text">发布</string>
+    <string name="merge_checkout_text">合并转发</string>
+    <string name="writecommentary_text">写评论...</string>
+    <string name="aite_text">\@</string>
+    <string name="well_text">#</string>
+    <string name="laugh_text">笑脸</string>
+
+    <string-array name="tab">
+        <item>首页</item>
+        <item>视频</item>
+        <item>微头条</item>
+        <item>我的</item>
+    </string-array>
+</resources>

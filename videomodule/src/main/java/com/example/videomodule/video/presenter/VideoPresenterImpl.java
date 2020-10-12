@@ -37,12 +37,10 @@ public class VideoPresenterImpl extends VideoContract.VideoPresenter {
                         firstTime = System.currentTimeMillis() / 1000;
                         CacheManager.getInstance().putFirstTime("first",firstTime);
                         if(!videoBean.toString().equals("")){
-                            //请求过网络数据
-                            CacheManager.getInstance().putIsVisit(channel, true);
                             dataBeans = videoBean.getData();
-                            if(dataBeans.size() == 0){
-                                iHttpView.showError("0", "接口没有数据,请重新下拉刷新");
-                            }else{
+                            if(dataBeans.size() != 0){
+                                //请求过网络数据
+                                CacheManager.getInstance().putIsVisit(channel, true);
                                 for (int i = 0; i < videoBean.getData().size(); i++) {
                                     String content = videoBean.getData().get(i).getContent();
                                     NewsRoomBean newsRoomBean = new NewsRoomBean();
@@ -54,7 +52,7 @@ public class VideoPresenterImpl extends VideoContract.VideoPresenter {
                                 }
                             }
                         }else{
-                            iHttpView.showError("0", "没有拿到网络数据");
+                            iHttpView.showError("1", "请求不到");
                         }
                     }
 

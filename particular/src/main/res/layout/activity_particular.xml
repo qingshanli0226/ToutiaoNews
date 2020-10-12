@@ -6,19 +6,22 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp0"
+        android:layout_marginTop="@dimen/dp30"
+        android:layout_height="30dp"
         android:layout_weight="@dimen/weight1">
 
         <ImageView
             android:id="@+id/back"
+            android:layout_margin="@dimen/dp5"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:src="@mipmap/back_normal" />
 
         <ImageView
             android:id="@+id/more"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dp5"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:src="@mipmap/new_more_titlebar" />
     </RelativeLayout>
@@ -27,7 +30,7 @@
         android:id="@+id/web"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp0"
-        android:layout_weight="@dimen/weight20">
+        android:layout_weight="@dimen/weight16">
 
     </WebView>
 
@@ -37,18 +40,20 @@
         android:layout_weight="@dimen/weight1">
 
         <TextView
-            android:paddingLeft="@dimen/dp10"
             android:id="@+id/writeCommentary"
             android:layout_width="@dimen/dp0"
+            android:padding="@dimen/dp5"
             android:layout_height="match_parent"
-            android:layout_weight="@dimen/weight4"
+            android:layout_weight="@dimen/weight8"
             android:background="@drawable/writecommentary_backgroud"
             android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dp10"
             android:text="@string/writecommentary_text" />
 
         <ImageView
             android:id="@+id/commentary"
             android:layout_width="@dimen/dp0"
+            android:layout_margin="@dimen/dp5"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="@dimen/weight1"
@@ -57,6 +62,7 @@
         <ImageView
             android:id="@+id/collect"
             android:layout_width="@dimen/dp0"
+            android:layout_margin="@dimen/dp5"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="@dimen/weight1"
@@ -64,6 +70,7 @@
 
         <ImageView
             android:id="@+id/share"
+            android:layout_margin="@dimen/dp5"
             android:layout_width="@dimen/dp0"
             android:layout_height="match_parent"
             android:layout_gravity="center"

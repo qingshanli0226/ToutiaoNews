@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,8 +23,6 @@ import com.example.common.runnable.MyRunnable;
 import com.example.common.runnable.ThreadInterface;
 import com.example.farmework.base.BaseMVPFragment;
 import com.example.particular.ParticularActivity;
-import com.example.promptpagemodule.promptpage.promptpageview.PromptPageViewHolder;
-import com.example.promptpagemodule.promptpage.promptpageview.PromptView;
 import com.example.videomodule.R;
 import com.example.videomodule.adapter.VideoListAdapter;
 import com.example.videomodule.video.contract.VideoContract;
@@ -44,7 +43,7 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
     private VideoListAdapter videoListAdapter;
     private long visitTime;
     private VideoDataBean videoDataBean;
-    private PromptView videoPrompt;
+    private TextView videoText;
     private Set<String> netWorkDataEntities = new HashSet<>();//处理重复数据
     Handler handler = new Handler(){
         @Override
@@ -58,15 +57,18 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
     //每一次查找数据库或者进行网络请求都会进行去重
     private void initSetData() {
         videoRv.setVisibility(View.VISIBLE);
+        videoText.setVisibility(View.GONE);
         listVideoData.clear();
         //去重后的集合
         ArrayList<String> stringArrayList = new ArrayList<>(netWorkDataEntities);
+
         //遍历集合拿到唯一数据
         for (int i = 0; i < stringArrayList.size(); i++) {
             String json = stringArrayList.get(i);
             videoDataBean = new Gson().fromJson(json, VideoDataBean.class);
             listVideoData.add(0,videoDataBean);
         }
+
         videoListAdapter.notifyDataSetChanged();
     }
     //查询数据库
@@ -125,6 +127,9 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
 
     @Override
     protected void initData() {
+        if(listVideoData.size() == 0){
+            showError("2", "当前无数据");
+        }
         channelCode  = getArguments().getString(Constant.CHANNEL_CODE);
         channel  = getArguments().getString("channel");
         videoRefrush.attchRecylerView(videoRv);
@@ -132,12 +137,10 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
         videoListAdapter = new VideoListAdapter(R.layout.item_listview,listVideoData);
         videoRv.setAdapter(videoListAdapter);
         videoRv.setLayoutManager(new LinearLayoutManager(getContext()));
-        PromptPageViewHolder promptPageViewHolder = new PromptPageViewHolder(getContext());
-        videoPrompt.setHolder(promptPageViewHolder);
         //没有网络查找数据库
         if(!CacheManager.getInstance().isConnect()){
             putRoomData();
-            showError("1", "没有网络,请打开网络重试");
+            showError("3", "没有网络,请打开网络重试");
         }
         videoListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -155,14 +158,15 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
     protected void initView() {
         videoRefrush = (BGRefrushLayout) findViewById(R.id.video_refrush);
         videoRv = (RecyclerView) findViewById(R.id.video_rv);
-        videoPrompt = (PromptView) findViewById(R.id.video_prompt);
+        videoText = (TextView) findViewById(R.id.video_text);
     }
 
 
     @Override
     public void showError(String code, String message) {
         videoRv.setVisibility(View.GONE);
-        videoPrompt.showEmptyView(message);
+        videoText.setVisibility(View.VISIBLE);
+        videoText.setText(message);
     }
 
     @Override

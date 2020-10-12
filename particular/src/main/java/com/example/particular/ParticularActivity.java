@@ -88,7 +88,6 @@ public class ParticularActivity extends BaseActivity {
                 getOnWriteCommentary();
             }
         });
-
     }
     //收藏
     private void getOnCollect(){
