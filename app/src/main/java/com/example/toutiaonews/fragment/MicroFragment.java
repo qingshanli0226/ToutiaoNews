@@ -3,12 +3,9 @@ package com.example.toutiaonews.fragment;
 import android.content.Intent;
 import android.view.View;
 import android.widget.LinearLayout;
-
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.farmework.base.BaseFragment;
+import com.example.particular.ParticularActivity;
 import com.example.toutiaonews.R;
-import com.example.toutiaonews.activity.ParticularActivity;
 
 public class MicroFragment extends BaseFragment {
     private LinearLayout txt;
@@ -27,7 +24,12 @@ public class MicroFragment extends BaseFragment {
     }
     @Override
     protected void initData() {
-
+        txt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), ParticularActivity.class));
+            }
+        });
 
     }
 }

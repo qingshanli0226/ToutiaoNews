@@ -35,14 +35,20 @@ public class PromptView extends LinearLayout {
         mHolder.mRetryView.setLayoutParams(params);
         mHolder.mLoadingView.setLayoutParams(params);
     }
-    public void setErrorMessage(String message){
-        TextView errorMes = mHolder.mEmptyView.findViewById(R.id.errorMes);
-        errorMes.setText(message);
-    }
-    public void showEmptyView(){
+    public void showEmptyView(String message){
         if (mViewType==KEY_EMPTY)
             return;
         mViewType=KEY_EMPTY;
+        TextView errorMes = mHolder.mEmptyView.findViewById(R.id.errorMes);
+        errorMes.setText(message);
+        setShowOrHide();
+    }
+    public void showErroeView(String message){
+        if (mViewType==KEY_EMPTY)
+            return;
+        mViewType=KEY_EMPTY;
+        TextView errorMes = mHolder.mEmptyView.findViewById(R.id.errorMes);
+        errorMes.setText(message);
         setShowOrHide();
     }
     public void showRetryView(){

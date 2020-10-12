@@ -15,22 +15,23 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.farmework.base.BaseActivity;
-import com.example.toutiaonews.R;
-import com.example.toutiaonews.expression.EmojiAdapter;
-import com.example.toutiaonews.expression.EmojiEntity;
-import com.example.toutiaonews.expression.FileUtil;
-import com.example.toutiaonews.expression.JsonParseUtil;
+import com.example.particular.expression.EmojiAdapter;
+import com.example.particular.expression.EmojiEntity;
+import com.example.particular.expression.FileUtil;
+import com.example.particular.expression.JsonParseUtil;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
-
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
+
 import java.util.List;
 
 public class ParticularActivity extends BaseActivity {
@@ -50,7 +51,6 @@ public class ParticularActivity extends BaseActivity {
     protected void initData() {
         //获取网页
         String s = "http://toutiao.com/group/6876240504984437256/\\" ;
-
         web.getSettings().setJavaScriptEnabled(true);
         web.setWebViewClient(new WebViewClient());
         web.loadUrl(s);
