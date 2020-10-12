@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".NewsDataActivity"></activity>
+        <activity android:name="com.example.common.news.NewsDataActivity"></activity>
         <activity android:name=".login.LoginActivity" />
         <activity android:name=".reg.RegMainActivity" />
         <activity android:name=".ChannelActivity" />

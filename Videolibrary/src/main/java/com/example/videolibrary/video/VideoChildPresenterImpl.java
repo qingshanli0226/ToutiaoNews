@@ -1,4 +1,4 @@
-package com.example.videolibrary.mvp;
+package com.example.videolibrary.video;
 
 import android.util.Log;
 

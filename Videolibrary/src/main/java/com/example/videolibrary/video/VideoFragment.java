@@ -1,4 +1,4 @@
-package com.example.videolibrary;
+package com.example.videolibrary.video;
 
 
 import android.database.sqlite.SQLiteDatabase;
@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,8 @@ import android.widget.ImageView;
 
 import com.example.net.activity_bean.VideoBean;
 import com.example.net.activity_bean.entity.Channel;
-import com.example.videolibrary.utils.SqlUtils;
+import com.example.videolibrary.R;
+import com.example.videolibrary.video.VideoChildFragment;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -46,7 +46,6 @@ public class VideoFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_video, container, false);
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -90,10 +89,6 @@ public class VideoFragment extends Fragment {
             }
         });
 
-//        Bundle bundle = new Bundle();
-//        bundle.putString("type", mChannelList.get(0).title);
-//        fragmentList.get(0).setArguments(bundle);
-        //tab和Vp的关联
         tabAndVp();
     }
 
@@ -144,7 +139,6 @@ public class VideoFragment extends Fragment {
             String code = channelCodes[i];
             mChannelList.add(new Channel(title, code));
             fragmentVideoTab.addTab(fragmentVideoTab.newTab().setText(mChannelList.get(i).title));
-            Log.i("AAAAAAAAA", "tabAdd: " + code);
         }
 
     }

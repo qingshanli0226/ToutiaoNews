@@ -15,7 +15,7 @@ import com.example.framework2.mvp.view.BaseActivity;
 import com.example.toutiaonews.fragment.home.HomeFragment;
 import com.example.toutiaonews.fragment.me.MeFragment;
 import com.example.toutiaonews.fragment.micro.MicroFragment;
-import com.example.videolibrary.VideoFragment;
+import com.example.videolibrary.video.VideoFragment;
 
 
 public class MainActivity extends BaseActivity {

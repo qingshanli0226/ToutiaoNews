@@ -1,10 +1,11 @@
-package com.example.toutiaonews;
+package com.example.common.news;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,12 +27,15 @@ import android.widget.Toast;
 
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.SPUtils;
+
 import com.example.common.EmptyViewController;
+
+import com.example.common.R;
+
 import com.example.common.custom.CustomToolbar;
-import com.example.toutiaonews.emoji.EmojiAdapter;
-import com.example.toutiaonews.emoji.FileUtil;
-import com.example.toutiaonews.emoji.JsonParseUtil;
-import com.example.toutiaonews.login.LoginActivity;
+import com.example.common.news.emoji.EmojiAdapter;
+import com.example.common.news.emoji.FileUtil;
+import com.example.common.news.emoji.JsonParseUtil;
 
 
 public class NewsDataActivity extends AppCompatActivity {
@@ -78,6 +82,7 @@ public class NewsDataActivity extends AppCompatActivity {
         newsShare = (ImageView) findViewById(R.id.news_share);
         Intent intent = getIntent();
         url = intent.getStringExtra("web");
+<<<<<<< HEAD:app/src/main/java/com/example/toutiaonews/NewsDataActivity.java
         title=intent.getStringExtra("title");
 
 
@@ -93,6 +98,11 @@ public class NewsDataActivity extends AppCompatActivity {
             new EmptyViewController(this,newsScroll).showEmptyView("网络出错");
         }
 
+=======
+        title = intent.getStringExtra("title");
+        newsWebview.loadUrl(url);
+        newsWebview.setWebViewClient(new WebViewClient()); //设置在当前的应用中打开
+>>>>>>> f14e4fb29920254c136f37129553e5c750e6d0a6:common/src/main/java/com/example/common/news/NewsDataActivity.java
 //        newsWebview.setWebViewClient(new WebViewClient(){
 //            @Override
 //            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
@@ -112,12 +122,12 @@ public class NewsDataActivity extends AppCompatActivity {
         webSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
         webSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
         initData();
-}
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void initData() {
         ImageView back = toolbar.findViewById(R.id.toolbar_back);
-        TextView title = toolbar.findViewById(R.id.toolbar_title);
+        TextView titleView = toolbar.findViewById(R.id.toolbar_title);
         //关闭详情页
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,24 +139,24 @@ public class NewsDataActivity extends AppCompatActivity {
         newsScroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View view, int i, int i1, int i2, int i3) {
-                    if (i3>500){
-                    title.setText(title+"");
-                }else {
-                    title.setText("");
+                if (i3 > 500) {
+                    titleView.setText(title + "");
+                } else {
+                    titleView.setText("");
                 }
             }
-    });
-       newsComment.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            initpop();
-        }
-    });
+        });
+        newsComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                initpop();
+            }
+        });
     }
 
     private void initpop() {
         View inflate = LayoutInflater.from(this).inflate(R.layout.pop_comment, null, false);
-        PopupWindow popupWindow = new PopupWindow(inflate, LinearLayout.LayoutParams.MATCH_PARENT,  LinearLayout.LayoutParams.WRAP_CONTENT, true);
+        PopupWindow popupWindow = new PopupWindow(inflate, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
         popupWindow.showAtLocation(toolbar, Gravity.BOTTOM, -150, -1850);
         spi = inflate.findViewById(R.id.spi);
         commentSend = inflate.findViewById(R.id.comment_send);
@@ -157,19 +167,27 @@ public class NewsDataActivity extends AppCompatActivity {
         popFace = inflate.findViewById(R.id.pop_face);
         RecyclerView rvEmoji = inflate.findViewById(R.id.rv_emoji);
         //判断登录状态
-        if (isLogin){
+        if (isLogin) {
             commentSend.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(NewsDataActivity.this, "可以发表", Toast.LENGTH_SHORT).show();
                 }
             });
-        }else {
+        } else {
             //发布按钮
             commentSend.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(NewsDataActivity.this, LoginActivity.class);
+//                    Intent intent = new Intent(NewsDataActivity.this, LoginActivity.class);
+//                    startActivity(intent);
+                    /**
+                     * ComponentName第一个参数是整体应用的包名 ，第二个是要跳转的Acitivity的全路径名.
+                     * 使用此方法的前提是必须主Modle也就是app必须与library产生了依赖关系。
+                     */
+                    ComponentName comp = new ComponentName("com.example.toutiaonews", "com.example.toutiaonews.login.LoginActivity");
+                    Intent intent = new Intent();
+                    intent.setComponent(comp);
                     startActivity(intent);
                 }
             });
@@ -186,7 +204,7 @@ public class NewsDataActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 View inflate = LayoutInflater.from(NewsDataActivity.this).inflate(R.layout.pop_tag, null, false);
-                PopupWindow popupWindow = new PopupWindow(inflate, LinearLayout.LayoutParams.MATCH_PARENT,  LinearLayout.LayoutParams.MATCH_PARENT, true);
+                PopupWindow popupWindow = new PopupWindow(inflate, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, true);
                 popupWindow.showAtLocation(toolbar, Gravity.BOTTOM, 0, 0);
                 CustomToolbar toolbar = inflate.findViewById(R.id.tag_toolbar);
                 EditText tagEditText = inflate.findViewById(R.id.tag_ed);
@@ -212,7 +230,7 @@ public class NewsDataActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //显示表情
                 rvEmoji.setVisibility(View.VISIBLE);
-                rvEmoji.setLayoutManager(new StaggeredGridLayoutManager(7,StaggeredGridLayoutManager.VERTICAL));
+                rvEmoji.setLayoutManager(new StaggeredGridLayoutManager(7, StaggeredGridLayoutManager.VERTICAL));
                 rvEmoji.setAdapter(new EmojiAdapter(JsonParseUtil.parseEmojiList(FileUtil.readAssetsFile(NewsDataActivity.this, "Emoji.json"))));
                 //设置点击事件 将表情发送至EditText
             }

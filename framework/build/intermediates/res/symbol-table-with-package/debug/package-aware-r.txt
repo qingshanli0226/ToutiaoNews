@@ -1887,6 +1887,7 @@ id chip_group
 id chronometer
 id circleIndicator
 id clear_text
+id comment_send
 id confirm_button
 id container
 id content
@@ -1979,6 +1980,13 @@ id my_back_one
 id my_context
 id my_title
 id navigation_header_container
+id news_comment
+id news_count
+id news_love
+id news_scroll
+id news_share
+id news_toolbar
+id news_webview
 id none
 id normal
 id notification_background
@@ -1994,6 +2002,11 @@ id parentPanel
 id parent_matrix
 id password_toggle
 id pin
+id pop_aite
+id pop_check
+id pop_face
+id pop_ima
+id pop_tag
 id progress_circular
 id progress_horizontal
 id radio
@@ -2002,6 +2015,7 @@ id right
 id right_icon
 id right_side
 id rounded
+id rv_emoji
 id save_non_transition_alpha
 id save_overlay_view
 id scale
@@ -2028,6 +2042,7 @@ id smallLabel
 id snackbar_action
 id snackbar_text
 id spacer
+id spi
 id split_action_bar
 id src_atop
 id src_in
@@ -2042,7 +2057,10 @@ id tag_accessibility_actions
 id tag_accessibility_clickable_spans
 id tag_accessibility_heading
 id tag_accessibility_pane_title
+id tag_ed
+id tag_rv
 id tag_screen_reader_focusable
+id tag_toolbar
 id tag_transition_group
 id tag_unhandled_key_event_manager
 id tag_unhandled_key_listeners
@@ -2072,7 +2090,11 @@ id transition_layout_save
 id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
+<<<<<<< HEAD
 id tv_empty
+=======
+id tv_emoji
+>>>>>>> f14e4fb29920254c136f37129553e5c750e6d0a6
 id tv_prompt
 id unchecked
 id uniform
@@ -2141,6 +2163,7 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
+layout activity_news_data
 layout activity_picture_select
 layout banner
 layout base_up_layout
@@ -2162,7 +2185,11 @@ layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout dialog_select_photo
 layout include_line_horizontal_05dp_f8f8f8
+<<<<<<< HEAD
 layout item_default
+=======
+layout item_emoji
+>>>>>>> f14e4fb29920254c136f37129553e5c750e6d0a6
 layout item_footer_layout
 layout item_header_layout
 layout layout_title
@@ -2201,6 +2228,8 @@ layout notification_template_custom_big
 layout notification_template_icon_group
 layout notification_template_part_chronometer
 layout notification_template_part_time
+layout pop_comment
+layout pop_tag
 layout quick_view_load_more
 layout select_dialog_item_material
 layout select_dialog_multichoice_material
@@ -2322,6 +2351,7 @@ string select_picture_select_from_album
 string status_bar_notification_info_overflow
 style ActionSheetDialogAnimation
 style ActionSheetDialogStyle
+style ActivityTranslucent
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
 style Animation_AppCompat_Dialog
@@ -2542,6 +2572,7 @@ style Base_Widget_MaterialComponents_TextView
 style CardView
 style CardView_Dark
 style CardView_Light
+style DialogTransparent
 style EmptyTheme
 style MaterialAlertDialog_MaterialComponents
 style MaterialAlertDialog_MaterialComponents_Body_Text
@@ -3087,3 +3118,4 @@ xml standalone_badge
 xml standalone_badge_gravity_bottom_end
 xml standalone_badge_gravity_bottom_start
 xml standalone_badge_gravity_top_start
+xml util_code_provider_paths

@@ -2,6 +2,7 @@ package com.example.common.custom;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -85,6 +86,7 @@ public class SimpleRefreshLayout extends ViewGroup {
                 mLastMoveY = y;
                 break;
             case MotionEvent.ACTION_MOVE:
+
                 int dy = mLastMoveY - y;
                 if (dy < 0) {//下拉
                     isPullDown = true;

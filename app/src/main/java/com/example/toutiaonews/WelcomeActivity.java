@@ -16,13 +16,16 @@ import com.blankj.utilcode.util.SPUtils;
 import com.example.common.NetCommon;
 import com.example.net.http.HttpManager;
 import com.example.toutiaonews.service.MyLoginService;
+import com.example.toutiaonews.MainActivity;
 import java.util.Timer;
 import java.util.TimerTask;
+
 public class WelcomeActivity extends AppCompatActivity {
     private String token;
     @Override
     protected void onStart() {
         super.onStart();
+
         //sp读取
         boolean isLogin = SPUtils.getInstance().getBoolean("islogin", false);
         if (isLogin){

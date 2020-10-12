@@ -1,26 +1,29 @@
-package com.example.videolibrary;
+package com.example.videolibrary.video;
 
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.common.news.NewsDataActivity;
 import com.example.framework.bean.BaseMVPFragment;
 import com.example.net.activity_bean.VideoBean;
+import com.example.videolibrary.R;
+import com.example.videolibrary.bean.VideoDataBean;
 import com.example.videolibrary.adapter.VideoAdapter;
-import com.example.videolibrary.mvp.VideoChildContract;
-import com.example.videolibrary.mvp.VideoChildPresenterImpl;
 import com.example.videolibrary.utils.SqlUtils;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
@@ -29,17 +32,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl, VideoChildContract.IVideoChildView> implements VideoChildContract.IVideoChildView, OnRefreshLoadMoreListener {
+public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl, VideoChildContract.IVideoChildView> implements VideoChildContract.IVideoChildView, OnRefreshLoadMoreListener, BaseQuickAdapter.OnItemChildClickListener {
     private static final String TAG = "Video";
     private RecyclerView fragmentVideoChildRv;
-    private SmartRefreshLayout fragmentVideoChildSmart;
+    //    private SmartRefreshLayout fragmentVideoChildSmart;
     private VideoAdapter videoAdapter;
     private List<VideoDataBean> videoDataBeans;
     private String category;
     private boolean isRefresh = true;
     private SQLiteDatabase db;
+    private SmartRefreshLayout fragmentVideoChildSmart;
 
-//    private long time;
+
 
     public VideoChildFragment() {
     }
@@ -57,6 +61,8 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
         fragmentVideoChildRv.setLayoutManager(new LinearLayoutManager(getContext()));
 
         fragmentVideoChildSmart.setOnRefreshLoadMoreListener(this);
+        videoAdapter.setOnItemChildClickListener(this);
+
     }
 
     @Override
@@ -64,6 +70,9 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
         category = getArguments() != null ? getArguments().getString("category", "") : null;
         fragmentVideoChildRv = findViewById(R.id.fragment_video_child_rv);
         fragmentVideoChildSmart = findViewById(R.id.fragment_video_child_smart);
+
+
+
     }
 
     @Override
@@ -80,7 +89,6 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
     @Override
     public void onVideoChildData(VideoBean videoBean) {
         Gson gson = new Gson();
-        String toJson = gson.toJson(videoBean);
         List<VideoBean.DataBean> data = videoBean.getData();
         db = new SqlUtils(getContext(), "videoData.db", null, 2).getWritableDatabase();
         if (isRefresh) {
@@ -94,6 +102,8 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
             }
             Toast.makeText(getContext(), "您刷新的频率太快了,暂无数据!!!", Toast.LENGTH_SHORT).show();
             //数据库获取数据
+
+
             int videoDataNum = db.query("videoData", null, null, null, null, null, null).getCount();
             if (videoDataNum > 0) {
                 Cursor cursor = db.query("videoData", null, null, null, null, null, null);
@@ -102,17 +112,25 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
                     Log.i("yueaa", "onVideoChildData: " + voideDataStr);
 
                     VideoDataBean videoDataBean = gson.fromJson(voideDataStr, VideoDataBean.class);
-                    String articleUrl = videoDataBean.getArticle_url();
+                    String articleUrl = videoDataBean.getArticle_url();//视频播放网址
                     Log.i(TAG, "onVideoChildData:         " + articleUrl);
                     videoDataBeans.add(videoDataBean);
-                    videoAdapter.notifyDataSetChanged();
-
                 }
+                ((Activity) getContext()).runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        // 在这里执行你要想的操作 比如直接在这里更新ui或者调用回调在 在回调中更新ui
+                        videoAdapter.notifyDataSetChanged();
+                    }
+                });
+
             } else {
                 Log.i(TAG, "onVideoChildData AAA:  数据库无数据 ");
             }
             return;
         }
+
 
         if (videoDataBeans.size() > 0) {
             long videoDataTime = SPUtils.getInstance().getLong("videoDataTime");
@@ -121,7 +139,6 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
                 return;
             }
         }
-
 
         //获取到数据 储存当前时间
         SPUtils.getInstance().put("videoDataTime", System.currentTimeMillis() / 1000);
@@ -185,5 +202,18 @@ public class VideoChildFragment extends BaseMVPFragment<VideoChildPresenterImpl,
     public void onDestroy() {
         super.onDestroy();
 //        db.delete("videoData", null, null);
+    }
+
+    @Override
+    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+        if (view.getId() == R.id.item_video_user_pic) {
+
+            Toast.makeText(getContext(), "item_video_user_pic", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getContext(), NewsDataActivity.class);
+            intent.putExtra("web", videoDataBeans.get(position).getArticle_url());
+            intent.putExtra("title", videoDataBeans.get(position).getTitle());
+            startActivity(intent);
+
+        }
     }
 }

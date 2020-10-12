@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginTop="20dp"
     android:orientation="vertical"
-    tools:context=".NewsDataActivity">
+    tools:context="com.example.common.news.NewsDataActivity">
 
     <com.example.common.custom.CustomToolbar
         android:id="@+id/news_toolbar"
