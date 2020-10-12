@@ -1,0 +1,83 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:1:1-28:16
+INJECTED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:1:1-28:16
+INJECTED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:1:1-28:16
+INJECTED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:1:1-28:16
+INJECTED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:1:1-28:16
+INJECTED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:1:1-28:16
+INJECTED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:1:1-28:16
+	package
+		ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:3:5-37
+		INJECTED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml
+		INJECTED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml
+		ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:1:1-28:16
+		INJECTED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml
+	xmlns:tools
+		ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:2:5-51
+	android:versionCode
+		INJECTED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml
+		ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:1:1-28:16
+		INJECTED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:1:11-69
+application
+ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:4:5-26:19
+	android:name
+		ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:5:9-28
+activity#com.example.particular.ParticularActivity
+ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:7:5-9:49
+	android:process
+		ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:9:9-37
+	android:name
+		ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:8:9-43
+activity#com.tencent.tauth.AuthActivity
+ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:10:9-21:20
+	android:launchMode
+		ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:12:13-44
+	android:noHistory
+		ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:13:13-37
+	android:name
+		ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:11:13-58
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:scheme:tencent100424468
+ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:14:13-20:29
+action#android.intent.action.VIEW
+ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:15:17-69
+	android:name
+		ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:15:25-66
+category#android.intent.category.DEFAULT
+ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:16:17-76
+	android:name
+		ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:16:27-73
+category#android.intent.category.BROWSABLE
+ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:17:17-78
+	android:name
+		ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:17:27-75
+data
+ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:19:17-59
+	android:scheme
+		ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:19:23-56
+activity#com.tencent.connect.common.AssistActivity
+ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:22:9-25:75
+	android:configChanges
+		ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:24:13-74
+	android:theme
+		ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:25:13-72
+	android:name
+		ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml:23:13-69
+uses-sdk
+INJECTED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml
+INJECTED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml
+INJECTED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml
+INJECTED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml
+		ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml
+		INJECTED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml
+		ADDED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml
+		INJECTED from D:\bawei\1801a\ToutiaoNews\particular\src\main\AndroidManifest.xml

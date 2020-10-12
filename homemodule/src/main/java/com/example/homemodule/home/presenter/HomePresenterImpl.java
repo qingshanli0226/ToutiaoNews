@@ -24,7 +24,7 @@ public class HomePresenterImpl extends HomeContract.HomePresenter {
     @Override
     public void getHomeData(final String category, long lastTime) {
         RetrofitManager.getNewsApi()
-                .getNewsList(category,lastTime/1000,System.currentTimeMillis()/1000)
+                .getNewsList(category, lastTime / 1000, System.currentTimeMillis() / 1000)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<NewsResponse>() {
@@ -37,18 +37,13 @@ public class HomePresenterImpl extends HomeContract.HomePresenter {
                     public void onNext(NewsResponse newsResponse) {
                         ArrayList<News> newsList = new ArrayList<>();
                         newsList.clear();
-                        if (newsResponse.data.size()!=0){
-                            for (NewsData data:newsResponse.data){  //json串读取填list
+                        if (newsResponse.data.size() != 0) {
+                            for (NewsData data : newsResponse.data) {  //json串读取填list
                                 News news = new Gson().fromJson(data.content, News.class);
                                 NewsItemTypeUntil.ChangeItemType(news);
                                 newsList.add(news);
                             }
 
-//                            List<NewsRoomBean> newsRoomBeans = CacheManager.getInstance().query();
-//                            for (int i = 0; i < newsRoomBeans.size(); i++) {
-//                                NewsRoomBean newsRoomBean = newsRoomBeans.get(i);
-//
-//                            }
                             //将每次获得的数据放入数据库
                             NewsRoomBean newsRoomBean = new NewsRoomBean();
                             String json = new Gson().toJson(newsResponse.data);
@@ -58,19 +53,19 @@ public class HomePresenterImpl extends HomeContract.HomePresenter {
                             CacheManager.getInstance().insert(newsRoomBean);
                         }
 
-                        if (newsList.size()!=0){  //判断有数据时再返回给view层
+                        if (newsList.size() != 0) {  //判断有数据时再返回给view层
                             iHttpView.onHomeData(newsList);
-                        }else {
-                            iHttpView.showError("200","当前没有数据了。。");
+                        } else {
+                            iHttpView.showError("200", "当前没有数据了。。");
                         }
 
                         //更改刷新时间
-                        CacheManager.getInstance().putFirstTime(category,System.currentTimeMillis());
+                        CacheManager.getInstance().putFirstTime(category, System.currentTimeMillis());
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        iHttpView.showError("100",e.getMessage());
+                        iHttpView.showError("100", e.getMessage());
                     }
 
                     @Override

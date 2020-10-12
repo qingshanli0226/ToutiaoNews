@@ -69,13 +69,8 @@ dependencies {
     implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
     //权限动态申请
     implementation 'com.tbruyelle.rxpermissions2:rxpermissions:+'
-    implementation files('libs/umeng-common-2.1.0.jar')
-    implementation files('libs/umeng-share-core-6.9.6.jar')
-    implementation files('libs/umeng-share-QQ-simplify-6.9.6.jar')
-    implementation files('libs/umeng-share-sina-simplify-6.9.6.jar')
-    implementation files('libs/umeng-share-wechat-simplify-6.9.6.jar')
-    implementation files('libs/umeng-shareboard-widget-6.9.6.jar')
-    implementation files('libs/umeng-sharetool-6.9.6.jar')
     implementation project(path: ':videomodule')
     implementation project(path: ':homemodule')
+    implementation project(path: ':particular')
+
 }

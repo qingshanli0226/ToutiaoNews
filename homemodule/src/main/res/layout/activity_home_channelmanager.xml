@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/channels_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/add_channels_close"
+            android:layout_margin="@dimen/margin10dp"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mindChannel"
+            android:layout_margin="@dimen/margin10dp"
+            android:textSize="@dimen/textSizeBig"
+            android:textColor="@color/colorBlack"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"/>
+
+        <Button
+            android:id="@+id/add_editChannel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/editText"
+            android:textSize="@dimen/textSizeBig"
+            android:textColor="@color/colorBlack"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/margin10dp"
+            />
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mindChannelRv"
+        android:layout_margin="@dimen/margin10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/recommendChannel"
+            android:layout_margin="@dimen/margin10dp"
+            android:textSize="@dimen/textSizeBig"
+            android:textColor="@color/colorBlack"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recommendChannelRv"
+        android:layout_margin="@dimen/margin10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </androidx.recyclerview.widget.RecyclerView>
+</LinearLayout>

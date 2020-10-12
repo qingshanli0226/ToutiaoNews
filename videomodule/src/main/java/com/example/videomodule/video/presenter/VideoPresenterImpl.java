@@ -36,9 +36,9 @@ public class VideoPresenterImpl extends VideoContract.VideoPresenter {
                         //参数时间戳
                         firstTime = System.currentTimeMillis() / 1000;
                         CacheManager.getInstance().putFirstTime("first",firstTime);
-                        //请求过网络数据
-                        CacheManager.getInstance().putIsVisit(channel, true);
                         if(!videoBean.toString().equals("")){
+                            //请求过网络数据
+                            CacheManager.getInstance().putIsVisit(channel, true);
                             dataBeans = videoBean.getData();
                             if(dataBeans.size() == 0){
                                 iHttpView.showError("0", "接口没有数据,请重新下拉刷新");

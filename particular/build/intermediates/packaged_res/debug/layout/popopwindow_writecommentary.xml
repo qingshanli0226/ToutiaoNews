@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/buttonBackgrout"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp100">
+        <EditText
+            android:id="@+id/mes"
+            android:background="@null"
+            android:layout_weight="@dimen/weight4"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/issue"
+            android:layout_weight="@dimen/weight1"
+            android:text="@string/issue_button_text"
+            android:background="@null"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:visibility="gone"
+        android:id="@+id/recExpression"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </androidx.recyclerview.widget.RecyclerView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">;
+
+        <CheckBox
+            android:layout_weight="@dimen/weight4"
+
+            android:text="@string/merge_checkout_text"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:gravity="center"
+            android:text="@string/aite_text"
+            android:layout_weight="@dimen/weight1"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="match_parent" />
+        <TextView
+            android:gravity="center"
+            android:layout_weight="@dimen/weight1"
+            android:text="@string/well_text"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/smiling"
+            android:gravity="center"
+            android:layout_weight="@dimen/weight1"
+            android:text="@string/laugh_text"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</LinearLayout>

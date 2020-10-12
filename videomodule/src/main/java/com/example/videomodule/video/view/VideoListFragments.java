@@ -1,6 +1,7 @@
 package com.example.videomodule.video.view;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -20,6 +21,7 @@ import com.example.common.mine.BGRefrushLayout;
 import com.example.common.runnable.MyRunnable;
 import com.example.common.runnable.ThreadInterface;
 import com.example.farmework.base.BaseMVPFragment;
+import com.example.particular.ParticularActivity;
 import com.example.promptpagemodule.promptpage.promptpageview.PromptPageViewHolder;
 import com.example.promptpagemodule.promptpage.promptpageview.PromptView;
 import com.example.videomodule.R;
@@ -135,11 +137,16 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
         //没有网络查找数据库
         if(!CacheManager.getInstance().isConnect()){
             putRoomData();
+            showError("1", "没有网络,请打开网络重试");
         }
         videoListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 VideoDataBean videoDataBean = listVideoData.get(position);
+                Intent intent = new Intent(getContext(), ParticularActivity.class);
+                intent.putExtra("htmlurl", videoDataBean.getUrl());
+                intent.putExtra("picurl", videoDataBean.getShare_large_image().getUrl());
+                startActivity(intent);
             }
         });
     }
@@ -154,10 +161,8 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
 
     @Override
     public void showError(String code, String message) {
-        Log.i("----", "1111");
         videoRv.setVisibility(View.GONE);
-        videoPrompt.setErrorMessage(message);
-        videoPrompt.showEmptyView();
+        videoPrompt.showEmptyView(message);
     }
 
     @Override

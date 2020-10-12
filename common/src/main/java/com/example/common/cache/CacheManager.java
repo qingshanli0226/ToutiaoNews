@@ -5,10 +5,14 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import androidx.collection.ArrayMap;
+import androidx.fragment.app.Fragment;
+
 import com.example.common.dao.NewsDao;
 import com.example.common.dao.NewsDatabeans;
 import com.example.common.dao.NewsRoomBean;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,6 +24,8 @@ public class CacheManager {
     private SharedPreferences.Editor edit;
     private Context mContext;
     public static ExecutorService executorService = Executors.newCachedThreadPool();
+    public ArrayList<Fragment> homeMindFragments = new ArrayList<>();  //我的频道的拥有的所有fragment
+    public ArrayList<Fragment> homeRecommendFragments = new ArrayList<>(); //推荐频道拥有的所有fragment
 
     public static CacheManager getInstance() {
         if (cacheManager == null) {

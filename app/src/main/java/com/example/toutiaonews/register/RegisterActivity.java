@@ -64,7 +64,7 @@ public class RegisterActivity extends BaseMVPActivity<RegisterPresenter, Registe
 
     @Override
     public void showError(String code, String message) {
-        ptpv.showEmptyView();
+        ptpv.showEmptyView(message);
     }
 
     @Override
