@@ -4,4 +4,8 @@
     <string name="error_text">目前还没有最新的内容了</string>
 
     <string name="Attention">关注</string>
+    <string name="mindChannel">我的频道</string>
+    
+    <string name="recommendChannel">频道推荐</string>
+    <string name="editText">编辑</string>
 </resources>

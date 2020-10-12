@@ -18,7 +18,7 @@
             android:id="@+id/center_pic"
             android:layout_width="match_parent"
             android:layout_height="@dimen/imgHeight"
-            android:scaleType="fitXY" />
+            android:scaleType="centerCrop" />
 
 
         <ImageView

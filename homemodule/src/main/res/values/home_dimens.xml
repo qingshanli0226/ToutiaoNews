@@ -19,7 +19,4 @@
     <!--字体大小 -->
     <dimen name="textSizeBig">18sp</dimen>
     <dimen name="textSizeSmall">15sp</dimen>
-
-    
-
 </resources>

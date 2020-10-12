@@ -1,38 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/home_top_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/home_search_background"
+        />
+
 
     <com.google.android.material.tabs.TabLayout
-        android:layout_alignParentTop="true"
         android:id="@+id/home_fragment_colorTab"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tab_Height50dp"
+        android:layout_below="@+id/home_top_img"
+        android:layout_toLeftOf="@+id/home_fragment_topAdd"
+        app:tabIndicatorColor="@color/colorRed"
         app:tabMode="scrollable"
         app:tabSelectedTextColor="@color/colorRed"
-        app:tabTextColor="@color/colorBlack"
-        app:tabIndicatorColor="@color/colorRed"
-        android:layout_toLeftOf="@+id/home_fragment_topAdd"
         app:tabTextAppearance="@style/TabStyle"
-        >
+        app:tabTextColor="@color/colorBlack">
 
     </com.google.android.material.tabs.TabLayout>
 
     <ImageView
         android:id="@+id/home_fragment_topAdd"
-        android:background="#fff"
-        android:src="@drawable/ic_add_black_24dp"
         android:layout_width="@dimen/tab_Height50dp"
         android:layout_height="@dimen/tab_Height50dp"
-        android:layout_alignParentRight="true"/>
+        android:layout_below="@+id/home_top_img"
+        android:layout_alignParentRight="true"
+        android:background="#fff"
+        android:src="@drawable/ic_add_black_24dp" />
 
     <androidx.viewpager.widget.ViewPager
-        android:layout_below="@+id/home_fragment_colorTab"
         android:id="@+id/home_fragment_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/home_fragment_colorTab">
 
     </androidx.viewpager.widget.ViewPager>
 

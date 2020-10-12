@@ -2,8 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.homemodule">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
     <application>
-        <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".HomeChannelManagerActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar" android:screenOrientation="portrait"/>
+        <meta-data
+            android:name="design_width_in_dp"
+            android:value="600" />
+        <meta-data
+            android:name="design_height_in_dp"
+            android:value="1066" />
     </application>
 
 </manifest>

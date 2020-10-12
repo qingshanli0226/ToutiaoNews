@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class VideoFragment extends BaseMVPFragment<VideoPresenter, VideoContract.IVideoView> implements VideoContract.IVideoView, BGRefrushLayout.IRefreshListener {
     private RecyclerView rvVideo;
     private String channel_code;
+    public String channel;
     private long lastTime;
     private VideoListAdapter videoListAdapter;
     private ArrayList<VideoDataBean> videoDataBeans = new ArrayList<>();
@@ -28,8 +29,9 @@ public class VideoFragment extends BaseMVPFragment<VideoPresenter, VideoContract
     private boolean isRefresh = false;
 
 
-    public VideoFragment(String channel_code) {
+    public VideoFragment(String channel_code,String channel) {
         this.channel_code = channel_code;
+        this.channel =channel;
     }
 
     @Override
