@@ -2090,11 +2090,8 @@ id transition_layout_save
 id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
-<<<<<<< HEAD
-id tv_empty
-=======
 id tv_emoji
->>>>>>> f14e4fb29920254c136f37129553e5c750e6d0a6
+id tv_empty
 id tv_prompt
 id unchecked
 id uniform
@@ -2185,11 +2182,8 @@ layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout dialog_select_photo
 layout include_line_horizontal_05dp_f8f8f8
-<<<<<<< HEAD
 layout item_default
-=======
 layout item_emoji
->>>>>>> f14e4fb29920254c136f37129553e5c750e6d0a6
 layout item_footer_layout
 layout item_header_layout
 layout layout_title

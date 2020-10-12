@@ -82,7 +82,6 @@ public class NewsDataActivity extends AppCompatActivity {
         newsShare = (ImageView) findViewById(R.id.news_share);
         Intent intent = getIntent();
         url = intent.getStringExtra("web");
-<<<<<<< HEAD:app/src/main/java/com/example/toutiaonews/NewsDataActivity.java
         title=intent.getStringExtra("title");
 
 
@@ -98,11 +97,10 @@ public class NewsDataActivity extends AppCompatActivity {
             new EmptyViewController(this,newsScroll).showEmptyView("网络出错");
         }
 
-=======
         title = intent.getStringExtra("title");
         newsWebview.loadUrl(url);
         newsWebview.setWebViewClient(new WebViewClient()); //设置在当前的应用中打开
->>>>>>> f14e4fb29920254c136f37129553e5c750e6d0a6:common/src/main/java/com/example/common/news/NewsDataActivity.java
+
 //        newsWebview.setWebViewClient(new WebViewClient(){
 //            @Override
 //            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
