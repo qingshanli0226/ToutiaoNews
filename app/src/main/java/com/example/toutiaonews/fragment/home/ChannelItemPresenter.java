@@ -2,6 +2,7 @@ package com.example.toutiaonews.fragment.home;
 
 import android.util.Log;
 
+import com.example.common.EmptyViewController;
 import com.example.framework2.cache.entity.NewEntity;
 import com.example.framework2.manager.CacheManager;
 import com.example.framework2.mvp.presenter.BasePresenter;

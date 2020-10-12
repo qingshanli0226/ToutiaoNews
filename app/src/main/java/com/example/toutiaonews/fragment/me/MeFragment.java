@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.blankj.utilcode.util.SPUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.example.common.EmptyViewController;
 import com.example.common.custom.CustomControl;
 import com.example.common.NetCommon;
 import com.example.toutiaonews.EventMessage;
@@ -177,6 +178,7 @@ public class MeFragment extends Fragment {
         title1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
             }
         });
 

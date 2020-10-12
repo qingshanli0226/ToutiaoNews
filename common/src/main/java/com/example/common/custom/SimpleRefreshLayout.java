@@ -77,6 +77,7 @@ public class SimpleRefreshLayout extends ViewGroup {
     }
 
     @Override
+
     public boolean onTouchEvent(MotionEvent event) {
         int y = (int) event.getY();
         switch (event.getAction()) {

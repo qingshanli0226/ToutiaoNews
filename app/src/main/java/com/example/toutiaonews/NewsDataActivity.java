@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -23,7 +24,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.example.common.EmptyViewController;
 import com.example.common.custom.CustomToolbar;
 import com.example.toutiaonews.emoji.EmojiAdapter;
 import com.example.toutiaonews.emoji.FileUtil;
@@ -76,7 +79,20 @@ public class NewsDataActivity extends AppCompatActivity {
         Intent intent = getIntent();
         url = intent.getStringExtra("web");
         title=intent.getStringExtra("title");
-        newsWebview.loadUrl("https://www.baidu.com/?tn=44004473_2_oem_dg");
+
+
+        //判断网络是否连接或者可用
+        if (NetworkUtils.isConnected()&&NetworkUtils.isAvailableByPing()){
+            if (url!=null){
+                newsWebview.loadUrl(title);
+                newsWebview.setWebViewClient(new WebViewClient());
+            }else {
+                new EmptyViewController(this,newsScroll).showEmptyView("数据加载失败");
+            }
+        }else {
+            new EmptyViewController(this,newsScroll).showEmptyView("网络出错");
+        }
+
 //        newsWebview.setWebViewClient(new WebViewClient(){
 //            @Override
 //            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {

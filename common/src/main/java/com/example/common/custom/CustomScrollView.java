@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ScrollView;
-import android.widget.Scroller;
+        import android.widget.Scroller;
 
 public class CustomScrollView extends ScrollView {
     private Scroller mScroller;
