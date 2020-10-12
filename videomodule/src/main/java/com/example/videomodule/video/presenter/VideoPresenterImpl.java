@@ -35,24 +35,17 @@ public class VideoPresenterImpl extends VideoContract.VideoPresenter {
                     public void onNext(VideoBean videoBean) {
                         //参数时间戳
                         firstTime = System.currentTimeMillis() / 1000;
+                        //请求过网络数据
                         CacheManager.getInstance().putFirstTime("first",firstTime);
-                        if(!videoBean.toString().equals("")){
-                            dataBeans = videoBean.getData();
-                            if(dataBeans.size() != 0){
-                                //请求过网络数据
-                                CacheManager.getInstance().putIsVisit(channel, true);
-                                for (int i = 0; i < videoBean.getData().size(); i++) {
-                                    String content = videoBean.getData().get(i).getContent();
-                                    NewsRoomBean newsRoomBean = new NewsRoomBean();
-                                    newsRoomBean.setChannelId(category);
-                                    newsRoomBean.setJsonUrl(content);
-                                    newsRoomBean.setNewsTime(System.currentTimeMillis());
-                                    CacheManager.getInstance().insert(newsRoomBean);
-                                    iHttpView.onVideoData(content);
-                                }
-                            }
-                        }else{
-                            iHttpView.showError("1", "请求不到");
+                        CacheManager.getInstance().putIsVisit(channel, true);
+                        for (int i = 0; i < videoBean.getData().size(); i++) {
+                            String content = videoBean.getData().get(i).getContent();
+                            NewsRoomBean newsRoomBean = new NewsRoomBean();
+                            newsRoomBean.setChannelId(category);
+                            newsRoomBean.setJsonUrl(content);
+                            newsRoomBean.setNewsTime(System.currentTimeMillis());
+                            CacheManager.getInstance().insert(newsRoomBean);
+                            iHttpView.onVideoData(content);
                         }
                     }
 

@@ -61,15 +61,14 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
         listVideoData.clear();
         //去重后的集合
         ArrayList<String> stringArrayList = new ArrayList<>(netWorkDataEntities);
-
         //遍历集合拿到唯一数据
         for (int i = 0; i < stringArrayList.size(); i++) {
             String json = stringArrayList.get(i);
             videoDataBean = new Gson().fromJson(json, VideoDataBean.class);
             listVideoData.add(0,videoDataBean);
         }
-
         videoListAdapter.notifyDataSetChanged();
+
     }
     //查询数据库
     private void putRoomData() {
@@ -107,7 +106,7 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
                 mPresenter.getVideoData(channelCode, channel);
                 CacheManager.getInstance().putIsVisit(channel, false);
             }else{
-                handler.sendEmptyMessage(1);
+                putRoomData();
             }
         }else{
             mPresenter.getVideoData(channelCode, channel);
@@ -127,9 +126,6 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
 
     @Override
     protected void initData() {
-        if(listVideoData.size() == 0){
-            showError("2", "当前无数据");
-        }
         channelCode  = getArguments().getString(Constant.CHANNEL_CODE);
         channel  = getArguments().getString("channel");
         videoRefrush.attchRecylerView(videoRv);
@@ -152,6 +148,9 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
                 startActivity(intent);
             }
         });
+        if(listVideoData.size() == 0){
+            showError("2", "当前无数据");
+        }
     }
 
     @Override
