@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.common.cache.CacheManager;
 import com.example.common.constant.Constant;
 import com.example.common.dao.NewsRoomBean;
@@ -54,6 +55,7 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
     };
     //每一次查找数据库或者进行网络请求都会进行去重
     private void initSetData() {
+        videoRv.setVisibility(View.VISIBLE);
         listVideoData.clear();
         //去重后的集合
         ArrayList<String> stringArrayList = new ArrayList<>(netWorkDataEntities);
@@ -134,6 +136,12 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
         if(!CacheManager.getInstance().isConnect()){
             putRoomData();
         }
+        videoListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                VideoDataBean videoDataBean = listVideoData.get(position);
+            }
+        });
     }
 
     @Override
@@ -146,7 +154,10 @@ public class VideoListFragments extends BaseMVPFragment<VideoPresenterImpl, Vide
 
     @Override
     public void showError(String code, String message) {
+        Log.i("----", "1111");
+        videoRv.setVisibility(View.GONE);
         videoPrompt.setErrorMessage(message);
+        videoPrompt.showEmptyView();
     }
 
     @Override
