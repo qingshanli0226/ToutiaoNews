@@ -41,4 +41,25 @@ public class TouTiaoNewsConstant {
     //webView的作者头像
     public static final String WEBVIEW_AVATAR = "webView_Avatar";
 
+    //是否是编辑状态
+    public static final String ISCOMPILE = "isCompile";
+    //是否是第一次在内存中储存选择的频道数据
+    public static final String ISONESELECTDATA = "isOneSelectData";
+    //是否是第一次启动app时的状态
+    public static final String ISSTARTAPP = "isStartApp";
+    //是否是第一次在内存中储存未选择的频道数据
+    public static final String ISONEUNSELECTDATA = "isOneUnSelectData";
+    //储存的选择的频道的数据源
+    public static final String SELECTDATA = "selectData";
+    //储存的未选择的频道的数据源
+    public static final String UNSELECTDATA = "unSelectData";
+
+    //编辑页面储存的未选择频道fragment的数据个数
+    public static final String UNSELECTDATASIZE = "unSelectDataSize";
+    //主页面完成操作后的未选择的fragment数据个数
+    public static final String MAINUNSELECTDATASIZE = "mainUnSelectDataSize";
+
+    //通过onNewIntent传参数回到主页面跳转的fragment下标
+    public static final String MAININDEX = "mainIndex";
+
 }

@@ -3,10 +3,13 @@ package com.example.common;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import androidx.fragment.app.Fragment;
+
 import com.example.common.dao.NetWorkDataEntity;
 import com.example.common.dao.NetWorkDatabase;
 import com.example.common.mode.HomeRecommendBean;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,6 +23,28 @@ public class CacheManager {
     public static ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
 
     private HomeRecommendBean homeRecommendBean;
+    //已选择频道的数据源集合
+    private ArrayList<Fragment> selectFragments = new ArrayList<>();
+    //未选择频道数据源的集合
+    private ArrayList<Fragment> unSelectFragments = new ArrayList<>();
+
+    public synchronized ArrayList<Fragment> getSelectFragments() {
+        return selectFragments;
+    }
+
+    public synchronized void setSelectFragments(ArrayList<Fragment> selectFragments) {
+        this.selectFragments.clear();
+        this.selectFragments.addAll(selectFragments);
+    }
+
+    public synchronized ArrayList<Fragment> getUnSelectFragments() {
+        return unSelectFragments;
+    }
+
+    public synchronized void setUnSelectFragments(ArrayList<Fragment> unSelectFragments) {
+        this.unSelectFragments.clear();
+        this.unSelectFragments = unSelectFragments;
+    }
 
     public synchronized HomeRecommendBean getHomeRecommendBean() {
         return homeRecommendBean;
@@ -68,6 +93,17 @@ public class CacheManager {
     //获取存储字符串值
     public synchronized String getSPOfString(String paramString) {
         return sharedPreferences.getString(paramString, "");
+    }
+
+    //提供int存储
+    public synchronized void setSPOfInt(String paramString, int messageString) {
+        editor.putInt(paramString, messageString);
+        editor.commit();
+    }
+
+    //获取int串值
+    public synchronized int getSPOfInt(String paramString) {
+        return sharedPreferences.getInt(paramString,0);
     }
 
     //获取存储布尔值

@@ -1,9 +1,13 @@
 package com.example.toutiaonews.main;
 
+import android.content.Intent;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.common.CacheManager;
+import com.example.common.constant.TouTiaoNewsConstant;
 import com.example.framework2.base.BaseActivity;
 import com.example.framework2.listener.PermissionListener;
 import com.example.toutiaonews.R;
@@ -31,6 +35,15 @@ public class MainActivity extends BaseActivity {
 
     //底部导航栏切换的数据
     ArrayList<CustomTabEntity> mainBottomCustomTabEntities = new ArrayList<>();
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        //获取传过来的参数
+        boolean isOneSelectData = intent.getBooleanExtra(TouTiaoNewsConstant.ISONESELECTDATA, false);
+        //给sp里面存储的是否第一次获取的状态
+        CacheManager.getCacheManager().setSPOfBoolean(TouTiaoNewsConstant.ISONESELECTDATA,isOneSelectData);
+    }
 
     @Override
     protected void initData() {
@@ -71,8 +84,9 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        //页面销毁的时候储存为false
+        CacheManager.getCacheManager().setSPOfBoolean(TouTiaoNewsConstant.ISONESELECTDATA,false);
         //动态授权
-
         requestRuntimePermission(new String[]{"android.permission.READ_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE"}, new PermissionListener() {
             @Override
             public void onGranted() {

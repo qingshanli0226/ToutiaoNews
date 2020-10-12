@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+
+    <ImageView
+        android:layout_width="@dimen/spaceSize30"
+        android:layout_height="@dimen/spaceSize30"
+        android:src="@mipmap/add_channels_close"
+        android:id="@+id/channelClose"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/spaceSize10"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/channelClose"
+        android:layout_marginTop="@dimen/spaceSize15"
+        android:id="@+id/channelReOne">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textSize25"
+            android:text="我的频道"
+            android:layout_marginLeft="@dimen/spaceSize20"
+            android:textColor="@color/colorBlack"/>
+
+        <TextView
+            android:layout_width="@dimen/spaceSize55"
+            android:layout_height="@dimen/spaceSize30"
+            android:textSize="@dimen/textSize15"
+            android:layout_alignParentRight="true"
+            android:text="编辑"
+            android:gravity="center"
+            android:background="@drawable/channel_text_bac"
+            android:textColor="@color/color_D81515"
+            android:layout_marginRight="@dimen/spaceSize20"
+            android:layout_centerVertical="true"
+            android:id="@+id/channelCompile"/>
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/channelReOne"
+        android:layout_marginTop="@dimen/spaceSize15"
+        android:id="@+id/channelSelectRv"></androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/textSize25"
+        android:text="频道推荐"
+        android:layout_marginLeft="@dimen/spaceSize20"
+        android:textColor="@color/colorBlack"
+        android:layout_below="@+id/channelSelectRv"
+        android:layout_marginTop="@dimen/spaceSize20"
+        android:id="@+id/channelTvTwo"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/channelTvTwo"
+        android:layout_marginTop="@dimen/spaceSize15"
+        android:id="@+id/channelNoSelectRv"></androidx.recyclerview.widget.RecyclerView>
+
+</RelativeLayout>

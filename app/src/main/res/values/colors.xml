@@ -22,5 +22,6 @@
     <color name="color_e8e8e8">#e8e8e8</color>
     <color name="meTextViewColor">#000</color>
     <color name="meMarginBackground">#fff</color>
+    <color name="color_D81515">#D81515</color>
 
 </resources>

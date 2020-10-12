@@ -35,6 +35,8 @@
             android:screenOrientation="portrait"></activity>
         <activity android:name=".home.PlayerActivity"
             android:screenOrientation="portrait"></activity>
+        <activity android:name=".home.channel.ChannelActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
     <meta-data

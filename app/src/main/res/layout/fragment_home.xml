@@ -24,12 +24,13 @@
             app:tabMode="scrollable"></com.google.android.material.tabs.TabLayout>
 
         <ImageView
-            android:layout_width="@dimen/spaceSize30"
-            android:layout_height="@dimen/spaceSize30"
+            android:layout_centerInParent="true"
+            android:layout_width="@dimen/spaceSize35"
+            android:layout_height="@dimen/spaceSize25"
             android:src="@mipmap/add_channel"
             android:layout_alignParentRight="true"
             android:id="@+id/homeAddChannel"
-            android:background="#fff"/>
+            android:background="@mipmap/shadow_add_titlebar_new"/>
 
     </RelativeLayout>
 

@@ -1,6 +1,10 @@
 package com.example.toutiaonews.welcome;
 
+import android.os.Handler;
+import android.os.Message;
 import android.view.WindowManager;
+
+import androidx.annotation.NonNull;
 
 import com.example.common.constant.TouTiaoNewsConstant;
 import com.example.common.CacheManager;
@@ -21,6 +25,23 @@ public class WelcomeActivity extends BaseMVPActivity<RecommendPresenterImpl, Rec
     long currentTime = 0;
     //获取数据的参数数组
     String items[];
+    //线程通信的计数
+    int handlerCount = 0;
+
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            if(msg.what == 1){
+                handlerCount++;
+                if(handlerCount == 2){
+                    //跳转页面
+                    launchActivity(MainActivity.class,null);
+                    finish();
+                }
+            }
+        }
+    };
 
     @Override
     protected void initData() {
@@ -38,10 +59,9 @@ public class WelcomeActivity extends BaseMVPActivity<RecommendPresenterImpl, Rec
             @Override
             public void run() {
                 if(timeCount >= 2){
-                    //跳转页面
-                    launchActivity(MainActivity.class,null);
-                    finish();
                     timer.cancel();
+                    //发送handler通信 表示倒计时已经完成
+                    handler.sendEmptyMessage(1);
                 }
                 //计数
                 timeCount++;
@@ -83,12 +103,16 @@ public class WelcomeActivity extends BaseMVPActivity<RecommendPresenterImpl, Rec
         super.onDestroy();
         //手动关闭timer
         timer.cancel();
+        //移除handle未处理的消息
+        handler.removeCallbacksAndMessages(null);
     }
 
     @Override
     public void onRecommendData(HomeRecommendBean homeRecommendBean) {
         //储存到内存中
         CacheManager.getCacheManager().setHomeRecommendBean(homeRecommendBean);
+        //发送handler信号 表示网络请求已经完成
+        handler.sendEmptyMessage(1);
     }
 
     @Override

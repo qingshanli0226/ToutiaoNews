@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="@dimen/spaceSize100"
+    android:layout_height="@dimen/spaceSize55"
+    android:gravity="center">
+
+    <TextView
+        android:layout_width="@dimen/spaceSize85"
+        android:layout_height="@dimen/spaceSize35"
+        android:text="推荐"
+        android:textSize="@dimen/textSize20"
+        android:gravity="center"
+        android:background="@drawable/channel_select_text_bac"
+        android:id="@+id/itemChannelSelectTitle"
+        android:textColor="@color/colorBlack"
+        android:layout_marginLeft="@dimen/spaceSize10"/>
+    
+    <ImageView
+        android:layout_width="@dimen/spaceSize20"
+        android:layout_height="@dimen/spaceSize20"
+        android:src="@mipmap/add_channels_close_small"
+        android:layout_alignParentRight="true"
+        android:id="@+id/itemChannelSelectClose" />
+
+</RelativeLayout>

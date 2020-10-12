@@ -11,10 +11,12 @@ import java.util.ArrayList;
 public class HomeTabAdapter extends FragmentPagerAdapter {
 
     ArrayList<Fragment> fragments;
+    ArrayList<String> titles;
 
-    public HomeTabAdapter(@NonNull FragmentManager fm, ArrayList<Fragment> fragments) {
+    public HomeTabAdapter(@NonNull FragmentManager fm, ArrayList<Fragment> fragments, ArrayList<String> titles) {
         super(fm);
         this.fragments = fragments;
+        this.titles = titles;
     }
 
     @NonNull
@@ -28,4 +30,9 @@ public class HomeTabAdapter extends FragmentPagerAdapter {
         return fragments.size();
     }
 
+    @Nullable
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return titles.get(position);
+    }
 }
