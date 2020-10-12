@@ -31,7 +31,7 @@ public class VideoPresenterImpl extends VideoContract.VideoPresenter {
                         CacheManager.getInstance().putFirstTime("first",firstTime);
                         //请求过网络数据
                         CacheManager.getInstance().putIsVisit(channel, true);
-                        synchronized (String.class){
+                        if(!videoBean.toString().equals("")){
                             for (int i = 0; i < videoBean.getData().size(); i++) {
                                 String content = videoBean.getData().get(i).getContent();
                                 NewsRoomBean newsRoomBean = new NewsRoomBean();
@@ -41,6 +41,8 @@ public class VideoPresenterImpl extends VideoContract.VideoPresenter {
                                 CacheManager.getInstance().insert(newsRoomBean);
                                 iHttpView.onVideoData(content);
                             }
+                        }else{
+                            iHttpView.showError("0", "接口没有数据,请重新下拉刷新");
                         }
                     }
 
