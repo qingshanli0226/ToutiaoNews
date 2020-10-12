@@ -1,4 +1,4 @@
-package com.example.videolibrary;
+package com.example.videolibrary.bean;
 
 import com.google.gson.annotations.SerializedName;
 

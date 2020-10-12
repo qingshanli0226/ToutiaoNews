@@ -10,7 +10,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.videolibrary.R;
-import com.example.videolibrary.VideoDataBean;
+import com.example.videolibrary.bean.VideoDataBean;
 
 import java.util.List;
 
@@ -34,7 +34,7 @@ public class VideoAdapter extends BaseQuickAdapter<VideoDataBean, BaseViewHolder
         helper.setText(R.id.item_video_user_name, item.getUser_info().getName())
                 .setText(R.id.item_video_comment_count, item.getUser_info().getFollower_count() + "");
 
-        helper.addOnClickListener(R.id.item_video_jiaozi);
+        helper.addOnClickListener(R.id.item_video_user_pic);
 
     }
 }

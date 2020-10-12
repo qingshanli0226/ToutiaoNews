@@ -1,4 +1,4 @@
-package com.example.toutiaonews.emoji;
+package com.example.common.news.emoji;
 
 import android.content.Context;
 

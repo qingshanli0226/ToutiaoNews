@@ -1,18 +1,12 @@
 package com.example.toutiaonews.fragment.me;
 
 
-
-import android.content.Context;
-
-import android.app.PictureInPictureParams;
-
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,22 +18,17 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
-import com.example.common.CustomControl;
+import com.example.common.custom.CustomControl;
 import com.example.common.NetCommon;
-import com.example.framework2.mvp.view.IFragment;
 import com.example.toutiaonews.EventMessage;
-import com.example.toutiaonews.NewsDataActivity;
 import com.example.toutiaonews.login.LoginActivity;
 import com.example.toutiaonews.R;
 import com.example.toutiaonews.reg.RegMainActivity;
 import com.wildma.pictureselector.PictureBean;
 import com.wildma.pictureselector.PictureSelector;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import static com.wildma.pictureselector.PictureSelector.SELECT_REQUEST_CODE;
 
@@ -50,7 +39,7 @@ public class MeFragment extends Fragment {
 
     View view;
     private ImageView myPhoto;
-    public static   TextView myName;
+    private TextView myName;
     private ImageView myParticulars;
     private TextView myDynamic;
     private TextView myFans;
@@ -62,11 +51,21 @@ public class MeFragment extends Fragment {
     private CustomControl customControlFive;
     private CustomControl customControlSix;
     private EventMessage eventMessage;
+    private boolean isLogin;
 
     public MeFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        isLogin = SPUtils.getInstance().getBoolean("islogin", false);
+        if (isLogin) {
+            String name = SPUtils.getInstance().getString("name", "");
+            myName.setText(name);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -88,30 +87,9 @@ public class MeFragment extends Fragment {
         initview();
         initlogin();
         initPhoto();
-        initexitLogin();
         return view;
     }
-    //退出登录
-    private void initexitLogin() {
-        myName.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                //判断是否登录
-                if (NetCommon.NEW_ISLOGIN){
-                    NetCommon.NEW_ISLOGIN=false;
-                    Toast.makeText(getContext(), "退出登录", Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(getContext(), "您还没有登录，不可以退出噢", Toast.LENGTH_SHORT).show();
-                }
-                return true;
-            }
-        });
-    }
 
-    //    @Subscribe(threadMode = ThreadMode.MAIN)
-//    public void onRece(EventMessage msg){
-//        EventBus.getDefault().post(msg.getMessage());
-//    }
     //头像
     private void initPhoto() {
         myPhoto.setOnClickListener(new View.OnClickListener() {
@@ -128,7 +106,7 @@ public class MeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //未登录状态才可以登录显示.
-                if (!NetCommon.NEW_ISLOGIN){
+                if (!isLogin){
                     //pop
                     View inflate = LayoutInflater.from(getContext()).inflate(R.layout.login_pop, null, false);
                     PopupWindow popupWindow = new PopupWindow(inflate, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
@@ -147,6 +125,11 @@ public class MeFragment extends Fragment {
                             register();
                         }
                     });
+                }else {
+                    NetCommon.NEW_ISLOGIN=false;
+                    SPUtils.getInstance().put("islogin",NetCommon.NEW_ISLOGIN);
+                    Toast.makeText(getContext(), "退出登录   状态："+ NetCommon.NEW_ISLOGIN, Toast.LENGTH_SHORT).show();
+                    myName.setText("登录/注册");
                 }
             }
         });
@@ -163,7 +146,6 @@ public class MeFragment extends Fragment {
     private void login() {
         Intent intent = new Intent(getContext(), LoginActivity.class);
         startActivityForResult(intent, 1);
-
     }
 
     private void initview() {
@@ -191,11 +173,13 @@ public class MeFragment extends Fragment {
         context4.setText(" ");
         context5.setText(" ");
         context6.setText(" ");
+
         title1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
             }
         });
+
 
 
     }
@@ -218,9 +202,14 @@ public class MeFragment extends Fragment {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
     }
 
 }

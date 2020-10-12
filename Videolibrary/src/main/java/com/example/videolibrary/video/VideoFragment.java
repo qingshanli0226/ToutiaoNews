@@ -1,4 +1,4 @@
-package com.example.videolibrary;
+package com.example.videolibrary.video;
 
 
 import android.database.sqlite.SQLiteDatabase;
@@ -17,6 +17,8 @@ import android.widget.ImageView;
 
 import com.example.net.activity_bean.VideoBean;
 import com.example.net.activity_bean.entity.Channel;
+import com.example.videolibrary.R;
+import com.example.videolibrary.video.VideoChildFragment;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;

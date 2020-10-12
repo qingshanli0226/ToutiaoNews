@@ -1,4 +1,4 @@
-package com.example.toutiaonews.emoji;
+package com.example.common.news.emoji;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,7 +7,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.toutiaonews.R;
+
+import com.example.common.R;
 
 import java.util.List;
 

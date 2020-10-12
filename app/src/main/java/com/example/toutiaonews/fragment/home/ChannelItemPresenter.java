@@ -15,7 +15,7 @@ public class ChannelItemPresenter extends BasePresenter<ChannelItemContract.View
     public ChannelItemPresenter(ChannelItemContract.Model mModel, ChannelItemContract.View mView) {
         super(mModel, mView);
     }
-    public void getCodeData(long lastTime){
+    public synchronized void getCodeData(long lastTime){
         mModel.requestGetData(mView.getCode(),lastTime ,new Observer<NewsResponse>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -28,6 +28,7 @@ public class ChannelItemPresenter extends BasePresenter<ChannelItemContract.View
                     newEntity.setCode(mView.getCode());
                     newEntity.setTime(System.currentTimeMillis());
                     String json = new Gson().toJson(listBean.data);
+                    Log.e("rrr", "onNext: "+json );
                     newEntity.setJsonStr(json);
                     CacheManager.getInstance().addNewEntity(newEntity);
                     mView.getedData(listBean.data);

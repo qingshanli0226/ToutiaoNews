@@ -1,22 +1,17 @@
-package com.example.toutiaonews;
+package com.example.common.news;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -30,14 +25,13 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.common.CustomToolbar;
-import com.example.common.NetCommon;
-import com.example.toutiaonews.emoji.EmojiAdapter;
-import com.example.toutiaonews.emoji.FileUtil;
-import com.example.toutiaonews.emoji.JsonParseUtil;
-import com.example.toutiaonews.login.LoginActivity;
+import com.blankj.utilcode.util.SPUtils;
+import com.example.common.R;
+import com.example.common.custom.CustomToolbar;
+import com.example.common.news.emoji.EmojiAdapter;
+import com.example.common.news.emoji.FileUtil;
+import com.example.common.news.emoji.JsonParseUtil;
 
-import java.util.function.IntUnaryOperator;
 
 public class NewsDataActivity extends AppCompatActivity {
     private CustomToolbar toolbar;
@@ -61,7 +55,13 @@ public class NewsDataActivity extends AppCompatActivity {
     private ImageView popTag;
     private ImageView popFace;
 
+    private boolean isLogin;
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        isLogin = SPUtils.getInstance().getBoolean("islogin");
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -75,18 +75,18 @@ public class NewsDataActivity extends AppCompatActivity {
         newsCount = (ImageView) findViewById(R.id.news_count);
         newsLove = (ImageView) findViewById(R.id.news_love);
         newsShare = (ImageView) findViewById(R.id.news_share);
-//        newsWebview.loadUrl("https://www.baidu.com/?tn=44004473_2_oem_dg");
         Intent intent = getIntent();
         url = intent.getStringExtra("web");
-        title=intent.getStringExtra("title");
-        newsWebview.setWebViewClient(new WebViewClient(){
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                view.loadUrl(url);
-                return true;
-    }
-});
-//        newsWebview.loadUrl(url);
+        title = intent.getStringExtra("title");
+        newsWebview.loadUrl(url);
+        newsWebview.setWebViewClient(new WebViewClient()); //设置在当前的应用中打开
+//        newsWebview.setWebViewClient(new WebViewClient(){
+//            @Override
+//            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+//                view.loadUrl(url);
+//                return true;
+//    }
+//});
         //声明WebSettings子类
         WebSettings webSettings = newsWebview.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -99,12 +99,12 @@ public class NewsDataActivity extends AppCompatActivity {
         webSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
         webSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
         initData();
-}
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void initData() {
         ImageView back = toolbar.findViewById(R.id.toolbar_back);
-        TextView title = toolbar.findViewById(R.id.toolbar_title);
+        TextView titleView = toolbar.findViewById(R.id.toolbar_title);
         //关闭详情页
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,24 +116,24 @@ public class NewsDataActivity extends AppCompatActivity {
         newsScroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View view, int i, int i1, int i2, int i3) {
-                    if (i3>500){
-                    title.setText(title+"");
-                }else {
-                    title.setText("");
+                if (i3 > 500) {
+                    titleView.setText(title + "");
+                } else {
+                    titleView.setText("");
                 }
             }
-    });
-       newsComment.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            initpop();
-        }
-    });
+        });
+        newsComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                initpop();
+            }
+        });
     }
 
     private void initpop() {
         View inflate = LayoutInflater.from(this).inflate(R.layout.pop_comment, null, false);
-        PopupWindow popupWindow = new PopupWindow(inflate, LinearLayout.LayoutParams.MATCH_PARENT,  LinearLayout.LayoutParams.WRAP_CONTENT, true);
+        PopupWindow popupWindow = new PopupWindow(inflate, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
         popupWindow.showAtLocation(toolbar, Gravity.BOTTOM, -150, -1850);
         spi = inflate.findViewById(R.id.spi);
         commentSend = inflate.findViewById(R.id.comment_send);
@@ -144,14 +144,27 @@ public class NewsDataActivity extends AppCompatActivity {
         popFace = inflate.findViewById(R.id.pop_face);
         RecyclerView rvEmoji = inflate.findViewById(R.id.rv_emoji);
         //判断登录状态
-        if (NetCommon.NEW_ISLOGIN){
-            Toast.makeText(this, "感谢发表", Toast.LENGTH_SHORT).show();
-        }else {
+        if (isLogin) {
+            commentSend.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(NewsDataActivity.this, "可以发表", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
             //发布按钮
             commentSend.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(NewsDataActivity.this, LoginActivity.class);
+//                    Intent intent = new Intent(NewsDataActivity.this, LoginActivity.class);
+//                    startActivity(intent);
+                    /**
+                     * ComponentName第一个参数是整体应用的包名 ，第二个是要跳转的Acitivity的全路径名.
+                     * 使用此方法的前提是必须主Modle也就是app必须与library产生了依赖关系。
+                     */
+                    ComponentName comp = new ComponentName("com.example.toutiaonews", "com.example.toutiaonews.login.LoginActivity");
+                    Intent intent = new Intent();
+                    intent.setComponent(comp);
                     startActivity(intent);
                 }
             });
@@ -168,7 +181,7 @@ public class NewsDataActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 View inflate = LayoutInflater.from(NewsDataActivity.this).inflate(R.layout.pop_tag, null, false);
-                PopupWindow popupWindow = new PopupWindow(inflate, LinearLayout.LayoutParams.MATCH_PARENT,  LinearLayout.LayoutParams.MATCH_PARENT, true);
+                PopupWindow popupWindow = new PopupWindow(inflate, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, true);
                 popupWindow.showAtLocation(toolbar, Gravity.BOTTOM, 0, 0);
                 CustomToolbar toolbar = inflate.findViewById(R.id.tag_toolbar);
                 EditText tagEditText = inflate.findViewById(R.id.tag_ed);
@@ -194,7 +207,7 @@ public class NewsDataActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //显示表情
                 rvEmoji.setVisibility(View.VISIBLE);
-                rvEmoji.setLayoutManager(new StaggeredGridLayoutManager(7,StaggeredGridLayoutManager.VERTICAL));
+                rvEmoji.setLayoutManager(new StaggeredGridLayoutManager(7, StaggeredGridLayoutManager.VERTICAL));
                 rvEmoji.setAdapter(new EmojiAdapter(JsonParseUtil.parseEmojiList(FileUtil.readAssetsFile(NewsDataActivity.this, "Emoji.json"))));
                 //设置点击事件 将表情发送至EditText
             }
@@ -204,6 +217,12 @@ public class NewsDataActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isLogin = SPUtils.getInstance().getBoolean("islogin");
     }
 
     @Override

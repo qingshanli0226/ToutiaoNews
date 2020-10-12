@@ -4,9 +4,8 @@ package com.example.toutiaonews.fragment.home;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
+
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,8 +16,7 @@ import com.example.framework2.manager.CacheManager;
 import com.example.framework2.mvp.view.BaseFragment;
 import com.example.net.activity_bean.entity.News;
 import com.example.net.activity_bean.entity.NewsData;
-import com.example.net.activity_bean.response.NewsResponse;
-import com.example.toutiaonews.NewsDataActivity;
+import com.example.common.news.NewsDataActivity;
 import com.example.toutiaonews.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -42,18 +40,11 @@ public class HomeChannelFragment extends BaseFragment<ChannelItemPresenter> impl
     public void initView() {
          sp = CacheManager.getInstance().getSharedPreferences();
         newsList = new ArrayList<>();
-        List<NewEntity> newEntity = CacheManager.getInstance().findNewEntity();
-        if (newEntity.size()>0){
-            List<NewsData> newsDatas = new Gson().fromJson(newEntity.get(0).getJsonStr(),  new TypeToken<List<NewsData>>() {
-            }.getType());
-            Log.e("rrr", "initView: "+newsDatas.size() );
-            if (newsDatas.size()>0){
-                getedData(newsDatas);
-            }
-
-        }
-        myRcv= (RecyclerView) findViewById(R.id.my_rcv);
         codeBundle = getArguments();
+
+
+
+        myRcv= (RecyclerView) findViewById(R.id.my_rcv);
         adapter=new ChannelItemAdapter(newsList);
         myRcv.setLayoutManager(new LinearLayoutManager(getActivity()));
         DividerItemDecoration dividerItemDecoration =  new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL);
@@ -97,6 +88,14 @@ public class HomeChannelFragment extends BaseFragment<ChannelItemPresenter> impl
                 }
             }
         });
+
+        NewEntity oneEntity = CacheManager.getInstance().findOneEntity(getCode());
+        if (oneEntity==null){
+            return;
+        }
+        List<NewsData> newsDatas = new Gson().fromJson(oneEntity.getJsonStr(),  new TypeToken<List<NewsData>>() {
+        }.getType());
+        getedData(newsDatas);
     }
 
     @Override
@@ -121,14 +120,14 @@ public class HomeChannelFragment extends BaseFragment<ChannelItemPresenter> impl
 
     @Override
     public String getCode() {
-        Log.e("fff", "getCode: "+codeBundle.getString("code") );
+//        Log.e("fff", "getCode: "+codeBundle.getString("code") );
         return codeBundle.getString("code");
     }
 
     @Override
     public void getedData(List<NewsData> listBean) {
 
-        newsList.clear();
+//        newsList.clear();
         for (NewsData dataBean : listBean) {
             News news = new Gson().fromJson(dataBean.content, News.class);
             newsList.add(news);

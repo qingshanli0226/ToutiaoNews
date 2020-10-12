@@ -5,12 +5,12 @@
     android:background="#F4F1F4"
     android:orientation="vertical"
     android:layout_height="match_parent">
-    <com.example.common.CustomToolbar
+    <com.example.common.custom.CustomToolbar
         android:layout_width="match_parent"
         android:background="#fff"
         android:layout_height="50dp"
         android:id="@+id/tag_toolbar">
-    </com.example.common.CustomToolbar>
+    </com.example.common.custom.CustomToolbar>
     <EditText
         android:layout_marginTop="5dp"
         android:layout_width="360dp"

@@ -1,12 +1,12 @@
 package com.example.net.activity_bean;
 
+public class autoLoginBean {
 
-public class LoginBean  {
 
     /**
      * code : 200
      * message : 登录成功
-     * result : {"id":"666","name":"666","password":"666","email":null,"phone":null,"point":null,"address":null,"money":null,"avatar":"/img/1438946011155.jpg","token":"7d1c152c-68b2-4480-be80-ffdc675102d7AND1600357061571"}
+     * result : {"id":"zcx998","name":"zcx998","password":"123456","email":null,"phone":null,"point":null,"address":null,"money":null,"avatar":"/img/1438946011155.jpg","token":"5231bad6-b808-482f-bca3-ab13639203c8AND1602094372316"}
      */
 
     private String code;
@@ -39,16 +39,16 @@ public class LoginBean  {
 
     public static class ResultBean {
         /**
-         * id : 666
-         * name : 666
-         * password : 666
+         * id : zcx998
+         * name : zcx998
+         * password : 123456
          * email : null
          * phone : null
          * point : null
          * address : null
          * money : null
          * avatar : /img/1438946011155.jpg
-         * token : 7d1c152c-68b2-4480-be80-ffdc675102d7AND1600357061571
+         * token : 5231bad6-b808-482f-bca3-ab13639203c8AND1602094372316
          */
 
         private String id;

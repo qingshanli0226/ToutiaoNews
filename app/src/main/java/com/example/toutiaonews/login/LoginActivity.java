@@ -2,18 +2,17 @@ package com.example.toutiaonews.login;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.blankj.utilcode.util.SPUtils;
 import com.example.common.NetCommon;
 import com.example.framework.bean.BaseMVPActivity;
 import com.example.net.activity_bean.LoginBean;
 import com.example.toutiaonews.R;
-
-import com.example.toutiaonews.fragment.me.MeFragment;
 
 import com.example.toutiaonews.reg.RegMainActivity;
 
@@ -23,8 +22,7 @@ public class LoginActivity extends BaseMVPActivity<LoginPresenterImpl, LoginCont
     private EditText loginPwd;
     private Button btnLogin;
     private Button btnGoReg;
-    private String FILE_NAME = "mFile"; //文件名
-    private String FILE_CONTENT; //文件内容
+    private String token;
 
     @Override
     public void onClick(View view) {
@@ -73,22 +71,20 @@ public class LoginActivity extends BaseMVPActivity<LoginPresenterImpl, LoginCont
 
         @Override
         public void onLogin(LoginBean loginBean) {
-            String name = loginUsername.getText().toString();
-            String pwd = loginPwd.getText().toString();
+            String name = loginBean.getResult().getName();
+            String pwd = loginBean.getResult().getPassword();
+            String token = loginBean.getResult().getToken();
             Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
-            MeFragment.myName.setText(loginUsername.getText().toString() + "");
             NetCommon.NEW_ISLOGIN=true;
-            spWrite(name,pwd,NetCommon.NEW_ISLOGIN);
+            spWrite(name,pwd,token,NetCommon.NEW_ISLOGIN);
             finish();
         }
     //存储到sp
-    private void spWrite(String name,String pwd,boolean flag) {
-        SharedPreferences sp = getSharedPreferences("username", 0);
-        SharedPreferences.Editor edit = sp.edit();
-            edit.putString("name",name);
-            edit.putString("pwd",pwd);
-            edit.putBoolean("islogin",flag);
-        edit.commit();
+    private void spWrite(String name,String pwd,String token,boolean flag) {
+        SPUtils.getInstance().put("name",name);
+        SPUtils.getInstance().put("pwd",pwd);
+        SPUtils.getInstance().put("token",token);
+        SPUtils.getInstance().put("islogin",flag);
     }
 
 

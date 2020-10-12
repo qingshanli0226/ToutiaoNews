@@ -1,4 +1,4 @@
-package com.example.videolibrary.mvp;
+package com.example.videolibrary.video;
 
 import com.example.framework.bean.BasePresenter;
 import com.example.framework.bean.IView;
