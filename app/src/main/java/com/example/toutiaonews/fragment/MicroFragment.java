@@ -28,12 +28,6 @@ public class MicroFragment extends BaseFragment {
     @Override
     protected void initData() {
 
-        txt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), ParticularActivity.class));
-            }
-        });
 
     }
 }
